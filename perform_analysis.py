@@ -3,6 +3,7 @@
 from subprocess import Popen, PIPE
 import os, re, pickle, sys
 import GeoIP
+import tldextract
 
 OUTPUTDIR = 'output'
 
@@ -10,17 +11,22 @@ OUTPUTDIR = 'output'
 def do_phantomjs(url, destfile):
 
     p = Popen(['phantomjs', 'collect_included_url.js',
-               'http://%s' % url, destfile], stdout=PIPE)
+               '%s' % url, destfile], stdout=PIPE)
 
     phantomlog = file(os.path.join(OUTPUTDIR, "phantom.log"), "a+")
 
+    print " + Executing phantomjs on", url,
     while True:
         line = p.stdout.readline()
         if not line:
             break
         phantomlog.write(line)
 
-    return urldir
+    urlfile = os.path.join(destfile, '__urls')
+    with file(urlfile, 'r') as f:
+        print "acquired", len(f.readlines()),"included URLs"
+
+    return urlfile
 
 
 
@@ -112,6 +118,25 @@ def iter_over_urls(unique_urls, medianame):
         do_trace(analyzedurl, url)
 
 
+def sortify():
+
+    urldict = {}
+    for urldir in os.listdir(OUTPUTDIR):
+
+        urlfile = os.path.join(OUTPUTDIR, urldir, '__urls')
+        related_urls = get_unique_urls(urlfile)
+
+        for url in related_urls:
+
+            if urldict.has_key(url):
+                continue
+
+            domain = tldextract.extract(url)
+            urldict.update({url : domain })
+
+    return urldict
+
+
 if __name__ == '__main__':
 
     if not os.path.isdir(OUTPUTDIR):
@@ -134,13 +159,13 @@ if __name__ == '__main__':
         print "hopefully the name of your country"
         quit(-1)
 
-    logged_dirs = []
     with file(sys.argv[1]) as f:
 
         media_entries = f.readlines()
 
         # TODO Status integrity check on the media diretory
         for media in media_entries:
+
             media = media[:-1]
 
             assert media.startswith('http://'), "Invalid URL %s (http ?!) " % media
@@ -150,21 +175,20 @@ if __name__ == '__main__':
             if dirtyoptions:
                 cleanurl = cleanurl[:dirtyoptions]
 
+            if cleanurl[-1] == '/':
+                cleanurl = cleanurl[:-1]
+
             urldir = os.path.join(OUTPUTDIR, cleanurl)
             if not os.path.isdir(urldir):
                 print "+ Creating directory", urldir
                 os.mkdir(urldir)
 
-            url_list_f = os.path.join(urldir, '__urls')
+                do_phantomjs(media, urldir)
 
-            if not os.path.isfile(url_list_f):
-                do_phantomjs(media, url_list_f)
-                logged_dirs.append(url_list_f)
+        # take every directory in 'output/' and works on the content
+        included_url_dict = sortify()
 
-        # TODO sort/uniquifie the included URLs
-        print logged_dirs
-        quit()
-
+        import pdb; pdb.set_trace()
         # rewind to 0 in order to process the second step
         f.seek(0)
 
