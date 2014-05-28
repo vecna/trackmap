@@ -3,4 +3,4 @@
 
 sudo aptitude update
 sudo aptitude install phantomjs traceroute python-pip
-sudo pip install GeoIP
+sudo pip install GeoIP tldextract

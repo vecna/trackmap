@@ -26,7 +26,6 @@ def do_phantomjs(url, destfile):
     with file(urlfile, 'r') as f:
         print "acquired", len(f.readlines()),"included URLs"
 
-    return urlfile
 
 
 
@@ -46,27 +45,27 @@ def get_unique_urls(urldumpsf):
     return urls.keys()
 
 
-def do_trace(dumpfile, host):
+def do_trace(dumpprefix, host):
 
-    ip_file = "%s_ip.pickle" % dumpfile
-    country_file = "%s_countries.pickle" % dumpfile
+    ip_file = os.path.join(OUTPUTDIR, 'traceroutes', "%s_ip.pickle" % dumpprefix)
+    country_file = os.path.join(OUTPUTDIR, 'traceroutes', "%s_countries.pickle" % dumpprefix)
 
     if os.path.isfile(ip_file) and os.path.isfile(country_file):
         print "%s already managed, skipping" % host
         return
 
     iplist = []
-    # p = Popen(['traceroute', host], stdout=PIPE)
+    p = Popen(['traceroute', host], stdout=PIPE)
 
-    #tmpfile = file("/tmp/traceoutput.log", "a+")
+    tmpfile = file(os.path.join(OUTPUTDIR, 'traceoutput.log'), "a+")
 
     ff = file("/tmp/xxx", 'r')
     while True:
-        # line = p.stdout.readline()
+        line = p.stdout.readline()
         line = ff.readline()
         if not line:
             break
-        #tmpfile.write(line);
+        tmpfile.write(line);
 
         # this prevent the IP match show below
         if line.startswith('traceroute to'):
@@ -80,12 +79,12 @@ def do_trace(dumpfile, host):
             continue
         iplist.append(ip)
 
-    #tmpfile.close()
+    tmpfile.close()
 
-    with file("%s_ip.pickle" % dumpfile, 'w+') as f:
+    with file("%s_ip.pickle" % dumpprefix, 'w+') as f:
         pickle.dump(iplist, f)
 
-    with file("%s_countries.pickle" % dumpfile, 'w+') as f:
+    with file("%s_countries.pickle" % dumpprefix, 'w+') as f:
         gi = GeoIP.new(GeoIP.GEOIP_MEMORY_CACHE)
         country_travel_path = {}
         counter = 0
@@ -103,37 +102,44 @@ def do_trace(dumpfile, host):
         pickle.dump(country_travel_path, f)
 
 
-def iter_over_urls(unique_urls, medianame):
-
-    basedestdir = os.path.join(OUTPUTDIR, medianame)
-    try:
-        if not os.path.isdir(basedestdir):
-            os.mkdir(basedestdir)
-    except OSError as error:
-        print "Error in creating %s: %s" % (basedestdir, error)
-
-    for url in unique_urls:
-        analyzedurl = os.path.join(basedestdir, url)
-        print "going deep with %s for [%s]" % (url, medianame)
-        do_trace(analyzedurl, url)
-
 
 def sortify():
 
     urldict = {}
+    skipped = 0
+
     for urldir in os.listdir(OUTPUTDIR):
 
-        urlfile = os.path.join(OUTPUTDIR, urldir, '__urls')
-        related_urls = get_unique_urls(urlfile)
+        if urldir == 'phantom.log':
+            continue
 
+        try:
+            urlfile = os.path.join(OUTPUTDIR, urldir, '__urls')
+            related_urls = get_unique_urls(urlfile)
+        except IOError or OSError as einfo:
+            print "Unable to read", urldir, einfo, "skipping"
+            continue
+
+        # just to know if the optiomization is working well :)
         for url in related_urls:
 
             if urldict.has_key(url):
+                skipped +=1
                 continue
 
-            domain = tldextract.extract(url)
-            urldict.update({url : domain })
+            dnsquery = tldextract.extract(url)
+            urldict.update({url : {
+                    'domain' : dnsquery.domain,
+                    'tld' : dnsquery.suffix,
+                    'subdomain' : dnsquery.subdomain }
+                })
 
+        # note: 
+        # https://raw.github.com/mozilla/gecko-dev/master/netwerk/dns/effective_tld_names.dat
+        # tldextract is based on this file, and cloudfront.net is readed as TLD. but is fine
+        # I've only to sum domain + TLD in order to identify the "included entity"
+
+    print " :) optimized", skipped, "hosts"
     return urldict
 
 
@@ -188,20 +194,10 @@ if __name__ == '__main__':
         # take every directory in 'output/' and works on the content
         included_url_dict = sortify()
 
-        import pdb; pdb.set_trace()
-        # rewind to 0 in order to process the second step
-        f.seek(0)
+        trace_output = os.path.join(OUTPUTDIR, 'traceroutes')
 
-        media_entries = f.readlines()
+        for url, domain_info in included_url_dict.iteritems():
+            do_trace(url, url)
 
-        for media in media_entries:
-            media = media[:-1]
-
-            urldumpsf = os.path.join(OUTPUTDIR, media, '__urls')
-            assert os.path.isfile(urldumpsf), "do not exists %s" % urldumpsf
-
-            unique_urls = get_unique_urls(urldumpsf)
-            print "%s has %d unique url included" % (media, len(unique_urls) )
-
-            iter_over_urls(unique_urls, media)
-
+        with file(os.path.join(OUTPUTDIR, 'domain.infos'), 'w+') as f:
+            pickle.dump(included_url_dir, f)
