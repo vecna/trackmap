@@ -7,19 +7,10 @@ import GeoIP
 OUTPUTDIR = 'output'
 
 
-def do_phantomjs(url, destdir):
+def do_phantomjs(url, destfile):
 
-    urldir = os.path.join(destdir, url)
-
-    if os.path.isdir(urldir):
-        print "skipped, already present", urldir
-    else:
-        print "processing", url, "to", urldir
-        os.mkdir(urldir)
-
-    # phantomjs collect_included_url.js http://$i urldumps/$i
     p = Popen(['phantomjs', 'collect_included_url.js',
-               'http://%s' % url, os.path.join(destdir, url)], stdout=PIPE)
+               'http://%s' % url, destfile], stdout=PIPE)
 
     phantomlog = file(os.path.join(OUTPUTDIR, "phantom.log"), "a+")
 
@@ -27,8 +18,9 @@ def do_phantomjs(url, destdir):
         line = p.stdout.readline()
         if not line:
             break
-
         phantomlog.write(line)
+
+    return urldir
 
 
 
@@ -121,8 +113,6 @@ def iter_over_urls(unique_urls, medianame):
 
 
 if __name__ == '__main__':
-    assert os.path.isdir('urldumps')
-    assert os.path.isfile('media_list')
 
     if not os.path.isdir(OUTPUTDIR):
         try:
@@ -140,21 +130,40 @@ if __name__ == '__main__':
     # TODO do not require sys.argv[1]
 
     if len(sys.argv) != 2:
-        print "Expected argument with media list"
+        print "Expected one of the file in media_lists/"
+        print "hopefully the name of your country"
         quit(-1)
 
+    logged_dirs = []
     with file(sys.argv[1]) as f:
 
         media_entries = f.readlines()
 
+        # TODO Status integrity check on the media diretory
         for media in media_entries:
             media = media[:-1]
 
-            url_list_f = os.path.join(OUTPUTDIR, media, '__urls')
+            assert media.startswith('http://'), "Invalid URL %s (http ?!) " % media
+            cleanurl = media[7:].replace('/', '_')
+
+            dirtyoptions = cleanurl.find("?")
+            if dirtyoptions:
+                cleanurl = cleanurl[:dirtyoptions]
+
+            urldir = os.path.join(OUTPUTDIR, cleanurl)
+            if not os.path.isdir(urldir):
+                print "+ Creating directory", urldir
+                os.mkdir(urldir)
+
+            url_list_f = os.path.join(urldir, '__urls')
+
             if not os.path.isfile(url_list_f):
-                do_phantomjs(media, OUTPUTDIR)
+                do_phantomjs(media, url_list_f)
+                logged_dirs.append(url_list_f)
 
         # TODO sort/uniquifie the included URLs
+        print logged_dirs
+        quit()
 
         # rewind to 0 in order to process the second step
         f.seek(0)
