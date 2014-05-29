@@ -212,4 +212,20 @@ if __name__ == '__main__':
         for url, domain_info in included_url_dict.iteritems():
             do_trace(url, url)
 
-        print "Finished!"
+        if os.path.isfile('results.tar.gz'):
+            print "Finished! and the data is already compressed ? remove results.tar.gz to make a new one"
+            quit(0)
+
+        print "Finished! compressing the data"
+
+        tar = Popen(['tar', '-z', '-c', '-v', '-f', 'results.tar.gz', OUTPUTDIR], stdout=PIPE)
+
+        counter_line = 0
+        while True:
+            line = tar.stdout.readline()
+            counter_line += 1
+            if not line:
+                break
+
+        print counter_line
+        print "Now please send results.tar.gz to vecna{AT}globaleaks[DOT]org"
