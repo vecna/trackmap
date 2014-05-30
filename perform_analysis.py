@@ -157,18 +157,20 @@ if __name__ == '__main__':
             print "unable to create %s: %s" % (OUTPUTDIR, error)
 
     # 1st download/check available media list / ask your country
-    # TODO
-
-    # 2nd download media list
-    # TODO
+    # TODO, amen, at the moment is the first arg
 
     # 3rd work over the media list
     # TODO do not require sys.argv[1]
+
 
     if len(sys.argv) != 2:
         print "Expected one of the file in media_lists/"
         print "hopefully the name of your country"
         quit(-1)
+
+    # writing in a file which country you're using!
+    with file(os.path.join(OUTPUTDIR, 'country')) as f:
+        f.write(sys.argv[1])
 
     with file(sys.argv[1]) as f:
 
