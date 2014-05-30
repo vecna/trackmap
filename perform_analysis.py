@@ -179,7 +179,9 @@ if __name__ == '__main__':
 
             media = media[:-1]
 
-            assert media.startswith('http://'), "Invalid URL %s (http ?!) " % media
+            if not (media.startswith('http://') or media.startswith('https://')):
+                Exception("Invalid URL %s (http ?!) " % media)
+
             cleanurl = media[7:].replace('/', '_')
 
             dirtyoptions = cleanurl.find("?")
