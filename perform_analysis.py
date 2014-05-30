@@ -169,7 +169,7 @@ if __name__ == '__main__':
         quit(-1)
 
     # writing in a file which country you're using!
-    with file(os.path.join(OUTPUTDIR, 'country')) as f:
+    with file(os.path.join(OUTPUTDIR, 'country'), 'w+') as f:
         f.write(sys.argv[1])
 
     with file(sys.argv[1]) as f:
