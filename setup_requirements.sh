@@ -9,7 +9,9 @@ sudo pip install GeoIP tldextract
 # phantomjs -h 
 # 2014-05-31T10:35:30 [WARNING] phantomjs: cannot connect to X server 
 # In this case, your distribution has phantom 1.5 and this is bad
-# you've to download
-# http://phantomjs.googlecode.com/files/phantomjs-1.8.1-linux-x86_64.tar.bz2
-# and put the binary in the execution path (simply replace the origianl phantomjs)
-
+#
+# In some other cases, debian weezy with IDONWANNKNOW repository, phantomjs
+# do not exists, so you've to download:
+#
+# https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2
+# https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
