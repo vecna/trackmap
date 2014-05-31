@@ -181,20 +181,22 @@ if __name__ == '__main__':
 
             media = media[:-1]
 
-            if not (media.startswith('http://') or media.startswith('https://')):
-                Exception("Invalid URL %s (http ?!) " % media)
-
             # cleanurl is used to create the dir, media to phantomjs
-            cleanurl = media
+            if media.startswith('http://'):
+                cleanurl = media[7:]
+            elif media.startswith('https://'):
+                cleanurl = media[8:]
+            else:
+                raise Exception("Invalid protocol in: %s" % media)
+
+            if cleanurl[-1] == '/':
+                cleanurl = cleanurl[:-1]
 
             dirtyoptions = cleanurl.find("?")
             if dirtyoptions:
                 cleanurl = cleanurl[:dirtyoptions]
 
-            if cleanurl[-1] == '/':
-                cleanurl = cleanurl[:-1]
-
-            cleanurl = cleanurl[7:].replace('/', '_')
+            cleanurl = cleanurl.replace('/', '_')
 
             urldir = os.path.join(OUTPUTDIR, cleanurl)
             if not os.path.isdir(urldir):
