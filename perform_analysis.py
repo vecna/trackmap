@@ -176,7 +176,7 @@ if __name__ == '__main__':
 
         media_entries = f.readlines()
 
-        # TODO Status integrity check on the media diretory
+        # TODO Status integrity check on the media directory
         for media in media_entries:
 
             media = media[:-1]
@@ -184,7 +184,8 @@ if __name__ == '__main__':
             if not (media.startswith('http://') or media.startswith('https://')):
                 Exception("Invalid URL %s (http ?!) " % media)
 
-            cleanurl = media[7:].replace('/', '_')
+            # cleanurl is used to create the dir, media to phantomjs
+            cleanurl = media
 
             dirtyoptions = cleanurl.find("?")
             if dirtyoptions:
@@ -192,6 +193,8 @@ if __name__ == '__main__':
 
             if cleanurl[-1] == '/':
                 cleanurl = cleanurl[:-1]
+
+            cleanurl = cleanurl[7:].replace('/', '_')
 
             urldir = os.path.join(OUTPUTDIR, cleanurl)
             if not os.path.isdir(urldir):
