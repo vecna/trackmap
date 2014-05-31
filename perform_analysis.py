@@ -193,7 +193,7 @@ if __name__ == '__main__':
                 cleanurl = cleanurl[:-1]
 
             dirtyoptions = cleanurl.find("?")
-            if dirtyoptions:
+            if dirtyoptions != -1:
                 cleanurl = cleanurl[:dirtyoptions]
 
             cleanurl = cleanurl.replace('/', '_')
