@@ -1,17 +1,21 @@
-#!/bin/sh -x
-# I'm putting the "-x" because there are some 'sudo'...
+#!/bin/sh
 
+echo "executing 'aptitude update'"
 sudo aptitude update
+echo "installing: phantomjs traceroute and python+GeoIP (requires gcc and pip)"
 sudo aptitude install phantomjs traceroute python-pip gcc python-pip python-dev libgeoip-dev geoip-database
+echo "installing python module GeoIP and tldextract"
 sudo pip install GeoIP tldextract
 
-# remind: handle 
-# phantomjs -h 
-# 2014-05-31T10:35:30 [WARNING] phantomjs: cannot connect to X server 
-# In this case, your distribution has phantom 1.5 and this is bad
-#
-# In some other cases, debian weezy with IDONWANNKNOW repository, phantomjs
-# do not exists, so you've to download:
-#
-# https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2
-# https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
+
+echo "checking phantomjs installation..."
+
+phantomjs -v
+if [ "$?" -ne "0" ]; then
+    echo "sadly phantomjs has not been installed or is not working correctly."
+    echo "This can be solved easily, just download from these link:"
+    echo "https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2"
+    echo "https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2"
+    echo "and put a symlink poiting to /usr/bin/phantomjs"
+    echo "asks info to @sniffjoke if doubt arises"
+fi
