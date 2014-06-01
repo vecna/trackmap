@@ -42,7 +42,6 @@ def get_unique_urls(urldumpsf):
             else:
                 print "Unexpected link format!", url_request
                 continue
-                # raise AssertionError("missing http:// or https:// in [%s]" % url_request)
 
     return urls.keys()
 
@@ -125,7 +124,6 @@ def sortify():
             print "Unable to read", urldir, einfo, "skipping"
             continue
 
-        # just to know if the optiomization is working well :)
         for url in related_urls:
 
             if urldict.has_key(url):
@@ -144,6 +142,7 @@ def sortify():
         # tldextract is based on this file, and cloudfront.net is readed as TLD. but is fine
         # I've only to sum domain + TLD in order to identify the "included entity"
 
+    # just to know if the optimization is working well :)
     print "multiple entry on", skipped,
     return urldict
 
