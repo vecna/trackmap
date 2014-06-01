@@ -1,8 +1,8 @@
 #!/bin/sh -x
-# I'm puttint the "-x" because there are some 'sudo'...
+# I'm putting the "-x" because there are some 'sudo'...
 
 sudo aptitude update
-sudo aptitude install phantomjs traceroute python-pip gcc python-pip python-dev libgeoip-dev
+sudo aptitude install phantomjs traceroute python-pip gcc python-pip python-dev libgeoip-dev geoip-database
 sudo pip install GeoIP tldextract
 
 # remind: handle 

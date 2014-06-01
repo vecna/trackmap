@@ -115,7 +115,7 @@ def sortify():
 
     for urldir in os.listdir(OUTPUTDIR):
 
-        if urldir == 'phantom.log' or urldir == 'traceoutput.log' or urldir == 'domain.infos':
+        if urldir in ['phantom.log', 'traceoutput.log', 'domain.infos', 'country']:
             continue
 
         try:
