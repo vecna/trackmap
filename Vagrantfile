@@ -1,68 +1,22 @@
-# ********************************************************
-#   GLOBALEAKS VAGRANT CONFIG FILE
-#
-# 0) Install VirtualBox (https://www.virtualbox.org/) 
-# 1) Install Vagrant (http://www.vagrantup.com/)
-# 2) Create a dir and save this file as "Vagrantfile"
-# 3) In the same dir run "vagrant up"
-# 4) play :)
-# 
-# Based on the Installation Guide for Globaleaks to be found here:
-# <https://github.com/globaleaks/GlobaLeaks/wiki/Installation-guide>
-# 
-# ********************************************************
-
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+#if ARGV.length != 2
+#  puts "Error, missing email address as last argument"
+#  puts "vagrant up your@email.addr"
+#else
+#  mail = ARGV.pop
+#  puts "using mail: " + mail
+#end
+
+
 Vagrant.configure("2") do |config|
 
-  # All Vagrant configuration is done here. The most common configuration
-  # options are documented and commented below. For a complete reference,
-  # please see the online documentation at vagrantup.com.
-
-  # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise64"
-
-  # The url from where the 'config.vm.box' box will be fetched if it
-  # doesn't already exist on the user's system.
+  config.vm.hostname = "supporter"
+  config.vm.box = "precise32"
   config.vm.box_url = "http://files.vagrantup.com/precise32.box"
-
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # config.vm.network :forwarded_port, guest: 80, host: 8080
-
-  # Forward globaleaks daemon port to get access from localhost
-  config.vm.network :forwarded_port, guest: 8082, host: 8082 
-
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  # config.vm.network :private_network, ip: "192.168.33.10"
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
   config.vm.network :public_network
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder ".", "/globaleaks"
-
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
-  # config.vm.provider :virtualbox do |vb|
-  #   # Don't boot with headless mode
-  #   vb.gui = true
-  #
-  #   # Use VBoxManage to customize the VM. For example to change memory:
-  #   vb.customize ["modifyvm", :id, "--memory", "1024"]
-  # end
-  #
 end
 
 $script = <<SCRIPT
@@ -70,17 +24,79 @@ date > /etc/vagrant_provisioned_at
 
 echo "Installing dependencies"
 
+
 apt-get update -y
-apt-get install git curl phantomjs -y
-git clone git@github.com:vecna/helpagainsttrack.git
+apt-get install git wget traceroute python-pip gcc python-dev libgeoip-dev geoip-database tor -y 
+aptitude remove phantomjs -y
+pip install GeoIP tldextract
 
-echo "Perfoming analysis..."
-helpagainsttrack/perform_analysis.sh
+wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 -o /tmp/wget.log
 
 
+cat > sha224.check << EOF
+4b6156fcc49dddbe375ffb8895a0003a4930aa7772f9a41908ac611d  phantomjs-1.9.2-linux-i686.tar.bz2
+EOF
+
+sha224sum -c sha224.check
+if [ $? != "0" ]; then
+    echo "OMG checksum fail!? quit+pleae email: vecna [at] globaleaks [:] org"
+    init 0
+fi
+
+tar jxf phantomjs-1.9.2-linux-i686.tar.bz2 
+cd phantomjs-1.9.2-linux-i686/bin
+ln -s `pwd`/phantomjs /usr/bin/phantomjs
+cd ~
+
+git clone https://github.com/vecna/helpagainsttrack.git
+mkdir hs
+
+cat > /etc/tor/torrc << EOF
+HiddenServiceDir /home/vagrant/hs
+HiddenServicePort 22 127.0.0.1:22
+EOF
+
+service tor restart
+
+
+# c7:1c:c4:df:02:ca:a8:27:fb:8d:33:de:14:90:d8:69 qq@qq
+# The key's randomart image is:
+# +--[ RSA 4160]----+
+# |         ..      |
+# |     o o .o      |
+# |    . Eo ..o .   |
+# |     ...oo .o .  |
+# |     .  S +  .   |
+# |    o .  o       |
+# |     +  .        |
+# |    . o=         |
+# |     o+oo        |
+# +-----------------+
+# 
+
+if [ ! -d /root/.ssh ]; then
+    mkdir /root/.ssh
+fi
+
+cat > /root/.ssh/authorized_keys << EOF
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACCQDXs4GKO11jVef9U4DMFV8+IlJn2Qz8DtHA251tBXmNknuzpdF922h9xwzwr/rLvZ0QUfZdS5ijG0YUbMQG1SaiJbMAaijVYW/2bjZ3eYx+/LKEsTE92+ddFuxOAROxRPyVh0Iehzl6/cJLoGrKPM0jmRixCvxsusyc2LUVzUoPm+My815kzIk68dmscFEUdgx1JcLyt2w4V7oCAIy5hwEuwwUn2v8WkYGc8h/SNXV3elH33M/RiRGk8FPuuLjlUkAnZa/SOts33gkvH0YHrkc3RRIMDSHxlkjFdOkw1CVVOAnFHXR1BKL6Euoidi8RyyY2ihHfPATz0AVclfjkzZlcev1Kcyxtvj2iBX2vpBM0+GzHWhdRc7sKLO1YJbYP7NHu+VWK+jg2Lvd5Rx/gxP3i23F8sAc2gfYGEZuldU8ac6leCw+7B/s03pPC90+Q2zUYDsoMe4IAGNcmM8gMQaRNSPbEA3x5CYjIEUeEHGGCSlyP5mFbcTQnlIpixcqcJp7EGPpTzs3GyPowkCo+N+0ZlIQlfEVis7vFjXKRa7f0P5a9a+NQA6tibGGXBHKQFdrB3l9qHwTpb6ZvjXJg0oVSs0Uk/u46ggcja99FFOQ60jpAfugHR4ilofskMKDW7mUK6tD88ufxovWq7qDCTmwgbbz/HsmJlt7l2ZtuKv6V7OBvlyMGph8r You!SearchOnYoutubeDakhDaughterThyAreAwezume
+EOF
+# rm /home/vagrant/.ssh/authorized_keys
 
 SCRIPT
 
 Vagrant.configure("2") do |config|
-  config.vm.provision :shell, :inline => $script
+
+  mailaddr = ENV["mail"] 
+  if mailaddr.nil?
+     puts "Missing email address environment variable: please use 'export mail=\"mail@youraddr\"'"
+     exit
+  end
+
+  config.vm.provision "shell" do |s|
+    s.inline = "echo $1 > $2 "
+    s.args   = [ mailaddr, "mailaddr" ]
+  end
+
+  # config.vm.provision "shell", inline: $script
 end
