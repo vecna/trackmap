@@ -1,41 +1,20 @@
+## You and Us
 
-## Collects output from other countries
-   
-    git clone https://github.com/vecna/helpagainsttrack.git
-    cd helpagainsttrack
-    ./setup_requirements.sh
-    ./perform_analysis.py media_lists/germany
+Hi, we **$XXXX**, need support for this project **$YYYYY**, in short, you've to run this virtual machine, we've to perform some tests (web connections to public website and traceroutes). For do that, the easiest way is that you start this virtual box
+image and make the box run for a while.
 
-At the moment only few country news media lists are available. 
+We can connect back to the virtual box to get the data collected and to starts
+the tests.
 
-# Output collected
 
-### URL included 
+## Scripts role
 
-the script **perform\_analysis.py** make connection with phantomjs at all the hosts related to the
-country under test. Save the URL of the included scripts. 
+These scripts are intented to be used:
 
-They are saved in output/*$MEDIA\_NAME*/\_\_urls
-
-### TLD domain analysis
-
-for every included script domain, are splitted subdoman.domanin.tld, and are stored in output/domain.info in Pickle format
-
-### Traceroute analysis
-
-in output/traceroutes/*$MEDIA\_NAME*\_countries.pickle has the country code of the HOP list (Pickle)
-in outout/traceroutes/*$MEDIA\_NAME*\_ip.pickle there are the list of HOP (Pickle)
-
-### debug logs
-
-In output/phantom.log is collected the output of all the phantomjs execution
-In output/traceoutput.log is collected the output of all the traceroute executed
+  * from a decent linux uses able to install software and run a command line from a terminal (only one command, come on!)
+  * from someone with an email address that can eventually receive some non-automatic emails by us
+  * fome someone in a country of interest, because traceroute mean that we cannot run the tests from our network location: you internet has different paths of all the other, and we need to collect a lot of sample.
 
 
 ## Vagrant setup
-
-### Still not functional and probably never !?
-
-    vagrant box add precise64 http://files.vagrantup.com/precise64.box
-    vagrant box add trusty http://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-i386-vagrant-disk1.box
 

@@ -98,5 +98,5 @@ Vagrant.configure("2") do |config|
     s.args   = [ mailaddr, "mailaddr" ]
   end
 
-  # config.vm.provision "shell", inline: $script
+  config.vm.provision "shell", inline: $script
 end
