@@ -1,14 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-#if ARGV.length != 2
-#  puts "Error, missing email address as last argument"
-#  puts "vagrant up your@email.addr"
-#else
-#  mail = ARGV.pop
-#  puts "using mail: " + mail
-#end
-
 
 Vagrant.configure("2") do |config|
 
@@ -22,17 +14,16 @@ end
 $script = <<SCRIPT
 date > /etc/vagrant_provisioned_at
 
-echo "Installing dependencies"
-
-ping -c 1 8.8.8.8
-if [ ?$ -ne "0" ]; then
-    echo "Network connection is down! please fix it"
+echo "*** Checking network connection"
+ping -c 1 myshadow.org
+if [ "?$" -ne "0" ]; then
+    echo "Network connection is down!? please fix it"
     init 0
 fi
 
 apt-get update -y
 
-echo "downloading phantomjs 1.9.2"
+echo "*** downloading phantomjs 1.9.2"
 wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 -o /tmp/wget.log
 
 cat > sha224.check << EOF
@@ -50,11 +41,8 @@ cd phantomjs-1.9.2-linux-i686/bin
 ln -s `pwd`/phantomjs /usr/bin/phantomjs
 cd /home/vagrant
 
-echo "Cloning GIT repository"
-git clone https://github.com/vecna/helpagainsttrack.git
-
-echo "Setting up Tor"
-apt-get install tor -y 
+echo "*** Installing Tor and git"
+apt-get install tor git -y
 mkdir hs
 chown debian-tor hs
 
@@ -65,6 +53,8 @@ EOF
 
 service tor restart
 
+echo "*** Cloning GIT repository"
+git clone https://github.com/vecna/helpagainsttrack.git
 
 #
 # c7:1c:c4:df:02:ca:a8:27:fb:8d:33:de:14:90:d8:69 qq@qq
@@ -91,20 +81,21 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACCQDXs4GKO11jVef9U4DMFV8+IlJn2Qz8DtHA251tBXmN
 EOF
 # rm /home/vagrant/.ssh/authorized_keys
 
-echo "Installing a lots of needed packages"
-apt-get install git wget traceroute python-pip gcc python-dev libgeoip-dev geoip-database -y 
+echo "*** Installing a lots of needed packages"
+apt-get install wget traceroute python-pip gcc python-dev libgeoip-dev geoip-database -y
 aptitude remove phantomjs -y
 
-echo "Installing python external packages"
+echo "*** Installing python external packages"
 pip install GeoIP tldextract
 
 
-echo "Understanding if you can traceroute really"
-helpagainsttrack/topology_tests.py ytre.me
+echo "*** Running some topology tests.."
+helpagainsttrack/topology_tests.py 131.175.12.1
+# this is ns.polimi.it
 
 hsurl=`cat /home/vagrant/hs/hostname`
 for i in `seq 1 10`; do 
-   echo "You've to notify your cooperation at XX@YY.KK telling this address: $hsurl"
+   echo "to notify your cooperation at XX@YY.KK telling this address: $hsurl"
 done
 
 
