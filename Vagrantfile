@@ -24,14 +24,16 @@ date > /etc/vagrant_provisioned_at
 
 echo "Installing dependencies"
 
+ping -c 1 8.8.8.8
+if [ ?$ -ne "0" ]; then
+    echo "Network connection is down! please fix it"
+    init 0
+fi
 
 apt-get update -y
-apt-get install git wget traceroute python-pip gcc python-dev libgeoip-dev geoip-database tor -y 
-aptitude remove phantomjs -y
-pip install GeoIP tldextract
 
+echo "downloading phantomjs 1.9.2"
 wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 -o /tmp/wget.log
-
 
 cat > sha224.check << EOF
 4b6156fcc49dddbe375ffb8895a0003a4930aa7772f9a41908ac611d  phantomjs-1.9.2-linux-i686.tar.bz2
@@ -46,10 +48,15 @@ fi
 tar jxf phantomjs-1.9.2-linux-i686.tar.bz2 
 cd phantomjs-1.9.2-linux-i686/bin
 ln -s `pwd`/phantomjs /usr/bin/phantomjs
-cd ~
+cd /home/vagrant
 
+echo "Cloning GIT repository"
 git clone https://github.com/vecna/helpagainsttrack.git
+
+echo "Setting up Tor"
+apt-get install tor -y 
 mkdir hs
+chown debian-tor hs
 
 cat > /etc/tor/torrc << EOF
 HiddenServiceDir /home/vagrant/hs
@@ -59,6 +66,7 @@ EOF
 service tor restart
 
 
+#
 # c7:1c:c4:df:02:ca:a8:27:fb:8d:33:de:14:90:d8:69 qq@qq
 # The key's randomart image is:
 # +--[ RSA 4160]----+
@@ -83,20 +91,37 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACCQDXs4GKO11jVef9U4DMFV8+IlJn2Qz8DtHA251tBXmN
 EOF
 # rm /home/vagrant/.ssh/authorized_keys
 
+echo "Installing a lots of needed packages"
+apt-get install git wget traceroute python-pip gcc python-dev libgeoip-dev geoip-database -y 
+aptitude remove phantomjs -y
+
+echo "Installing python external packages"
+pip install GeoIP tldextract
+
+
+echo "Understanding if you can traceroute really"
+helpagainsttrack/topology_tests.py ytre.me
+
+hsurl=`cat /home/vagrant/hs/hostname`
+for i in `seq 1 10`; do 
+   echo "You've to notify your cooperation at XX@YY.KK telling this address: $hsurl"
+done
+
+
 SCRIPT
 
 Vagrant.configure("2") do |config|
 
-  mailaddr = ENV["mail"] 
-  if mailaddr.nil?
-     puts "Missing email address environment variable: please use 'export mail=\"mail@youraddr\"'"
-     exit
-  end
-
-  config.vm.provision "shell" do |s|
-    s.inline = "echo $1 > $2 "
-    s.args   = [ mailaddr, "mailaddr" ]
-  end
+#  mailaddr = ENV["mail"] 
+#  if mailaddr.nil?
+#     puts "Missing email address environment variable: please use 'export mail=\"mail@youraddr\"'"
+#     exit
+#  end
+#
+#  config.vm.provision "shell" do |s|
+#    s.inline = "echo $1 > $2 "
+#    s.args   = [ mailaddr, "mailaddr" ]
+#  end
 
   config.vm.provision "shell", inline: $script
 end
