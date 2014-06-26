@@ -163,7 +163,7 @@ if __name__ == '__main__':
 
 
     if len(sys.argv) != 2:
-        print "Expected one of the file in media_lists/"
+        print "Expected one of the file in verified_media/"
         print "hopefully the name of your country"
         quit(-1)
 
