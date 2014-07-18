@@ -6,26 +6,30 @@ import GeoIP
 import tldextract
 
 OUTPUTDIR = 'output'
+PERMITTED_SECTIONS = [ 'global', 'national', 'local', 'blog' ]
 
 
-def do_phantomjs(url, destfile):
+def do_phantomjs(url, destfile, media_kind):
 
     p = Popen(['phantomjs', 'collect_included_url.js',
-               '%s' % url, destfile], stdout=PIPE)
+               'http://%s' % url, destfile], stdout=PIPE)
 
     phantomlog = file(os.path.join(OUTPUTDIR, "phantom.log"), "a+")
 
-    print " + Executing phantomjs on", url,
+    print " + Executing phantomjs on:", url,
     while True:
         line = p.stdout.readline()
         if not line:
             break
         phantomlog.write(line)
 
+    kindfile = os.path.join(destfile, '__kind')
+    with file(kindfile, 'w+') as f:
+        f.write(media_kind + "\n")
+
     urlfile = os.path.join(destfile, '__urls')
     with file(urlfile, 'r') as f:
-        print "acquired", len(f.readlines()),"included URLs"
-
+        print "acquired", len(f.readlines()),"included URLs [", media_kind, "]"
 
 
 
@@ -146,6 +150,107 @@ def sortify():
     print "multiple entry on", skipped,
     return urldict
 
+def url_cleaner(line):
+
+    # cleanurl is used to create the dir, media to phantomjs
+    if line.startswith('http://'):
+        cleanurl = line[7:]
+    elif line.startswith('https://'):
+        cleanurl = line[8:]
+        print "https will be converted in http =>", line
+    else:
+        raise Exception("Invalid protocol in: %s" % line)
+
+    if cleanurl[-1] == '/':
+        cleanurl = cleanurl[:-1]
+
+    dirtyoptions = cleanurl.find("?")
+    if dirtyoptions != -1:
+        cleanurl = cleanurl[:dirtyoptions]
+
+    cleanurl = cleanurl.replace('/', '_')
+
+    return cleanurl
+
+
+def load_global_file():
+
+    GLOBAL_MEDIA_FILE = 'special_media/global'
+
+    global_media_dict = {}
+    counter = 0
+
+    with file(GLOBAL_MEDIA_FILE, 'r') as f:
+        for line in f.readlines():
+            cleanurl = url_cleaner(line)
+            counter += 1
+            global_media_dict.update({ cleanurl : 'global' })
+
+    return global_media_dict, counter
+
+
+
+def media_file_cleanings(linelist):
+    """
+    From the format
+    [global]
+    http://url
+    # comment
+    [othersec]
+    http://otherweb
+
+    return { 'url': 'global', 'otherweb': 'othersec' }
+    """
+    retdict = {}
+    current_section = None
+    counter_section = 0
+
+    for line in linelist:
+
+        line = line[:-1]
+
+        if len(line) > 1 and line[0] == '#':
+            continue
+
+        if len(line) < 3:
+            continue
+
+        if line.startswith('[') and line.find(']') != -1:
+            candidate_section = line[1:-1]
+
+            if not candidate_section in PERMITTED_SECTIONS:
+                print "The section in", line, "is invalid: do not match with", PERMITTED_SECTIONS
+                quit(-1)
+
+            # if we hot 'global' section: is special!
+            if candidate_section == 'global':
+                retdict, counter_section = load_global_file()
+                print "Global file loaded, with # entries", counter_section
+                continue
+
+            if current_section:
+                print "Section", current_section, "has got # entries", counter_section
+                counter_section = 0
+
+            current_section = candidate_section
+            continue
+
+        cleanurl = url_cleaner(line)
+
+        if not current_section:
+            print "detected URL", cleanurl, "without a section! (old file format ?"
+            quit(-1)
+
+        if retdict.has_key(cleanurl):
+            print "Note:", cleanurl, "is duplicated"
+
+        retdict.update({ cleanurl: current_section })
+        counter_section += 1
+
+    return retdict
+
+
+
 
 if __name__ == '__main__':
 
@@ -154,13 +259,6 @@ if __name__ == '__main__':
             os.mkdir(OUTPUTDIR)
         except OSError as error:
             print "unable to create %s: %s" % (OUTPUTDIR, error)
-
-    # 1st download/check available media list / ask your country
-    # TODO, amen, at the moment is the first arg
-
-    # 3rd work over the media list
-    # TODO do not require sys.argv[1]
-
 
     if len(sys.argv) != 2:
         print "Expected one of the file in verified_media/"
@@ -173,36 +271,17 @@ if __name__ == '__main__':
 
     with file(sys.argv[1]) as f:
 
-        media_entries = f.readlines()
+        media_entries = media_file_cleanings(f.readlines())
 
         # TODO Status integrity check on the media directory
-        for media in media_entries:
-
-            media = media[:-1]
-
-            # cleanurl is used to create the dir, media to phantomjs
-            if media.startswith('http://'):
-                cleanurl = media[7:]
-            elif media.startswith('https://'):
-                cleanurl = media[8:]
-            else:
-                raise Exception("Invalid protocol in: %s" % media)
-
-            if cleanurl[-1] == '/':
-                cleanurl = cleanurl[:-1]
-
-            dirtyoptions = cleanurl.find("?")
-            if dirtyoptions != -1:
-                cleanurl = cleanurl[:dirtyoptions]
-
-            cleanurl = cleanurl.replace('/', '_')
+        for cleanurl, media_kind in media_entries.iteritems():
 
             urldir = os.path.join(OUTPUTDIR, cleanurl)
             if not os.path.isdir(urldir):
                 print "+ Creating directory", urldir
                 os.mkdir(urldir)
 
-                do_phantomjs(media, urldir)
+                do_phantomjs(cleanurl, urldir, media_kind)
 
         # take every directory in 'output/' and works on the content
         included_url_dict = sortify()

@@ -1,3 +1,6 @@
+[global]
+
+[nationa]
 http://www.rts.rs/
 http://rtv.rs/ 
 http://www.b92.net/ 
@@ -31,3 +34,7 @@ http://www.24sata.rs/
 http://akter.co.rs/
 http://www.novimagazin.rs/ 
 http://sumadijapress.co.rs/ 
+
+[local]
+
+[blog]
