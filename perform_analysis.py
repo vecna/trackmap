@@ -66,7 +66,7 @@ def do_trace(dumpprefix, host):
         line = p.stdout.readline()
         if not line:
             break
-        tmpfile.write(line);
+        tmpfile.write(line)
 
         # this prevent the IP match show below
         if line.startswith('traceroute to'):
