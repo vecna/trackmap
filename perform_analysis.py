@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from subprocess import Popen, PIPE
-import os, re, pickle, sys
+import os, re, pickle, sys, random
 import GeoIP
 import tldextract
 
@@ -111,18 +111,19 @@ def do_trace(dumpprefix, host):
 
 
 
-def sortify():
+def sortify(outputdir):
 
     urldict = {}
     skipped = 0
 
-    for urldir in os.listdir(OUTPUTDIR):
+    for urldir in os.listdir(outputdir):
 
-        if urldir in ['phantom.log', 'traceoutput.log', 'domain.infos', 'country']:
+        if urldir in ['phantom.log', 'traceroutes', 'seed',
+                      'traceoutput.log', 'domain.infos', 'country']:
             continue
 
         try:
-            urlfile = os.path.join(OUTPUTDIR, urldir, '__urls')
+            urlfile = os.path.join(outputdir, urldir, '__urls')
             related_urls = get_unique_urls(urlfile)
         except IOError or OSError as einfo:
             print "Unable to read", urldir, einfo, "skipping"
@@ -173,9 +174,7 @@ def url_cleaner(line):
     return cleanurl
 
 
-def load_global_file():
-
-    GLOBAL_MEDIA_FILE = 'special_media/global'
+def load_global_file(GLOBAL_MEDIA_FILE):
 
     global_media_dict = {}
     counter = 0
@@ -189,8 +188,8 @@ def load_global_file():
     return global_media_dict, counter
 
 
-
-def media_file_cleanings(linelist):
+GLOBAL_MEDIA_FILE = 'special_media/global'
+def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
     """
     From the format
     [global]
@@ -212,6 +211,9 @@ def media_file_cleanings(linelist):
         if len(line) > 1 and line[0] == '#':
             continue
 
+        # everything after a 0x20 need to be cut off
+        line = line.split(' ')[0]
+
         if len(line) < 3:
             continue
 
@@ -224,7 +226,7 @@ def media_file_cleanings(linelist):
 
             # if we hot 'global' section: is special!
             if candidate_section == 'global':
-                retdict, counter_section = load_global_file()
+                retdict, counter_section = load_global_file(globalfile)
                 print "Global file loaded, with # entries", counter_section
                 continue
 
@@ -284,7 +286,7 @@ if __name__ == '__main__':
                 do_phantomjs(cleanurl, urldir, media_kind)
 
         # take every directory in 'output/' and works on the content
-        included_url_dict = sortify()
+        included_url_dict = sortify(OUTPUTDIR)
 
         assert included_url_dict, "OMG we're gonna die !?"
             
@@ -302,6 +304,10 @@ if __name__ == '__main__':
         if os.path.isfile('results.tar.gz'):
             print "Finished! and the data is already compressed ? remove results.tar.gz to make a new one"
             quit(0)
+
+        # putting the unique number into
+        with file( os.path.join(OUTPUTDIR, "seed"), "w+") as f:
+            f.write("%d%d%d" % (random.randint(0, 0xffff), random.randint(0, 0xffff), random.randint(0, 0xffff)) )
 
         print "Finished! compressing the data"
 
