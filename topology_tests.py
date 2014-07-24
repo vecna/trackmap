@@ -3,6 +3,9 @@
 # is intended to traceroute 8.8.8.8 and figure out from which country
 # you're making running this box.
 
+
+# TODO NEED TO INCLUDE THE CONTENT OF perform_analysis
+
 from subprocess import Popen, PIPE
 import re, sys
 import GeoIP
@@ -14,7 +17,7 @@ else:
 
 p = Popen(['traceroute', '-n', '-w', '0.5', '-q', '10', '-A', target_host], stdout=PIPE)
 
-tmpfile = file('ottoottoottootto.log', "w+")
+tmpfile = file('venere.log', "w+")
 
 iplist = []
 while True:

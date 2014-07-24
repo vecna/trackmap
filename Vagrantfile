@@ -32,7 +32,7 @@ EOF
 
 sha224sum -c sha224.check
 if [ $? != "0" ]; then
-    echo "OMG checksum fail!? quit+pleae email: vecna [at] globaleaks [:] org"
+    echo "OMG checksum fail!? quit+please email: vecna [at] globaleaks [:] org"
     init 0
 fi
 
@@ -83,6 +83,10 @@ EOF
 
 echo "*** Installing a lots of needed packages"
 apt-get install wget traceroute python-pip gcc python-dev libgeoip-dev geoip-database -y
+if [ "$?" != "0" ]; then
+   echo "!!! fatal error, unable to install a required package"
+   init 0
+fi
 aptitude remove phantomjs -y
 
 echo "*** Installing python external packages"
