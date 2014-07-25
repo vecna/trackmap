@@ -107,8 +107,8 @@ def get_unique_urls(source_urldir, urldumpsf):
 
 def do_trace(dumpprefix, host):
 
-    ip_file = os.path.join(OUTPUTDIR, '_traceroutes', "%s_ip.pickle" % dumpprefix)
-    country_file = os.path.join(OUTPUTDIR, '_traceroutes', "%s_countries.pickle" % dumpprefix)
+    ip_file = os.path.join(OUTPUTDIR, '_traceroutes', "%s_ip.json" % dumpprefix)
+    country_file = os.path.join(OUTPUTDIR, '_traceroutes', "%s_countries.json" % dumpprefix)
 
     if os.path.isfile(ip_file) and os.path.isfile(country_file):
         print host, "already traced: skipping"
