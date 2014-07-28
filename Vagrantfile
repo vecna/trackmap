@@ -90,7 +90,7 @@ fi
 aptitude remove phantomjs -y
 
 echo "*** Installing python external packages"
-pip install GeoIP tldextract
+pip install GeoIP tldextract termcolor
 
 
 echo "*** Running some topology tests.."
