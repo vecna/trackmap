@@ -1,0 +1,118 @@
+
+<html>
+
+<head>
+    <title>Just the test</title>
+    <script type="application/javascript" src="bower_components/jquery-2.1.0.min/index.js"></script>
+
+    <script type="application/javascript">
+
+
+        function golocal(elem) {
+            $(elem).appendTo("#localList");
+        }
+
+        function gonational(elem) {
+            $(elem).appendTo("#nationalList");
+        }
+
+        function removebutton() {
+            $('.clickable').hide();
+        }
+
+        function showbutton() {
+            $('.clickable').show();
+        }
+
+    </script>
+    <style type="text/css">
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        .urlList {
+            border-color: red;
+            background-color: palegoldenrod;
+            border-bottom-left-radius: 2px;
+            width: 100%;
+            margin-bottom: 3px;
+            font-family: monospace;
+        }
+        h1 {
+            text-align: center;
+            color: cadetblue;
+            font-size: 3em;
+        }
+        .clickable {
+            background-color: yellow;
+            color: blueviolet;
+            margin-left: 4em;
+            margin-right: 4em;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>
+guatemal
+</h1>
+
+<h2>National List</h2>
+<div class="urlList" id="nationalList">
+</div>
+
+<h2>Local/Specialistic List</h2>
+<div class="urlList" id="localList">
+</div>
+
+<h2>Unverified List</h2>
+
+
+<div id="00859ff6fa15dc2d4abdd357e66d30336e9fc02f">
+    <a href="http://elquetzalteco.com.gt/" target="_blank">http://elquetzalteco.com.gt/</a> <span class="clickable" onclick="golocal('#00859ff6fa15dc2d4abdd357e66d30336e9fc02f');">local</span> <span class="clickable" onclick="gonational('#00859ff6fa15dc2d4abdd357e66d30336e9fc02f');">national</span><br>
+</div>
+
+
+
+<div id="3d4ccc5f14ff37cbbc2e9eb1b69a308b9e5cb0a2">
+    <a href="http://www.nuestrodiario.com/" target="_blank">http://www.nuestrodiario.com/</a> <span class="clickable" onclick="golocal('#3d4ccc5f14ff37cbbc2e9eb1b69a308b9e5cb0a2');">local</span> <span class="clickable" onclick="gonational('#3d4ccc5f14ff37cbbc2e9eb1b69a308b9e5cb0a2');">national</span><br>
+</div>
+
+
+
+<div id="8122f1b5e111df3ef82b0cf5fdd2f389bbf9da23">
+    <a href="http://www.lahora.com.gt/" target="_blank">http://www.lahora.com.gt/</a> <span class="clickable" onclick="golocal('#8122f1b5e111df3ef82b0cf5fdd2f389bbf9da23');">local</span> <span class="clickable" onclick="gonational('#8122f1b5e111df3ef82b0cf5fdd2f389bbf9da23');">national</span><br>
+</div>
+
+
+
+<div id="5862071b3049d2c94a48c152ee3226a7fc73036a">
+    <a href="http://www.prensalibre.com/" target="_blank">http://www.prensalibre.com/</a> <span class="clickable" onclick="golocal('#5862071b3049d2c94a48c152ee3226a7fc73036a');">local</span> <span class="clickable" onclick="gonational('#5862071b3049d2c94a48c152ee3226a7fc73036a');">national</span><br>
+</div>
+
+
+
+<div id="593dd355fe1339fc90edbcb8327bf3c85c5cd5b0">
+    <a href="http://www.elperiodico.com.gt/" target="_blank">http://www.elperiodico.com.gt/</a> <span class="clickable" onclick="golocal('#593dd355fe1339fc90edbcb8327bf3c85c5cd5b0');">local</span> <span class="clickable" onclick="gonational('#593dd355fe1339fc90edbcb8327bf3c85c5cd5b0');">national</span><br>
+</div>
+
+
+
+<div id="68bca7acb3c9a6f2ec1af7d8c544a90814ccceaf">
+    <a href="http://www.monedaenlinea.com/" target="_blank">http://www.monedaenlinea.com/</a> <span class="clickable" onclick="golocal('#68bca7acb3c9a6f2ec1af7d8c544a90814ccceaf');">local</span> <span class="clickable" onclick="gonational('#68bca7acb3c9a6f2ec1af7d8c544a90814ccceaf');">national</span><br>
+</div>
+
+
+
+<div id="89f4f9906b4e2f35e9ac48b95b22c3f9ad39eb40">
+    <a href="http://www.dca.gob.gt/" target="_blank">http://www.dca.gob.gt/</a> <span class="clickable" onclick="golocal('#89f4f9906b4e2f35e9ac48b95b22c3f9ad39eb40');">local</span> <span class="clickable" onclick="gonational('#89f4f9906b4e2f35e9ac48b95b22c3f9ad39eb40');">national</span><br>
+</div>
+
+
+
+<br>
+<button onclick="removebutton();">Press here when you've finished! can be easier copy/paste</button>
+<br>
+<button onclick="showbutton();">Press if you've made a mistake, make buttons comeback</button>
+</body>
+</html>

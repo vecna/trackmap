@@ -1,0 +1,640 @@
+
+<html>
+
+<head>
+    <title>Just the test</title>
+    <script type="application/javascript" src="bower_components/jquery-2.1.0.min/index.js"></script>
+
+    <script type="application/javascript">
+
+
+        function golocal(elem) {
+            $(elem).appendTo("#localList");
+        }
+
+        function gonational(elem) {
+            $(elem).appendTo("#nationalList");
+        }
+
+        function removebutton() {
+            $('.clickable').hide();
+        }
+
+        function showbutton() {
+            $('.clickable').show();
+        }
+
+    </script>
+    <style type="text/css">
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        .urlList {
+            border-color: red;
+            background-color: palegoldenrod;
+            border-bottom-left-radius: 2px;
+            width: 100%;
+            margin-bottom: 3px;
+            font-family: monospace;
+        }
+        h1 {
+            text-align: center;
+            color: cadetblue;
+            font-size: 3em;
+        }
+        .clickable {
+            background-color: yellow;
+            color: blueviolet;
+            margin-left: 4em;
+            margin-right: 4em;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>
+france
+</h1>
+
+<h2>National List</h2>
+<div class="urlList" id="nationalList">
+</div>
+
+<h2>Local/Specialistic List</h2>
+<div class="urlList" id="localList">
+</div>
+
+<h2>Unverified List</h2>
+
+
+<div id="ac526a069ad674b8c667449b05d5c80ce32a3bd2">
+    <a href="http://fr.pravdaliberation.info/" target="_blank">http://fr.pravdaliberation.info/</a> <span class="clickable" onclick="golocal('#ac526a069ad674b8c667449b05d5c80ce32a3bd2');">local</span> <span class="clickable" onclick="gonational('#ac526a069ad674b8c667449b05d5c80ce32a3bd2');">national</span><br>
+</div>
+
+
+
+<div id="dd65f45697682fa61d351162ff4801d48ae9d708">
+    <a href="http://lecanardenchaine.fr/" target="_blank">http://lecanardenchaine.fr/</a> <span class="clickable" onclick="golocal('#dd65f45697682fa61d351162ff4801d48ae9d708');">local</span> <span class="clickable" onclick="gonational('#dd65f45697682fa61d351162ff4801d48ae9d708');">national</span><br>
+</div>
+
+
+
+<div id="fb24e6b8f3e038757740ce797dfbf52e005607e9">
+    <a href="http://mondediplo.com/" target="_blank">http://mondediplo.com/</a> <span class="clickable" onclick="golocal('#fb24e6b8f3e038757740ce797dfbf52e005607e9');">local</span> <span class="clickable" onclick="gonational('#fb24e6b8f3e038757740ce797dfbf52e005607e9');">national</span><br>
+</div>
+
+
+
+<div id="5649e56d270e2382781316a3a3e1fbbc42124214">
+    <a href="http://plus.lefigaro.fr/cercle/le-figaro-in-english/" target="_blank">http://plus.lefigaro.fr/cercle/le-figaro-in-english/</a> <span class="clickable" onclick="golocal('#5649e56d270e2382781316a3a3e1fbbc42124214');">local</span> <span class="clickable" onclick="gonational('#5649e56d270e2382781316a3a3e1fbbc42124214');">national</span><br>
+</div>
+
+
+
+<div id="278e26b0d5961a5cf563f7a430cb70f517236a3a">
+    <a href="http://tempsreel.nouvelobs.com/" target="_blank">http://tempsreel.nouvelobs.com/</a> <span class="clickable" onclick="golocal('#278e26b0d5961a5cf563f7a430cb70f517236a3a');">local</span> <span class="clickable" onclick="gonational('#278e26b0d5961a5cf563f7a430cb70f517236a3a');">national</span><br>
+</div>
+
+
+
+<div id="b7abbee2737860608a13735a0ab7d51ff3200ccb">
+    <a href="http://ww2.normandyadvertiser.fr/" target="_blank">http://ww2.normandyadvertiser.fr/</a> <span class="clickable" onclick="golocal('#b7abbee2737860608a13735a0ab7d51ff3200ccb');">local</span> <span class="clickable" onclick="gonational('#b7abbee2737860608a13735a0ab7d51ff3200ccb');">national</span><br>
+</div>
+
+
+
+<div id="681c7258eb5ac7335c5a37c32225ef44679b3b2e">
+    <a href="http://www.20minutes.fr/" target="_blank">http://www.20minutes.fr/</a> <span class="clickable" onclick="golocal('#681c7258eb5ac7335c5a37c32225ef44679b3b2e');">local</span> <span class="clickable" onclick="gonational('#681c7258eb5ac7335c5a37c32225ef44679b3b2e');">national</span><br>
+</div>
+
+
+
+<div id="fbd53588dfc7285ddec13174c205c2a51cbfc301">
+    <a href="http://www.adetocqueville.com/" target="_blank">http://www.adetocqueville.com/</a> <span class="clickable" onclick="golocal('#fbd53588dfc7285ddec13174c205c2a51cbfc301');">local</span> <span class="clickable" onclick="gonational('#fbd53588dfc7285ddec13174c205c2a51cbfc301');">national</span><br>
+</div>
+
+
+
+<div id="e028c7b4232dbd9c19a1cfb1377a306b7f179426">
+    <a href="http://www.afp.com/" target="_blank">http://www.afp.com/</a> <span class="clickable" onclick="golocal('#e028c7b4232dbd9c19a1cfb1377a306b7f179426');">local</span> <span class="clickable" onclick="gonational('#e028c7b4232dbd9c19a1cfb1377a306b7f179426');">national</span><br>
+</div>
+
+
+
+<div id="e5abf246499632b1de78109628a841c6e96e4e08">
+    <a href="http://www.aquitainenews.com/" target="_blank">http://www.aquitainenews.com/</a> <span class="clickable" onclick="golocal('#e5abf246499632b1de78109628a841c6e96e4e08');">local</span> <span class="clickable" onclick="gonational('#e5abf246499632b1de78109628a841c6e96e4e08');">national</span><br>
+</div>
+
+
+
+<div id="5901c15f903c0c69457cc12b345e908225cba824">
+    <a href="http://www.bastidelife.com/" target="_blank">http://www.bastidelife.com/</a> <span class="clickable" onclick="golocal('#5901c15f903c0c69457cc12b345e908225cba824');">local</span> <span class="clickable" onclick="gonational('#5901c15f903c0c69457cc12b345e908225cba824');">national</span><br>
+</div>
+
+
+
+<div id="be8ad31998d2bdc2a3401a9103c382f3df9493c2">
+    <a href="http://www.bienpublic.com/" target="_blank">http://www.bienpublic.com/</a> <span class="clickable" onclick="golocal('#be8ad31998d2bdc2a3401a9103c382f3df9493c2');">local</span> <span class="clickable" onclick="gonational('#be8ad31998d2bdc2a3401a9103c382f3df9493c2');">national</span><br>
+</div>
+
+
+
+<div id="18ee9b68a1ed8c26c444867cb28967d5af57355b">
+    <a href="http://www.brittany-news.net/" target="_blank">http://www.brittany-news.net/</a> <span class="clickable" onclick="golocal('#18ee9b68a1ed8c26c444867cb28967d5af57355b');">local</span> <span class="clickable" onclick="gonational('#18ee9b68a1ed8c26c444867cb28967d5af57355b');">national</span><br>
+</div>
+
+
+
+<div id="090735cbfe5e890c9829065097aa5663c24a21e6">
+    <a href="http://www.brittanypages.com/" target="_blank">http://www.brittanypages.com/</a> <span class="clickable" onclick="golocal('#090735cbfe5e890c9829065097aa5663c24a21e6');">local</span> <span class="clickable" onclick="gonational('#090735cbfe5e890c9829065097aa5663c24a21e6');">national</span><br>
+</div>
+
+
+
+<div id="088c18261d48ba502651a783580a8470d32bdd66">
+    <a href="http://www.centre-presse.fr/" target="_blank">http://www.centre-presse.fr/</a> <span class="clickable" onclick="golocal('#088c18261d48ba502651a783580a8470d32bdd66');">local</span> <span class="clickable" onclick="gonational('#088c18261d48ba502651a783580a8470d32bdd66');">national</span><br>
+</div>
+
+
+
+<div id="c09a2fa677bf46865b3c39bfc98f2dcfc6550426">
+    <a href="http://www.charentelibre.fr/" target="_blank">http://www.charentelibre.fr/</a> <span class="clickable" onclick="golocal('#c09a2fa677bf46865b3c39bfc98f2dcfc6550426');">local</span> <span class="clickable" onclick="gonational('#c09a2fa677bf46865b3c39bfc98f2dcfc6550426');">national</span><br>
+</div>
+
+
+
+<div id="c3820cb9990fc2b95b1eda4d476b21115cd5b630">
+    <a href="http://www.clicanoo.re/" target="_blank">http://www.clicanoo.re/</a> <span class="clickable" onclick="golocal('#c3820cb9990fc2b95b1eda4d476b21115cd5b630');">local</span> <span class="clickable" onclick="gonational('#c3820cb9990fc2b95b1eda4d476b21115cd5b630');">national</span><br>
+</div>
+
+
+
+<div id="8c86a4c44c4530a779647d33a0948f038e7c3954">
+    <a href="http://www.connexionfrance.com/" target="_blank">http://www.connexionfrance.com/</a> <span class="clickable" onclick="golocal('#8c86a4c44c4530a779647d33a0948f038e7c3954');">local</span> <span class="clickable" onclick="gonational('#8c86a4c44c4530a779647d33a0948f038e7c3954');">national</span><br>
+</div>
+
+
+
+<div id="be6ec9172879d4650aabe879869512a13f0a9caa">
+    <a href="http://www.courrierinternational.com/" target="_blank">http://www.courrierinternational.com/</a> <span class="clickable" onclick="golocal('#be6ec9172879d4650aabe879869512a13f0a9caa');">local</span> <span class="clickable" onclick="gonational('#be6ec9172879d4650aabe879869512a13f0a9caa');">national</span><br>
+</div>
+
+
+
+<div id="708811353aea2cfbbf0afde5f2e4fbed525951a6">
+    <a href="http://www.courrier-picard.fr/version/home.htm" target="_blank">http://www.courrier-picard.fr/version/home.htm</a> <span class="clickable" onclick="golocal('#708811353aea2cfbbf0afde5f2e4fbed525951a6');">local</span> <span class="clickable" onclick="gonational('#708811353aea2cfbbf0afde5f2e4fbed525951a6');">national</span><br>
+</div>
+
+
+
+<div id="d999155f02b471851fe17ae60f4af9f51fa2a40c">
+    <a href="http://www.dna.fr/dna/" target="_blank">http://www.dna.fr/dna/</a> <span class="clickable" onclick="golocal('#d999155f02b471851fe17ae60f4af9f51fa2a40c');">local</span> <span class="clickable" onclick="gonational('#d999155f02b471851fe17ae60f4af9f51fa2a40c');">national</span><br>
+</div>
+
+
+
+<div id="f43798de7ccb2fcea29e00e35bd3df44e5fc1c86">
+    <a href="http://www.essorsarladais.com/index.php" target="_blank">http://www.essorsarladais.com/index.php</a> <span class="clickable" onclick="golocal('#f43798de7ccb2fcea29e00e35bd3df44e5fc1c86');">local</span> <span class="clickable" onclick="gonational('#f43798de7ccb2fcea29e00e35bd3df44e5fc1c86');">national</span><br>
+</div>
+
+
+
+<div id="7fad33b7b581b782116d9e06fb6a7fa9d6281d05">
+    <a href="http://www.estrepublicain.fr/" target="_blank">http://www.estrepublicain.fr/</a> <span class="clickable" onclick="golocal('#7fad33b7b581b782116d9e06fb6a7fa9d6281d05');">local</span> <span class="clickable" onclick="gonational('#7fad33b7b581b782116d9e06fb6a7fa9d6281d05');">national</span><br>
+</div>
+
+
+
+<div id="5d6bbcd11ae4746e7387bf8d86792195e4780e8b">
+    <a href="http://www.eurofora.net/" target="_blank">http://www.eurofora.net/</a> <span class="clickable" onclick="golocal('#5d6bbcd11ae4746e7387bf8d86792195e4780e8b');">local</span> <span class="clickable" onclick="gonational('#5d6bbcd11ae4746e7387bf8d86792195e4780e8b');">national</span><br>
+</div>
+
+
+
+<div id="fa65eabc2886c391b58dea1ecccf96de106a6825">
+    <a href="http://www.expatica.com/fr/main.html" target="_blank">http://www.expatica.com/fr/main.html</a> <span class="clickable" onclick="golocal('#fa65eabc2886c391b58dea1ecccf96de106a6825');">local</span> <span class="clickable" onclick="gonational('#fa65eabc2886c391b58dea1ecccf96de106a6825');">national</span><br>
+</div>
+
+
+
+<div id="594c40e9ea16f3a872d536ed23aa5f57a61d25f2">
+    <a href="http://www.farmerama.fr/" target="_blank">http://www.farmerama.fr/</a> <span class="clickable" onclick="golocal('#594c40e9ea16f3a872d536ed23aa5f57a61d25f2');">local</span> <span class="clickable" onclick="gonational('#594c40e9ea16f3a872d536ed23aa5f57a61d25f2');">national</span><br>
+</div>
+
+
+
+<div id="1f600081e3835df6d7806ee0ace05b116432fbca">
+    <a href="http://www.france2.fr/" target="_blank">http://www.france2.fr/</a> <span class="clickable" onclick="golocal('#1f600081e3835df6d7806ee0ace05b116432fbca');">local</span> <span class="clickable" onclick="gonational('#1f600081e3835df6d7806ee0ace05b116432fbca');">national</span><br>
+</div>
+
+
+
+<div id="352d8f1ef7e3caeb6ec2646b393b9a05dd5938af">
+    <a href="http://www.francenetinfos.com/" target="_blank">http://www.francenetinfos.com/</a> <span class="clickable" onclick="golocal('#352d8f1ef7e3caeb6ec2646b393b9a05dd5938af');">local</span> <span class="clickable" onclick="gonational('#352d8f1ef7e3caeb6ec2646b393b9a05dd5938af');">national</span><br>
+</div>
+
+
+
+<div id="a5204771c37bf480825bea28475586018fb173af">
+    <a href="http://www.francesoir.fr/" target="_blank">http://www.francesoir.fr/</a> <span class="clickable" onclick="golocal('#a5204771c37bf480825bea28475586018fb173af');">local</span> <span class="clickable" onclick="gonational('#a5204771c37bf480825bea28475586018fb173af');">national</span><br>
+</div>
+
+
+
+<div id="b2d2694876b352b0b31b558f9261bcc91edeff9e">
+    <a href="http://www.frenchnewsdordogne.com/" target="_blank">http://www.frenchnewsdordogne.com/</a> <span class="clickable" onclick="golocal('#b2d2694876b352b0b31b558f9261bcc91edeff9e');">local</span> <span class="clickable" onclick="gonational('#b2d2694876b352b0b31b558f9261bcc91edeff9e');">national</span><br>
+</div>
+
+
+
+<div id="cd8e2d81615fda674301c091d155f73c63a3265c">
+    <a href="http://www.french-news-online.com/" target="_blank">http://www.french-news-online.com/</a> <span class="clickable" onclick="golocal('#cd8e2d81615fda674301c091d155f73c63a3265c');">local</span> <span class="clickable" onclick="gonational('#cd8e2d81615fda674301c091d155f73c63a3265c');">national</span><br>
+</div>
+
+
+
+<div id="44ca913cf612e2abf0f0a4a5af56924a4c64858b">
+    <a href="http://www.french-news-online.com/index.html" target="_blank">http://www.french-news-online.com/index.html</a> <span class="clickable" onclick="golocal('#44ca913cf612e2abf0f0a4a5af56924a4c64858b');">local</span> <span class="clickable" onclick="gonational('#44ca913cf612e2abf0f0a4a5af56924a4c64858b');">national</span><br>
+</div>
+
+
+
+<div id="2783ca8a2737c08c2a1e64d19a2f6e74bfa82e8a">
+    <a href="http://www.geoworldonline.com/" target="_blank">http://www.geoworldonline.com/</a> <span class="clickable" onclick="golocal('#2783ca8a2737c08c2a1e64d19a2f6e74bfa82e8a');">local</span> <span class="clickable" onclick="gonational('#2783ca8a2737c08c2a1e64d19a2f6e74bfa82e8a');">national</span><br>
+</div>
+
+
+
+<div id="ec83c784650759a0e626eb9d871de74e04edab42">
+    <a href="http://www.heralddeparis.com/" target="_blank">http://www.heralddeparis.com/</a> <span class="clickable" onclick="golocal('#ec83c784650759a0e626eb9d871de74e04edab42');">local</span> <span class="clickable" onclick="gonational('#ec83c784650759a0e626eb9d871de74e04edab42');">national</span><br>
+</div>
+
+
+
+<div id="0e06adf4e95b5e9e8afadb773756d49138f81d62">
+    <a href="http://www.humanite.fr/" target="_blank">http://www.humanite.fr/</a> <span class="clickable" onclick="golocal('#0e06adf4e95b5e9e8afadb773756d49138f81d62');">local</span> <span class="clickable" onclick="gonational('#0e06adf4e95b5e9e8afadb773756d49138f81d62');">national</span><br>
+</div>
+
+
+
+<div id="ac08e1e42fcecad889a7021e64d79983a76ec315">
+    <a href="http://www.iht.com/" target="_blank">http://www.iht.com/</a> <span class="clickable" onclick="golocal('#ac08e1e42fcecad889a7021e64d79983a76ec315');">local</span> <span class="clickable" onclick="gonational('#ac08e1e42fcecad889a7021e64d79983a76ec315');">national</span><br>
+</div>
+
+
+
+<div id="fd4474cb673feeeca9e2f38022fbf850fdd61c44">
+    <a href="http://www.journaldelahautemarne.com/" target="_blank">http://www.journaldelahautemarne.com/</a> <span class="clickable" onclick="golocal('#fd4474cb673feeeca9e2f38022fbf850fdd61c44');">local</span> <span class="clickable" onclick="gonational('#fd4474cb673feeeca9e2f38022fbf850fdd61c44');">national</span><br>
+</div>
+
+
+
+<div id="09b83ec7bc867497fbae4b01660af761d4a6f0a1">
+    <a href="http://www.kashkazi.com/" target="_blank">http://www.kashkazi.com/</a> <span class="clickable" onclick="golocal('#09b83ec7bc867497fbae4b01660af761d4a6f0a1');">local</span> <span class="clickable" onclick="gonational('#09b83ec7bc867497fbae4b01660af761d4a6f0a1');">national</span><br>
+</div>
+
+
+
+<div id="dd17cdb3148179f9cc52b98e24420b48f3cc38c4">
+    <a href="http://www.la-croix.com/" target="_blank">http://www.la-croix.com/</a> <span class="clickable" onclick="golocal('#dd17cdb3148179f9cc52b98e24420b48f3cc38c4');">local</span> <span class="clickable" onclick="gonational('#dd17cdb3148179f9cc52b98e24420b48f3cc38c4');">national</span><br>
+</div>
+
+
+
+<div id="6776ac75e381d9dd29bf6e21c5b7602c55fdcfe3">
+    <a href="http://www.ladepeche.fr/depeche.asp" target="_blank">http://www.ladepeche.fr/depeche.asp</a> <span class="clickable" onclick="golocal('#6776ac75e381d9dd29bf6e21c5b7602c55fdcfe3');">local</span> <span class="clickable" onclick="gonational('#6776ac75e381d9dd29bf6e21c5b7602c55fdcfe3');">national</span><br>
+</div>
+
+
+
+<div id="98ffc7871c95a6a8d68c0afdb3a7e57810c7d83c">
+    <a href="http://www.lamontagne.fr/accueil.html" target="_blank">http://www.lamontagne.fr/accueil.html</a> <span class="clickable" onclick="golocal('#98ffc7871c95a6a8d68c0afdb3a7e57810c7d83c');">local</span> <span class="clickable" onclick="gonational('#98ffc7871c95a6a8d68c0afdb3a7e57810c7d83c');">national</span><br>
+</div>
+
+
+
+<div id="35104a25366936e9449ac4e76c94fbe14d5592b9">
+    <a href="http://www.languedocpages.com/" target="_blank">http://www.languedocpages.com/</a> <span class="clickable" onclick="golocal('#35104a25366936e9449ac4e76c94fbe14d5592b9');">local</span> <span class="clickable" onclick="gonational('#35104a25366936e9449ac4e76c94fbe14d5592b9');">national</span><br>
+</div>
+
+
+
+<div id="d9b0f075c13eeca27379984be1f16279d70c5c88">
+    <a href="http://www.lanouvellerepublique.fr/" target="_blank">http://www.lanouvellerepublique.fr/</a> <span class="clickable" onclick="golocal('#d9b0f075c13eeca27379984be1f16279d70c5c88');">local</span> <span class="clickable" onclick="gonational('#d9b0f075c13eeca27379984be1f16279d70c5c88');">national</span><br>
+</div>
+
+
+
+<div id="a82b909e60bb60d31275df5d8276598ac2a2851c">
+    <a href="http://www.laprovence.com/" target="_blank">http://www.laprovence.com/</a> <span class="clickable" onclick="golocal('#a82b909e60bb60d31275df5d8276598ac2a2851c');">local</span> <span class="clickable" onclick="gonational('#a82b909e60bb60d31275df5d8276598ac2a2851c');">national</span><br>
+</div>
+
+
+
+<div id="21e810656fa28f148a8b3b175f506d6c978130fb">
+    <a href="http://www.la-regeneration.com/" target="_blank">http://www.la-regeneration.com/</a> <span class="clickable" onclick="golocal('#21e810656fa28f148a8b3b175f506d6c978130fb');">local</span> <span class="clickable" onclick="gonational('#21e810656fa28f148a8b3b175f506d6c978130fb');">national</span><br>
+</div>
+
+
+
+<div id="5c7e68299f1c104a35ddd0edb45c3c2a267d7e37">
+    <a href="http://www.larepublique77.fr/" target="_blank">http://www.larepublique77.fr/</a> <span class="clickable" onclick="golocal('#5c7e68299f1c104a35ddd0edb45c3c2a267d7e37');">local</span> <span class="clickable" onclick="gonational('#5c7e68299f1c104a35ddd0edb45c3c2a267d7e37');">national</span><br>
+</div>
+
+
+
+<div id="bf87587180632e6e2019379e320e54a04eec40d5">
+    <a href="http://www.latribune.fr/" target="_blank">http://www.latribune.fr/</a> <span class="clickable" onclick="golocal('#bf87587180632e6e2019379e320e54a04eec40d5');">local</span> <span class="clickable" onclick="gonational('#bf87587180632e6e2019379e320e54a04eec40d5');">national</span><br>
+</div>
+
+
+
+<div id="6adb5f4595089735309a84152a4ae5c58d935667">
+    <a href="http://www.la-verite.org/" target="_blank">http://www.la-verite.org/</a> <span class="clickable" onclick="golocal('#6adb5f4595089735309a84152a4ae5c58d935667');">local</span> <span class="clickable" onclick="gonational('#6adb5f4595089735309a84152a4ae5c58d935667');">national</span><br>
+</div>
+
+
+
+<div id="15445c9be8ef8a13d7fa9ccd908e47fe1510a759">
+    <a href="http://www.lavoixdunord.fr/" target="_blank">http://www.lavoixdunord.fr/</a> <span class="clickable" onclick="golocal('#15445c9be8ef8a13d7fa9ccd908e47fe1510a759');">local</span> <span class="clickable" onclick="gonational('#15445c9be8ef8a13d7fa9ccd908e47fe1510a759');">national</span><br>
+</div>
+
+
+
+<div id="253a322aa7f3aa5ae3f24237efe8a35b5eb6c030">
+    <a href="http://www.le-canal.com/" target="_blank">http://www.le-canal.com/</a> <span class="clickable" onclick="golocal('#253a322aa7f3aa5ae3f24237efe8a35b5eb6c030');">local</span> <span class="clickable" onclick="gonational('#253a322aa7f3aa5ae3f24237efe8a35b5eb6c030');">national</span><br>
+</div>
+
+
+
+<div id="c9540bd85740cb93ccb95fdfca404243c0de4660">
+    <a href="http://www.ledauphine.com/" target="_blank">http://www.ledauphine.com/</a> <span class="clickable" onclick="golocal('#c9540bd85740cb93ccb95fdfca404243c0de4660');">local</span> <span class="clickable" onclick="gonational('#c9540bd85740cb93ccb95fdfca404243c0de4660');">national</span><br>
+</div>
+
+
+
+<div id="9b6f9233210ad1902a9cd65b764f0cbb4c147a62">
+    <a href="http://www.lefigaro.fr/" target="_blank">http://www.lefigaro.fr/</a> <span class="clickable" onclick="golocal('#9b6f9233210ad1902a9cd65b764f0cbb4c147a62');">local</span> <span class="clickable" onclick="gonational('#9b6f9233210ad1902a9cd65b764f0cbb4c147a62');">national</span><br>
+</div>
+
+
+
+<div id="2ac8b3447938d96963804757ef9ea0bff7f89ef7">
+    <a href="http://www.lejdd.fr/" target="_blank">http://www.lejdd.fr/</a> <span class="clickable" onclick="golocal('#2ac8b3447938d96963804757ef9ea0bff7f89ef7');">local</span> <span class="clickable" onclick="gonational('#2ac8b3447938d96963804757ef9ea0bff7f89ef7');">national</span><br>
+</div>
+
+
+
+<div id="30215f2e2e8c53b62731619f269db981bbc8db51">
+    <a href="http://www.lejpb.com/" target="_blank">http://www.lejpb.com/</a> <span class="clickable" onclick="golocal('#30215f2e2e8c53b62731619f269db981bbc8db51');">local</span> <span class="clickable" onclick="gonational('#30215f2e2e8c53b62731619f269db981bbc8db51');">national</span><br>
+</div>
+
+
+
+<div id="e944dc03c4b7eff7f2ff65e2dc4f3ad09776de68">
+    <a href="http://www.lejsl.com/" target="_blank">http://www.lejsl.com/</a> <span class="clickable" onclick="golocal('#e944dc03c4b7eff7f2ff65e2dc4f3ad09776de68');">local</span> <span class="clickable" onclick="gonational('#e944dc03c4b7eff7f2ff65e2dc4f3ad09776de68');">national</span><br>
+</div>
+
+
+
+<div id="f2d0335d085098550640311093d14b879b82e990">
+    <a href="http://www.lemonde.fr/" target="_blank">http://www.lemonde.fr/</a> <span class="clickable" onclick="golocal('#f2d0335d085098550640311093d14b879b82e990');">local</span> <span class="clickable" onclick="gonational('#f2d0335d085098550640311093d14b879b82e990');">national</span><br>
+</div>
+
+
+
+<div id="52ae87d242271a305fff905c5afa08b72f986e0a">
+    <a href="http://www.leparisien.fr/" target="_blank">http://www.leparisien.fr/</a> <span class="clickable" onclick="golocal('#52ae87d242271a305fff905c5afa08b72f986e0a');">local</span> <span class="clickable" onclick="gonational('#52ae87d242271a305fff905c5afa08b72f986e0a');">national</span><br>
+</div>
+
+
+
+<div id="7dfd8ee5a58e8d0c86a0fc4e666fca3fd1194146">
+    <a href="http://www.lepetitjournal.com/" target="_blank">http://www.lepetitjournal.com/</a> <span class="clickable" onclick="golocal('#7dfd8ee5a58e8d0c86a0fc4e666fca3fd1194146');">local</span> <span class="clickable" onclick="gonational('#7dfd8ee5a58e8d0c86a0fc4e666fca3fd1194146');">national</span><br>
+</div>
+
+
+
+<div id="d0e8d7734f308be807091e0fdb1ffc9a2a19f7cd">
+    <a href="http://www.leprogres.fr/" target="_blank">http://www.leprogres.fr/</a> <span class="clickable" onclick="golocal('#d0e8d7734f308be807091e0fdb1ffc9a2a19f7cd');">local</span> <span class="clickable" onclick="gonational('#d0e8d7734f308be807091e0fdb1ffc9a2a19f7cd');">national</span><br>
+</div>
+
+
+
+<div id="c8fc1c5a910f63d0fd862862e14adcc1ef8d42be">
+    <a href="http://www.lepublic-journal.com/" target="_blank">http://www.lepublic-journal.com/</a> <span class="clickable" onclick="golocal('#c8fc1c5a910f63d0fd862862e14adcc1ef8d42be');">local</span> <span class="clickable" onclick="gonational('#c8fc1c5a910f63d0fd862862e14adcc1ef8d42be');">national</span><br>
+</div>
+
+
+
+<div id="695b8f94a994d989af0989b933ea9f80bc886c47">
+    <a href="http://www.lequipe.fr/" target="_blank">http://www.lequipe.fr/</a> <span class="clickable" onclick="golocal('#695b8f94a994d989af0989b933ea9f80bc886c47');">local</span> <span class="clickable" onclick="gonational('#695b8f94a994d989af0989b933ea9f80bc886c47');">national</span><br>
+</div>
+
+
+
+<div id="4eff76396be3f067ab6b13e42dec1e828b907e83">
+    <a href="http://www.lesechos.fr/" target="_blank">http://www.lesechos.fr/</a> <span class="clickable" onclick="golocal('#4eff76396be3f067ab6b13e42dec1e828b907e83');">local</span> <span class="clickable" onclick="gonational('#4eff76396be3f067ab6b13e42dec1e828b907e83');">national</span><br>
+</div>
+
+
+
+<div id="02b22efd9dcbce543c757f7856ab41a8e2347b47">
+    <a href="http://www.letelegramme.fr/" target="_blank">http://www.letelegramme.fr/</a> <span class="clickable" onclick="golocal('#02b22efd9dcbce543c757f7856ab41a8e2347b47');">local</span> <span class="clickable" onclick="gonational('#02b22efd9dcbce543c757f7856ab41a8e2347b47');">national</span><br>
+</div>
+
+
+
+<div id="64dc4c50476a20289ffb04ec693aed84305db715">
+    <a href="http://www.lexpress.fr/" target="_blank">http://www.lexpress.fr/</a> <span class="clickable" onclick="golocal('#64dc4c50476a20289ffb04ec693aed84305db715');">local</span> <span class="clickable" onclick="gonational('#64dc4c50476a20289ffb04ec693aed84305db715');">national</span><br>
+</div>
+
+
+
+<div id="d1d2c43a447846511d3e2ee159cc8cc78d54cbb2">
+    <a href="http://www.liberacion24.cjb.net/" target="_blank">http://www.liberacion24.cjb.net/</a> <span class="clickable" onclick="golocal('#d1d2c43a447846511d3e2ee159cc8cc78d54cbb2');">local</span> <span class="clickable" onclick="gonational('#d1d2c43a447846511d3e2ee159cc8cc78d54cbb2');">national</span><br>
+</div>
+
+
+
+<div id="e2f732c06b319f0d1401766ab63dc2053982dd8d">
+    <a href="http://www.liberation.fr/" target="_blank">http://www.liberation.fr/</a> <span class="clickable" onclick="golocal('#e2f732c06b319f0d1401766ab63dc2053982dd8d');">local</span> <span class="clickable" onclick="gonational('#e2f732c06b319f0d1401766ab63dc2053982dd8d');">national</span><br>
+</div>
+
+
+
+<div id="3be23f826875f0dbd5950beab2c6c8180758f227">
+    <a href="http://www.limousin-news.com/" target="_blank">http://www.limousin-news.com/</a> <span class="clickable" onclick="golocal('#3be23f826875f0dbd5950beab2c6c8180758f227');">local</span> <span class="clickable" onclick="gonational('#3be23f826875f0dbd5950beab2c6c8180758f227');">national</span><br>
+</div>
+
+
+
+<div id="75220f0d62184e2d24f8b6bc4b6cbe00e9762c89">
+    <a href="http://www.lindependant.fr/" target="_blank">http://www.lindependant.fr/</a> <span class="clickable" onclick="golocal('#75220f0d62184e2d24f8b6bc4b6cbe00e9762c89');">local</span> <span class="clickable" onclick="gonational('#75220f0d62184e2d24f8b6bc4b6cbe00e9762c89');">national</span><br>
+</div>
+
+
+
+<div id="054183ad950870336d277c68be591bcd73af0f58">
+    <a href="http://www.linformateurdeu.fr/" target="_blank">http://www.linformateurdeu.fr/</a> <span class="clickable" onclick="golocal('#054183ad950870336d277c68be591bcd73af0f58');">local</span> <span class="clickable" onclick="gonational('#054183ad950870336d277c68be591bcd73af0f58');">national</span><br>
+</div>
+
+
+
+<div id="ae0062181feee8d3cd0cdab99800d94b551a0942">
+    <a href="http://www.lost-in-france.com/" target="_blank">http://www.lost-in-france.com/</a> <span class="clickable" onclick="golocal('#ae0062181feee8d3cd0cdab99800d94b551a0942');">local</span> <span class="clickable" onclick="gonational('#ae0062181feee8d3cd0cdab99800d94b551a0942');">national</span><br>
+</div>
+
+
+
+<div id="3dab24884a38148fa0214f1d3c70b7c55ae17fa3">
+    <a href="http://www.lyonne.fr/" target="_blank">http://www.lyonne.fr/</a> <span class="clickable" onclick="golocal('#3dab24884a38148fa0214f1d3c70b7c55ae17fa3');">local</span> <span class="clickable" onclick="gonational('#3dab24884a38148fa0214f1d3c70b7c55ae17fa3');">national</span><br>
+</div>
+
+
+
+<div id="d6b6c1b286cd47f2e49e7808378d62301e43257c">
+    <a href="http://www.marianne-en-ligne.fr/" target="_blank">http://www.marianne-en-ligne.fr/</a> <span class="clickable" onclick="golocal('#d6b6c1b286cd47f2e49e7808378d62301e43257c');">local</span> <span class="clickable" onclick="gonational('#d6b6c1b286cd47f2e49e7808378d62301e43257c');">national</span><br>
+</div>
+
+
+
+<div id="907c1f3f98aaa2439fa1eb9df67804fa50209bac">
+    <a href="http://www.metronews.fr/" target="_blank">http://www.metronews.fr/</a> <span class="clickable" onclick="golocal('#907c1f3f98aaa2439fa1eb9df67804fa50209bac');">local</span> <span class="clickable" onclick="gonational('#907c1f3f98aaa2439fa1eb9df67804fa50209bac');">national</span><br>
+</div>
+
+
+
+<div id="d2d4cde5a1f5e177c176501d799341013e543ebb">
+    <a href="http://www.midilibre.fr/accueilml.html" target="_blank">http://www.midilibre.fr/accueilml.html</a> <span class="clickable" onclick="golocal('#d2d4cde5a1f5e177c176501d799341013e543ebb');">local</span> <span class="clickable" onclick="gonational('#d2d4cde5a1f5e177c176501d799341013e543ebb');">national</span><br>
+</div>
+
+
+
+<div id="1ce3c46c83d9623f9b51240e1919980734312826">
+    <a href="http://www.monde-diplomatique.fr/" target="_blank">http://www.monde-diplomatique.fr/</a> <span class="clickable" onclick="golocal('#1ce3c46c83d9623f9b51240e1919980734312826');">local</span> <span class="clickable" onclick="gonational('#1ce3c46c83d9623f9b51240e1919980734312826');">national</span><br>
+</div>
+
+
+
+<div id="6bc12f3bc8577d2845375bf3614ee0902b6a519d">
+    <a href="http://www.nicematin.com/" target="_blank">http://www.nicematin.com/</a> <span class="clickable" onclick="golocal('#6bc12f3bc8577d2845375bf3614ee0902b6a519d');">local</span> <span class="clickable" onclick="gonational('#6bc12f3bc8577d2845375bf3614ee0902b6a519d');">national</span><br>
+</div>
+
+
+
+<div id="5af3ece5ed5ba3b8f19ce052f5194af33f7bdf15">
+    <a href="http://www.ouest-france.fr/" target="_blank">http://www.ouest-france.fr/</a> <span class="clickable" onclick="golocal('#5af3ece5ed5ba3b8f19ce052f5194af33f7bdf15');">local</span> <span class="clickable" onclick="gonational('#5af3ece5ed5ba3b8f19ce052f5194af33f7bdf15');">national</span><br>
+</div>
+
+
+
+<div id="06a856c3b067c53976e85ad5009d21f4da63d381">
+    <a href="http://www.parisguardian.com/" target="_blank">http://www.parisguardian.com/</a> <span class="clickable" onclick="golocal('#06a856c3b067c53976e85ad5009d21f4da63d381');">local</span> <span class="clickable" onclick="gonational('#06a856c3b067c53976e85ad5009d21f4da63d381');">national</span><br>
+</div>
+
+
+
+<div id="38392526b6f505d69583c18fac6726544e457c4e">
+    <a href="http://www.paris-normandie.fr/" target="_blank">http://www.paris-normandie.fr/</a> <span class="clickable" onclick="golocal('#38392526b6f505d69583c18fac6726544e457c4e');">local</span> <span class="clickable" onclick="gonational('#38392526b6f505d69583c18fac6726544e457c4e');">national</span><br>
+</div>
+
+
+
+<div id="62970ee57074c951617761277076071b4cad84f3">
+    <a href="http://www.pravdaliberacion.cjb.net/" target="_blank">http://www.pravdaliberacion.cjb.net/</a> <span class="clickable" onclick="golocal('#62970ee57074c951617761277076071b4cad84f3');">local</span> <span class="clickable" onclick="gonational('#62970ee57074c951617761277076071b4cad84f3');">national</span><br>
+</div>
+
+
+
+<div id="15cff20a63567db57a4b81517ea9792d21ac24dd">
+    <a href="http://www.proche-orient.info/" target="_blank">http://www.proche-orient.info/</a> <span class="clickable" onclick="golocal('#15cff20a63567db57a4b81517ea9792d21ac24dd');">local</span> <span class="clickable" onclick="gonational('#15cff20a63567db57a4b81517ea9792d21ac24dd');">national</span><br>
+</div>
+
+
+
+<div id="d5e5ec43a77629ec0e5278cf5805c35fed86cd8e">
+    <a href="http://www.quibla.net/" target="_blank">http://www.quibla.net/</a> <span class="clickable" onclick="golocal('#d5e5ec43a77629ec0e5278cf5805c35fed86cd8e');">local</span> <span class="clickable" onclick="gonational('#d5e5ec43a77629ec0e5278cf5805c35fed86cd8e');">national</span><br>
+</div>
+
+
+
+<div id="a7418a6a28396436d482ef49f7a2d93e3f9f6ce3">
+    <a href="http://www.regards.fr/" target="_blank">http://www.regards.fr/</a> <span class="clickable" onclick="golocal('#a7418a6a28396436d482ef49f7a2d93e3f9f6ce3');">local</span> <span class="clickable" onclick="gonational('#a7418a6a28396436d482ef49f7a2d93e3f9f6ce3');">national</span><br>
+</div>
+
+
+
+<div id="1410e49cb8e415419f8507909519f16bf073c062">
+    <a href="http://www.republicain-lorrain.fr/" target="_blank">http://www.republicain-lorrain.fr/</a> <span class="clickable" onclick="golocal('#1410e49cb8e415419f8507909519f16bf073c062');">local</span> <span class="clickable" onclick="gonational('#1410e49cb8e415419f8507909519f16bf073c062');">national</span><br>
+</div>
+
+
+
+<div id="f4c4f90a01bc0e655f295b287f87301676d8f714">
+    <a href="http://www.reuters.fr/" target="_blank">http://www.reuters.fr/</a> <span class="clickable" onclick="golocal('#f4c4f90a01bc0e655f295b287f87301676d8f714');">local</span> <span class="clickable" onclick="gonational('#f4c4f90a01bc0e655f295b287f87301676d8f714');">national</span><br>
+</div>
+
+
+
+<div id="dff20a427612daa4ac0f0727684d872e1c7f89c9">
+    <a href="http://www.rivierareporter.com/" target="_blank">http://www.rivierareporter.com/</a> <span class="clickable" onclick="golocal('#dff20a427612daa4ac0f0727684d872e1c7f89c9');">local</span> <span class="clickable" onclick="gonational('#dff20a427612daa4ac0f0727684d872e1c7f89c9');">national</span><br>
+</div>
+
+
+
+<div id="9f3e405c8a87beff0fd0fadb3855be47495a2711">
+    <a href="http://www.rivieratimes.com/" target="_blank">http://www.rivieratimes.com/</a> <span class="clickable" onclick="golocal('#9f3e405c8a87beff0fd0fadb3855be47495a2711');">local</span> <span class="clickable" onclick="gonational('#9f3e405c8a87beff0fd0fadb3855be47495a2711');">national</span><br>
+</div>
+
+
+
+<div id="c96468d2b1e4c7f6ceb831418377d040491677b8">
+    <a href="http://www.sudouest.fr/" target="_blank">http://www.sudouest.fr/</a> <span class="clickable" onclick="golocal('#c96468d2b1e4c7f6ceb831418377d040491677b8');">local</span> <span class="clickable" onclick="gonational('#c96468d2b1e4c7f6ceb831418377d040491677b8');">national</span><br>
+</div>
+
+
+
+<div id="c167342687e595b78391da47086a814d7aae3c4d">
+    <a href="http://www.sxminfo.fr/" target="_blank">http://www.sxminfo.fr/</a> <span class="clickable" onclick="golocal('#c167342687e595b78391da47086a814d7aae3c4d');">local</span> <span class="clickable" onclick="gonational('#c167342687e595b78391da47086a814d7aae3c4d');">national</span><br>
+</div>
+
+
+
+<div id="4907eb43d0b8c8085cf65f39e430bb7d381f4b36">
+    <a href="http://www.terraeco.net/" target="_blank">http://www.terraeco.net/</a> <span class="clickable" onclick="golocal('#4907eb43d0b8c8085cf65f39e430bb7d381f4b36');">local</span> <span class="clickable" onclick="gonational('#4907eb43d0b8c8085cf65f39e430bb7d381f4b36');">national</span><br>
+</div>
+
+
+
+<div id="3cf814a7f7e4864ff2fb6bacbf4207900a53922e">
+    <a href="http://www.theadvertiser.fr/" target="_blank">http://www.theadvertiser.fr/</a> <span class="clickable" onclick="golocal('#3cf814a7f7e4864ff2fb6bacbf4207900a53922e');">local</span> <span class="clickable" onclick="gonational('#3cf814a7f7e4864ff2fb6bacbf4207900a53922e');">national</span><br>
+</div>
+
+
+
+<div id="19515c55b26e7cb3edb56f25df8486f8e950c172">
+    <a href="http://www.thefrenchpaper.com/" target="_blank">http://www.thefrenchpaper.com/</a> <span class="clickable" onclick="golocal('#19515c55b26e7cb3edb56f25df8486f8e950c172');">local</span> <span class="clickable" onclick="gonational('#19515c55b26e7cb3edb56f25df8486f8e950c172');">national</span><br>
+</div>
+
+
+
+<div id="8e1a42ad6bff254bc18913d4e27db7156cd7a5e8">
+    <a href="http://www.thelocal.fr/" target="_blank">http://www.thelocal.fr/</a> <span class="clickable" onclick="golocal('#8e1a42ad6bff254bc18913d4e27db7156cd7a5e8');">local</span> <span class="clickable" onclick="gonational('#8e1a42ad6bff254bc18913d4e27db7156cd7a5e8');">national</span><br>
+</div>
+
+
+
+<div id="ca2694fb524acc50ba73182824a3cd88d3d1d970">
+    <a href="http://www.toufaux.com/" target="_blank">http://www.toufaux.com/</a> <span class="clickable" onclick="golocal('#ca2694fb524acc50ba73182824a3cd88d3d1d970');">local</span> <span class="clickable" onclick="gonational('#ca2694fb524acc50ba73182824a3cd88d3d1d970');">national</span><br>
+</div>
+
+
+
+<br>
+<button onclick="removebutton();">Press here when you've finished! can be easier copy/paste</button>
+<br>
+<button onclick="showbutton();">Press if you've made a mistake, make buttons comeback</button>
+</body>
+</html>

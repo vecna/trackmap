@@ -1,0 +1,712 @@
+
+<html>
+
+<head>
+    <title>Just the test</title>
+    <script type="application/javascript" src="bower_components/jquery-2.1.0.min/index.js"></script>
+
+    <script type="application/javascript">
+
+
+        function golocal(elem) {
+            $(elem).appendTo("#localList");
+        }
+
+        function gonational(elem) {
+            $(elem).appendTo("#nationalList");
+        }
+
+        function removebutton() {
+            $('.clickable').hide();
+        }
+
+        function showbutton() {
+            $('.clickable').show();
+        }
+
+    </script>
+    <style type="text/css">
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        .urlList {
+            border-color: red;
+            background-color: palegoldenrod;
+            border-bottom-left-radius: 2px;
+            width: 100%;
+            margin-bottom: 3px;
+            font-family: monospace;
+        }
+        h1 {
+            text-align: center;
+            color: cadetblue;
+            font-size: 3em;
+        }
+        .clickable {
+            background-color: yellow;
+            color: blueviolet;
+            margin-left: 4em;
+            margin-right: 4em;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>
+greece
+</h1>
+
+<h2>National List</h2>
+<div class="urlList" id="nationalList">
+</div>
+
+<h2>Local/Specialistic List</h2>
+<div class="urlList" id="localList">
+</div>
+
+<h2>Unverified List</h2>
+
+
+<div id="17fa38dcfb318ff359ed3e192a3bb2e810e075b9">
+    <a href="http://athensexpress.gr/" target="_blank">http://athensexpress.gr/</a> <span class="clickable" onclick="golocal('#17fa38dcfb318ff359ed3e192a3bb2e810e075b9');">local</span> <span class="clickable" onclick="gonational('#17fa38dcfb318ff359ed3e192a3bb2e810e075b9');">national</span><br>
+</div>
+
+
+
+<div id="7cadccc2e5edaa4788bc395068f000ef584f6afa">
+    <a href="http://dailycitytimes.com/" target="_blank">http://dailycitytimes.com/</a> <span class="clickable" onclick="golocal('#7cadccc2e5edaa4788bc395068f000ef584f6afa');">local</span> <span class="clickable" onclick="gonational('#7cadccc2e5edaa4788bc395068f000ef584f6afa');">national</span><br>
+</div>
+
+
+
+<div id="7c6597768b0a7f847e5a3cdf93969a1099db05fb">
+    <a href="http://dimoskaipoliteia.blogspot.it/" target="_blank">http://dimoskaipoliteia.blogspot.it/</a> <span class="clickable" onclick="golocal('#7c6597768b0a7f847e5a3cdf93969a1099db05fb');">local</span> <span class="clickable" onclick="gonational('#7c6597768b0a7f847e5a3cdf93969a1099db05fb');">national</span><br>
+</div>
+
+
+
+<div id="51fd64463f9768097c1c76f8a22f901b8706903a">
+    <a href="http://ikypros.com/" target="_blank">http://ikypros.com/</a> <span class="clickable" onclick="golocal('#51fd64463f9768097c1c76f8a22f901b8706903a');">local</span> <span class="clickable" onclick="gonational('#51fd64463f9768097c1c76f8a22f901b8706903a');">national</span><br>
+</div>
+
+
+
+<div id="0073da185801b2be4397b444f6413c3018dcd6f2">
+    <a href="http://imerazante.gr/" target="_blank">http://imerazante.gr/</a> <span class="clickable" onclick="golocal('#0073da185801b2be4397b444f6413c3018dcd6f2');">local</span> <span class="clickable" onclick="gonational('#0073da185801b2be4397b444f6413c3018dcd6f2');">national</span><br>
+</div>
+
+
+
+<div id="96103838f50568919e304c255c6f0e8708e3b640">
+    <a href="http://mileikanea.gr/" target="_blank">http://mileikanea.gr/</a> <span class="clickable" onclick="golocal('#96103838f50568919e304c255c6f0e8708e3b640');">local</span> <span class="clickable" onclick="gonational('#96103838f50568919e304c255c6f0e8708e3b640');">national</span><br>
+</div>
+
+
+
+<div id="02acdb56a2b0970762a2d4e7a72ed4e7d43e5cc7">
+    <a href="http://pixel.indima.gr/" target="_blank">http://pixel.indima.gr/</a> <span class="clickable" onclick="golocal('#02acdb56a2b0970762a2d4e7a72ed4e7d43e5cc7');">local</span> <span class="clickable" onclick="gonational('#02acdb56a2b0970762a2d4e7a72ed4e7d43e5cc7');">national</span><br>
+</div>
+
+
+
+<div id="c035a57e11e5c359681ffb586fdc394733c69c7a">
+    <a href="http://traveldailynews.gr/" target="_blank">http://traveldailynews.gr/</a> <span class="clickable" onclick="golocal('#c035a57e11e5c359681ffb586fdc394733c69c7a');">local</span> <span class="clickable" onclick="gonational('#c035a57e11e5c359681ffb586fdc394733c69c7a');">national</span><br>
+</div>
+
+
+
+<div id="05bf4549f308826c6c1b279b8ec5a1de3e632555">
+    <a href="http://wcn.gr/" target="_blank">http://wcn.gr/</a> <span class="clickable" onclick="golocal('#05bf4549f308826c6c1b279b8ec5a1de3e632555');">local</span> <span class="clickable" onclick="gonational('#05bf4549f308826c6c1b279b8ec5a1de3e632555');">national</span><br>
+</div>
+
+
+
+<div id="7a04ddcd2225d84d1f58478e45b89cbb8274afc2">
+    <a href="http://www.adapokrites.gr/" target="_blank">http://www.adapokrites.gr/</a> <span class="clickable" onclick="golocal('#7a04ddcd2225d84d1f58478e45b89cbb8274afc2');">local</span> <span class="clickable" onclick="gonational('#7a04ddcd2225d84d1f58478e45b89cbb8274afc2');">national</span><br>
+</div>
+
+
+
+<div id="a859670ea5a8f5fe5607f9f7ddbe493d2e8b9965">
+    <a href="http://www.agelioforos.gr/" target="_blank">http://www.agelioforos.gr/</a> <span class="clickable" onclick="golocal('#a859670ea5a8f5fe5607f9f7ddbe493d2e8b9965');">local</span> <span class="clickable" onclick="gonational('#a859670ea5a8f5fe5607f9f7ddbe493d2e8b9965');">national</span><br>
+</div>
+
+
+
+<div id="c4222db45b63c22b6604175268cc5fc1e0d15bdb">
+    <a href="http://www.alithia.gr/" target="_blank">http://www.alithia.gr/</a> <span class="clickable" onclick="golocal('#c4222db45b63c22b6604175268cc5fc1e0d15bdb');">local</span> <span class="clickable" onclick="gonational('#c4222db45b63c22b6604175268cc5fc1e0d15bdb');">national</span><br>
+</div>
+
+
+
+<div id="6dd3b4d3612ac948168445063923046ab1ac5f1d">
+    <a href="http://www.anexartitos.gr/" target="_blank">http://www.anexartitos.gr/</a> <span class="clickable" onclick="golocal('#6dd3b4d3612ac948168445063923046ab1ac5f1d');">local</span> <span class="clickable" onclick="gonational('#6dd3b4d3612ac948168445063923046ab1ac5f1d');">national</span><br>
+</div>
+
+
+
+<div id="a46fa2eaf950c1a7951a67b65c0cba9543a5e9f4">
+    <a href="http://www.apofasi.gr/" target="_blank">http://www.apofasi.gr/</a> <span class="clickable" onclick="golocal('#a46fa2eaf950c1a7951a67b65c0cba9543a5e9f4');">local</span> <span class="clickable" onclick="gonational('#a46fa2eaf950c1a7951a67b65c0cba9543a5e9f4');">national</span><br>
+</div>
+
+
+
+<div id="59ea70da56a519156165d5174d33893a6280cb55">
+    <a href="http://www.apogevmatini.gr/" target="_blank">http://www.apogevmatini.gr/</a> <span class="clickable" onclick="golocal('#59ea70da56a519156165d5174d33893a6280cb55');">local</span> <span class="clickable" onclick="gonational('#59ea70da56a519156165d5174d33893a6280cb55');">national</span><br>
+</div>
+
+
+
+<div id="457c0e418245113f2c42033f0ef3ad5e2bc1a5cb">
+    <a href="http://www.athens-times.com/" target="_blank">http://www.athens-times.com/</a> <span class="clickable" onclick="golocal('#457c0e418245113f2c42033f0ef3ad5e2bc1a5cb');">local</span> <span class="clickable" onclick="gonational('#457c0e418245113f2c42033f0ef3ad5e2bc1a5cb');">national</span><br>
+</div>
+
+
+
+<div id="56ee365f87507236769de8b6a0da0e51bfeb1925">
+    <a href="http://www.athinapoli.gr/" target="_blank">http://www.athinapoli.gr/</a> <span class="clickable" onclick="golocal('#56ee365f87507236769de8b6a0da0e51bfeb1925');">local</span> <span class="clickable" onclick="gonational('#56ee365f87507236769de8b6a0da0e51bfeb1925');">national</span><br>
+</div>
+
+
+
+<div id="1547c479dacb3847dbdd17cca9893c85a5f85b72">
+    <a href="http://www.avgi.gr/" target="_blank">http://www.avgi.gr/</a> <span class="clickable" onclick="golocal('#1547c479dacb3847dbdd17cca9893c85a5f85b72');">local</span> <span class="clickable" onclick="gonational('#1547c479dacb3847dbdd17cca9893c85a5f85b72');">national</span><br>
+</div>
+
+
+
+<div id="b02db46ae64c488a22c91d77fb3b3c97992855e3">
+    <a href="http://www.axiaplus.gr/" target="_blank">http://www.axiaplus.gr/</a> <span class="clickable" onclick="golocal('#b02db46ae64c488a22c91d77fb3b3c97992855e3');">local</span> <span class="clickable" onclick="gonational('#b02db46ae64c488a22c91d77fb3b3c97992855e3');">national</span><br>
+</div>
+
+
+
+<div id="8f835ce89a1b216fcbc7cdd616e68aca61418123">
+    <a href="http://www.azator.gr/" target="_blank">http://www.azator.gr/</a> <span class="clickable" onclick="golocal('#8f835ce89a1b216fcbc7cdd616e68aca61418123');">local</span> <span class="clickable" onclick="gonational('#8f835ce89a1b216fcbc7cdd616e68aca61418123');">national</span><br>
+</div>
+
+
+
+<div id="22fcf0ddc4c6a01d134178b85174c5e23bde8271">
+    <a href="http://www.balkanchronicle.com/" target="_blank">http://www.balkanchronicle.com/</a> <span class="clickable" onclick="golocal('#22fcf0ddc4c6a01d134178b85174c5e23bde8271');">local</span> <span class="clickable" onclick="gonational('#22fcf0ddc4c6a01d134178b85174c5e23bde8271');">national</span><br>
+</div>
+
+
+
+<div id="c96b29dc76036a892f785b96621008ffea6b91b4">
+    <a href="http://www.chiosnews.com/" target="_blank">http://www.chiosnews.com/</a> <span class="clickable" onclick="golocal('#c96b29dc76036a892f785b96621008ffea6b91b4');">local</span> <span class="clickable" onclick="gonational('#c96b29dc76036a892f785b96621008ffea6b91b4');">national</span><br>
+</div>
+
+
+
+<div id="6e48860ce3d523a49cbda0ee51ba1a27a2d102e5">
+    <a href="http://www.cretetv.gr/" target="_blank">http://www.cretetv.gr/</a> <span class="clickable" onclick="golocal('#6e48860ce3d523a49cbda0ee51ba1a27a2d102e5');">local</span> <span class="clickable" onclick="gonational('#6e48860ce3d523a49cbda0ee51ba1a27a2d102e5');">national</span><br>
+</div>
+
+
+
+<div id="4c76432fbeb53c0b391a226216c96a278699af47">
+    <a href="http://www.dimokratiki.gr/" target="_blank">http://www.dimokratiki.gr/</a> <span class="clickable" onclick="golocal('#4c76432fbeb53c0b391a226216c96a278699af47');">local</span> <span class="clickable" onclick="gonational('#4c76432fbeb53c0b391a226216c96a278699af47');">national</span><br>
+</div>
+
+
+
+<div id="2a4c175f11a6fcb5b46146015788b5f69143bbee">
+    <a href="http://www.dimokratiki.org/" target="_blank">http://www.dimokratiki.org/</a> <span class="clickable" onclick="golocal('#2a4c175f11a6fcb5b46146015788b5f69143bbee');">local</span> <span class="clickable" onclick="gonational('#2a4c175f11a6fcb5b46146015788b5f69143bbee');">national</span><br>
+</div>
+
+
+
+<div id="43f851189f1c278547dd95fde9cca7cb254b8969">
+    <a href="http://www.dimotikosantilogos.gr/" target="_blank">http://www.dimotikosantilogos.gr/</a> <span class="clickable" onclick="golocal('#43f851189f1c278547dd95fde9cca7cb254b8969');">local</span> <span class="clickable" onclick="gonational('#43f851189f1c278547dd95fde9cca7cb254b8969');">national</span><br>
+</div>
+
+
+
+<div id="71c9535f349e17b183571515af5ed80b45dc8a2e">
+    <a href="http://www.edromos.gr/" target="_blank">http://www.edromos.gr/</a> <span class="clickable" onclick="golocal('#71c9535f349e17b183571515af5ed80b45dc8a2e');">local</span> <span class="clickable" onclick="gonational('#71c9535f349e17b183571515af5ed80b45dc8a2e');">national</span><br>
+</div>
+
+
+
+<div id="0cefe080bba9996887ca29c66fb97ae36ae47822">
+    <a href="http://www.egaleonews.bravehost.com/" target="_blank">http://www.egaleonews.bravehost.com/</a> <span class="clickable" onclick="golocal('#0cefe080bba9996887ca29c66fb97ae36ae47822');">local</span> <span class="clickable" onclick="gonational('#0cefe080bba9996887ca29c66fb97ae36ae47822');">national</span><br>
+</div>
+
+
+
+<div id="f5ba91797dd47335160af371a93ab3099fd7f819">
+    <a href="http://www.eklogika.gr/" target="_blank">http://www.eklogika.gr/</a> <span class="clickable" onclick="golocal('#f5ba91797dd47335160af371a93ab3099fd7f819');">local</span> <span class="clickable" onclick="gonational('#f5ba91797dd47335160af371a93ab3099fd7f819');">national</span><br>
+</div>
+
+
+
+<div id="83cd8ff5db710a75345119fb24464a3171a9d025">
+    <a href="http://www.eleftheria.gr/" target="_blank">http://www.eleftheria.gr/</a> <span class="clickable" onclick="golocal('#83cd8ff5db710a75345119fb24464a3171a9d025');">local</span> <span class="clickable" onclick="gonational('#83cd8ff5db710a75345119fb24464a3171a9d025');">national</span><br>
+</div>
+
+
+
+<div id="7d70225f1abd9c04d527164ffd9f1187b87e0fc9">
+    <a href="http://www.elkosmos.gr/" target="_blank">http://www.elkosmos.gr/</a> <span class="clickable" onclick="golocal('#7d70225f1abd9c04d527164ffd9f1187b87e0fc9');">local</span> <span class="clickable" onclick="gonational('#7d70225f1abd9c04d527164ffd9f1187b87e0fc9');">national</span><br>
+</div>
+
+
+
+<div id="3350bd79c2722cb79b511e18fa5177a869b5cd86">
+    <a href="http://www.elliniko-fenomeno.gr/" target="_blank">http://www.elliniko-fenomeno.gr/</a> <span class="clickable" onclick="golocal('#3350bd79c2722cb79b511e18fa5177a869b5cd86');">local</span> <span class="clickable" onclick="gonational('#3350bd79c2722cb79b511e18fa5177a869b5cd86');">national</span><br>
+</div>
+
+
+
+<div id="4aefdd249ce2fa8eb7dc8576fbbc5b11a0cde6dd">
+    <a href="http://www.emprosnet.gr/" target="_blank">http://www.emprosnet.gr/</a> <span class="clickable" onclick="golocal('#4aefdd249ce2fa8eb7dc8576fbbc5b11a0cde6dd');">local</span> <span class="clickable" onclick="gonational('#4aefdd249ce2fa8eb7dc8576fbbc5b11a0cde6dd');">national</span><br>
+</div>
+
+
+
+<div id="178dcee8232bc684263cdb167366d5ba9e49be80">
+    <a href="http://www.enet.gr/" target="_blank">http://www.enet.gr/</a> <span class="clickable" onclick="golocal('#178dcee8232bc684263cdb167366d5ba9e49be80');">local</span> <span class="clickable" onclick="gonational('#178dcee8232bc684263cdb167366d5ba9e49be80');">national</span><br>
+</div>
+
+
+
+<div id="57e16432f08f6d9a1a732917c112ebd8962a9618">
+    <a href="http://www.enimerosi.com/" target="_blank">http://www.enimerosi.com/</a> <span class="clickable" onclick="golocal('#57e16432f08f6d9a1a732917c112ebd8962a9618');">local</span> <span class="clickable" onclick="gonational('#57e16432f08f6d9a1a732917c112ebd8962a9618');">national</span><br>
+</div>
+
+
+
+<div id="43bd43af4123d935462b2b0987a5b4a87a1d5c89">
+    <a href="http://www.enosi.org/" target="_blank">http://www.enosi.org/</a> <span class="clickable" onclick="golocal('#43bd43af4123d935462b2b0987a5b4a87a1d5c89');">local</span> <span class="clickable" onclick="gonational('#43bd43af4123d935462b2b0987a5b4a87a1d5c89');">national</span><br>
+</div>
+
+
+
+<div id="e586fdc64cf745e4ebae32eb856b4cf6e4d40823">
+    <a href="http://www.epohi.gr/portal/" target="_blank">http://www.epohi.gr/portal/</a> <span class="clickable" onclick="golocal('#e586fdc64cf745e4ebae32eb856b4cf6e4d40823');">local</span> <span class="clickable" onclick="gonational('#e586fdc64cf745e4ebae32eb856b4cf6e4d40823');">national</span><br>
+</div>
+
+
+
+<div id="ca1a9ef986d9bb288556ed4738c9cbf27271d298">
+    <a href="http://www.espressonews.gr/" target="_blank">http://www.espressonews.gr/</a> <span class="clickable" onclick="golocal('#ca1a9ef986d9bb288556ed4738c9cbf27271d298');">local</span> <span class="clickable" onclick="gonational('#ca1a9ef986d9bb288556ed4738c9cbf27271d298');">national</span><br>
+</div>
+
+
+
+<div id="2341a0c2ccbe87f3ad18581001d2c21596dc88b5">
+    <a href="http://www.ethnos.gr/default.asp" target="_blank">http://www.ethnos.gr/default.asp</a> <span class="clickable" onclick="golocal('#2341a0c2ccbe87f3ad18581001d2c21596dc88b5');">local</span> <span class="clickable" onclick="gonational('#2341a0c2ccbe87f3ad18581001d2c21596dc88b5');">national</span><br>
+</div>
+
+
+
+<div id="9c1d1fdce964b145ce8fccc97bd1afc3ae4c3110">
+    <a href="http://www.e-typos.com/" target="_blank">http://www.e-typos.com/</a> <span class="clickable" onclick="golocal('#9c1d1fdce964b145ce8fccc97bd1afc3ae4c3110');">local</span> <span class="clickable" onclick="gonational('#9c1d1fdce964b145ce8fccc97bd1afc3ae4c3110');">national</span><br>
+</div>
+
+
+
+<div id="18ef7632725a2898febd1e8ed1962129728a9ad7">
+    <a href="http://www.express.gr/" target="_blank">http://www.express.gr/</a> <span class="clickable" onclick="golocal('#18ef7632725a2898febd1e8ed1962129728a9ad7');">local</span> <span class="clickable" onclick="gonational('#18ef7632725a2898febd1e8ed1962129728a9ad7');">national</span><br>
+</div>
+
+
+
+<div id="813da8b151a079334239cddd0c5b4c64f5c1874f">
+    <a href="http://www.faroslive.com/" target="_blank">http://www.faroslive.com/</a> <span class="clickable" onclick="golocal('#813da8b151a079334239cddd0c5b4c64f5c1874f');">local</span> <span class="clickable" onclick="gonational('#813da8b151a079334239cddd0c5b4c64f5c1874f');">national</span><br>
+</div>
+
+
+
+<div id="51c0ff59344e67b99b63cc34c197d37eff3fa6ca">
+    <a href="http://www.greekherald.com/" target="_blank">http://www.greekherald.com/</a> <span class="clickable" onclick="golocal('#51c0ff59344e67b99b63cc34c197d37eff3fa6ca');">local</span> <span class="clickable" onclick="gonational('#51c0ff59344e67b99b63cc34c197d37eff3fa6ca');">national</span><br>
+</div>
+
+
+
+<div id="4629959d4cfd2506131a48b0d2da41edf14b9f50">
+    <a href="http://www.griechenland.de/" target="_blank">http://www.griechenland.de/</a> <span class="clickable" onclick="golocal('#4629959d4cfd2506131a48b0d2da41edf14b9f50');">local</span> <span class="clickable" onclick="gonational('#4629959d4cfd2506131a48b0d2da41edf14b9f50');">national</span><br>
+</div>
+
+
+
+<div id="9af7502d59d521ca2c8c96d8edc11596e9a169f6">
+    <a href="http://www.haniotika-nea.gr/" target="_blank">http://www.haniotika-nea.gr/</a> <span class="clickable" onclick="golocal('#9af7502d59d521ca2c8c96d8edc11596e9a169f6');">local</span> <span class="clickable" onclick="gonational('#9af7502d59d521ca2c8c96d8edc11596e9a169f6');">national</span><br>
+</div>
+
+
+
+<div id="7f0ce362d9a91c72af6f79f2b9e78cf093eee055">
+    <a href="http://www.hri.org/news/greek/mpa/" target="_blank">http://www.hri.org/news/greek/mpa/</a> <span class="clickable" onclick="golocal('#7f0ce362d9a91c72af6f79f2b9e78cf093eee055');">local</span> <span class="clickable" onclick="gonational('#7f0ce362d9a91c72af6f79f2b9e78cf093eee055');">national</span><br>
+</div>
+
+
+
+<div id="bc4e0e0202eee1318f15dfd5563bb8ee5c32dac1">
+    <a href="http://www.hyper.gr/makthes/" target="_blank">http://www.hyper.gr/makthes/</a> <span class="clickable" onclick="golocal('#bc4e0e0202eee1318f15dfd5563bb8ee5c32dac1');">local</span> <span class="clickable" onclick="gonational('#bc4e0e0202eee1318f15dfd5563bb8ee5c32dac1');">national</span><br>
+</div>
+
+
+
+<div id="6d35f756147bca6cd0d4bd21305a421559a1b132">
+    <a href="http://www.iht.com/frontpage.html" target="_blank">http://www.iht.com/frontpage.html</a> <span class="clickable" onclick="golocal('#6d35f756147bca6cd0d4bd21305a421559a1b132');">local</span> <span class="clickable" onclick="gonational('#6d35f756147bca6cd0d4bd21305a421559a1b132');">national</span><br>
+</div>
+
+
+
+<div id="c2120ed0ebab45974b19242604d13bf9258c8e26">
+    <a href="http://www.imerisia.gr/default.asp" target="_blank">http://www.imerisia.gr/default.asp</a> <span class="clickable" onclick="golocal('#c2120ed0ebab45974b19242604d13bf9258c8e26');">local</span> <span class="clickable" onclick="gonational('#c2120ed0ebab45974b19242604d13bf9258c8e26');">national</span><br>
+</div>
+
+
+
+<div id="21a602fd18a7cedd4f2831e664d71e38662a0cef">
+    <a href="http://www.imerisia-ver.gr/" target="_blank">http://www.imerisia-ver.gr/</a> <span class="clickable" onclick="golocal('#21a602fd18a7cedd4f2831e664d71e38662a0cef');">local</span> <span class="clickable" onclick="gonational('#21a602fd18a7cedd4f2831e664d71e38662a0cef');">national</span><br>
+</div>
+
+
+
+<div id="54a6f720c330ee271fbf61bfffcab1ab59b7cee5">
+    <a href="http://www.in.gr/" target="_blank">http://www.in.gr/</a> <span class="clickable" onclick="golocal('#54a6f720c330ee271fbf61bfffcab1ab59b7cee5');">local</span> <span class="clickable" onclick="gonational('#54a6f720c330ee271fbf61bfffcab1ab59b7cee5');">national</span><br>
+</div>
+
+
+
+<div id="f102d0da009fb1eaf2e17c359ca315c46cd05385">
+    <a href="http://www.isotimia.gr/" target="_blank">http://www.isotimia.gr/</a> <span class="clickable" onclick="golocal('#f102d0da009fb1eaf2e17c359ca315c46cd05385');">local</span> <span class="clickable" onclick="gonational('#f102d0da009fb1eaf2e17c359ca315c46cd05385');">national</span><br>
+</div>
+
+
+
+<div id="8b660456eb294a4ad269e5ecdb60277aecac89fa">
+    <a href="http://www.kalami.net/" target="_blank">http://www.kalami.net/</a> <span class="clickable" onclick="golocal('#8b660456eb294a4ad269e5ecdb60277aecac89fa');">local</span> <span class="clickable" onclick="gonational('#8b660456eb294a4ad269e5ecdb60277aecac89fa');">national</span><br>
+</div>
+
+
+
+<div id="978754105da71cdeb6844b1b15e2aa7cd7988682">
+    <a href="http://www.kardasi.gr/" target="_blank">http://www.kardasi.gr/</a> <span class="clickable" onclick="golocal('#978754105da71cdeb6844b1b15e2aa7cd7988682');">local</span> <span class="clickable" onclick="gonational('#978754105da71cdeb6844b1b15e2aa7cd7988682');">national</span><br>
+</div>
+
+
+
+<div id="cdb520527b9b402bc3875268717d462cd2ad22ca">
+    <a href="http://www.kathimerini.gr/" target="_blank">http://www.kathimerini.gr/</a> <span class="clickable" onclick="golocal('#cdb520527b9b402bc3875268717d462cd2ad22ca');">local</span> <span class="clickable" onclick="gonational('#cdb520527b9b402bc3875268717d462cd2ad22ca');">national</span><br>
+</div>
+
+
+
+<div id="291869e0ebab9d51f0ee2f70027cdb9cddc0ecf5">
+    <a href="http://www.kerdos.gr/agora/index.html" target="_blank">http://www.kerdos.gr/agora/index.html</a> <span class="clickable" onclick="golocal('#291869e0ebab9d51f0ee2f70027cdb9cddc0ecf5');">local</span> <span class="clickable" onclick="gonational('#291869e0ebab9d51f0ee2f70027cdb9cddc0ecf5');">national</span><br>
+</div>
+
+
+
+<div id="8273e0dc571d53b31ed861ca9113da4f3d90c7c0">
+    <a href="http://www.kidsguide.gr/portal/" target="_blank">http://www.kidsguide.gr/portal/</a> <span class="clickable" onclick="golocal('#8273e0dc571d53b31ed861ca9113da4f3d90c7c0');">local</span> <span class="clickable" onclick="gonational('#8273e0dc571d53b31ed861ca9113da4f3d90c7c0');">national</span><br>
+</div>
+
+
+
+<div id="1d2bf40610f89e2a2516b7efb89cc197e94e1438">
+    <a href="http://www.kirikas.gr/gr/" target="_blank">http://www.kirikas.gr/gr/</a> <span class="clickable" onclick="golocal('#1d2bf40610f89e2a2516b7efb89cc197e94e1438');">local</span> <span class="clickable" onclick="gonational('#1d2bf40610f89e2a2516b7efb89cc197e94e1438');">national</span><br>
+</div>
+
+
+
+<div id="b47beb20952802968a45b93d8857edfadd621c55">
+    <a href="http://www.kkeml.gr/index_ps.htm/" target="_blank">http://www.kkeml.gr/index_ps.htm/</a> <span class="clickable" onclick="golocal('#b47beb20952802968a45b93d8857edfadd621c55');">local</span> <span class="clickable" onclick="gonational('#b47beb20952802968a45b93d8857edfadd621c55');">national</span><br>
+</div>
+
+
+
+<div id="1ba6664cf690b525416572d564f05cbf2213642d">
+    <a href="http://www.koel.gr/" target="_blank">http://www.koel.gr/</a> <span class="clickable" onclick="golocal('#1ba6664cf690b525416572d564f05cbf2213642d');">local</span> <span class="clickable" onclick="gonational('#1ba6664cf690b525416572d564f05cbf2213642d');">national</span><br>
+</div>
+
+
+
+<div id="f38e2df94c44d0f759b80992a04921914a2a1b38">
+    <a href="http://www.konstantinoupolis.net/" target="_blank">http://www.konstantinoupolis.net/</a> <span class="clickable" onclick="golocal('#f38e2df94c44d0f759b80992a04921914a2a1b38');">local</span> <span class="clickable" onclick="gonational('#f38e2df94c44d0f759b80992a04921914a2a1b38');">national</span><br>
+</div>
+
+
+
+<div id="64d756d44660e102b60b0ea177b4380bda933e1f">
+    <a href="http://www.kosmoslarissa.gr/" target="_blank">http://www.kosmoslarissa.gr/</a> <span class="clickable" onclick="golocal('#64d756d44660e102b60b0ea177b4380bda933e1f');">local</span> <span class="clickable" onclick="gonational('#64d756d44660e102b60b0ea177b4380bda933e1f');">national</span><br>
+</div>
+
+
+
+<div id="304067757669927ec1839a108e9f1d905ffb8216">
+    <a href="http://www.k-tipos.gr/" target="_blank">http://www.k-tipos.gr/</a> <span class="clickable" onclick="golocal('#304067757669927ec1839a108e9f1d905ffb8216');">local</span> <span class="clickable" onclick="gonational('#304067757669927ec1839a108e9f1d905ffb8216');">national</span><br>
+</div>
+
+
+
+<div id="3d6e369e26798295b4b6cc57edfb5482424e7ce4">
+    <a href="http://www.laos-epea.gr/" target="_blank">http://www.laos-epea.gr/</a> <span class="clickable" onclick="golocal('#3d6e369e26798295b4b6cc57edfb5482424e7ce4');">local</span> <span class="clickable" onclick="gonational('#3d6e369e26798295b4b6cc57edfb5482424e7ce4');">national</span><br>
+</div>
+
+
+
+<div id="93c7cb7fcfb63ae9ee741aad13fcbc33be22763e">
+    <a href="http://www.larissaonline.gr/" target="_blank">http://www.larissaonline.gr/</a> <span class="clickable" onclick="golocal('#93c7cb7fcfb63ae9ee741aad13fcbc33be22763e');">local</span> <span class="clickable" onclick="gonational('#93c7cb7fcfb63ae9ee741aad13fcbc33be22763e');">national</span><br>
+</div>
+
+
+
+<div id="720cb70cb5c0f2ea60418fb2538cce7a14814e07">
+    <a href="http://www.logospellas.gr/" target="_blank">http://www.logospellas.gr/</a> <span class="clickable" onclick="golocal('#720cb70cb5c0f2ea60418fb2538cce7a14814e07');">local</span> <span class="clickable" onclick="gonational('#720cb70cb5c0f2ea60418fb2538cce7a14814e07');">national</span><br>
+</div>
+
+
+
+<div id="9b934fdf92bc3522329e8bf47735f64407978c86">
+    <a href="http://www.madata.gr/" target="_blank">http://www.madata.gr/</a> <span class="clickable" onclick="golocal('#9b934fdf92bc3522329e8bf47735f64407978c86');">local</span> <span class="clickable" onclick="gonational('#9b934fdf92bc3522329e8bf47735f64407978c86');">national</span><br>
+</div>
+
+
+
+<div id="5b517ea2d485b510605367323169f2dfedb762ef">
+    <a href="http://www.madatoforos.com/" target="_blank">http://www.madatoforos.com/</a> <span class="clickable" onclick="golocal('#5b517ea2d485b510605367323169f2dfedb762ef');">local</span> <span class="clickable" onclick="gonational('#5b517ea2d485b510605367323169f2dfedb762ef');">national</span><br>
+</div>
+
+
+
+<div id="d4bef97f0e554f024eb6dd0066f08d14c05211dc">
+    <a href="http://www.magcloud.com/user/1tp4pcdp" target="_blank">http://www.magcloud.com/user/1tp4pcdp</a> <span class="clickable" onclick="golocal('#d4bef97f0e554f024eb6dd0066f08d14c05211dc');">local</span> <span class="clickable" onclick="gonational('#d4bef97f0e554f024eb6dd0066f08d14c05211dc');">national</span><br>
+</div>
+
+
+
+<div id="0cc8c91b7b302cfe0cd1f6be87135398c88c6f0c">
+    <a href="http://www.magicways.gr/" target="_blank">http://www.magicways.gr/</a> <span class="clickable" onclick="golocal('#0cc8c91b7b302cfe0cd1f6be87135398c88c6f0c');">local</span> <span class="clickable" onclick="gonational('#0cc8c91b7b302cfe0cd1f6be87135398c88c6f0c');">national</span><br>
+</div>
+
+
+
+<div id="7457d4f5e128c49e82db1a36b1e0581a2f641ca3">
+    <a href="http://www.makthes.gr/" target="_blank">http://www.makthes.gr/</a> <span class="clickable" onclick="golocal('#7457d4f5e128c49e82db1a36b1e0581a2f641ca3');">local</span> <span class="clickable" onclick="gonational('#7457d4f5e128c49e82db1a36b1e0581a2f641ca3');">national</span><br>
+</div>
+
+
+
+<div id="ad7c6041e3135556ac14fa2950ad0687de835846">
+    <a href="http://www.nafpaktianews.gr/" target="_blank">http://www.nafpaktianews.gr/</a> <span class="clickable" onclick="golocal('#ad7c6041e3135556ac14fa2950ad0687de835846');">local</span> <span class="clickable" onclick="gonational('#ad7c6041e3135556ac14fa2950ad0687de835846');">national</span><br>
+</div>
+
+
+
+<div id="c16e02187ad2342ac1db884913c5e4d38600c2b1">
+    <a href="http://www.naftemporiki.gr/" target="_blank">http://www.naftemporiki.gr/</a> <span class="clickable" onclick="golocal('#c16e02187ad2342ac1db884913c5e4d38600c2b1');">local</span> <span class="clickable" onclick="gonational('#c16e02187ad2342ac1db884913c5e4d38600c2b1');">national</span><br>
+</div>
+
+
+
+<div id="7fee80f4749169a18f19d9d732c9647372e86e0a">
+    <a href="http://www.neoiagones.gr/" target="_blank">http://www.neoiagones.gr/</a> <span class="clickable" onclick="golocal('#7fee80f4749169a18f19d9d732c9647372e86e0a');">local</span> <span class="clickable" onclick="gonational('#7fee80f4749169a18f19d9d732c9647372e86e0a');">national</span><br>
+</div>
+
+
+
+<div id="0b8d8349a2a51437dff41280eedb5eb27b662710">
+    <a href="http://www.orizontespress.gr/" target="_blank">http://www.orizontespress.gr/</a> <span class="clickable" onclick="golocal('#0b8d8349a2a51437dff41280eedb5eb27b662710');">local</span> <span class="clickable" onclick="gonational('#0b8d8349a2a51437dff41280eedb5eb27b662710');">national</span><br>
+</div>
+
+
+
+<div id="9789bc8bd95025a12c63e591b21773fff80c0780">
+    <a href="http://www.patris.gr/frontpage" target="_blank">http://www.patris.gr/frontpage</a> <span class="clickable" onclick="golocal('#9789bc8bd95025a12c63e591b21773fff80c0780');">local</span> <span class="clickable" onclick="gonational('#9789bc8bd95025a12c63e591b21773fff80c0780');">national</span><br>
+</div>
+
+
+
+<div id="e6134f0483e71d5314a6084758f9351f6a82fdca">
+    <a href="http://www.photoreportage.gr/" target="_blank">http://www.photoreportage.gr/</a> <span class="clickable" onclick="golocal('#e6134f0483e71d5314a6084758f9351f6a82fdca');">local</span> <span class="clickable" onclick="gonational('#e6134f0483e71d5314a6084758f9351f6a82fdca');">national</span><br>
+</div>
+
+
+
+<div id="3775d705042047cb1b2a2930b4e098ca986d6dc4">
+    <a href="http://www.pierikoiantilaloi.gr/" target="_blank">http://www.pierikoiantilaloi.gr/</a> <span class="clickable" onclick="golocal('#3775d705042047cb1b2a2930b4e098ca986d6dc4');">local</span> <span class="clickable" onclick="gonational('#3775d705042047cb1b2a2930b4e098ca986d6dc4');">national</span><br>
+</div>
+
+
+
+<div id="85e03e36095b4479bf2927e8db1588d8d3c1e962">
+    <a href="http://www.pliroforiodotis.gr/" target="_blank">http://www.pliroforiodotis.gr/</a> <span class="clickable" onclick="golocal('#85e03e36095b4479bf2927e8db1588d8d3c1e962');">local</span> <span class="clickable" onclick="gonational('#85e03e36095b4479bf2927e8db1588d8d3c1e962');">national</span><br>
+</div>
+
+
+
+<div id="e2efc28573f14d99c3670744cb26e6cd9c6bd7a3">
+    <a href="http://www.pmnews.gr/" target="_blank">http://www.pmnews.gr/</a> <span class="clickable" onclick="golocal('#e2efc28573f14d99c3670744cb26e6cd9c6bd7a3');">local</span> <span class="clickable" onclick="gonational('#e2efc28573f14d99c3670744cb26e6cd9c6bd7a3');">national</span><br>
+</div>
+
+
+
+<div id="a71a0366cb435096ab5586ad3c52abc17b1614b2">
+    <a href="http://www.proini.eu/" target="_blank">http://www.proini.eu/</a> <span class="clickable" onclick="golocal('#a71a0366cb435096ab5586ad3c52abc17b1614b2');">local</span> <span class="clickable" onclick="gonational('#a71a0366cb435096ab5586ad3c52abc17b1614b2');">national</span><br>
+</div>
+
+
+
+<div id="a5bfd0b3c04d032167fdffc4395284247e0f0b52">
+    <a href="http://www.proodos.net/" target="_blank">http://www.proodos.net/</a> <span class="clickable" onclick="golocal('#a5bfd0b3c04d032167fdffc4395284247e0f0b52');">local</span> <span class="clickable" onclick="gonational('#a5bfd0b3c04d032167fdffc4395284247e0f0b52');">national</span><br>
+</div>
+
+
+
+<div id="f9b44c55d488b21d19587f788985c725574506ff">
+    <a href="http://www.protothema.gr/" target="_blank">http://www.protothema.gr/</a> <span class="clickable" onclick="golocal('#f9b44c55d488b21d19587f788985c725574506ff');">local</span> <span class="clickable" onclick="gonational('#f9b44c55d488b21d19587f788985c725574506ff');">national</span><br>
+</div>
+
+
+
+<div id="4a64369c7f78e0bc3ed311b3b631b60bc65c4ec8">
+    <a href="http://www.pyxida.gr/" target="_blank">http://www.pyxida.gr/</a> <span class="clickable" onclick="golocal('#4a64369c7f78e0bc3ed311b3b631b60bc65c4ec8');">local</span> <span class="clickable" onclick="gonational('#4a64369c7f78e0bc3ed311b3b631b60bc65c4ec8');">national</span><br>
+</div>
+
+
+
+<div id="4d2c115e0f237b51a98aef4f88a2fdf4750b9699">
+    <a href="http://www.rizospastis.gr/" target="_blank">http://www.rizospastis.gr/</a> <span class="clickable" onclick="golocal('#4d2c115e0f237b51a98aef4f88a2fdf4750b9699');">local</span> <span class="clickable" onclick="gonational('#4d2c115e0f237b51a98aef4f88a2fdf4750b9699');">national</span><br>
+</div>
+
+
+
+<div id="e73d0d2bd29d8bb241e6f4b86d1ee2652bbc225b">
+    <a href="http://www.rodiaki.gr/" target="_blank">http://www.rodiaki.gr/</a> <span class="clickable" onclick="golocal('#e73d0d2bd29d8bb241e6f4b86d1ee2652bbc225b');">local</span> <span class="clickable" onclick="gonational('#e73d0d2bd29d8bb241e6f4b86d1ee2652bbc225b');">national</span><br>
+</div>
+
+
+
+<div id="5fec393850e32f660d45ed296c7329f4a86f905c">
+    <a href="http://www.sek-ist.gr/" target="_blank">http://www.sek-ist.gr/</a> <span class="clickable" onclick="golocal('#5fec393850e32f660d45ed296c7329f4a86f905c');">local</span> <span class="clickable" onclick="gonational('#5fec393850e32f660d45ed296c7329f4a86f905c');">national</span><br>
+</div>
+
+
+
+<div id="e7918a7fad8785aeac19ca60533f94d6943469a2">
+    <a href="http://www.serrestoday.gr/" target="_blank">http://www.serrestoday.gr/</a> <span class="clickable" onclick="golocal('#e7918a7fad8785aeac19ca60533f94d6943469a2');">local</span> <span class="clickable" onclick="gonational('#e7918a7fad8785aeac19ca60533f94d6943469a2');">national</span><br>
+</div>
+
+
+
+<div id="ad858ebdf7cc5f512a1f593a8cc5ed6ff8af4ded">
+    <a href="http://www.servitoros.gr/" target="_blank">http://www.servitoros.gr/</a> <span class="clickable" onclick="golocal('#ad858ebdf7cc5f512a1f593a8cc5ed6ff8af4ded');">local</span> <span class="clickable" onclick="gonational('#ad858ebdf7cc5f512a1f593a8cc5ed6ff8af4ded');">national</span><br>
+</div>
+
+
+
+<div id="39bc9e7a2ff4c9dc9d2fe8244e0fe53817056398">
+    <a href="http://www.sofiatimes.com/" target="_blank">http://www.sofiatimes.com/</a> <span class="clickable" onclick="golocal('#39bc9e7a2ff4c9dc9d2fe8244e0fe53817056398');">local</span> <span class="clickable" onclick="gonational('#39bc9e7a2ff4c9dc9d2fe8244e0fe53817056398');">national</span><br>
+</div>
+
+
+
+<div id="0d44e22285b57908126dd940b72d6fa4abaa120b">
+    <a href="http://www.statesmen.gr/" target="_blank">http://www.statesmen.gr/</a> <span class="clickable" onclick="golocal('#0d44e22285b57908126dd940b72d6fa4abaa120b');">local</span> <span class="clickable" onclick="gonational('#0d44e22285b57908126dd940b72d6fa4abaa120b');">national</span><br>
+</div>
+
+
+
+<div id="3d3b5c5f66e7d5c734bc5694f1bbf1dbb2815925">
+    <a href="http://www.stoxos.gr/" target="_blank">http://www.stoxos.gr/</a> <span class="clickable" onclick="golocal('#3d3b5c5f66e7d5c734bc5694f1bbf1dbb2815925');">local</span> <span class="clickable" onclick="gonational('#3d3b5c5f66e7d5c734bc5694f1bbf1dbb2815925');">national</span><br>
+</div>
+
+
+
+<div id="514158af1bcafdc8dc05e813688813cb1aaf4788">
+    <a href="http://www.styx.gr/" target="_blank">http://www.styx.gr/</a> <span class="clickable" onclick="golocal('#514158af1bcafdc8dc05e813688813cb1aaf4788');">local</span> <span class="clickable" onclick="gonational('#514158af1bcafdc8dc05e813688813cb1aaf4788');">national</span><br>
+</div>
+
+
+
+<div id="97cade319ea9a5d7b6499ac1a5bc11bbcbc6f232">
+    <a href="http://www.tanea.gr/" target="_blank">http://www.tanea.gr/</a> <span class="clickable" onclick="golocal('#97cade319ea9a5d7b6499ac1a5bc11bbcbc6f232');">local</span> <span class="clickable" onclick="gonational('#97cade319ea9a5d7b6499ac1a5bc11bbcbc6f232');">national</span><br>
+</div>
+
+
+
+<div id="a421877d1364a8cdaec85965363bf67dcaa9156b">
+    <a href="http://www.taxydromos.gr/" target="_blank">http://www.taxydromos.gr/</a> <span class="clickable" onclick="golocal('#a421877d1364a8cdaec85965363bf67dcaa9156b');">local</span> <span class="clickable" onclick="gonational('#a421877d1364a8cdaec85965363bf67dcaa9156b');">national</span><br>
+</div>
+
+
+
+<div id="6eeef3af3f347eec4dc0dfa0de3d02806676ec36">
+    <a href="http://www.theerce.com/" target="_blank">http://www.theerce.com/</a> <span class="clickable" onclick="golocal('#6eeef3af3f347eec4dc0dfa0de3d02806676ec36');">local</span> <span class="clickable" onclick="gonational('#6eeef3af3f347eec4dc0dfa0de3d02806676ec36');">national</span><br>
+</div>
+
+
+
+<div id="9c1e225917409cd77d28aabee88362f21c127432">
+    <a href="http://www.thrakikigi.gr/" target="_blank">http://www.thrakikigi.gr/</a> <span class="clickable" onclick="golocal('#9c1e225917409cd77d28aabee88362f21c127432');">local</span> <span class="clickable" onclick="gonational('#9c1e225917409cd77d28aabee88362f21c127432');">national</span><br>
+</div>
+
+
+
+<div id="7e273f47bde6751c14b4834c8a6f39092da310ad">
+    <a href="http://www.tovima.gr/" target="_blank">http://www.tovima.gr/</a> <span class="clickable" onclick="golocal('#7e273f47bde6751c14b4834c8a6f39092da310ad');">local</span> <span class="clickable" onclick="gonational('#7e273f47bde6751c14b4834c8a6f39092da310ad');">national</span><br>
+</div>
+
+
+
+<div id="83df329604635e629dfc8355c2fbdf922bcb1b25">
+    <a href="http://www.ujaalanews.com/" target="_blank">http://www.ujaalanews.com/</a> <span class="clickable" onclick="golocal('#83df329604635e629dfc8355c2fbdf922bcb1b25');">local</span> <span class="clickable" onclick="gonational('#83df329604635e629dfc8355c2fbdf922bcb1b25');">national</span><br>
+</div>
+
+
+
+<div id="d296295aa9edd5c0ab62786da307e6ea78496c0f">
+    <a href="http://www.vimatisko.gr/" target="_blank">http://www.vimatisko.gr/</a> <span class="clickable" onclick="golocal('#d296295aa9edd5c0ab62786da307e6ea78496c0f');">local</span> <span class="clickable" onclick="gonational('#d296295aa9edd5c0ab62786da307e6ea78496c0f');">national</span><br>
+</div>
+
+
+
+<div id="eec534fcc73974014d57143e65fec05dd8d3291d">
+    <a href="http://www.voria.gr/" target="_blank">http://www.voria.gr/</a> <span class="clickable" onclick="golocal('#eec534fcc73974014d57143e65fec05dd8d3291d');">local</span> <span class="clickable" onclick="gonational('#eec534fcc73974014d57143e65fec05dd8d3291d');">national</span><br>
+</div>
+
+
+
+<div id="aed0df5cfd912a13a564306d8bf7604f059c9ccb">
+    <a href="http://www.xirafi.gr/" target="_blank">http://www.xirafi.gr/</a> <span class="clickable" onclick="golocal('#aed0df5cfd912a13a564306d8bf7604f059c9ccb');">local</span> <span class="clickable" onclick="gonational('#aed0df5cfd912a13a564306d8bf7604f059c9ccb');">national</span><br>
+</div>
+
+
+
+<div id="805149f3a98ebb9127dfcb74f4a33415de2c2eab">
+    <a href="http://www.xronos.gr/" target="_blank">http://www.xronos.gr/</a> <span class="clickable" onclick="golocal('#805149f3a98ebb9127dfcb74f4a33415de2c2eab');">local</span> <span class="clickable" onclick="gonational('#805149f3a98ebb9127dfcb74f4a33415de2c2eab');">national</span><br>
+</div>
+
+
+
+<div id="4b4739f9dd75d49c153cdc471628a21b01782fac">
+    <a href="http://www.xtypos.gr/index.php/el/" target="_blank">http://www.xtypos.gr/index.php/el/</a> <span class="clickable" onclick="golocal('#4b4739f9dd75d49c153cdc471628a21b01782fac');">local</span> <span class="clickable" onclick="gonational('#4b4739f9dd75d49c153cdc471628a21b01782fac');">national</span><br>
+</div>
+
+
+
+<div id="1f066864e54922899baca2c12ef92ace24dca674">
+    <a href="http://www.zonews.gr/" target="_blank">http://www.zonews.gr/</a> <span class="clickable" onclick="golocal('#1f066864e54922899baca2c12ef92ace24dca674');">local</span> <span class="clickable" onclick="gonational('#1f066864e54922899baca2c12ef92ace24dca674');">national</span><br>
+</div>
+
+
+
+<div id="8b362252eb5e5a480f5b2335880700fdcf28f302">
+    <a href="http://xanthinews.gr/" target="_blank">http://xanthinews.gr/</a> <span class="clickable" onclick="golocal('#8b362252eb5e5a480f5b2335880700fdcf28f302');">local</span> <span class="clickable" onclick="gonational('#8b362252eb5e5a480f5b2335880700fdcf28f302');">national</span><br>
+</div>
+
+
+
+<br>
+<button onclick="removebutton();">Press here when you've finished! can be easier copy/paste</button>
+<br>
+<button onclick="showbutton();">Press if you've made a mistake, make buttons comeback</button>
+</body>
+</html>

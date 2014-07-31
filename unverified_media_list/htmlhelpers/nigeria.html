@@ -1,0 +1,82 @@
+
+<html>
+
+<head>
+    <title>Just the test</title>
+    <script type="application/javascript" src="bower_components/jquery-2.1.0.min/index.js"></script>
+
+    <script type="application/javascript">
+
+
+        function golocal(elem) {
+            $(elem).appendTo("#localList");
+        }
+
+        function gonational(elem) {
+            $(elem).appendTo("#nationalList");
+        }
+
+        function removebutton() {
+            $('.clickable').hide();
+        }
+
+        function showbutton() {
+            $('.clickable').show();
+        }
+
+    </script>
+    <style type="text/css">
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        .urlList {
+            border-color: red;
+            background-color: palegoldenrod;
+            border-bottom-left-radius: 2px;
+            width: 100%;
+            margin-bottom: 3px;
+            font-family: monospace;
+        }
+        h1 {
+            text-align: center;
+            color: cadetblue;
+            font-size: 3em;
+        }
+        .clickable {
+            background-color: yellow;
+            color: blueviolet;
+            margin-left: 4em;
+            margin-right: 4em;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>
+nigeria
+</h1>
+
+<h2>National List</h2>
+<div class="urlList" id="nationalList">
+</div>
+
+<h2>Local/Specialistic List</h2>
+<div class="urlList" id="localList">
+</div>
+
+<h2>Unverified List</h2>
+
+
+<div id="2c401e58c8945fc23569139d132c9f29d260f762">
+    <a href="http://www.newstimeafrica.com/archives/category/west-africa/niger" target="_blank">http://www.newstimeafrica.com/archives/category/west-africa/niger</a> <span class="clickable" onclick="golocal('#2c401e58c8945fc23569139d132c9f29d260f762');">local</span> <span class="clickable" onclick="gonational('#2c401e58c8945fc23569139d132c9f29d260f762');">national</span><br>
+</div>
+
+
+
+<br>
+<button onclick="removebutton();">Press here when you've finished! can be easier copy/paste</button>
+<br>
+<button onclick="showbutton();">Press if you've made a mistake, make buttons comeback</button>
+</body>
+</html>
