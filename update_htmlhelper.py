@@ -16,12 +16,18 @@ first_section=\
 
     <script type="application/javascript">
 
+        function goblog(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#blogList");
+        }
 
         function golocal(elem) {
+            $('.stigma').remove();
             $(elem).appendTo("#localList");
         }
 
         function gonational(elem) {
+            $('.stigma').remove();
             $(elem).appendTo("#nationalList");
         }
 
@@ -31,6 +37,20 @@ first_section=\
 
         function showbutton() {
             $('.clickable').show();
+        }
+
+        function openiframe(elem, url) {
+            $('<br>').appendTo(elem);
+            $('<iframe />', {
+                'src' :url,
+                'width': "80%",
+                'height': "40%",
+                'class': 'stigma'
+            }).appendTo(elem);
+        }
+
+        function justfuckingdeletethisshit(elem) {
+            $(elem).remove()
         }
 
     </script>
@@ -54,8 +74,11 @@ first_section=\
         .clickable {
             background-color: yellow;
             color: blueviolet;
-            margin-left: 4em;
-            margin-right: 4em;
+            margin-left: 2em;
+            margin-right: 2em;
+        }
+        .show {
+            background-color: red;
         }
     </style>
 </head>
@@ -77,6 +100,10 @@ second_section=\
 <div class="urlList" id="localList">
 </div>
 
+<h2>personal/community Blog List</h2>
+<div class="urlList" id="blogList">
+</div>
+
 <h2>Unverified List</h2>
 
 """
@@ -84,7 +111,12 @@ second_section=\
 entry_block=\
 """
 <div id="%ID%">
-    <a href="%URL%" target="_blank">%URL%</a> <span class="clickable" onclick="golocal('#%ID%');">local</span> <span class="clickable" onclick="gonational('#%ID%');">national</span><br>
+    <a href="%URL%" target="_blank">%URL%</a>
+    <span class="clickable" onclick="golocal('#%ID%');">local</span>
+    <span class="clickable" onclick="gonational('#%ID%');">national</span>
+    <span class="clickable" onclick="goblog('#%ID%');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#%ID%');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#%ID%', '%URL%');">show now</span>
 </div>
 """
 
@@ -97,8 +129,6 @@ final_section=\
 </body>
 </html>
 """
-
-
 
 
 if __name__ == '__main__':
@@ -130,7 +160,7 @@ if __name__ == '__main__':
 
             for media in mf.readlines():
 
-                media_id = sha1(str(random())).hexdigest()
+                media_id = sha1(str(random())).hexdigest()[:6]
                 media = media[:-1]
 
                 fp.write(

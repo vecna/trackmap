@@ -7,12 +7,18 @@
 
     <script type="application/javascript">
 
+        function goblog(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#blogList");
+        }
 
         function golocal(elem) {
+            $('.stigma').remove();
             $(elem).appendTo("#localList");
         }
 
         function gonational(elem) {
+            $('.stigma').remove();
             $(elem).appendTo("#nationalList");
         }
 
@@ -22,6 +28,20 @@
 
         function showbutton() {
             $('.clickable').show();
+        }
+
+        function openiframe(elem, url) {
+            $('<br>').appendTo(elem);
+            $('<iframe />', {
+                'src' :url,
+                'width': "80%",
+                'height': "40%",
+                'class': 'stigma'
+            }).appendTo(elem);
+        }
+
+        function justfuckingdeletethisshit(elem) {
+            $(elem).remove()
         }
 
     </script>
@@ -45,8 +65,11 @@
         .clickable {
             background-color: yellow;
             color: blueviolet;
-            margin-left: 4em;
-            margin-right: 4em;
+            margin-left: 2em;
+            margin-right: 2em;
+        }
+        .show {
+            background-color: red;
         }
     </style>
 </head>
@@ -65,53 +88,97 @@ cambodia
 <div class="urlList" id="localList">
 </div>
 
+<h2>personal/community Blog List</h2>
+<div class="urlList" id="blogList">
+</div>
+
 <h2>Unverified List</h2>
 
 
-<div id="05747bbadc68e0eeae5a1653771aaf892b8249c5">
-    <a href="http://www.cambodgesoir.info/" target="_blank">http://www.cambodgesoir.info/</a> <span class="clickable" onclick="golocal('#05747bbadc68e0eeae5a1653771aaf892b8249c5');">local</span> <span class="clickable" onclick="gonational('#05747bbadc68e0eeae5a1653771aaf892b8249c5');">national</span><br>
+<div id="488581">
+    <a href="http://www.cambodgesoir.info/" target="_blank">http://www.cambodgesoir.info/</a>
+    <span class="clickable" onclick="golocal('#488581');">local</span>
+    <span class="clickable" onclick="gonational('#488581');">national</span>
+    <span class="clickable" onclick="goblog('#488581');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#488581');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#488581', 'http://www.cambodgesoir.info/');">show now</span>
 </div>
 
 
 
-<div id="3c042f0f4ba1253215118b89aac8985906462e70">
-    <a href="http://www.cen.com.kh/" target="_blank">http://www.cen.com.kh/</a> <span class="clickable" onclick="golocal('#3c042f0f4ba1253215118b89aac8985906462e70');">local</span> <span class="clickable" onclick="gonational('#3c042f0f4ba1253215118b89aac8985906462e70');">national</span><br>
+<div id="c2973c">
+    <a href="http://www.cen.com.kh/" target="_blank">http://www.cen.com.kh/</a>
+    <span class="clickable" onclick="golocal('#c2973c');">local</span>
+    <span class="clickable" onclick="gonational('#c2973c');">national</span>
+    <span class="clickable" onclick="goblog('#c2973c');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#c2973c');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#c2973c', 'http://www.cen.com.kh/');">show now</span>
 </div>
 
 
 
-<div id="4d511fb510e26d708a0b88eaf3eb2941d3c125b7">
-    <a href="http://www.phnompenhpost.com/" target="_blank">http://www.phnompenhpost.com/</a> <span class="clickable" onclick="golocal('#4d511fb510e26d708a0b88eaf3eb2941d3c125b7');">local</span> <span class="clickable" onclick="gonational('#4d511fb510e26d708a0b88eaf3eb2941d3c125b7');">national</span><br>
+<div id="547bce">
+    <a href="http://www.phnompenhpost.com/" target="_blank">http://www.phnompenhpost.com/</a>
+    <span class="clickable" onclick="golocal('#547bce');">local</span>
+    <span class="clickable" onclick="gonational('#547bce');">national</span>
+    <span class="clickable" onclick="goblog('#547bce');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#547bce');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#547bce', 'http://www.phnompenhpost.com/');">show now</span>
 </div>
 
 
 
-<div id="59725d23589e0d7b5f01e10a46a1031aff2c532e">
-    <a href="http://www3.vocri.org/" target="_blank">http://www3.vocri.org/</a> <span class="clickable" onclick="golocal('#59725d23589e0d7b5f01e10a46a1031aff2c532e');">local</span> <span class="clickable" onclick="gonational('#59725d23589e0d7b5f01e10a46a1031aff2c532e');">national</span><br>
+<div id="dbe682">
+    <a href="http://www3.vocri.org/" target="_blank">http://www3.vocri.org/</a>
+    <span class="clickable" onclick="golocal('#dbe682');">local</span>
+    <span class="clickable" onclick="gonational('#dbe682');">national</span>
+    <span class="clickable" onclick="goblog('#dbe682');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#dbe682');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#dbe682', 'http://www3.vocri.org/');">show now</span>
 </div>
 
 
 
-<div id="3113cf79a23fcb1635dde72f623d983538c5dbb9">
-    <a href="http://www.cambodiantimes.com/" target="_blank">http://www.cambodiantimes.com/</a> <span class="clickable" onclick="golocal('#3113cf79a23fcb1635dde72f623d983538c5dbb9');">local</span> <span class="clickable" onclick="gonational('#3113cf79a23fcb1635dde72f623d983538c5dbb9');">national</span><br>
+<div id="4fcf68">
+    <a href="http://www.cambodiantimes.com/" target="_blank">http://www.cambodiantimes.com/</a>
+    <span class="clickable" onclick="golocal('#4fcf68');">local</span>
+    <span class="clickable" onclick="gonational('#4fcf68');">national</span>
+    <span class="clickable" onclick="goblog('#4fcf68');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#4fcf68');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#4fcf68', 'http://www.cambodiantimes.com/');">show now</span>
 </div>
 
 
 
-<div id="cbedbc9174c8f8b5854a766bd0b1ffd5228a4a90">
-    <a href="http://kohsantepheapdaily.com.kh/" target="_blank">http://kohsantepheapdaily.com.kh/</a> <span class="clickable" onclick="golocal('#cbedbc9174c8f8b5854a766bd0b1ffd5228a4a90');">local</span> <span class="clickable" onclick="gonational('#cbedbc9174c8f8b5854a766bd0b1ffd5228a4a90');">national</span><br>
+<div id="ad3587">
+    <a href="http://kohsantepheapdaily.com.kh/" target="_blank">http://kohsantepheapdaily.com.kh/</a>
+    <span class="clickable" onclick="golocal('#ad3587');">local</span>
+    <span class="clickable" onclick="gonational('#ad3587');">national</span>
+    <span class="clickable" onclick="goblog('#ad3587');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#ad3587');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#ad3587', 'http://kohsantepheapdaily.com.kh/');">show now</span>
 </div>
 
 
 
-<div id="f088a7233a1717436eba37cfeb1e03abd47cf68d">
-    <a href="http://www.cambodianonline.net" target="_blank">http://www.cambodianonline.net</a> <span class="clickable" onclick="golocal('#f088a7233a1717436eba37cfeb1e03abd47cf68d');">local</span> <span class="clickable" onclick="gonational('#f088a7233a1717436eba37cfeb1e03abd47cf68d');">national</span><br>
+<div id="5dc928">
+    <a href="http://www.cambodianonline.net" target="_blank">http://www.cambodianonline.net</a>
+    <span class="clickable" onclick="golocal('#5dc928');">local</span>
+    <span class="clickable" onclick="gonational('#5dc928');">national</span>
+    <span class="clickable" onclick="goblog('#5dc928');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#5dc928');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#5dc928', 'http://www.cambodianonline.net');">show now</span>
 </div>
 
 
 
-<div id="d9dd42de99c5109fe3e9ebca036a2a37576a72ae">
-    <a href="http://www.cambodiadaily.com/" target="_blank">http://www.cambodiadaily.com/</a> <span class="clickable" onclick="golocal('#d9dd42de99c5109fe3e9ebca036a2a37576a72ae');">local</span> <span class="clickable" onclick="gonational('#d9dd42de99c5109fe3e9ebca036a2a37576a72ae');">national</span><br>
+<div id="cf82c7">
+    <a href="http://www.cambodiadaily.com/" target="_blank">http://www.cambodiadaily.com/</a>
+    <span class="clickable" onclick="golocal('#cf82c7');">local</span>
+    <span class="clickable" onclick="gonational('#cf82c7');">national</span>
+    <span class="clickable" onclick="goblog('#cf82c7');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#cf82c7');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#cf82c7', 'http://www.cambodiadaily.com/');">show now</span>
 </div>
 
 

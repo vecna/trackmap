@@ -7,12 +7,18 @@
 
     <script type="application/javascript">
 
+        function goblog(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#blogList");
+        }
 
         function golocal(elem) {
+            $('.stigma').remove();
             $(elem).appendTo("#localList");
         }
 
         function gonational(elem) {
+            $('.stigma').remove();
             $(elem).appendTo("#nationalList");
         }
 
@@ -22,6 +28,20 @@
 
         function showbutton() {
             $('.clickable').show();
+        }
+
+        function openiframe(elem, url) {
+            $('<br>').appendTo(elem);
+            $('<iframe />', {
+                'src' :url,
+                'width': "80%",
+                'height': "40%",
+                'class': 'stigma'
+            }).appendTo(elem);
+        }
+
+        function justfuckingdeletethisshit(elem) {
+            $(elem).remove()
         }
 
     </script>
@@ -45,8 +65,11 @@
         .clickable {
             background-color: yellow;
             color: blueviolet;
-            margin-left: 4em;
-            margin-right: 4em;
+            margin-left: 2em;
+            margin-right: 2em;
+        }
+        .show {
+            background-color: red;
         }
     </style>
 </head>
@@ -65,317 +88,581 @@ israel
 <div class="urlList" id="localList">
 </div>
 
+<h2>personal/community Blog List</h2>
+<div class="urlList" id="blogList">
+</div>
+
 <h2>Unverified List</h2>
 
 
-<div id="71440084a00c89d7e4afe9e24e98da51775c7cb3">
-    <a href="http://www.ynetnews.com" target="_blank">http://www.ynetnews.com</a> <span class="clickable" onclick="golocal('#71440084a00c89d7e4afe9e24e98da51775c7cb3');">local</span> <span class="clickable" onclick="gonational('#71440084a00c89d7e4afe9e24e98da51775c7cb3');">national</span><br>
+<div id="df3fdf">
+    <a href="http://www.ynetnews.com" target="_blank">http://www.ynetnews.com</a>
+    <span class="clickable" onclick="golocal('#df3fdf');">local</span>
+    <span class="clickable" onclick="gonational('#df3fdf');">national</span>
+    <span class="clickable" onclick="goblog('#df3fdf');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#df3fdf');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#df3fdf', 'http://www.ynetnews.com');">show now</span>
 </div>
 
 
 
-<div id="c864fd31d85e459d37a915008ea4c6fb608ab8ea">
-    <a href="http://www.povertyvision.org/pwtimes/index.php" target="_blank">http://www.povertyvision.org/pwtimes/index.php</a> <span class="clickable" onclick="golocal('#c864fd31d85e459d37a915008ea4c6fb608ab8ea');">local</span> <span class="clickable" onclick="gonational('#c864fd31d85e459d37a915008ea4c6fb608ab8ea');">national</span><br>
+<div id="0c4e06">
+    <a href="http://www.povertyvision.org/pwtimes/index.php" target="_blank">http://www.povertyvision.org/pwtimes/index.php</a>
+    <span class="clickable" onclick="golocal('#0c4e06');">local</span>
+    <span class="clickable" onclick="gonational('#0c4e06');">national</span>
+    <span class="clickable" onclick="goblog('#0c4e06');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#0c4e06');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#0c4e06', 'http://www.povertyvision.org/pwtimes/index.php');">show now</span>
 </div>
 
 
 
-<div id="67af0b3eb6e01015fa1bafaa6c37306adf104b71">
-    <a href="http://www.globes.co.il/" target="_blank">http://www.globes.co.il/</a> <span class="clickable" onclick="golocal('#67af0b3eb6e01015fa1bafaa6c37306adf104b71');">local</span> <span class="clickable" onclick="gonational('#67af0b3eb6e01015fa1bafaa6c37306adf104b71');">national</span><br>
+<div id="934578">
+    <a href="http://www.globes.co.il/" target="_blank">http://www.globes.co.il/</a>
+    <span class="clickable" onclick="golocal('#934578');">local</span>
+    <span class="clickable" onclick="gonational('#934578');">national</span>
+    <span class="clickable" onclick="goblog('#934578');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#934578');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#934578', 'http://www.globes.co.il/');">show now</span>
 </div>
 
 
 
-<div id="77c36e5928dd35579f9342366ec5932b1ea151fe">
-    <a href="http://www.ynetnews.com" target="_blank">http://www.ynetnews.com</a> <span class="clickable" onclick="golocal('#77c36e5928dd35579f9342366ec5932b1ea151fe');">local</span> <span class="clickable" onclick="gonational('#77c36e5928dd35579f9342366ec5932b1ea151fe');">national</span><br>
+<div id="8bd26a">
+    <a href="http://www.ynetnews.com" target="_blank">http://www.ynetnews.com</a>
+    <span class="clickable" onclick="golocal('#8bd26a');">local</span>
+    <span class="clickable" onclick="gonational('#8bd26a');">national</span>
+    <span class="clickable" onclick="goblog('#8bd26a');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#8bd26a');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#8bd26a', 'http://www.ynetnews.com');">show now</span>
 </div>
 
 
 
-<div id="828cf67b7663614bd0cc795bedb405a8048457b5">
-    <a href="http://www.gamla.org.il/" target="_blank">http://www.gamla.org.il/</a> <span class="clickable" onclick="golocal('#828cf67b7663614bd0cc795bedb405a8048457b5');">local</span> <span class="clickable" onclick="gonational('#828cf67b7663614bd0cc795bedb405a8048457b5');">national</span><br>
+<div id="d776dd">
+    <a href="http://www.gamla.org.il/" target="_blank">http://www.gamla.org.il/</a>
+    <span class="clickable" onclick="golocal('#d776dd');">local</span>
+    <span class="clickable" onclick="gonational('#d776dd');">national</span>
+    <span class="clickable" onclick="goblog('#d776dd');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#d776dd');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#d776dd', 'http://www.gamla.org.il/');">show now</span>
 </div>
 
 
 
-<div id="ad01ff05629f193c3dd2c5f0f22ba66a46d5b592">
-    <a href="http://starcommunity.com.au/" target="_blank">http://starcommunity.com.au/</a> <span class="clickable" onclick="golocal('#ad01ff05629f193c3dd2c5f0f22ba66a46d5b592');">local</span> <span class="clickable" onclick="gonational('#ad01ff05629f193c3dd2c5f0f22ba66a46d5b592');">national</span><br>
+<div id="54523d">
+    <a href="http://starcommunity.com.au/" target="_blank">http://starcommunity.com.au/</a>
+    <span class="clickable" onclick="golocal('#54523d');">local</span>
+    <span class="clickable" onclick="gonational('#54523d');">national</span>
+    <span class="clickable" onclick="goblog('#54523d');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#54523d');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#54523d', 'http://starcommunity.com.au/');">show now</span>
 </div>
 
 
 
-<div id="d35f43dff42cdc11d0ae0601356263d6e154ef0b">
-    <a href="http://sikurmemukad.com/" target="_blank">http://sikurmemukad.com/</a> <span class="clickable" onclick="golocal('#d35f43dff42cdc11d0ae0601356263d6e154ef0b');">local</span> <span class="clickable" onclick="gonational('#d35f43dff42cdc11d0ae0601356263d6e154ef0b');">national</span><br>
+<div id="012b4f">
+    <a href="http://sikurmemukad.com/" target="_blank">http://sikurmemukad.com/</a>
+    <span class="clickable" onclick="golocal('#012b4f');">local</span>
+    <span class="clickable" onclick="gonational('#012b4f');">national</span>
+    <span class="clickable" onclick="goblog('#012b4f');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#012b4f');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#012b4f', 'http://sikurmemukad.com/');">show now</span>
 </div>
 
 
 
-<div id="767cf2fdadfca5b6fb2f82863a0147661c87686c">
-    <a href="http://www.local.co.il" target="_blank">http://www.local.co.il</a> <span class="clickable" onclick="golocal('#767cf2fdadfca5b6fb2f82863a0147661c87686c');">local</span> <span class="clickable" onclick="gonational('#767cf2fdadfca5b6fb2f82863a0147661c87686c');">national</span><br>
+<div id="8f11fc">
+    <a href="http://www.local.co.il" target="_blank">http://www.local.co.il</a>
+    <span class="clickable" onclick="golocal('#8f11fc');">local</span>
+    <span class="clickable" onclick="gonational('#8f11fc');">national</span>
+    <span class="clickable" onclick="goblog('#8f11fc');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#8f11fc');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#8f11fc', 'http://www.local.co.il');">show now</span>
 </div>
 
 
 
-<div id="5b85cfec78af7eb917d84ab9e56ebbc05f7b8c4a">
-    <a href="http://www.ice.co.il/" target="_blank">http://www.ice.co.il/</a> <span class="clickable" onclick="golocal('#5b85cfec78af7eb917d84ab9e56ebbc05f7b8c4a');">local</span> <span class="clickable" onclick="gonational('#5b85cfec78af7eb917d84ab9e56ebbc05f7b8c4a');">national</span><br>
+<div id="4c6d85">
+    <a href="http://www.ice.co.il/" target="_blank">http://www.ice.co.il/</a>
+    <span class="clickable" onclick="golocal('#4c6d85');">local</span>
+    <span class="clickable" onclick="gonational('#4c6d85');">national</span>
+    <span class="clickable" onclick="goblog('#4c6d85');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#4c6d85');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#4c6d85', 'http://www.ice.co.il/');">show now</span>
 </div>
 
 
 
-<div id="05d006fa4a9878b3e961855ea1fad5e7347cbcd4">
-    <a href="http://www.israel-news.org/" target="_blank">http://www.israel-news.org/</a> <span class="clickable" onclick="golocal('#05d006fa4a9878b3e961855ea1fad5e7347cbcd4');">local</span> <span class="clickable" onclick="gonational('#05d006fa4a9878b3e961855ea1fad5e7347cbcd4');">national</span><br>
+<div id="6c09c9">
+    <a href="http://www.israel-news.org/" target="_blank">http://www.israel-news.org/</a>
+    <span class="clickable" onclick="golocal('#6c09c9');">local</span>
+    <span class="clickable" onclick="gonational('#6c09c9');">national</span>
+    <span class="clickable" onclick="goblog('#6c09c9');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#6c09c9');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#6c09c9', 'http://www.israel-news.org/');">show now</span>
 </div>
 
 
 
-<div id="02c3c1791d3c6edc1439936ecca24ca0ec4f365a">
-    <a href="http://www.kab.co.il/" target="_blank">http://www.kab.co.il/</a> <span class="clickable" onclick="golocal('#02c3c1791d3c6edc1439936ecca24ca0ec4f365a');">local</span> <span class="clickable" onclick="gonational('#02c3c1791d3c6edc1439936ecca24ca0ec4f365a');">national</span><br>
+<div id="4c371f">
+    <a href="http://www.kab.co.il/" target="_blank">http://www.kab.co.il/</a>
+    <span class="clickable" onclick="golocal('#4c371f');">local</span>
+    <span class="clickable" onclick="gonational('#4c371f');">national</span>
+    <span class="clickable" onclick="goblog('#4c371f');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#4c371f');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#4c371f', 'http://www.kab.co.il/');">show now</span>
 </div>
 
 
 
-<div id="036ec9dad30f670d92768d874b6d4d29076c4b49">
-    <a href="http://chareidio.com/" target="_blank">http://chareidio.com/</a> <span class="clickable" onclick="golocal('#036ec9dad30f670d92768d874b6d4d29076c4b49');">local</span> <span class="clickable" onclick="gonational('#036ec9dad30f670d92768d874b6d4d29076c4b49');">national</span><br>
+<div id="c1e806">
+    <a href="http://chareidio.com/" target="_blank">http://chareidio.com/</a>
+    <span class="clickable" onclick="golocal('#c1e806');">local</span>
+    <span class="clickable" onclick="gonational('#c1e806');">national</span>
+    <span class="clickable" onclick="goblog('#c1e806');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#c1e806');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#c1e806', 'http://chareidio.com/');">show now</span>
 </div>
 
 
 
-<div id="07ee00da3dfb4e656b4b550900d116f6912ade93">
-    <a href="http://www.israelnationalnews.com/" target="_blank">http://www.israelnationalnews.com/</a> <span class="clickable" onclick="golocal('#07ee00da3dfb4e656b4b550900d116f6912ade93');">local</span> <span class="clickable" onclick="gonational('#07ee00da3dfb4e656b4b550900d116f6912ade93');">national</span><br>
+<div id="07a028">
+    <a href="http://www.israelnationalnews.com/" target="_blank">http://www.israelnationalnews.com/</a>
+    <span class="clickable" onclick="golocal('#07a028');">local</span>
+    <span class="clickable" onclick="gonational('#07a028');">national</span>
+    <span class="clickable" onclick="goblog('#07a028');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#07a028');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#07a028', 'http://www.israelnationalnews.com/');">show now</span>
 </div>
 
 
 
-<div id="1085bc0b99ce7516c4965212293f7a6618596f30">
-    <a href="http://www.israelenews.com/" target="_blank">http://www.israelenews.com/</a> <span class="clickable" onclick="golocal('#1085bc0b99ce7516c4965212293f7a6618596f30');">local</span> <span class="clickable" onclick="gonational('#1085bc0b99ce7516c4965212293f7a6618596f30');">national</span><br>
+<div id="421ce0">
+    <a href="http://www.israelenews.com/" target="_blank">http://www.israelenews.com/</a>
+    <span class="clickable" onclick="golocal('#421ce0');">local</span>
+    <span class="clickable" onclick="gonational('#421ce0');">national</span>
+    <span class="clickable" onclick="goblog('#421ce0');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#421ce0');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#421ce0', 'http://www.israelenews.com/');">show now</span>
 </div>
 
 
 
-<div id="32bbb35b4d6f05f350862c1a6044624f56d3eee6">
-    <a href="http://www.epochtimes.co.il/" target="_blank">http://www.epochtimes.co.il/</a> <span class="clickable" onclick="golocal('#32bbb35b4d6f05f350862c1a6044624f56d3eee6');">local</span> <span class="clickable" onclick="gonational('#32bbb35b4d6f05f350862c1a6044624f56d3eee6');">national</span><br>
+<div id="608a2c">
+    <a href="http://www.epochtimes.co.il/" target="_blank">http://www.epochtimes.co.il/</a>
+    <span class="clickable" onclick="golocal('#608a2c');">local</span>
+    <span class="clickable" onclick="gonational('#608a2c');">national</span>
+    <span class="clickable" onclick="goblog('#608a2c');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#608a2c');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#608a2c', 'http://www.epochtimes.co.il/');">show now</span>
 </div>
 
 
 
-<div id="e7f33fd83282d2e3ba02235d84044b1e4b1c08f8">
-    <a href="http://www.israelhaiom.com/" target="_blank">http://www.israelhaiom.com/</a> <span class="clickable" onclick="golocal('#e7f33fd83282d2e3ba02235d84044b1e4b1c08f8');">local</span> <span class="clickable" onclick="gonational('#e7f33fd83282d2e3ba02235d84044b1e4b1c08f8');">national</span><br>
+<div id="2a556e">
+    <a href="http://www.israelhaiom.com/" target="_blank">http://www.israelhaiom.com/</a>
+    <span class="clickable" onclick="golocal('#2a556e');">local</span>
+    <span class="clickable" onclick="gonational('#2a556e');">national</span>
+    <span class="clickable" onclick="goblog('#2a556e');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#2a556e');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#2a556e', 'http://www.israelhaiom.com/');">show now</span>
 </div>
 
 
 
-<div id="a61cbdb17dc859be549dead7c2d86f1fa8477634">
-    <a href="http://megafon-news.co.il/" target="_blank">http://megafon-news.co.il/</a> <span class="clickable" onclick="golocal('#a61cbdb17dc859be549dead7c2d86f1fa8477634');">local</span> <span class="clickable" onclick="gonational('#a61cbdb17dc859be549dead7c2d86f1fa8477634');">national</span><br>
+<div id="406acf">
+    <a href="http://megafon-news.co.il/" target="_blank">http://megafon-news.co.il/</a>
+    <span class="clickable" onclick="golocal('#406acf');">local</span>
+    <span class="clickable" onclick="gonational('#406acf');">national</span>
+    <span class="clickable" onclick="goblog('#406acf');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#406acf');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#406acf', 'http://megafon-news.co.il/');">show now</span>
 </div>
 
 
 
-<div id="1bf3ec6962ca2c6270cb8a66b5aa9a6e8c21c301">
-    <a href="http://www.israelherald.com/" target="_blank">http://www.israelherald.com/</a> <span class="clickable" onclick="golocal('#1bf3ec6962ca2c6270cb8a66b5aa9a6e8c21c301');">local</span> <span class="clickable" onclick="gonational('#1bf3ec6962ca2c6270cb8a66b5aa9a6e8c21c301');">national</span><br>
+<div id="dc4408">
+    <a href="http://www.israelherald.com/" target="_blank">http://www.israelherald.com/</a>
+    <span class="clickable" onclick="golocal('#dc4408');">local</span>
+    <span class="clickable" onclick="gonational('#dc4408');">national</span>
+    <span class="clickable" onclick="goblog('#dc4408');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#dc4408');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#dc4408', 'http://www.israelherald.com/');">show now</span>
 </div>
 
 
 
-<div id="96b8aaf2588c34d2e42b3fc8b04ed9c9f6df0800">
-    <a href="http://www.janglo.net" target="_blank">http://www.janglo.net</a> <span class="clickable" onclick="golocal('#96b8aaf2588c34d2e42b3fc8b04ed9c9f6df0800');">local</span> <span class="clickable" onclick="gonational('#96b8aaf2588c34d2e42b3fc8b04ed9c9f6df0800');">national</span><br>
+<div id="c591f7">
+    <a href="http://www.janglo.net" target="_blank">http://www.janglo.net</a>
+    <span class="clickable" onclick="golocal('#c591f7');">local</span>
+    <span class="clickable" onclick="gonational('#c591f7');">national</span>
+    <span class="clickable" onclick="goblog('#c591f7');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#c591f7');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#c591f7', 'http://www.janglo.net');">show now</span>
 </div>
 
 
 
-<div id="c4d52f2fd07e7f0d685ebd78c2895c63a5088c31">
-    <a href="http://www.israelsmessenger.com/" target="_blank">http://www.israelsmessenger.com/</a> <span class="clickable" onclick="golocal('#c4d52f2fd07e7f0d685ebd78c2895c63a5088c31');">local</span> <span class="clickable" onclick="gonational('#c4d52f2fd07e7f0d685ebd78c2895c63a5088c31');">national</span><br>
+<div id="4d7f90">
+    <a href="http://www.israelsmessenger.com/" target="_blank">http://www.israelsmessenger.com/</a>
+    <span class="clickable" onclick="golocal('#4d7f90');">local</span>
+    <span class="clickable" onclick="gonational('#4d7f90');">national</span>
+    <span class="clickable" onclick="goblog('#4d7f90');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#4d7f90');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#4d7f90', 'http://www.israelsmessenger.com/');">show now</span>
 </div>
 
 
 
-<div id="648995ca08394f04496ef5772cb23fa64c20a4db">
-    <a href="http://www.akhbarna.com/portal/" target="_blank">http://www.akhbarna.com/portal/</a> <span class="clickable" onclick="golocal('#648995ca08394f04496ef5772cb23fa64c20a4db');">local</span> <span class="clickable" onclick="gonational('#648995ca08394f04496ef5772cb23fa64c20a4db');">national</span><br>
+<div id="6c2398">
+    <a href="http://www.akhbarna.com/portal/" target="_blank">http://www.akhbarna.com/portal/</a>
+    <span class="clickable" onclick="golocal('#6c2398');">local</span>
+    <span class="clickable" onclick="gonational('#6c2398');">national</span>
+    <span class="clickable" onclick="goblog('#6c2398');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#6c2398');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#6c2398', 'http://www.akhbarna.com/portal/');">show now</span>
 </div>
 
 
 
-<div id="c284a7f42ad8797c1808c508cdee0c0cca819056">
-    <a href="http://www.ariga.com/" target="_blank">http://www.ariga.com/</a> <span class="clickable" onclick="golocal('#c284a7f42ad8797c1808c508cdee0c0cca819056');">local</span> <span class="clickable" onclick="gonational('#c284a7f42ad8797c1808c508cdee0c0cca819056');">national</span><br>
+<div id="c73897">
+    <a href="http://www.ariga.com/" target="_blank">http://www.ariga.com/</a>
+    <span class="clickable" onclick="golocal('#c73897');">local</span>
+    <span class="clickable" onclick="gonational('#c73897');">national</span>
+    <span class="clickable" onclick="goblog('#c73897');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#c73897');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#c73897', 'http://www.ariga.com/');">show now</span>
 </div>
 
 
 
-<div id="9455551dcbad3e305e61f0b21859b83df6943048">
-    <a href="http://www.aurora-israel.co.il/" target="_blank">http://www.aurora-israel.co.il/</a> <span class="clickable" onclick="golocal('#9455551dcbad3e305e61f0b21859b83df6943048');">local</span> <span class="clickable" onclick="gonational('#9455551dcbad3e305e61f0b21859b83df6943048');">national</span><br>
+<div id="9a5d7a">
+    <a href="http://www.aurora-israel.co.il/" target="_blank">http://www.aurora-israel.co.il/</a>
+    <span class="clickable" onclick="golocal('#9a5d7a');">local</span>
+    <span class="clickable" onclick="gonational('#9a5d7a');">national</span>
+    <span class="clickable" onclick="goblog('#9a5d7a');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#9a5d7a');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#9a5d7a', 'http://www.aurora-israel.co.il/');">show now</span>
 </div>
 
 
 
-<div id="9147b73aa69c6a0d8ae0ea34c453947959d3a9a9">
-    <a href="http://www.courier.co.il/" target="_blank">http://www.courier.co.il/</a> <span class="clickable" onclick="golocal('#9147b73aa69c6a0d8ae0ea34c453947959d3a9a9');">local</span> <span class="clickable" onclick="gonational('#9147b73aa69c6a0d8ae0ea34c453947959d3a9a9');">national</span><br>
+<div id="d513e2">
+    <a href="http://www.courier.co.il/" target="_blank">http://www.courier.co.il/</a>
+    <span class="clickable" onclick="golocal('#d513e2');">local</span>
+    <span class="clickable" onclick="gonational('#d513e2');">national</span>
+    <span class="clickable" onclick="goblog('#d513e2');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#d513e2');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#d513e2', 'http://www.courier.co.il/');">show now</span>
 </div>
 
 
 
-<div id="e6412c4c97d2258c3afd5f5d7911390889a8e078">
-    <a href="http://www.globes.co.il" target="_blank">http://www.globes.co.il</a> <span class="clickable" onclick="golocal('#e6412c4c97d2258c3afd5f5d7911390889a8e078');">local</span> <span class="clickable" onclick="gonational('#e6412c4c97d2258c3afd5f5d7911390889a8e078');">national</span><br>
+<div id="2a4148">
+    <a href="http://www.globes.co.il" target="_blank">http://www.globes.co.il</a>
+    <span class="clickable" onclick="golocal('#2a4148');">local</span>
+    <span class="clickable" onclick="gonational('#2a4148');">national</span>
+    <span class="clickable" onclick="goblog('#2a4148');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#2a4148');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#2a4148', 'http://www.globes.co.il');">show now</span>
 </div>
 
 
 
-<div id="64143ea0d905cf3eb95c25c938c01734b0164b4e">
-    <a href="http://elreloj.com/" target="_blank">http://elreloj.com/</a> <span class="clickable" onclick="golocal('#64143ea0d905cf3eb95c25c938c01734b0164b4e');">local</span> <span class="clickable" onclick="gonational('#64143ea0d905cf3eb95c25c938c01734b0164b4e');">national</span><br>
+<div id="c5586e">
+    <a href="http://elreloj.com/" target="_blank">http://elreloj.com/</a>
+    <span class="clickable" onclick="golocal('#c5586e');">local</span>
+    <span class="clickable" onclick="gonational('#c5586e');">national</span>
+    <span class="clickable" onclick="goblog('#c5586e');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#c5586e');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#c5586e', 'http://elreloj.com/');">show now</span>
 </div>
 
 
 
-<div id="10f1ebcd09914568eb89deee4a4082337f8d3de9">
-    <a href="http://www.israelfaxx.com/" target="_blank">http://www.israelfaxx.com/</a> <span class="clickable" onclick="golocal('#10f1ebcd09914568eb89deee4a4082337f8d3de9');">local</span> <span class="clickable" onclick="gonational('#10f1ebcd09914568eb89deee4a4082337f8d3de9');">national</span><br>
+<div id="d0e295">
+    <a href="http://www.israelfaxx.com/" target="_blank">http://www.israelfaxx.com/</a>
+    <span class="clickable" onclick="golocal('#d0e295');">local</span>
+    <span class="clickable" onclick="gonational('#d0e295');">national</span>
+    <span class="clickable" onclick="goblog('#d0e295');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#d0e295');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#d0e295', 'http://www.israelfaxx.com/');">show now</span>
 </div>
 
 
 
-<div id="88f73271fa1c564b0fe62ae31331a98d4e878a5c">
-    <a href="http://www.fax4x4.co.il/" target="_blank">http://www.fax4x4.co.il/</a> <span class="clickable" onclick="golocal('#88f73271fa1c564b0fe62ae31331a98d4e878a5c');">local</span> <span class="clickable" onclick="gonational('#88f73271fa1c564b0fe62ae31331a98d4e878a5c');">national</span><br>
+<div id="22e341">
+    <a href="http://www.fax4x4.co.il/" target="_blank">http://www.fax4x4.co.il/</a>
+    <span class="clickable" onclick="golocal('#22e341');">local</span>
+    <span class="clickable" onclick="gonational('#22e341');">national</span>
+    <span class="clickable" onclick="goblog('#22e341');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#22e341');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#22e341', 'http://www.fax4x4.co.il/');">show now</span>
 </div>
 
 
 
-<div id="76dde1ed47d0d7c88e577635721b949af350aa38">
-    <a href="http://www.haaretz.co.il/" target="_blank">http://www.haaretz.co.il/</a> <span class="clickable" onclick="golocal('#76dde1ed47d0d7c88e577635721b949af350aa38');">local</span> <span class="clickable" onclick="gonational('#76dde1ed47d0d7c88e577635721b949af350aa38');">national</span><br>
+<div id="dd1846">
+    <a href="http://www.haaretz.co.il/" target="_blank">http://www.haaretz.co.il/</a>
+    <span class="clickable" onclick="golocal('#dd1846');">local</span>
+    <span class="clickable" onclick="gonational('#dd1846');">national</span>
+    <span class="clickable" onclick="goblog('#dd1846');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#dd1846');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#dd1846', 'http://www.haaretz.co.il/');">show now</span>
 </div>
 
 
 
-<div id="f26f84a7724a5fb9f720b634e027ab8767cc2f03">
-    <a href="http://www.haaretz.com/" target="_blank">http://www.haaretz.com/</a> <span class="clickable" onclick="golocal('#f26f84a7724a5fb9f720b634e027ab8767cc2f03');">local</span> <span class="clickable" onclick="gonational('#f26f84a7724a5fb9f720b634e027ab8767cc2f03');">national</span><br>
+<div id="bfc2a0">
+    <a href="http://www.haaretz.com/" target="_blank">http://www.haaretz.com/</a>
+    <span class="clickable" onclick="golocal('#bfc2a0');">local</span>
+    <span class="clickable" onclick="gonational('#bfc2a0');">national</span>
+    <span class="clickable" onclick="goblog('#bfc2a0');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#bfc2a0');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#bfc2a0', 'http://www.haaretz.com/');">show now</span>
 </div>
 
 
 
-<div id="9a0020e2d248217434ef0b96ea47c03ab32c5e7c">
-    <a href="http://www.iht.com/frontpage.html" target="_blank">http://www.iht.com/frontpage.html</a> <span class="clickable" onclick="golocal('#9a0020e2d248217434ef0b96ea47c03ab32c5e7c');">local</span> <span class="clickable" onclick="gonational('#9a0020e2d248217434ef0b96ea47c03ab32c5e7c');">national</span><br>
+<div id="f6b28f">
+    <a href="http://www.iht.com/frontpage.html" target="_blank">http://www.iht.com/frontpage.html</a>
+    <span class="clickable" onclick="golocal('#f6b28f');">local</span>
+    <span class="clickable" onclick="gonational('#f6b28f');">national</span>
+    <span class="clickable" onclick="goblog('#f6b28f');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#f6b28f');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#f6b28f', 'http://www.iht.com/frontpage.html');">show now</span>
 </div>
 
 
 
-<div id="9d72df45d81a2eef112869374985d25a80912827">
-    <a href="http://israelinsider.com/" target="_blank">http://israelinsider.com/</a> <span class="clickable" onclick="golocal('#9d72df45d81a2eef112869374985d25a80912827');">local</span> <span class="clickable" onclick="gonational('#9d72df45d81a2eef112869374985d25a80912827');">national</span><br>
+<div id="e32662">
+    <a href="http://israelinsider.com/" target="_blank">http://israelinsider.com/</a>
+    <span class="clickable" onclick="golocal('#e32662');">local</span>
+    <span class="clickable" onclick="gonational('#e32662');">national</span>
+    <span class="clickable" onclick="goblog('#e32662');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#e32662');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#e32662', 'http://israelinsider.com/');">show now</span>
 </div>
 
 
 
-<div id="b0c349cecda5e99ed1c92521a56d7d24bfc263a9">
-    <a href="http://www.israelnationalnews.com/" target="_blank">http://www.israelnationalnews.com/</a> <span class="clickable" onclick="golocal('#b0c349cecda5e99ed1c92521a56d7d24bfc263a9');">local</span> <span class="clickable" onclick="gonational('#b0c349cecda5e99ed1c92521a56d7d24bfc263a9');">national</span><br>
+<div id="33e7e1">
+    <a href="http://www.israelnationalnews.com/" target="_blank">http://www.israelnationalnews.com/</a>
+    <span class="clickable" onclick="golocal('#33e7e1');">local</span>
+    <span class="clickable" onclick="gonational('#33e7e1');">national</span>
+    <span class="clickable" onclick="goblog('#33e7e1');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#33e7e1');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#33e7e1', 'http://www.israelnationalnews.com/');">show now</span>
 </div>
 
 
 
-<div id="a8fd3c4af4569ee8c7bf559f6c76278610555367">
-    <a href="http://www.jpost.com/" target="_blank">http://www.jpost.com/</a> <span class="clickable" onclick="golocal('#a8fd3c4af4569ee8c7bf559f6c76278610555367');">local</span> <span class="clickable" onclick="gonational('#a8fd3c4af4569ee8c7bf559f6c76278610555367');">national</span><br>
+<div id="17d9ba">
+    <a href="http://www.jpost.com/" target="_blank">http://www.jpost.com/</a>
+    <span class="clickable" onclick="golocal('#17d9ba');">local</span>
+    <span class="clickable" onclick="gonational('#17d9ba');">national</span>
+    <span class="clickable" onclick="goblog('#17d9ba');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#17d9ba');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#17d9ba', 'http://www.jpost.com/');">show now</span>
 </div>
 
 
 
-<div id="d9652040937fbd8674b9026aa702ce163aabcf7a">
-    <a href="http://www.jrep.com/" target="_blank">http://www.jrep.com/</a> <span class="clickable" onclick="golocal('#d9652040937fbd8674b9026aa702ce163aabcf7a');">local</span> <span class="clickable" onclick="gonational('#d9652040937fbd8674b9026aa702ce163aabcf7a');">national</span><br>
+<div id="6092ab">
+    <a href="http://www.jrep.com/" target="_blank">http://www.jrep.com/</a>
+    <span class="clickable" onclick="golocal('#6092ab');">local</span>
+    <span class="clickable" onclick="gonational('#6092ab');">national</span>
+    <span class="clickable" onclick="goblog('#6092ab');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#6092ab');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#6092ab', 'http://www.jrep.com/');">show now</span>
 </div>
 
 
 
-<div id="31eaa7e57bbbb3beb85b1b138f11e45bb2a1297c">
-    <a href="http://www.kan-naim.co.il/" target="_blank">http://www.kan-naim.co.il/</a> <span class="clickable" onclick="golocal('#31eaa7e57bbbb3beb85b1b138f11e45bb2a1297c');">local</span> <span class="clickable" onclick="gonational('#31eaa7e57bbbb3beb85b1b138f11e45bb2a1297c');">national</span><br>
+<div id="49b26b">
+    <a href="http://www.kan-naim.co.il/" target="_blank">http://www.kan-naim.co.il/</a>
+    <span class="clickable" onclick="golocal('#49b26b');">local</span>
+    <span class="clickable" onclick="gonational('#49b26b');">national</span>
+    <span class="clickable" onclick="goblog('#49b26b');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#49b26b');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#49b26b', 'http://www.kan-naim.co.il/');">show now</span>
 </div>
 
 
 
-<div id="44e532b9ed13e3f88673f2663803853d35623ad9">
-    <a href="http://www.local.co.il/netanya/" target="_blank">http://www.local.co.il/netanya/</a> <span class="clickable" onclick="golocal('#44e532b9ed13e3f88673f2663803853d35623ad9');">local</span> <span class="clickable" onclick="gonational('#44e532b9ed13e3f88673f2663803853d35623ad9');">national</span><br>
+<div id="560806">
+    <a href="http://www.local.co.il/netanya/" target="_blank">http://www.local.co.il/netanya/</a>
+    <span class="clickable" onclick="golocal('#560806');">local</span>
+    <span class="clickable" onclick="gonational('#560806');">national</span>
+    <span class="clickable" onclick="goblog('#560806');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#560806');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#560806', 'http://www.local.co.il/netanya/');">show now</span>
 </div>
 
 
 
-<div id="b8cbbadfaa856070466fde4132de8c945cb8c0a7">
-    <a href="http://www.maariv.co.il/" target="_blank">http://www.maariv.co.il/</a> <span class="clickable" onclick="golocal('#b8cbbadfaa856070466fde4132de8c945cb8c0a7');">local</span> <span class="clickable" onclick="gonational('#b8cbbadfaa856070466fde4132de8c945cb8c0a7');">national</span><br>
+<div id="8dedfa">
+    <a href="http://www.maariv.co.il/" target="_blank">http://www.maariv.co.il/</a>
+    <span class="clickable" onclick="golocal('#8dedfa');">local</span>
+    <span class="clickable" onclick="gonational('#8dedfa');">national</span>
+    <span class="clickable" onclick="goblog('#8dedfa');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#8dedfa');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#8dedfa', 'http://www.maariv.co.il/');">show now</span>
 </div>
 
 
 
-<div id="d35286f0b7cce0c1be47838a16c18696fd558fce">
-    <a href="http://www.mabatru.co.il/" target="_blank">http://www.mabatru.co.il/</a> <span class="clickable" onclick="golocal('#d35286f0b7cce0c1be47838a16c18696fd558fce');">local</span> <span class="clickable" onclick="gonational('#d35286f0b7cce0c1be47838a16c18696fd558fce');">national</span><br>
+<div id="c07b56">
+    <a href="http://www.mabatru.co.il/" target="_blank">http://www.mabatru.co.il/</a>
+    <span class="clickable" onclick="golocal('#c07b56');">local</span>
+    <span class="clickable" onclick="gonational('#c07b56');">national</span>
+    <span class="clickable" onclick="goblog('#c07b56');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#c07b56');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#c07b56', 'http://www.mabatru.co.il/');">show now</span>
 </div>
 
 
 
-<div id="890caf2fb956e681ce0b4d59bfa52cf6385c0449">
-    <a href="http://www.mignews.com/" target="_blank">http://www.mignews.com/</a> <span class="clickable" onclick="golocal('#890caf2fb956e681ce0b4d59bfa52cf6385c0449');">local</span> <span class="clickable" onclick="gonational('#890caf2fb956e681ce0b4d59bfa52cf6385c0449');">national</span><br>
+<div id="3c3330">
+    <a href="http://www.mignews.com/" target="_blank">http://www.mignews.com/</a>
+    <span class="clickable" onclick="golocal('#3c3330');">local</span>
+    <span class="clickable" onclick="gonational('#3c3330');">national</span>
+    <span class="clickable" onclick="goblog('#3c3330');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#3c3330');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#3c3330', 'http://www.mignews.com/');">show now</span>
 </div>
 
 
 
-<div id="55b64c7283faa3840785019660e6209a99fd0199">
-    <a href="http://www.news-israel.net/" target="_blank">http://www.news-israel.net/</a> <span class="clickable" onclick="golocal('#55b64c7283faa3840785019660e6209a99fd0199');">local</span> <span class="clickable" onclick="gonational('#55b64c7283faa3840785019660e6209a99fd0199');">national</span><br>
+<div id="27f987">
+    <a href="http://www.news-israel.net/" target="_blank">http://www.news-israel.net/</a>
+    <span class="clickable" onclick="golocal('#27f987');">local</span>
+    <span class="clickable" onclick="gonational('#27f987');">national</span>
+    <span class="clickable" onclick="goblog('#27f987');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#27f987');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#27f987', 'http://www.news-israel.net/');">show now</span>
 </div>
 
 
 
-<div id="17dc7f39a96b91daed1031a8549df827f480ad49">
-    <a href="http://www.ourjerusalem.com/index.html" target="_blank">http://www.ourjerusalem.com/index.html</a> <span class="clickable" onclick="golocal('#17dc7f39a96b91daed1031a8549df827f480ad49');">local</span> <span class="clickable" onclick="gonational('#17dc7f39a96b91daed1031a8549df827f480ad49');">national</span><br>
+<div id="646490">
+    <a href="http://www.ourjerusalem.com/index.html" target="_blank">http://www.ourjerusalem.com/index.html</a>
+    <span class="clickable" onclick="golocal('#646490');">local</span>
+    <span class="clickable" onclick="gonational('#646490');">national</span>
+    <span class="clickable" onclick="goblog('#646490');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#646490');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#646490', 'http://www.ourjerusalem.com/index.html');">show now</span>
 </div>
 
 
 
-<div id="6eab9234f65fd07cdd6defd55e37a2d61ad71b73">
-    <a href="http://www.raanana.co.il/" target="_blank">http://www.raanana.co.il/</a> <span class="clickable" onclick="golocal('#6eab9234f65fd07cdd6defd55e37a2d61ad71b73');">local</span> <span class="clickable" onclick="gonational('#6eab9234f65fd07cdd6defd55e37a2d61ad71b73');">national</span><br>
+<div id="a3995d">
+    <a href="http://www.raanana.co.il/" target="_blank">http://www.raanana.co.il/</a>
+    <span class="clickable" onclick="golocal('#a3995d');">local</span>
+    <span class="clickable" onclick="gonational('#a3995d');">national</span>
+    <span class="clickable" onclick="goblog('#a3995d');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#a3995d');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#a3995d', 'http://www.raanana.co.il/');">show now</span>
 </div>
 
 
 
-<div id="3844b2eab2e239c0f1f0924c8dd6fbe92ec09275">
-    <a href="http://www.ynet.co.il" target="_blank">http://www.ynet.co.il</a> <span class="clickable" onclick="golocal('#3844b2eab2e239c0f1f0924c8dd6fbe92ec09275');">local</span> <span class="clickable" onclick="gonational('#3844b2eab2e239c0f1f0924c8dd6fbe92ec09275');">national</span><br>
+<div id="f0e781">
+    <a href="http://www.ynet.co.il" target="_blank">http://www.ynet.co.il</a>
+    <span class="clickable" onclick="golocal('#f0e781');">local</span>
+    <span class="clickable" onclick="gonational('#f0e781');">national</span>
+    <span class="clickable" onclick="goblog('#f0e781');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#f0e781');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#f0e781', 'http://www.ynet.co.il');">show now</span>
 </div>
 
 
 
-<div id="04ff8267df53915ee633bd792bc5f47a9855e0a4">
-    <a href="http://yedhaifa.co.il/" target="_blank">http://yedhaifa.co.il/</a> <span class="clickable" onclick="golocal('#04ff8267df53915ee633bd792bc5f47a9855e0a4');">local</span> <span class="clickable" onclick="gonational('#04ff8267df53915ee633bd792bc5f47a9855e0a4');">national</span><br>
+<div id="f8a91c">
+    <a href="http://yedhaifa.co.il/" target="_blank">http://yedhaifa.co.il/</a>
+    <span class="clickable" onclick="golocal('#f8a91c');">local</span>
+    <span class="clickable" onclick="gonational('#f8a91c');">national</span>
+    <span class="clickable" onclick="goblog('#f8a91c');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#f8a91c');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#f8a91c', 'http://yedhaifa.co.il/');">show now</span>
 </div>
 
 
 
-<div id="4e06ebb44ecaf0f59a65e467c21d4b5d3d515af0">
-    <a href="http://www.makorrishon.net/" target="_blank">http://www.makorrishon.net/</a> <span class="clickable" onclick="golocal('#4e06ebb44ecaf0f59a65e467c21d4b5d3d515af0');">local</span> <span class="clickable" onclick="gonational('#4e06ebb44ecaf0f59a65e467c21d4b5d3d515af0');">national</span><br>
+<div id="dbc389">
+    <a href="http://www.makorrishon.net/" target="_blank">http://www.makorrishon.net/</a>
+    <span class="clickable" onclick="golocal('#dbc389');">local</span>
+    <span class="clickable" onclick="gonational('#dbc389');">national</span>
+    <span class="clickable" onclick="goblog('#dbc389');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#dbc389');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#dbc389', 'http://www.makorrishon.net/');">show now</span>
 </div>
 
 
 
-<div id="be751dcbe2ab322215b10025388acc0e8f83c3d3">
-    <a href="http://www.debka.co.il/" target="_blank">http://www.debka.co.il/</a> <span class="clickable" onclick="golocal('#be751dcbe2ab322215b10025388acc0e8f83c3d3');">local</span> <span class="clickable" onclick="gonational('#be751dcbe2ab322215b10025388acc0e8f83c3d3');">national</span><br>
+<div id="c29c21">
+    <a href="http://www.debka.co.il/" target="_blank">http://www.debka.co.il/</a>
+    <span class="clickable" onclick="golocal('#c29c21');">local</span>
+    <span class="clickable" onclick="gonational('#c29c21');">national</span>
+    <span class="clickable" onclick="goblog('#c29c21');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#c29c21');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#c29c21', 'http://www.debka.co.il/');">show now</span>
 </div>
 
 
 
-<div id="e996d9937a0a9f0753d5c503a26b7537742c6696">
-    <a href="http://www.panet.co.il/" target="_blank">http://www.panet.co.il/</a> <span class="clickable" onclick="golocal('#e996d9937a0a9f0753d5c503a26b7537742c6696');">local</span> <span class="clickable" onclick="gonational('#e996d9937a0a9f0753d5c503a26b7537742c6696');">national</span><br>
+<div id="f1c9f5">
+    <a href="http://www.panet.co.il/" target="_blank">http://www.panet.co.il/</a>
+    <span class="clickable" onclick="golocal('#f1c9f5');">local</span>
+    <span class="clickable" onclick="gonational('#f1c9f5');">national</span>
+    <span class="clickable" onclick="goblog('#f1c9f5');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#f1c9f5');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#f1c9f5', 'http://www.panet.co.il/');">show now</span>
 </div>
 
 
 
-<div id="30c94e504719678b48ebb57dec7b42a1fafd83ed">
-    <a href="http://www.rotter.net/" target="_blank">http://www.rotter.net/</a> <span class="clickable" onclick="golocal('#30c94e504719678b48ebb57dec7b42a1fafd83ed');">local</span> <span class="clickable" onclick="gonational('#30c94e504719678b48ebb57dec7b42a1fafd83ed');">national</span><br>
+<div id="34226c">
+    <a href="http://www.rotter.net/" target="_blank">http://www.rotter.net/</a>
+    <span class="clickable" onclick="golocal('#34226c');">local</span>
+    <span class="clickable" onclick="gonational('#34226c');">national</span>
+    <span class="clickable" onclick="goblog('#34226c');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#34226c');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#34226c', 'http://www.rotter.net/');">show now</span>
 </div>
 
 
 
-<div id="c417ec820d74070bf82ea9832801304793640a1e">
-    <a href="http://www.isra.com/" target="_blank">http://www.isra.com/</a> <span class="clickable" onclick="golocal('#c417ec820d74070bf82ea9832801304793640a1e');">local</span> <span class="clickable" onclick="gonational('#c417ec820d74070bf82ea9832801304793640a1e');">national</span><br>
+<div id="d557e5">
+    <a href="http://www.isra.com/" target="_blank">http://www.isra.com/</a>
+    <span class="clickable" onclick="golocal('#d557e5');">local</span>
+    <span class="clickable" onclick="gonational('#d557e5');">national</span>
+    <span class="clickable" onclick="goblog('#d557e5');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#d557e5');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#d557e5', 'http://www.isra.com/');">show now</span>
 </div>
 
 
 
-<div id="b244fe0751a7ea2e0d8c4b892a009a3c6264e648">
-    <a href="http://www.lenta.co.il/" target="_blank">http://www.lenta.co.il/</a> <span class="clickable" onclick="golocal('#b244fe0751a7ea2e0d8c4b892a009a3c6264e648');">local</span> <span class="clickable" onclick="gonational('#b244fe0751a7ea2e0d8c4b892a009a3c6264e648');">national</span><br>
+<div id="01d5c1">
+    <a href="http://www.lenta.co.il/" target="_blank">http://www.lenta.co.il/</a>
+    <span class="clickable" onclick="golocal('#01d5c1');">local</span>
+    <span class="clickable" onclick="gonational('#01d5c1');">national</span>
+    <span class="clickable" onclick="goblog('#01d5c1');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#01d5c1');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#01d5c1', 'http://www.lenta.co.il/');">show now</span>
 </div>
 
 
 
-<div id="83e2f22e29b71c7f06eadd01f83377f6ea7da1a5">
-    <a href="http://emetnews.org/" target="_blank">http://emetnews.org/</a> <span class="clickable" onclick="golocal('#83e2f22e29b71c7f06eadd01f83377f6ea7da1a5');">local</span> <span class="clickable" onclick="gonational('#83e2f22e29b71c7f06eadd01f83377f6ea7da1a5');">national</span><br>
+<div id="89e78f">
+    <a href="http://emetnews.org/" target="_blank">http://emetnews.org/</a>
+    <span class="clickable" onclick="golocal('#89e78f');">local</span>
+    <span class="clickable" onclick="gonational('#89e78f');">national</span>
+    <span class="clickable" onclick="goblog('#89e78f');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#89e78f');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#89e78f', 'http://emetnews.org/');">show now</span>
 </div>
 
 

@@ -7,12 +7,18 @@
 
     <script type="application/javascript">
 
+        function goblog(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#blogList");
+        }
 
         function golocal(elem) {
+            $('.stigma').remove();
             $(elem).appendTo("#localList");
         }
 
         function gonational(elem) {
+            $('.stigma').remove();
             $(elem).appendTo("#nationalList");
         }
 
@@ -22,6 +28,20 @@
 
         function showbutton() {
             $('.clickable').show();
+        }
+
+        function openiframe(elem, url) {
+            $('<br>').appendTo(elem);
+            $('<iframe />', {
+                'src' :url,
+                'width': "80%",
+                'height': "40%",
+                'class': 'stigma'
+            }).appendTo(elem);
+        }
+
+        function justfuckingdeletethisshit(elem) {
+            $(elem).remove()
         }
 
     </script>
@@ -45,8 +65,11 @@
         .clickable {
             background-color: yellow;
             color: blueviolet;
-            margin-left: 4em;
-            margin-right: 4em;
+            margin-left: 2em;
+            margin-right: 2em;
+        }
+        .show {
+            background-color: red;
         }
     </style>
 </head>
@@ -65,11 +88,20 @@ nigeria
 <div class="urlList" id="localList">
 </div>
 
+<h2>personal/community Blog List</h2>
+<div class="urlList" id="blogList">
+</div>
+
 <h2>Unverified List</h2>
 
 
-<div id="2c401e58c8945fc23569139d132c9f29d260f762">
-    <a href="http://www.newstimeafrica.com/archives/category/west-africa/niger" target="_blank">http://www.newstimeafrica.com/archives/category/west-africa/niger</a> <span class="clickable" onclick="golocal('#2c401e58c8945fc23569139d132c9f29d260f762');">local</span> <span class="clickable" onclick="gonational('#2c401e58c8945fc23569139d132c9f29d260f762');">national</span><br>
+<div id="5946a8">
+    <a href="http://www.newstimeafrica.com/archives/category/west-africa/niger" target="_blank">http://www.newstimeafrica.com/archives/category/west-africa/niger</a>
+    <span class="clickable" onclick="golocal('#5946a8');">local</span>
+    <span class="clickable" onclick="gonational('#5946a8');">national</span>
+    <span class="clickable" onclick="goblog('#5946a8');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#5946a8');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#5946a8', 'http://www.newstimeafrica.com/archives/category/west-africa/niger');">show now</span>
 </div>
 
 
