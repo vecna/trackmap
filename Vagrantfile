@@ -32,7 +32,7 @@ EOF
 
 sha224sum -c sha224.check
 if [ $? != "0" ]; then
-    echo "OMG checksum fail!? quit+please email: vecna [at] globaleaks [:] org"
+    echo "OMG checksum fail!? quit+please email: trackmap [at] tacticaltech [:] org"
     init 0
 fi
 
@@ -99,7 +99,7 @@ helpagainsttrack/topology_tests.py 131.175.12.1
 
 hsurl=`cat /home/vagrant/hs/hostname`
 for i in `seq 1 10`; do 
-   echo "to notify your cooperation at XX@YY.KK telling this address: $hsurl"
+   echo "MAIL to trackmap@tacticaltech.org to notify your cooperation and tell this: $hsurl"
 done
 
 
