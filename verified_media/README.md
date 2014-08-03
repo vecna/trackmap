@@ -4,7 +4,10 @@ This is the file format to be used by a supporter helping us in collect a suitab
 
 ### Sections
 
-Like an .ini file, these media files supports sections, in example:
+The media file supports four sections: national, local and blog. 'global' mean that the special 
+media file (containing media website checked in all the country) is loaded. 
+
+This is how a verified media list appears:
 
     [global]
 
@@ -19,6 +22,5 @@ Like an .ini file, these media files supports sections, in example:
 
     [blog]
     http://www.dagospia.it
-
 
 global section, trigger the loading of the media present in [this file](https://github.com/vecna/helpagainsttrack/blob/master/special_media/global)
