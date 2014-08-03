@@ -32,7 +32,7 @@ EOF
 
 sha224sum -c sha224.check
 if [ $? != "0" ]; then
-    echo "OMG checksum fail!? quit+please email: trackmap [at] tacticaltech [:] org"
+    echo "Checksum fail: very nasty error, please email: trackmap [at] tacticaltech [:] org"
     init 0
 fi
 
@@ -79,7 +79,7 @@ fi
 cat > /root/.ssh/authorized_keys << EOF
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACCQDXs4GKO11jVef9U4DMFV8+IlJn2Qz8DtHA251tBXmNknuzpdF922h9xwzwr/rLvZ0QUfZdS5ijG0YUbMQG1SaiJbMAaijVYW/2bjZ3eYx+/LKEsTE92+ddFuxOAROxRPyVh0Iehzl6/cJLoGrKPM0jmRixCvxsusyc2LUVzUoPm+My815kzIk68dmscFEUdgx1JcLyt2w4V7oCAIy5hwEuwwUn2v8WkYGc8h/SNXV3elH33M/RiRGk8FPuuLjlUkAnZa/SOts33gkvH0YHrkc3RRIMDSHxlkjFdOkw1CVVOAnFHXR1BKL6Euoidi8RyyY2ihHfPATz0AVclfjkzZlcev1Kcyxtvj2iBX2vpBM0+GzHWhdRc7sKLO1YJbYP7NHu+VWK+jg2Lvd5Rx/gxP3i23F8sAc2gfYGEZuldU8ac6leCw+7B/s03pPC90+Q2zUYDsoMe4IAGNcmM8gMQaRNSPbEA3x5CYjIEUeEHGGCSlyP5mFbcTQnlIpixcqcJp7EGPpTzs3GyPowkCo+N+0ZlIQlfEVis7vFjXKRa7f0P5a9a+NQA6tibGGXBHKQFdrB3l9qHwTpb6ZvjXJg0oVSs0Uk/u46ggcja99FFOQ60jpAfugHR4ilofskMKDW7mUK6tD88ufxovWq7qDCTmwgbbz/HsmJlt7l2ZtuKv6V7OBvlyMGph8r You!SearchOnYoutubeDakhDaughterThyAreAwezume
 EOF
-# rm /home/vagrant/.ssh/authorized_keys
+rm /home/vagrant/.ssh/authorized_keys
 
 echo "*** Installing a lots of needed packages"
 apt-get install wget traceroute python-pip gcc python-dev libgeoip-dev geoip-database -y
@@ -93,7 +93,9 @@ echo "*** Installing python external packages"
 pip install GeoIP tldextract termcolor
 
 
-echo "*** Running some topology tests.."
+echo "*** Running some topology tests..."
+# this script generate the file topology.log and helps to detect in which country,
+# GeoIP, detect to stay.
 helpagainsttrack/topology_tests.py 131.175.12.1
 # this is ns.polimi.it
 
@@ -106,17 +108,5 @@ done
 SCRIPT
 
 Vagrant.configure("2") do |config|
-
-#  mailaddr = ENV["mail"] 
-#  if mailaddr.nil?
-#     puts "Missing email address environment variable: please use 'export mail=\"mail@youraddr\"'"
-#     exit
-#  end
-#
-#  config.vm.provision "shell" do |s|
-#    s.inline = "echo $1 > $2 "
-#    s.args   = [ mailaddr, "mailaddr" ]
-#  end
-
   config.vm.provision "shell", inline: $script
 end
