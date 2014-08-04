@@ -1,36 +1,31 @@
 # TrackMap project
 
-TrackMap project is a research of [Tactical Tech](http://www.tacticaltech.org), part of [MyShadow](http://myshadow.org) project.
+The TrackMap project is research by [Tactical Tech](http://www.tacticaltech.org), which is a part of the [MyShadow](http://myshadow.org) project.
 
 Our aim is to show where our data travels when we visit our favorite news websites through a visualization. We are currently looking for people to collaborate with in various countries in the world which would make this project possible.
 
 ## This repository
 
 contains the script and the data source needed to collect the data. 
-The collection has to happen in a distributed way, so from every country of the 
-world the script need to be runned.
+The collection of data needs to happen in a distributed way, which means that the script needs to run from each of the selected countries. This is important because the network and the trackers behave differently based on the provenience country of the user. 
 
-Is important this distributed effort, because the network and the trackers behave
-differently based on the provenience country of the user. 
-
-For every country we need two kind of supporters for this project:
+For every country we need two kinds of supporters for this project:
 
 If you're a **Media experts/Aware citizen**:
 
-  * we need a reliable media list for every country, take a look the directory [unverified media list](https://github.com/vecna/helpagainsttrack/tree/master/unverified_media_list) if your country is present: we need someone with local experience reviews the media list. (put the missing media, checks if the current sites are still active
-and separation between national and local)
+  * we need a reliable media list for every country, take a look at the directory [unverified media list](https://github.com/vecna/helpagainsttrack/tree/master/unverified_media_list) if your country is present: we need someone with local experience to review the media list (add the missing media, check if the current sites are still active and separate the national from the local media).
 
-If you're a **Linux users**:
+If you're a **Linux user**:
 
-  * you can run the script *perform\_analysis.py* by your own (it send to our hidden service the results automatically).
+  * you can run the script *perform\_analysis.py* on your own (it will automatically send the results to our hidden service). 
 
-If you're a **Linux users** with a constantly running box and few times:
+If you're a **Linux user** with a constantly running box and few times:
 
-  * You can run the **Vagrant script** below explained to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we eventually will sent to you an email asking to start you box when the tests get updated).
+  * You can run the **Vagrant script** explained  below to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we will eventually send you an email asking you to start your box when the tests get updated).
 
 ## Run the test script
 
-Is tested only under debian/ubuntu:
+The test script can only be run under debian/ubuntu:
 
 Some base requirements:
 
@@ -40,8 +35,8 @@ Some base requirements:
     sudo apt-get install traceroute python-pip gcc python-dev libgeoip-dev -y
     sudo apt-get install geoip-database libfontconfig1 -y
 
-Distributions phantomjs has commonly old versions. We need > 1.9.0
-Download phantomjs in the most suitable location for you, I suggest in /usr/local/share
+Distributions phantomjs commonly have old versions. We need > 1.9.0
+Download phantomjs in the most suitable location for you. I suggest in /usr/local/share
 
     wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 
     tar jxf phantomjs-1.9.2-linux-i686.tar.bz2 
@@ -51,7 +46,7 @@ Download phantomjs in the most suitable location for you, I suggest in /usr/loca
 
 *Note: sha224 cksum of phantomjs-1.9.2* 4b6156fcc49dddbe375ffb8895a0003a4930aa7772f9a41908ac611d
 
-Come back in the directory of the tests, and:
+Come back to the directory of the tests, and:
 
     git clone https://github.com/vecna/helpagainsttrack.git
     sudo pip install GeoIP tldextract termcolor poster
@@ -64,7 +59,7 @@ And then finally run:
 
 ## Vagrant option (a.k.a. less effort, more trust needed)
 
-In this repository exist a **Vagrantfile**, it is configured to setup a virtual
+A **Vagrantfile** exists in this repository, which is configured to setup a virtual
 box
 
     git clone https://github.com/vecna/helpagainsttrack.git
@@ -75,11 +70,11 @@ box
 
 When you type the command **vagrant up** will download the virtual machine image,
 perform an upgrade, install the needed packages, copy an SSH public key, run Tor 
-and give to you the address of the Tor hidden service pointing to the SSH port of 
+and give you the address of the Tor hidden service pointing to the SSH port of 
 the virtual machine.
 
-We're gonna to run only the defined script, but almost in the case of new tests available,
-we can just ask to you to type again **vagrant up**.
+We're only going to run the defined script, but if new tests are available,
+we might ask you to re-type **vagrant up**.
 
 
 ## The operation performed by the script (perform\_analisys.py)
@@ -91,47 +86,39 @@ we can just ask to you to type again **vagrant up**.
   * GeoIP conversion from every IP included.
   * send the results to our hidden service (**XXX TODO we've to write here the definitive one**)
 
-This permit to show, from a news media, all the nations capable to know that a
-specific users is visiting.
+This shows all the nations capable of knowing which users are visiting the (selected) news media.
 
 ## Why care about these results ?
 
-This has been done by the NSA, intercepting the advertising network of Angry Birds
-game. Angry Birds was the most deployed game, but was still an option for a 
-citizen. Be informed is something more descriptive of a person (and of a group)
-will, knowledge and belief, therefore one of the thesis of this project, is expose
-how the ADS and tracking business, based on third party injections, is a
-damaging behavior for the readers of a news site and for the citizen who relay
-on that informative website.
+This has been done by the NSA, which intercepts the advertising network of the Angry Birds
+game. Angry Birds was the most deployed game, but was still an option for citizens. News media, however, are accessed by the majority of populations around the world and by tracking which websites users access, third parties can gain a unique insight into the types of interests people have, their ideas, beliefs and concerns. In other words, by tracking news media, third parties can map out the interests of individuals and groups and potentially target them. The aim of this project is to expose how the ADS and tracking business works based on third party injections.
+
 
 ### Theoretical elements
 
-In this (very first version) of TrackMap project we want answer to these questions:
+In this (very first version) of the TrackMap project we want answer to the following questions:
 
-  * "Is the online Advertising Business a potential assets of the Intelligence Agencies ?"
-  * "Are the users aware of the amount of exposure they are receiving daily ?"
-  * "Are the privacy activist aware of the network path and their implications ?"
-  * "Is online advertising and tracking a good business model for online Media ?" (In this case, media are intended the website publishing constant update on relevant event, therefore their consultancy is not just an users option, but is an users **needs**).
+  * "Is the online advertising business a potential asset to intelligence agencies ?"
+  * "Are users aware of the extent to which their data and browsing habits are exposed on a daily basis?"
+  * "Are privacy activists aware of their network path and of its implications ?"
+  * "Is online advertising and tracking a good business model for online media ?" (In this case, media is a website which constantly publishes updates on relevant events and their consultancy is therefore not just an option for users, but also a **need** for users).
 
-The technologies adopted in this mapping project, due to limited resources in our side, may contain
-little misleading information.
+Due to limited resources from our side, our research might face the following limitations:
 
-  * GeoIP is mostly reliable, but IP classes can change organizations and therefore nation.
-  * GeoIP may answer with a continent (in example, some classes are assigned to Europe, without more precision about the physical location)
-  * We're performing traceroute without checking if the resource included is in https (happen very seldom, and in these cases we've to consider the data stored in the recipient country but not exposed to in-transit interception and manipulation)
-  * Some services provider uses CDN, and this mean that interact with them may be resolved as part o
+  * The GeoIP is mostly reliable, but IP classes can change organizations and therefore nations
+  * The GeoIP might be found in a continent (for example, some classes are assigned to Europe, without more precision about the physical location)
+  * We're performing traceroute without checking if the resource included is in https (this happens very seldomly, and in these cases we consider the data stored in the recipient country but not exposed in-transit interception and manipulation)
+  * Some service providers use CDN and this means that in order to interact with them, this might be resolved as part o
 f the same country of the user, also if the content is obviously stored by a foreign country. (very rare, anyway)
-  * We cannot know if a service has some Cloud Provider as backend
+  * We cannot know if a service has some Cloud Provider as a backend
   * We cannot automatize the seeking of company information over every tracking agent
 
-Further improvements are in planning.
+Further improvements are in progress.
 
 
 ## Countermeasure
 
-**Everyone of these need to be review**, until is not performed a privacy assessment
-on these technologies. At the moment I'm not aware if assessment like these has been
-done.
+**Each of the following need to be reviewed**, as at the moment I'm not aware if a privacy assessment on these technologies has been made yet.
 
   * NoScript (FireFox)
   * SafeScript (Chrome)
@@ -141,29 +128,28 @@ done.
 
 ### A little dream
 
-The tracking elements are well spreaded in the websites. 
-If you read site A, B C and D, the tracking agent present in A B and D, they knows almost 
-75% of you.
+The tracking elements are well documented in the websites. 
+If you read site A, B, C and D, the tracking agent present in A, B and D know almost 
+75% of information about you.
 
-The distributed nature of Internet will always make possible the development of site like
-the "C": site without tracking agent. 
+The distributed nature of the Internet will always make the development of sites like "C" possible: a site without a tracking agent. 
 Sadly, due to the online adverising business, mixing between social and ADV, SEO and 
 infrastructural needs, the creation of independent and trackless sites is extremely rare.
 
-When someone share a link, this link often contain an some identifier used to recognize users 
-connected by other means (eg: sharing link via chat or via mail: the tracker do not know in which 
-way you got that link, but now can link you and the users who has shared the link).
+When someone shares a link, this link often contains some identifier used to recognize users 
+connected by other means (eg: sharing a link via chat or via mail: the tracker does not know how 
+you got that link, but can now link you and the users who have shared the link).
 
-This is one of the scaring aspetcs of the tracking: this business model do not just tracks you, but your entire network, and escaping became quite more difficult.
+This is one of the scary aspects of tracking: this business model does not just track you, but your entire network, and escaping it is quite difficult.
 
-**A dream about it: do not bring anymore users on website. When you see an
-information that deserve to be shared, create a partial, temporary and static copy
-of the information. share only that copy. 
+**A dream about it: do not bring anymore users on websites. When you see
+information that deserves to be shared, create a partial, temporary and static copy
+of the information and only share that copy. 
 
-There is no needs to trigger in your recipients devices some network
-activity, that lead to tracks and exposure
+There is no need to trigger your recipients devices with some network
+activity that leads to tracks and exposure.
 
-Those activity are used against you and your network of friends, and develop technical solution is quite easy**
+Such activity is used against you and your network of friends, and to develop a technical solution is quite easy**
 
 
 ### Note
