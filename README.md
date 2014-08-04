@@ -104,6 +104,28 @@ how the ADS and tracking business, based on third party injections, is a
 damaging behavior for the readers of a news site and for the citizen who relay
 on that informative website.
 
+### Theoretical elements
+
+In this (very first version) of TrackMap project we want answer to these questions:
+
+  * "Is the online Advertising Business a potential assets of the Intelligence Agencies ?"
+  * "Are the users aware of the amount of exposure they are receiving daily ?"
+  * "Are the privacy activist aware of the network path and their implications ?"
+  * "Is online advertising and tracking a good business model for online Media ?" (In this case, media are intended the website publishing constant update on relevant event, therefore their consultancy is not just an users option, but is an users **needs**).
+
+The technologies adopted in this mapping project, due to limited resources in our side, may contain
+little misleading information.
+
+  * GeoIP is mostly reliable, but IP classes can change organizations and therefore nation.
+  * GeoIP may answer with a continent (in example, some classes are assigned to Europe, without more precision about the physical location)
+  * We're performing traceroute without checking if the resource included is in https (happen very seldom, and in these cases we've to consider the data stored in the recipient country but not exposed to in-transit interception and manipulation)
+  * Some services provider uses CDN, and this mean that interact with them may be resolved as part o
+f the same country of the user, also if the content is obviously stored by a foreign country. (very rare, anyway)
+  * We cannot know if a service has some Cloud Provider as backend
+  * We cannot automatize the seeking of company information over every tracking agent
+
+Further improvements are in planning.
+
 
 ## Countermeasure
 
@@ -140,6 +162,7 @@ the link are in some way connected)
 information that deserve to be shared, just create a partial temporary and static copy
 and share that. There is no needs to trigger in your recipient device some network
 activity: those activity are used against you and your recipients**
+
 
 ### Note
 

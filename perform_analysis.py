@@ -176,9 +176,9 @@ def do_trace(dumpprefix, host):
         time.sleep(10)
         secondtotalrisks, iplist = software_execution("2.1")
         if validate_traceroute_output(secondtotalrisks, iplist, tolerance=True):
-            print colored("Ok! tracerouted with a more reliable output %s" % host, "green"),
+            print colored("\n\tOk! tracerouted with a more reliable output (%d)" % secondtotalrisks, "green"),
         else:
-            print colored("Failed again! (%d *'s)" % secondtotalrisks, "red")
+            print colored("\n\tFailed again! (%d *'s)" % secondtotalrisks, "red")
             return False
 
     with file(ip_file, 'w+') as f:
@@ -210,6 +210,7 @@ def do_trace(dumpprefix, host):
             country_travel_path.update({counter:country})
             counter += 1
 
+        print "Done"
         json.dump(country_travel_path, f)
 
     return True
@@ -280,7 +281,10 @@ def main():
         counter = 1
         failure = 0
         for url, domain_info in included_url_dict.iteritems():
-            print colored("%d/%d\t" % (counter, len(included_url_dict.keys()) ), "cyan" ),
+
+            progress_string = "%d/%d" % (counter, len(included_url_dict.keys()))
+            print colored("%s%s" % (progress_string, (10 - len(progress_string)) * " " ), "cyan" ),
+
             if not do_trace(url, url):
                 failure += 1
             counter += 1
