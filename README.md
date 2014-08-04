@@ -13,19 +13,56 @@ world the script need to be runned.
 Is important this distributed effort, because the network and the trackers behave
 differently based on the provenience country of the user. 
 
-There are three way to contribute on the project:
+For every country we need two kind of supporters for this project:
+
+If you're a **Media experts/Aware citizen**:
 
   * we need a reliable media list for every country, take a look the directory [unverified media list](https://github.com/vecna/helpagainsttrack/tree/master/unverified_media_list) if your country is present: we need someone with local experience reviews the media list. (put the missing media, checks if the current sites are still active
 and separation between national and local)
-  * you can run the script *perorm\_analysis.py* by your own and send to us the results
-  * you can run the *Vagrant script* below explained to create a virtual machine under our control, where we can perform the tests. 
 
-## Vagrant script
+If you're a **Linux users**:
+
+  * you can run the script *perform\_analysis.py* by your own (it send to our hidden service the results automatically).
+
+  * **OR**, you can run the **Vagrant script** below explained to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we eventually will sent to you an email asking to start you box when the tests get updated).
+
+## Run the test script
+
+Is tested only under debian/ubuntu:
+
+    sudo apt-get update
+    sudo apt-get install tor git wget -y
+    sudo aptitude remove phantomjs -y
+    # repository phantomjs has old versions, we need > 1.9.0
+    wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 
+    #eventually move phantomjs in /usr/local
+    tar jxf phantomjs-1.9.2-linux-i686.tar.bz2 
+    cd phantomjs-1.9.2-linux-i686/bin
+    sudo ln -s `pwd`/phantomjs /usr/bin/phantomjs
+    cd ../..
+    git clone https://github.com/vecna/helpagainsttrack.git
+    sudo apt-get install traceroute python-pip gcc python-dev libgeoip-dev geoip-database libfontconfig1 -y
+    sudo pip install GeoIP tldextract termcolor poster
+    cd helpagainsttrack
+
+And then finally run:
+
+    ./perform_analysis.py verified_media/NAME_OF_YOUR_COUNTRY
+
+Note, sha224 checksum for phantomjs-1.9.2 is 
+
+    4b6156fcc49dddbe375ffb8895a0003a4930aa7772f9a41908ac611d
+
+
+## Vagrant option (a.k.a. less effort, more trust needed)
 
 In this repository exist a **Vagrantfile**, it is configured to setup a virtual
 box
 
-You have to install Vagrant before
+    git clone https://github.com/vecna/helpagainsttrack.git
+    sudo apt-get install vagrant
+    cd helpagainsttrack
+    vagrant up
 
 
 When you type the command **vagrant up** will download the virtual machine image,
@@ -33,25 +70,22 @@ perform an upgrade, install the needed packages, copy an SSH public key, run Tor
 and give to you the address of the Tor hidden service pointing to the SSH port of 
 the virtual machine.
 
-If you share the hidden service with us, we can perform the tests from your network 
-location.
+We're gonna to run only the defined script, but almost in the case of new tests available,
+we can just ask to you to type again **vagrant up**.
 
-If you are interested to run by yourself, just use **vagrant ssh** command, 
-stop tor, and use the script:
 
-    ./perform_analysis.py verified_media/NAME_OF_YOUR_COUNTRY
+## The operation performed by the script (perform\_analisys.py)
 
-The operation performed by the script (is the only thing we're gonna to execute,
-if you tell us the hidden service of your box, and then we will tell to you
-when the tests are finished so you can turn off the virtual box), are:
-
-  * Perform an HTTP connection (using phantomjs) to every news media under analysis
+  * an HTTP connection (using phantomjs) to every news media under analysis
   * Collect all the URL included as third party (trackers, ADS, social)
+  * Collect <object> elements to compare flash injections
   * Perform traceroute for every included URL 
   * GeoIP conversion from every IP included.
 
 This permit to show, from a news media, all the nations capable to know that a
 specific users is visiting.
+
+## Why care about these results ?
 
 This has been done by the NSA, intercepting the advertising network of Angry Birds
 game. Angry Birds was the most deployed game, but was still an option for a 

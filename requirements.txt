@@ -1,3 +1,4 @@
 GeoIP
 tldextract
 termcolor
+requests

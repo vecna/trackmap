@@ -2,7 +2,7 @@
 
 import os, re, json, sys, random, time
 import GeoIP
-import tldextract
+import requests
 
 from subprocess import Popen, PIPE
 from termcolor import colored
@@ -213,13 +213,9 @@ def main():
         counter = 1
         for url, domain_info in included_url_dict.iteritems():
             print colored("%d/%d\t" % (counter, len(included_url_dict.keys()) ), "cyan" ),
-            # TODO do_trace verify_trace_output eventually do_trace with more timeoout
+            # TODO do_trace verify_trace_output eventually do_trace with more timeout
             do_trace(url, url)
             counter += 1
-
-        if os.path.isfile('results.tar.gz'):
-            print "Finished! and the data is already compressed ? remove results.tar.gz to make a new one"
-            quit(0)
 
         # putting the unique number into
         with file( os.path.join(OUTPUTDIR, "unique_id"), "w+") as f:
@@ -227,8 +223,12 @@ def main():
 
         basename_media = os.path.basename(sys.argv[1])
         print "Finished! compressing the data", basename_media
-
         output_name = 'results-%s.tar.gz' % basename_media
+
+        #if os.path.isfile(output_name):
+        #    print "Finished! and the data is already compressed ? remove results.tar.gz to make a new one"
+        #    quit(0)
+
         tar = Popen(['tar', '-z', '-c', '-v', '-f', output_name, OUTPUTDIR], stdout=PIPE)
 
         counter_line = 0
@@ -238,8 +238,16 @@ def main():
             if not line:
                 break
 
-        print counter_line
-        print "Now please send %s to vecna{AT}globaleaks[DOT]org" % output_name
+        print counter_line, "file added to", output_name
+        p = Popen(['torify', './result_sender.py', output_name], stdout=PIPE)
+
+        while True:
+            line = p.stdout.readline()
+            if not line:
+                break
+            print line,
+
+
 
 
 if __name__ == '__main__':

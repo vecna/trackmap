@@ -16,12 +16,14 @@ date > /etc/vagrant_provisioned_at
 
 echo "*** Checking network connection"
 ping -c 1 myshadow.org
-if [ "?$" -ne "0" ]; then
+if [ "$?" -ne "0" ]; then
     echo "Network connection is down!? please fix it"
     init 0
 fi
 
 apt-get update -y
+echo "*** Installing setup requirements (Tor, git and wget)"
+apt-get install wget tor git -y
 
 echo "*** downloading phantomjs 1.9.2"
 wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 -o /tmp/wget.log
@@ -31,7 +33,7 @@ cat > sha224.check << EOF
 EOF
 
 sha224sum -c sha224.check
-if [ $? != "0" ]; then
+if [ "$?" != "0" ]; then
     echo "Checksum fail: very nasty error, please email: trackmap [at] tacticaltech [:] org"
     init 0
 fi
@@ -41,8 +43,7 @@ cd phantomjs-1.9.2-linux-i686/bin
 ln -s `pwd`/phantomjs /usr/bin/phantomjs
 cd /home/vagrant
 
-echo "*** Installing Tor and git"
-apt-get install tor git -y
+echo "*** Creating the hidden service"
 mkdir hs
 chown debian-tor hs
 
@@ -82,7 +83,7 @@ EOF
 rm /home/vagrant/.ssh/authorized_keys
 
 echo "*** Installing a lots of needed packages"
-apt-get install wget traceroute python-pip gcc python-dev libgeoip-dev geoip-database -y
+apt-get install traceroute python-pip gcc python-dev libgeoip-dev geoip-database libfontconfig1 -y
 if [ "$?" != "0" ]; then
    echo "!!! fatal error, unable to install a required package"
    init 0
@@ -90,7 +91,7 @@ fi
 aptitude remove phantomjs -y
 
 echo "*** Installing python external packages"
-pip install GeoIP tldextract termcolor
+pip install GeoIP tldextract termcolor requests
 
 
 echo "*** Running some topology tests..."
