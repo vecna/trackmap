@@ -141,27 +141,29 @@ done.
 
 ### A little dream
 
-The tracking elements, acting being present in a multiple website, so if you read
-site A, B C and D, the tracking agent present in A B and D know almost 75% of you.
+The tracking elements are well spreaded in the websites. 
+If you read site A, B C and D, the tracking agent present in A B and D, they knows almost 
+75% of you.
 
-The distributed nature of Internet will always make possible a "C" site without
-tracking agent, but for business, SEO or infrastructural needs, the creation of 
-independent and trackless site is diminishing constantly.
+The distributed nature of Internet will always make possible the development of site like
+the "C": site without tracking agent. 
+Sadly, due to the online adverising business, mixing between social and ADV, SEO and 
+infrastructural needs, the creation of independent and trackless sites is extremely rare.
 
-One of the scaring effect of the tracking is into the subject of the tracking. not
-only your path around the internet, but also who give to you that link, from where
-you've found this information. because if a trackless website point to a tracked 
-one, your presence on the trackless is still tracked.
+When someone share a link, this link often contain an some identifier used to recognize users 
+connected by other means (eg: sharing link via chat or via mail: the tracker do not know in which 
+way you got that link, but now can link you and the users who has shared the link).
 
-And seldom, when someone share a link, this link contain an unique identifier 
-used to recognize users connected by other means (eg: sharing link via chat or
-via mail: the tracker do not know in which way, but know you and who as shared
-the link are in some way connected)
+This is one of the scaring aspetcs of the tracking: this business model do not just tracks you, but your entire network, and escaping became quite more difficult.
 
-**So, my little dream, is do not bring anymore users on website. When you see an
-information that deserve to be shared, just create a partial temporary and static copy
-and share that. There is no needs to trigger in your recipient device some network
-activity: those activity are used against you and your recipients**
+**A dream about it: do not bring anymore users on website. When you see an
+information that deserve to be shared, create a partial, temporary and static copy
+of the information. share only that copy. 
+
+There is no needs to trigger in your recipients devices some network
+activity, that lead to tracks and exposure
+
+Those activity are used against you and your network of friends, and develop technical solution is quite easy**
 
 
 ### Note
