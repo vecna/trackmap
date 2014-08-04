@@ -7,8 +7,16 @@ import requests, sys
 # test HS - need to be put our official one
 url = 'http://xdwjkgpdku6gvh5e.onion:12345/'
 
+if len(sys.argv) == 1:
+    print "This script sent the result file to us, via hidden service"
+    print "Do not run by hand, is called directly by perform_analysis"
+    print ""
+    print "usage: %s output-$country.tar.gz" % sys.argv[0]
+    quit(-1)
+
+filename = sys.argv[1]
+
 try:
-    filename = sys.argv[1]
     if not filename.endswith('.tar.gz'):
         raise Exception("Not .tar.gz suffix found")
     if len(filename) > 28:

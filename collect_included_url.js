@@ -37,7 +37,7 @@ page.onResourceTimeout = function(e) {
     console.log(e.errorCode + " " + e.errorString + " " + e.url);
     try {
         // the url whose request timed out
-        fs.write(system.args[2] + "/__failures", e.url, 'a+');
+        fs.write(system.args[2] + "/__failures", e.url + "\n", 'a+');
     } catch(e) {
        console.log(e);
     }

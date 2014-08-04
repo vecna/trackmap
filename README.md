@@ -1,6 +1,6 @@
 # TrackMap project
 
-TrackMap project is an experimental research part of [Tactical Tech](http://www.tacticaltech.org).
+TrackMap project is a research of [Tactical Tech](http://www.tacticaltech.org), part of [MyShadow](http://myshadow.org) project.
 
 Our aim is to show where our data travels when we visit our favorite news websites through a visualization. We are currently looking for people to collaborate with in various countries in the world which would make this project possible.
 
@@ -24,34 +24,42 @@ If you're a **Linux users**:
 
   * you can run the script *perform\_analysis.py* by your own (it send to our hidden service the results automatically).
 
-  * **OR**, you can run the **Vagrant script** below explained to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we eventually will sent to you an email asking to start you box when the tests get updated).
+If you're a **Linux users** with a constantly running box and few times:
+
+  * You can run the **Vagrant script** below explained to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we eventually will sent to you an email asking to start you box when the tests get updated).
 
 ## Run the test script
 
 Is tested only under debian/ubuntu:
 
+Some base requirements:
+
     sudo apt-get update
-    sudo apt-get install tor git wget -y
     sudo aptitude remove phantomjs -y
-    # repository phantomjs has old versions, we need > 1.9.0
+    sudo apt-get install tor git wget -y
+    sudo apt-get install traceroute python-pip gcc python-dev libgeoip-dev -y
+    sudo apt-get install geoip-database libfontconfig1 -y
+
+Distributions phantomjs has commonly old versions. We need > 1.9.0
+Download phantomjs in the most suitable location for you, I suggest in /usr/local/share
+
     wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 
-    #eventually move phantomjs in /usr/local
     tar jxf phantomjs-1.9.2-linux-i686.tar.bz2 
     cd phantomjs-1.9.2-linux-i686/bin
-    sudo ln -s `pwd`/phantomjs /usr/bin/phantomjs
+    ln -s `pwd`/phantomjs /usr/bin/phantomjs
     cd ../..
+
+*Note: sha224 cksum of phantomjs-1.9.2* 4b6156fcc49dddbe375ffb8895a0003a4930aa7772f9a41908ac611d
+
+Come back in the directory of the tests, and:
+
     git clone https://github.com/vecna/helpagainsttrack.git
-    sudo apt-get install traceroute python-pip gcc python-dev libgeoip-dev geoip-database libfontconfig1 -y
     sudo pip install GeoIP tldextract termcolor poster
-    cd helpagainsttrack
 
 And then finally run:
 
+    cd helpagainsttrack
     ./perform_analysis.py verified_media/NAME_OF_YOUR_COUNTRY
-
-Note, sha224 checksum for phantomjs-1.9.2 is 
-
-    4b6156fcc49dddbe375ffb8895a0003a4930aa7772f9a41908ac611d
 
 
 ## Vagrant option (a.k.a. less effort, more trust needed)
@@ -81,6 +89,7 @@ we can just ask to you to type again **vagrant up**.
   * Collect <object> elements to compare flash injections
   * Perform traceroute for every included URL 
   * GeoIP conversion from every IP included.
+  * send the results to our hidden service (**XXX TODO we've to write here the definitive one**)
 
 This permit to show, from a news media, all the nations capable to know that a
 specific users is visiting.

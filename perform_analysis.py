@@ -1,8 +1,7 @@
 #!/usr/bin/python
 
-import os, re, json, sys, random, time
+import os, re, json, sys, random, time, shutil, socket
 import GeoIP
-import requests
 
 from subprocess import Popen, PIPE
 from termcolor import colored
@@ -71,13 +70,13 @@ def do_phantomjs(url, destfile, media_kind):
 
         return len(included_url_number)
 
-    # this is the code
+    # -- Here starts the do_phantom logic --
     software_execution()
 
     included_url_number = validate_phantomjs_output()
     if not included_url_number:
-        print colored("Unable to fetch correctly %s, waiting 60 seconds and retry" % url, "red")
-        time.sleep(60)
+        print colored("Unable to fetch correctly %s, waiting 30 seconds and retry" % url, "red")
+        time.sleep(30)
         software_execution()
         second_test = validate_phantomjs_output()
         if second_test:
@@ -91,44 +90,96 @@ def do_phantomjs(url, destfile, media_kind):
 
 def do_trace(dumpprefix, host):
 
+    def software_execution(timeout):
+        # commonly timeout is '0.5' but can be increase to '2.1'
+
+        iplist = []
+        asterisks_total = 0
+        p = Popen(['traceroute', '-n', '-w', timeout, '-q', '10', '-A', resolved_ip], stdout=PIPE)
+
+        logfile = file(os.path.join(OUTPUTDIR, '_verbotracelogs', host), "a+")
+        write_interruption_line(logfile, "%s %s" % (host, timeout), start=True)
+
+        while True:
+            line = p.stdout.readline()
+            if not line:
+                break
+            logfile.write(line)
+
+            # this prevent the IP match show below
+            if line.startswith('traceroute to'):
+                continue
+            # traceroute to casellante.winstonsmith.org (109.168.101.146), 30 hops ...
+            # 1  172.16.1.1 (172.16.1.1)  2.870 ms  2.868 ms  3.762 ms
+            # 2  * * *
+
+            asterisks = line.count("*")
+            # not yet handled if traceroute cripple
+            asterisks_total += asterisks
+
+            ip = re.findall( r'[0-9]+(?:\.[0-9]+){3}', line )
+            if not ip:
+                iplist.append(None)
+                continue
+            iplist.append(ip)
+
+        write_interruption_line(logfile, "%s %s = %d" % (host, timeout, asterisks_total) , start=False)
+        logfile.close()
+        return asterisks_total, iplist
+
+    def validate_traceroute_output(asterisk_amount, tracelines, tolerance):
+        # what I wanna spot is traceroute can give a better results
+        if len(tracelines) == 30:
+            # we've got an host that do not return answers
+            while True:
+
+                # if this happen, are 300 *'s
+                if not len(tracelines):
+                    return False
+
+                if not tracelines[-1]:
+                    asterisk_amount -= 10
+                    tracelines.pop()
+                else:
+                    break
+
+        medium_failures = asterisk_amount / len(tracelines)
+
+        if medium_failures > 3 and not tolerance:
+            return False
+        if medium_failures > 6 and tolerance:
+            return False
+
+        return True
+
+
+    # -- Here starts the do_trace logic --
     ip_file = os.path.join(OUTPUTDIR, '_traceroutes', "%s_ip.json" % dumpprefix)
     country_file = os.path.join(OUTPUTDIR, '_traceroutes', "%s_countries.json" % dumpprefix)
 
     if os.path.isfile(ip_file) and os.path.isfile(country_file):
-        print host, "already traced: skipping"
-        return
+        print colored ("%s already traced: skipping" % host, "green")
+        return True
     else:
         print "[T]", host,
 
-    iplist = []
-    asterisks_total = 0
-    p = Popen(['traceroute', '-n', '-w', '0.5', '-q', '10', '-A', host], stdout=PIPE)
+    try:
+        resolved_ip = socket.gethostbyname(host)
+    except Exception:
+        print colored("Failure in DNS resolution!", "red")
+        return False
 
-    logfile = file(os.path.join(OUTPUTDIR, '_verbotracelogs', host), "w+")
+    totalsterisks, iplist = software_execution("0.5")
 
-    while True:
-        line = p.stdout.readline()
-        if not line:
-            break
-        logfile.write(line)
-
-        # this prevent the IP match show below
-        if line.startswith('traceroute to'):
-            continue
-        # traceroute to casellante.winstonsmith.org (109.168.101.146), 30 hops ...
-        # 1  172.16.1.1 (172.16.1.1)  2.870 ms  2.868 ms  3.762 ms
-        # 2  * * *
-
-        asterisks = line.count("*")
-        # not yet handled if traceroute cripple
-        asterisks_total += asterisks
-
-        ip = re.findall( r'[0-9]+(?:\.[0-9]+){3}', line )
-        if not ip:
-            continue
-        iplist.append(ip)
-
-    logfile.close()
+    if not validate_traceroute_output(totalsterisks, iplist, tolerance=False):
+        print colored("Traceroute got %d *'s: waiting 10 seconds and retry slower" % totalsterisks, "red"),
+        time.sleep(10)
+        secondtotalrisks, iplist = software_execution("2.1")
+        if validate_traceroute_output(secondtotalrisks, iplist, tolerance=True):
+            print colored("Ok! tracerouted with a more reliable output %s" % host, "green"),
+        else:
+            print colored("Failed again! (%d *'s)" % secondtotalrisks, "red")
+            return False
 
     with file(ip_file, 'w+') as f:
         json.dump(iplist, f)
@@ -141,18 +192,27 @@ def do_trace(dumpprefix, host):
         print len(iplist), "HOP through",
         for ip in iplist:
 
+            # if is an "* * * * *" I'll record as None and here is stripped
+            if not ip:
+                continue
+
             # is always as list ['x.x.x.x'] sometime more than 1
             if isinstance(ip, list):
                 ip = ip[0]
 
-            print gi.country_code_by_addr(ip),
+            code = gi.country_code_by_addr(ip)
+            if not code:
+                print colored(code, "red"),
+            else:
+                print colored(code, "green"),
+
             country = gi.country_name_by_addr(ip)
             country_travel_path.update({counter:country})
             counter += 1
 
         json.dump(country_travel_path, f)
 
-    print colored("* = %d" % asterisks_total, 'red')
+    return True
 
 
 def main():
@@ -179,13 +239,20 @@ def main():
         for cleanurl, media_kind in media_entries.iteritems():
 
             urldir = os.path.join(OUTPUTDIR, cleanurl)
-            if not os.path.isdir(urldir):
-                print "+ Creating directory", urldir
-                os.mkdir(urldir)
+            title_check = os.path.join(urldir, '__title')
 
-                do_phantomjs(cleanurl, urldir, media_kind)
-            else:
-                print "-", urldir, "Already present: skipped"
+            if os.path.isdir(urldir) and os.path.isfile(title_check):
+                print "-", urldir, "already present: skipped"
+                continue
+
+            if os.path.isdir(urldir):
+                # being here means that is empty or incomplete
+                shutil.rmtree(urldir)
+
+            print "+ Creating directory", urldir
+            os.mkdir(urldir)
+
+            do_phantomjs(cleanurl, urldir, media_kind)
 
         # take every directory in 'output/' and works on the content
         included_url_dict = sortify(OUTPUTDIR)
@@ -211,11 +278,15 @@ def main():
 
         print "running traceroute to", len(included_url_dict.keys()), "hosts!"
         counter = 1
+        failure = 0
         for url, domain_info in included_url_dict.iteritems():
             print colored("%d/%d\t" % (counter, len(included_url_dict.keys()) ), "cyan" ),
-            # TODO do_trace verify_trace_output eventually do_trace with more timeout
-            do_trace(url, url)
+            if not do_trace(url, url):
+                failure += 1
             counter += 1
+
+        if failure:
+            print colored("Registered %d failures" % failure, "red")
 
         # putting the unique number into
         with file( os.path.join(OUTPUTDIR, "unique_id"), "w+") as f:
@@ -225,9 +296,9 @@ def main():
         print "Finished! compressing the data", basename_media
         output_name = 'results-%s.tar.gz' % basename_media
 
-        #if os.path.isfile(output_name):
-        #    print "Finished! and the data is already compressed ? remove results.tar.gz to make a new one"
-        #    quit(0)
+        if os.path.isfile(output_name):
+            print "Finished! and the data is already compressed ? remove %s to make a new one" % output_name
+            quit(0)
 
         tar = Popen(['tar', '-z', '-c', '-v', '-f', output_name, OUTPUTDIR], stdout=PIPE)
 
@@ -239,15 +310,24 @@ def main():
                 break
 
         print counter_line, "file added to", output_name
-        p = Popen(['torify', './result_sender.py', output_name], stdout=PIPE)
+        p = Popen(['torify', './result_sender.py', output_name], stdout=PIPE, stderr=PIPE)
 
         while True:
             line = p.stdout.readline()
-            if not line:
+            exx = p.stderr.readline()
+
+            if not line and not exx:
                 break
-            print line,
 
+            if exx.find('failed to find the symbol') != -1:
+                continue
+            if exx.find('libtorsocks') != -1:
+                continue
 
+            if line:
+                print colored(line, 'yellow'),
+            if exx:
+                print colored(exx, 'red'),
 
 
 if __name__ == '__main__':
