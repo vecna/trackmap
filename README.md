@@ -142,14 +142,11 @@ you got that link, but can now link you and the users who have shared the link).
 
 This is one of the scary aspects of tracking: this business model does not just track you, but your entire network, and escaping it is quite difficult.
 
-**A dream about it: do not bring anymore users on websites. When you see
-information that deserves to be shared, create a partial, temporary and static copy
-of the information and only share that copy. 
+**A dream about it: do not bring anymore users on websites. When you see information that deserves to be shared, create a partial, temporary and static copy of the information and only share that copy.**
 
-There is no need to trigger your recipients devices with some network
-activity that leads to tracks and exposure.
+** There is no need to trigger your recipients devices with some network activity that leads to tracks and exposure.**
 
-Such activity is used against you and your network of friends, and to develop a technical solution is quite easy**
+** Such activity is used against you and your network of friends, and to develop a technical solution is quite easy**
 
 
 ### Note
