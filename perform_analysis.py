@@ -97,8 +97,11 @@ def do_trace(dumpprefix, host):
         asterisks_total = 0
         p = Popen(['traceroute', '-n', '-w', timeout, '-q', '10', '-A', resolved_ip], stdout=PIPE)
 
-        logfile = file(os.path.join(OUTPUTDIR, '_verbotracelogs', host), "a+")
-        write_interruption_line(logfile, "%s %s" % (host, timeout), start=True)
+        traceoutf = os.path.join(OUTPUTDIR, '_verbotracelogs', host)
+        if os.path.isfile(traceoutf):
+            os.unlink(traceoutf)
+
+        logfile = file(traceoutf, "w+")
 
         while True:
             line = p.stdout.readline()
@@ -123,7 +126,6 @@ def do_trace(dumpprefix, host):
                 continue
             iplist.append(ip)
 
-        write_interruption_line(logfile, "%s %s = %d" % (host, timeout, asterisks_total) , start=False)
         logfile.close()
         return asterisks_total, iplist
 
@@ -161,7 +163,7 @@ def do_trace(dumpprefix, host):
         print colored ("%s already traced: skipping" % host, "green")
         return True
     else:
-        print "[T]", host,
+        print host,
 
     try:
         resolved_ip = socket.gethostbyname(host)

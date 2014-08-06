@@ -35,26 +35,28 @@ Is tested only under debian/ubuntu:
 Some base requirements:
 
     sudo apt-get update
-    sudo aptitude remove phantomjs -y
+    sudo apt-get remove phantomjs -y
     sudo apt-get install tor git wget -y
     sudo apt-get install traceroute python-pip gcc python-dev libgeoip-dev -y
     sudo apt-get install geoip-database libfontconfig1 -y
 
 Distributions phantomjs has commonly old versions. We need > 1.9.0
-Download phantomjs in the most suitable location for you, I suggest in /usr/local/share
+Download phantomjs in the most suitable location for you, I suggest in /usr/local/share. **You've to execute those command as root** (because is created a symlink in /usr/bin)
 
     wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 
     tar jxf phantomjs-1.9.2-linux-i686.tar.bz2 
     cd phantomjs-1.9.2-linux-i686/bin
     ln -s `pwd`/phantomjs /usr/bin/phantomjs
     cd ../..
+    sudo pip install GeoIP tldextract termcolor 
 
 *Note: sha224 cksum of phantomjs-1.9.2* 4b6156fcc49dddbe375ffb8895a0003a4930aa7772f9a41908ac611d
 
 Come back in the directory of the tests, and:
 
-    git clone https://github.com/vecna/helpagainsttrack.git
-    sudo pip install GeoIP tldextract termcolor poster
+    wget https://github.com/vecna/helpagainsttrack/archive/master.zip
+    unzip master.zip
+    cd helpagainsttrack-master
 
 And then finally run:
 
