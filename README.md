@@ -4,12 +4,13 @@ The TrackMap project is research by [Tactical Tech](http://www.tacticaltech.org)
 
 Our aim is to show where our data travels when we visit our favorite news websites through a visualization. We are currently looking for people to collaborate with in various countries in the world which would make this project possible.
 
-## This repository
+## This code 
 
-contains the script and the data source needed to collect the data. 
-The collection of data needs to happen in a distributed way, which means that the script needs to run from each of the selected countries. This is important because the network and the trackers behave differently based on the provenience country of the user. 
+This repository contains the script and the data source needed to generate our needed data.
 
-For every country we need two kinds of supporters for this project:
+The collection of data needs to happen in a distributed way, _which means that the script needs to run from each of the selected countries_. This is important because the network and the trackers behave differently based on the provenience country of the user. 
+
+### For every country we need two kinds of supporters:
 
 If you're a **Media experts/Aware citizen**:
 
@@ -25,7 +26,7 @@ If you're a **Linux user** with a constantly running box and few times:
 
 ## Run the test script
 
-The test script can only be run under debian/ubuntu:
+The test script can only be run under debian/ubuntu, and **RUN THIS TESTS VIA Tor IS POINTLESS**: because the important data are obtained via traceroute, and works in a lower level than Tor (also works in UDP, that cannot be anonymized).
 
 Some base requirements (run with sudo):
 
@@ -44,16 +45,15 @@ Create one directory for store the project files:
     unzip master.zip
     cd helpagainsttrack-master
 
-**PhantomJS** has to be downloaded because distribution repositories had old 
-versions. We need >= 1.9.0 (sha checksum at the end of this file). You can skip this step if you are in Debian Sid (is a 1.9.0 version), but in other distribution older versions are given.
+**PhantomJS** has to be downloaded because distribution repositories had old versions. We need >= 1.9.0 (*sha244 checksum at the end the file*). You can skip this step if you are in Debian Sid (is a 1.9.0 version), but in other distribution older versions are given.
 
-If your system is 32 bit:
+If you have a 32 bit system:
 
     wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 
     tar jxf phantomjs-1.9.2-linux-i686.tar.bz2 
     ln -s phantomjs-1.9.2-linux-i686/bin/phantomjs phantom-1.9.2
     
-if your system is 64 bit:
+if you have a 64 bit system:
 
     wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
     tar jxf phantomjs-1.9.2-linux-x86_64.tar.bz2
@@ -61,12 +61,13 @@ if your system is 64 bit:
 
 And then finally run:
 
-    ./perform_analysis.py verified_media/NAME_OF_YOUR_COUNTRY
+    ./perform_analysis.py NAME_OF_YOUR_COUNTRY
 
-If you've not installed phantom 1.9.2 in the path specified above, but you're using your distribution phantomjs, then add the option **lp** (local phantom):
+If you've not installed phantom 1.9.2 on the path specified above, but you're using your distribution phantomjs, and add the option **lp** (local phantom):
 
-    ./perform_analysis.py verified_media/NAME_OF_YOUR_COUNTRY lp
+    ./perform_analysis.py NAME_OF_YOUR_COUNTRY lp
 
+If your country is not on the list, too bad, mean that nobody has reviewed the media list (it a boring but needed step). You can take a look between the unclean lists
 
 ## Vagrant option (a.k.a. less effort, more trust needed)
 
@@ -80,13 +81,9 @@ box
     vagrant up
 
 
-When you type the command **vagrant up** will download the virtual machine image,
-perform an upgrade, install the needed packages, copy an SSH public key, run Tor 
-and give you the address of the Tor hidden service pointing to the SSH port of 
-the virtual machine.
+When you type the command **vagrant up** will download the virtual machine image, perform an upgrade, install the needed packages, copy an SSH public key, run Tor and give you the address of the Tor hidden service pointing to the SSH port of the virtual machine.
 
-We're only going to run the defined script, but if new tests are available,
-we might ask you to re-type **vagrant up**.
+We're only going to run the defined script, but if new tests are available, we might ask you to re-type **vagrant up**.
 
 
 ## The operation performed by the script (perform\_analisys.py)
@@ -141,16 +138,12 @@ Further improvements are in progress.
 ### A little dream
 
 The tracking elements are well documented in the websites. 
-If you read site A, B, C and D, the tracking agent present in A, B and D know almost 
-75% of information about you.
+If you read site A, B, C and D, the tracking agent present in A, B and D know almost 75% of information about you.
 
 The distributed nature of the Internet will always make the development of sites like "C" possible: a site without a tracking agent. 
-Sadly, due to the online adverising business, mixing between social and ADV, SEO and 
-infrastructural needs, the creation of independent and trackless sites is extremely rare.
+Sadly, due to the online adverising business, mixing between social and ADV, SEO and infrastructural needs, the creation of independent and trackless sites is extremely rare.
 
-When someone shares a link, this link often contains some identifier used to recognize users 
-connected by other means (eg: sharing a link via chat or via mail: the tracker does not know how 
-you got that link, but can now link you and the users who have shared the link).
+When someone shares a link, this link often contains some identifier used to recognize users connected by other means (eg: sharing a link via chat or via mail: the tracker does not know how you got that link, but can now link you and the users who have shared the link).
 
 This is one of the scary aspects of tracking: this business model does not just track you, but your entire network, and escaping it is quite difficult.
 

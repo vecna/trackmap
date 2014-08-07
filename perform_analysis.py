@@ -62,9 +62,9 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
             return False
 
         urlfile = os.path.join(destfile, '__urls')
-        f = file(urlfile, 'r')
-        included_url_number = f.readlines()
-        f.close()
+        urlfp = file(urlfile, 'r')
+        included_url_number = urlfp.readlines()
+        urlfp.close()
 
         if included_url_number < 2:
             print colored("%d included URL from %s!" % included_url_number, "green")
@@ -239,10 +239,10 @@ def main():
     if len(sys.argv) == 3 and sys.argv[2] == 'lp':
         local_phantomjs = True
 
-        phantom_version = Popen(['phantomjs', '-v'], stdout=PIPE).stdout.readline()
-
         print colored("You're using your local installed phantomjs. It is needed a version >= than 1.9.0", 'blue', 'on_white')
         print colored("I'm not gonna to compare the string, so, be aware: this is your version:", 'red')
+
+        phantom_version = Popen(['phantomjs', '-v'], stdout=PIPE).stdout.readline()
         print colored(phantom_version, 'blue', 'on_white')
     else:
         if not os.path.islink('phantom-1.9.2'):
@@ -251,110 +251,124 @@ def main():
 
         local_phantomjs = False
 
+    # country check
+    proposed_country = sys.argv[1]
+    country_f = os.path.join('verified_media', proposed_country.lower())
+    if not os.path.isfile(country_f):
+        print colored("Invalid country! not found %s in directory 'verified_media/' " % proposed_country, 'red')
+        print "Available countries are:"
+        for existing_c in os.listdir('verified_media'):
+            if existing_c in ['README.md', 'test']:
+                continue
+            print "\t", existing_c
+        print colored("You can put your own country following the instruction here:", 'blue', 'on_yellow')
+        print colored("https://github.com/vecna/helpagainsttrack/blob/master/unverified_media_list/README.md", 'blue', 'on_yellow')
+        quit(-1)
+
+
     # writing in a file which country you're using!
     with file(os.path.join(OUTPUTDIR, 'country'), 'w+') as f:
-        f.write(sys.argv[1])
+        f.write(proposed_country.lower())
 
-    with file(sys.argv[1]) as f:
+    cfp = file(country_f, 'r')
+    media_entries = media_file_cleanings(cfp.readlines())
+    cfp.close()
 
-        media_entries = media_file_cleanings(f.readlines())
+    for cleanurl, media_kind in media_entries.iteritems():
 
-        # TODO Status integrity check on the media directory
-        for cleanurl, media_kind in media_entries.iteritems():
+        urldir = os.path.join(OUTPUTDIR, cleanurl)
+        title_check = os.path.join(urldir, '__title')
 
-            urldir = os.path.join(OUTPUTDIR, cleanurl)
-            title_check = os.path.join(urldir, '__title')
+        if os.path.isdir(urldir) and os.path.isfile(title_check):
+            print "-", urldir, "already present: skipped"
+            continue
 
-            if os.path.isdir(urldir) and os.path.isfile(title_check):
-                print "-", urldir, "already present: skipped"
-                continue
+        if os.path.isdir(urldir):
+            # being here means that is empty or incomplete
+            shutil.rmtree(urldir)
 
-            if os.path.isdir(urldir):
-                # being here means that is empty or incomplete
-                shutil.rmtree(urldir)
+        print "+ Creating directory", urldir
+        os.mkdir(urldir)
 
-            print "+ Creating directory", urldir
-            os.mkdir(urldir)
+        do_phantomjs(local_phantomjs, cleanurl, urldir, media_kind)
 
-            do_phantomjs(local_phantomjs, cleanurl, urldir, media_kind)
+    # take every directory in 'output/' and works on the content
+    included_url_dict = sortify(OUTPUTDIR)
 
-        # take every directory in 'output/' and works on the content
-        included_url_dict = sortify(OUTPUTDIR)
+    assert included_url_dict, "No url included after phantom scraping and collection !?"
 
-        assert included_url_dict, "No url included after phantom scraping and collection !?"
+    with file(os.path.join(OUTPUTDIR, 'domain.infos'), 'w+') as f:
+        json.dump(included_url_dict, f)
 
-        with file(os.path.join(OUTPUTDIR, 'domain.infos'), 'w+') as f:
-            json.dump(included_url_dict, f)
+    # traceroutes contains all the output of traceroute in JSON format, separated
+    # for logs. this output is not in the media directory, because some host like
+    # google are included multiple times.
+    trace_output = os.path.join(OUTPUTDIR, '_traceroutes')
+    if not os.path.isdir(trace_output):
+        os.mkdir(trace_output)
 
-        # traceroutes contains all the output of traceroute in JSON format, separated
-        # for logs. this output is not in the media directory, because some host like
-        # google are included multiple times.
-        trace_output = os.path.join(OUTPUTDIR, '_traceroutes')
-        if not os.path.isdir(trace_output):
-            os.mkdir(trace_output)
+    # _verbotracelogs instead contain the detailed log of traceroute,
+    # they would be useful in the future because AS number is not yet used
+    # as information in the backend, but, who knows...
+    verbotracelogs = os.path.join(OUTPUTDIR, '_verbotracelogs')
+    if not os.path.isdir(verbotracelogs):
+        os.mkdir(verbotracelogs)
 
-        # _verbotracelogs instead contain the detailed log of traceroute,
-        # they would be useful in the future because AS number is not yet used
-        # as information in the backend, but, who knows...
-        verbotracelogs = os.path.join(OUTPUTDIR, '_verbotracelogs')
-        if not os.path.isdir(verbotracelogs):
-            os.mkdir(verbotracelogs)
+    print "running traceroute to", len(included_url_dict.keys()), "hosts!"
+    counter = 1
+    failure = 0
+    for url, domain_info in included_url_dict.iteritems():
 
-        print "running traceroute to", len(included_url_dict.keys()), "hosts!"
-        counter = 1
-        failure = 0
-        for url, domain_info in included_url_dict.iteritems():
+        progress_string = "%d/%d" % (counter, len(included_url_dict.keys()))
+        print colored("%s%s" % (progress_string, (10 - len(progress_string)) * " " ), "cyan" ),
 
-            progress_string = "%d/%d" % (counter, len(included_url_dict.keys()))
-            print colored("%s%s" % (progress_string, (10 - len(progress_string)) * " " ), "cyan" ),
+        if not do_trace(url, url):
+            failure += 1
+        counter += 1
 
-            if not do_trace(url, url):
-                failure += 1
-            counter += 1
+    if failure:
+        print colored("Registered %d failures" % failure, "red")
 
-        if failure:
-            print colored("Registered %d failures" % failure, "red")
+    # putting the unique number into
+    with file( os.path.join(OUTPUTDIR, "unique_id"), "w+") as f:
+        f.write("%d%d%d" % (random.randint(0, 0xffff), random.randint(0, 0xffff), random.randint(0, 0xffff)) )
 
-        # putting the unique number into
-        with file( os.path.join(OUTPUTDIR, "unique_id"), "w+") as f:
-            f.write("%d%d%d" % (random.randint(0, 0xffff), random.randint(0, 0xffff), random.randint(0, 0xffff)) )
+    basename_media = os.path.basename(sys.argv[1])
+    print "Finished! compressing the data", basename_media
+    output_name = 'results-%s.tar.gz' % basename_media
 
-        basename_media = os.path.basename(sys.argv[1])
-        print "Finished! compressing the data", basename_media
-        output_name = 'results-%s.tar.gz' % basename_media
+    if os.path.isfile(output_name):
+        print "Finished! and the data is already compressed ? remove %s to make a new one" % output_name
+        quit(0)
 
-        if os.path.isfile(output_name):
-            print "Finished! and the data is already compressed ? remove %s to make a new one" % output_name
-            quit(0)
+    tar = Popen(['tar', '-z', '-c', '-v', '-f', output_name, OUTPUTDIR], stdout=PIPE)
 
-        tar = Popen(['tar', '-z', '-c', '-v', '-f', output_name, OUTPUTDIR], stdout=PIPE)
+    counter_line = 0
+    while True:
+        line = tar.stdout.readline()
+        counter_line += 1
+        if not line:
+            break
 
-        counter_line = 0
-        while True:
-            line = tar.stdout.readline()
-            counter_line += 1
-            if not line:
-                break
+    print counter_line, "file added to", output_name
+    p = Popen(['torify', './result_sender.py', output_name], stdout=PIPE, stderr=PIPE)
 
-        print counter_line, "file added to", output_name
-        p = Popen(['torify', './result_sender.py', output_name], stdout=PIPE, stderr=PIPE)
+    while True:
+        line = p.stdout.readline()
+        exx = p.stderr.readline()
 
-        while True:
-            line = p.stdout.readline()
-            exx = p.stderr.readline()
+        if not line and not exx:
+            break
 
-            if not line and not exx:
-                break
+        if exx.find('failed to find the symbol') != -1:
+            continue
+        if exx.find('libtorsocks') != -1:
+            continue
 
-            if exx.find('failed to find the symbol') != -1:
-                continue
-            if exx.find('libtorsocks') != -1:
-                continue
-
-            if line:
-                print colored(line, 'yellow'),
-            if exx:
-                print colored(exx, 'red'),
+        if line:
+            print colored(line, 'yellow'),
+        if exx:
+            print colored(exx, 'red'),
 
 
 if __name__ == '__main__':
