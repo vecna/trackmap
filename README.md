@@ -35,27 +35,38 @@ Some base requirements:
     sudo apt-get install traceroute python-pip gcc python-dev libgeoip-dev -y
     sudo apt-get install geoip-database libfontconfig1 -y
 
-Distributions phantomjs has commonly old versions. We need > 1.9.0
-Download phantomjs in the most suitable location for you, I suggest in /usr/local/share. **You've to execute those command as root** (because is created a symlink in /usr/bin)
+Create one directory for store the project files:
 
-    wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 
-    tar jxf phantomjs-1.9.2-linux-i686.tar.bz2 
-    cd phantomjs-1.9.2-linux-i686/bin
-    ln -s `pwd`/phantomjs /usr/bin/phantomjs
-    cd ../..
-    sudo pip install GeoIP tldextract termcolor 
-
-*Note: sha224 cksum of phantomjs-1.9.2* 4b6156fcc49dddbe375ffb8895a0003a4930aa7772f9a41908ac611d
-
-Come back to the directory of the tests, and:
+    mkdir trackmap
+    cd trackmap
 
     wget https://github.com/vecna/helpagainsttrack/archive/master.zip
     unzip master.zip
     cd helpagainsttrack-master
 
+**PhantomJS** has to be downloaded because distribution repositories had old 
+versions. We need > 1.9.0 (sha checksum at the end of this file)
+
+If your system is 32 bit:
+
+    wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 
+    tar jxf phantomjs-1.9.2-linux-i686.tar.bz2 
+    cd phantomjs-1.9.2-linux-i686/bin
+
+if your system is 64 bit:
+
+    wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
+    tar jxf phantomjs-1.9.2-linux-x86_64.tar.bz2
+    cd phantomjs-1.9.2-linux-x86_64/
+
+Both of the 32 and 64 make then the same thing from here:
+
+    sudo ln -s `pwd`/phantomjs /usr/bin/phantomjs
+    cd ../..
+    sudo pip install GeoIP tldextract termcolor 
+
 And then finally run:
 
-    cd helpagainsttrack
     ./perform_analysis.py verified_media/NAME_OF_YOUR_COUNTRY
 
 
@@ -64,9 +75,10 @@ And then finally run:
 A **Vagrantfile** exists in this repository, which is configured to setup a virtual
 box
 
-    git clone https://github.com/vecna/helpagainsttrack.git
-    sudo apt-get install vagrant
-    cd helpagainsttrack
+    sudo apt-get install vagrant wget -y
+    wget https://github.com/vecna/helpagainsttrack/archive/master.zip
+    unzip master.zip
+    cd helpagainsttrack-master
     vagrant up
 
 
@@ -107,8 +119,8 @@ In this (very first version) of the TrackMap project we want answer to the follo
 
 Due to limited resources from our side, our research might face the following limitations:
 
-  * The GeoIP is mostly reliable, but IP classes can change organizations and therefore nations
-  * The GeoIP might be found in a continent (for example, some classes are assigned to Europe, without more precision about the physical location)
+  * The GeoIP is only partially reliable, because IP classes can change organizations and therefore nations.
+  * The GeoIP resolution, from an IP address to a Country, might return a continent (for example, some classes are assigned to Europe, without more precision about the physical location).
   * We're performing traceroute without checking if the resource included is in https (this happens very seldomly, and in these cases we consider the data stored in the recipient country but not exposed in-transit interception and manipulation)
   * Some service providers use CDN and this means that in order to interact with them, this might be resolved as part o
 f the same country of the user, also if the content is obviously stored by a foreign country. (very rare, anyway)
@@ -151,7 +163,17 @@ This is one of the scary aspects of tracking: this business model does not just 
 **Such activity is used against you and your network of friends, and to develop a technical solution is quite easy**
 
 
-### Note
+## Various notes
 
 a brief presentation related on Italian media is here: [Online users tracking: effect, responsibility and countermeasures](http://vecna.github.io)
+
+### SHA checksums
+
+sha224 cksum of phantomjs-1.9.2 i686
+
+    4b6156fcc49dddbe375ffb8895a0003a4930aa7772f9a41908ac611d
+
+sha224 cksum of phantomjs-1.9.2 x86\_64
+
+    2937cea726e7fe4dd600f36e7c5f0cca358593e96808dc71b6feb166 
 
