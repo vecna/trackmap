@@ -27,7 +27,7 @@ def write_interruption_line(fp, content, start=True):
         ))
 
 
-def do_phantomjs(url, destfile, media_kind):
+def do_phantomjs(local_phantomjs, url, destfile, media_kind):
     # information that deserve to be saved for the time
     kindfile = os.path.join(destfile, '__kind')
     with file(kindfile, 'w+') as f:
@@ -35,15 +35,17 @@ def do_phantomjs(url, destfile, media_kind):
 
     def software_execution():
 
+        binary = 'phantom-1.9.2' if local_phantomjs else 'phantomjs'
+
         # is just a blocking function that execute phantomjs
-        p = Popen(['phantomjs', 'collect_included_url.js',
+        p = Popen([binary, 'collect_included_url.js',
                    'http://%s' % url, destfile], stdout=PIPE)
 
         phantomlog = file(os.path.join(OUTPUTDIR, "phantom.log"), "a+")
 
         write_interruption_line(phantomlog, url, start=True)
 
-        print colored(" + Executing phantomjs on: %s" % url, "green"),
+        print colored(" + Executing %s on: %s" % (binary, url), "green"),
         while True:
             line = p.stdout.readline()
             if not line:
@@ -225,10 +227,29 @@ def main():
         except OSError as error:
             print "unable to create %s: %s" % (OUTPUTDIR, error)
 
-    if len(sys.argv) != 2:
-        print "Expected one of the file in verified_media/"
-        print "hopefully the name of your country"
+    if len(sys.argv) < 2:
+        print "Usage: %s verified_media/$YOUR_COUNTRY_NAME <lp>" % sys.argv[0]
+        print "(hopefully the name of your country)\n"
+        print "Optionally put 'lp' to use your /usr/bin/phantomjs, if you follow README.md is not needed"
+        print "(because by default, this software is looking for symlink 'phantom-1.9.2' )"
         quit(-1)
+
+    # check if the user is running phantom as installed on the system (also vagrant make this)
+    # of if is using
+    if len(sys.argv) == 3 and sys.argv[2] == 'lp':
+        local_phantomjs = True
+
+        phantom_version = Popen(['phantomjs', '-v'], stdout=PIPE).stdout.readline()
+
+        print colored("You're using your local installed phantomjs. It is needed a version >= than 1.9.0", 'blue', 'on_white')
+        print colored("I'm not gonna to compare the string, so, be aware: this is your version:", 'red')
+        print colored(phantom_version, 'blue', 'on_white')
+    else:
+        if not os.path.islink('phantom-1.9.2'):
+            print colored("You have not followd README.md :( I was expecting a symbolick link called phantom-1.9.2", 'red', 'on_white')
+            quit(-1)
+
+        local_phantomjs = False
 
     # writing in a file which country you're using!
     with file(os.path.join(OUTPUTDIR, 'country'), 'w+') as f:
@@ -255,7 +276,7 @@ def main():
             print "+ Creating directory", urldir
             os.mkdir(urldir)
 
-            do_phantomjs(cleanurl, urldir, media_kind)
+            do_phantomjs(local_phantomjs, cleanurl, urldir, media_kind)
 
         # take every directory in 'output/' and works on the content
         included_url_dict = sortify(OUTPUTDIR)

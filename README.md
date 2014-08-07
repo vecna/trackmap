@@ -27,13 +27,13 @@ If you're a **Linux user** with a constantly running box and few times:
 
 The test script can only be run under debian/ubuntu:
 
-Some base requirements:
+Some base requirements (run with sudo):
 
     sudo apt-get update
-    sudo apt-get remove phantomjs -y
     sudo apt-get install tor git wget -y
     sudo apt-get install traceroute python-pip gcc python-dev libgeoip-dev -y
     sudo apt-get install geoip-database libfontconfig1 -y
+    sudo pip install GeoIP tldextract termcolor 
 
 Create one directory for store the project files:
 
@@ -51,19 +51,17 @@ If your system is 32 bit:
 
     wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 
     tar jxf phantomjs-1.9.2-linux-i686.tar.bz2 
-    cd phantomjs-1.9.2-linux-i686/bin
+    ln -s phantomjs-1.9.2-linux-i686/bin/phantomjs phantom-1.9.2
+    
 
 if your system is 64 bit:
 
     wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
     tar jxf phantomjs-1.9.2-linux-x86_64.tar.bz2
-    cd phantomjs-1.9.2-linux-x86_64/
+    ln -s phantomjs-1.9.2-linux-x86_64/bin/phantomjs phantom-1.9.2
 
 Both of the 32 and 64 make then the same thing from here:
 
-    sudo ln -s `pwd`/phantomjs /usr/bin/phantomjs
-    cd ../..
-    sudo pip install GeoIP tldextract termcolor 
 
 And then finally run:
 
