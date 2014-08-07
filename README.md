@@ -45,7 +45,7 @@ Create one directory for store the project files:
     cd helpagainsttrack-master
 
 **PhantomJS** has to be downloaded because distribution repositories had old 
-versions. We need > 1.9.0 (sha checksum at the end of this file)
+versions. We need >= 1.9.0 (sha checksum at the end of this file). You can skip this step if you are in Debian Sid (is a 1.9.0 version), but in other distribution older versions are given.
 
 If your system is 32 bit:
 
@@ -53,19 +53,19 @@ If your system is 32 bit:
     tar jxf phantomjs-1.9.2-linux-i686.tar.bz2 
     ln -s phantomjs-1.9.2-linux-i686/bin/phantomjs phantom-1.9.2
     
-
 if your system is 64 bit:
 
     wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
     tar jxf phantomjs-1.9.2-linux-x86_64.tar.bz2
     ln -s phantomjs-1.9.2-linux-x86_64/bin/phantomjs phantom-1.9.2
 
-Both of the 32 and 64 make then the same thing from here:
-
-
 And then finally run:
 
     ./perform_analysis.py verified_media/NAME_OF_YOUR_COUNTRY
+
+If you've not installed phantom 1.9.2 in the path specified above, but you're using your distribution phantomjs, then add the option **lp** (local phantom):
+
+    ./perform_analysis.py verified_media/NAME_OF_YOUR_COUNTRY lp
 
 
 ## Vagrant option (a.k.a. less effort, more trust needed)
