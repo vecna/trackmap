@@ -1,0 +1,1148 @@
+
+<html>
+
+<head>
+    <title>Just the test</title>
+    <script type="application/javascript" src="bower_components/jquery-2.1.0.min/index.js"></script>
+
+    <script type="application/javascript">
+
+        function goblog(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#blogList");
+        }
+
+        function golocal(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#localList");
+        }
+
+        function gonational(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#nationalList");
+        }
+
+        function removebutton() {
+            $('.clickable').hide();
+        }
+
+        function showbutton() {
+            $('.clickable').show();
+        }
+
+        function openiframe(elem, url) {
+            $('<br>').appendTo(elem);
+            $('<iframe />', {
+                'src' :url,
+                'width': "80%",
+                'height': "40%",
+                'class': 'stigma'
+            }).appendTo(elem);
+        }
+
+        function justfuckingdeletethisshit(elem) {
+            $(elem).remove()
+        }
+
+    </script>
+    <style type="text/css">
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        .urlList {
+            border-color: red;
+            background-color: palegoldenrod;
+            border-bottom-left-radius: 2px;
+            width: 100%;
+            margin-bottom: 3px;
+            font-family: monospace;
+        }
+        h1 {
+            text-align: center;
+            color: cadetblue;
+            font-size: 3em;
+        }
+        .clickable {
+            background-color: yellow;
+            color: blueviolet;
+            margin-left: 2em;
+            margin-right: 2em;
+        }
+        .show {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>
+finland
+</h1>
+
+<h2>National List</h2>
+<div class="urlList" id="nationalList">
+</div>
+
+<h2>Local/Specialistic List</h2>
+<div class="urlList" id="localList">
+</div>
+
+<h2>personal/community Blog List</h2>
+<div class="urlList" id="blogList">
+</div>
+
+<h2>Unverified List</h2>
+
+
+<div id="6e31c1">
+    <a href="http://bbl.fi/" target="_blank">http://bbl.fi/</a>
+    <span class="clickable" onclick="golocal('#6e31c1');">local</span>
+    <span class="clickable" onclick="gonational('#6e31c1');">national</span>
+    <span class="clickable" onclick="goblog('#6e31c1');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#6e31c1');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#6e31c1', 'http://bbl.fi/');">show now</span>
+</div>
+
+
+
+<div id="43b3a1">
+    <a href="http://hankasalmensanomat.net/" target="_blank">http://hankasalmensanomat.net/</a>
+    <span class="clickable" onclick="golocal('#43b3a1');">local</span>
+    <span class="clickable" onclick="gonational('#43b3a1');">national</span>
+    <span class="clickable" onclick="goblog('#43b3a1');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#43b3a1');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#43b3a1', 'http://hankasalmensanomat.net/');">show now</span>
+</div>
+
+
+
+<div id="eacaec">
+    <a href="http://kotiseutu-uutiset.com/" target="_blank">http://kotiseutu-uutiset.com/</a>
+    <span class="clickable" onclick="golocal('#eacaec');">local</span>
+    <span class="clickable" onclick="gonational('#eacaec');">national</span>
+    <span class="clickable" onclick="goblog('#eacaec');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#eacaec');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#eacaec', 'http://kotiseutu-uutiset.com/');">show now</span>
+</div>
+
+
+
+<div id="9ec35b">
+    <a href="http://ls24.fi/" target="_blank">http://ls24.fi/</a>
+    <span class="clickable" onclick="golocal('#9ec35b');">local</span>
+    <span class="clickable" onclick="gonational('#9ec35b');">national</span>
+    <span class="clickable" onclick="goblog('#9ec35b');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#9ec35b');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#9ec35b', 'http://ls24.fi/');">show now</span>
+</div>
+
+
+
+<div id="9fcee9">
+    <a href="http://nokianuutiset.sps.fi/" target="_blank">http://nokianuutiset.sps.fi/</a>
+    <span class="clickable" onclick="golocal('#9fcee9');">local</span>
+    <span class="clickable" onclick="gonational('#9fcee9');">national</span>
+    <span class="clickable" onclick="goblog('#9fcee9');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#9fcee9');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#9fcee9', 'http://nokianuutiset.sps.fi/');">show now</span>
+</div>
+
+
+
+<div id="9fa820">
+    <a href="http://on.fi/" target="_blank">http://on.fi/</a>
+    <span class="clickable" onclick="golocal('#9fa820');">local</span>
+    <span class="clickable" onclick="gonational('#9fa820');">national</span>
+    <span class="clickable" onclick="goblog('#9fa820');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#9fa820');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#9fa820', 'http://on.fi/');">show now</span>
+</div>
+
+
+
+<div id="326f2f">
+    <a href="http://online.osterbottenstidning.fi/" target="_blank">http://online.osterbottenstidning.fi/</a>
+    <span class="clickable" onclick="golocal('#326f2f');">local</span>
+    <span class="clickable" onclick="gonational('#326f2f');">national</span>
+    <span class="clickable" onclick="goblog('#326f2f');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#326f2f');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#326f2f', 'http://online.osterbottenstidning.fi/');">show now</span>
+</div>
+
+
+
+<div id="962aa5">
+    <a href="http://online.sydin.fi/" target="_blank">http://online.sydin.fi/</a>
+    <span class="clickable" onclick="golocal('#962aa5');">local</span>
+    <span class="clickable" onclick="gonational('#962aa5');">national</span>
+    <span class="clickable" onclick="goblog('#962aa5');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#962aa5');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#962aa5', 'http://online.sydin.fi/');">show now</span>
+</div>
+
+
+
+<div id="cbd1a2">
+    <a href="http://online.vasabladet.fi/" target="_blank">http://online.vasabladet.fi/</a>
+    <span class="clickable" onclick="golocal('#cbd1a2');">local</span>
+    <span class="clickable" onclick="gonational('#cbd1a2');">national</span>
+    <span class="clickable" onclick="goblog('#cbd1a2');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#cbd1a2');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#cbd1a2', 'http://online.vasabladet.fi/');">show now</span>
+</div>
+
+
+
+<div id="bcca74">
+    <a href="http://raumalainen.fi/" target="_blank">http://raumalainen.fi/</a>
+    <span class="clickable" onclick="golocal('#bcca74');">local</span>
+    <span class="clickable" onclick="gonational('#bcca74');">national</span>
+    <span class="clickable" onclick="goblog('#bcca74');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#bcca74');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#bcca74', 'http://raumalainen.fi/');">show now</span>
+</div>
+
+
+
+<div id="ec3274">
+    <a href="http://raumalainen.fi/" target="_blank">http://raumalainen.fi/</a>
+    <span class="clickable" onclick="golocal('#ec3274');">local</span>
+    <span class="clickable" onclick="gonational('#ec3274');">national</span>
+    <span class="clickable" onclick="goblog('#ec3274');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#ec3274');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#ec3274', 'http://raumalainen.fi/');">show now</span>
+</div>
+
+
+
+<div id="7b2dfc">
+    <a href="http://shl.fi/" target="_blank">http://shl.fi/</a>
+    <span class="clickable" onclick="golocal('#7b2dfc');">local</span>
+    <span class="clickable" onclick="gonational('#7b2dfc');">national</span>
+    <span class="clickable" onclick="goblog('#7b2dfc');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#7b2dfc');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#7b2dfc', 'http://shl.fi/');">show now</span>
+</div>
+
+
+
+<div id="1bafcb">
+    <a href="https://www.mmd.net/" target="_blank">https://www.mmd.net/</a>
+    <span class="clickable" onclick="golocal('#1bafcb');">local</span>
+    <span class="clickable" onclick="gonational('#1bafcb');">national</span>
+    <span class="clickable" onclick="goblog('#1bafcb');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#1bafcb');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#1bafcb', 'https://www.mmd.net/');">show now</span>
+</div>
+
+
+
+<div id="9f4ff4">
+    <a href="http://verkkonummi.fi/" target="_blank">http://verkkonummi.fi/</a>
+    <span class="clickable" onclick="golocal('#9f4ff4');">local</span>
+    <span class="clickable" onclick="gonational('#9f4ff4');">national</span>
+    <span class="clickable" onclick="goblog('#9f4ff4');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#9f4ff4');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#9f4ff4', 'http://verkkonummi.fi/');">show now</span>
+</div>
+
+
+
+<div id="a25842">
+    <a href="http://whatsupfinland.org/english/" target="_blank">http://whatsupfinland.org/english/</a>
+    <span class="clickable" onclick="golocal('#a25842');">local</span>
+    <span class="clickable" onclick="gonational('#a25842');">national</span>
+    <span class="clickable" onclick="goblog('#a25842');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#a25842');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#a25842', 'http://whatsupfinland.org/english/');">show now</span>
+</div>
+
+
+
+<div id="72f677">
+    <a href="http://www3.laukaa-konnevesi.net/" target="_blank">http://www3.laukaa-konnevesi.net/</a>
+    <span class="clickable" onclick="golocal('#72f677');">local</span>
+    <span class="clickable" onclick="gonational('#72f677');">national</span>
+    <span class="clickable" onclick="goblog('#72f677');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#72f677');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#72f677', 'http://www3.laukaa-konnevesi.net/');">show now</span>
+</div>
+
+
+
+<div id="4297c8">
+    <a href="http://www.aamulehti.fi/Etusivu" target="_blank">http://www.aamulehti.fi/Etusivu</a>
+    <span class="clickable" onclick="golocal('#4297c8');">local</span>
+    <span class="clickable" onclick="gonational('#4297c8');">national</span>
+    <span class="clickable" onclick="goblog('#4297c8');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#4297c8');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#4297c8', 'http://www.aamulehti.fi/Etusivu');">show now</span>
+</div>
+
+
+
+<div id="609631">
+    <a href="http://www.abounderrattelser.fi" target="_blank">http://www.abounderrattelser.fi</a>
+    <span class="clickable" onclick="golocal('#609631');">local</span>
+    <span class="clickable" onclick="gonational('#609631');">national</span>
+    <span class="clickable" onclick="goblog('#609631');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#609631');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#609631', 'http://www.abounderrattelser.fi');">show now</span>
+</div>
+
+
+
+<div id="7a6213">
+    <a href="http://www.aktivist.fi/" target="_blank">http://www.aktivist.fi/</a>
+    <span class="clickable" onclick="golocal('#7a6213');">local</span>
+    <span class="clickable" onclick="gonational('#7a6213');">national</span>
+    <span class="clickable" onclick="goblog('#7a6213');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#7a6213');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#7a6213', 'http://www.aktivist.fi/');">show now</span>
+</div>
+
+
+
+<div id="945df5">
+    <a href="http://www.alandstidningen.ax/" target="_blank">http://www.alandstidningen.ax/</a>
+    <span class="clickable" onclick="golocal('#945df5');">local</span>
+    <span class="clickable" onclick="gonational('#945df5');">national</span>
+    <span class="clickable" onclick="goblog('#945df5');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#945df5');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#945df5', 'http://www.alandstidningen.ax/');">show now</span>
+</div>
+
+
+
+<div id="26e5ca">
+    <a href="http://www.almamedia.fi/" target="_blank">http://www.almamedia.fi/</a>
+    <span class="clickable" onclick="golocal('#26e5ca');">local</span>
+    <span class="clickable" onclick="gonational('#26e5ca');">national</span>
+    <span class="clickable" onclick="goblog('#26e5ca');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#26e5ca');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#26e5ca', 'http://www.almamedia.fi/');">show now</span>
+</div>
+
+
+
+<div id="0f28d8">
+    <a href="http://www.artto.kaapeli.fi/unions" target="_blank">http://www.artto.kaapeli.fi/unions</a>
+    <span class="clickable" onclick="golocal('#0f28d8');">local</span>
+    <span class="clickable" onclick="gonational('#0f28d8');">national</span>
+    <span class="clickable" onclick="goblog('#0f28d8');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#0f28d8');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#0f28d8', 'http://www.artto.kaapeli.fi/unions');">show now</span>
+</div>
+
+
+
+<div id="87f6e9">
+    <a href="http://www.city.fi/" target="_blank">http://www.city.fi/</a>
+    <span class="clickable" onclick="golocal('#87f6e9');">local</span>
+    <span class="clickable" onclick="gonational('#87f6e9');">national</span>
+    <span class="clickable" onclick="goblog('#87f6e9');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#87f6e9');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#87f6e9', 'http://www.city.fi/');">show now</span>
+</div>
+
+
+
+<div id="ba46e2">
+    <a href="http://www.codewit.com/" target="_blank">http://www.codewit.com/</a>
+    <span class="clickable" onclick="golocal('#ba46e2');">local</span>
+    <span class="clickable" onclick="gonational('#ba46e2');">national</span>
+    <span class="clickable" onclick="goblog('#ba46e2');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#ba46e2');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#ba46e2', 'http://www.codewit.com/');">show now</span>
+</div>
+
+
+
+<div id="af605f">
+    <a href="http://www.esaimaa.fi/" target="_blank">http://www.esaimaa.fi/</a>
+    <span class="clickable" onclick="golocal('#af605f');">local</span>
+    <span class="clickable" onclick="gonational('#af605f');">national</span>
+    <span class="clickable" onclick="goblog('#af605f');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#af605f');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#af605f', 'http://www.esaimaa.fi/');">show now</span>
+</div>
+
+
+
+<div id="702ad3">
+    <a href="http://www.ess.fi/" target="_blank">http://www.ess.fi/</a>
+    <span class="clickable" onclick="golocal('#702ad3');">local</span>
+    <span class="clickable" onclick="gonational('#702ad3');">national</span>
+    <span class="clickable" onclick="goblog('#702ad3');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#702ad3');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#702ad3', 'http://www.ess.fi/');">show now</span>
+</div>
+
+
+
+<div id="71989b">
+    <a href="http://www.finlandtimes.fi/" target="_blank">http://www.finlandtimes.fi/</a>
+    <span class="clickable" onclick="golocal('#71989b');">local</span>
+    <span class="clickable" onclick="gonational('#71989b');">national</span>
+    <span class="clickable" onclick="goblog('#71989b');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#71989b');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#71989b', 'http://www.finlandtimes.fi/');">show now</span>
+</div>
+
+
+
+<div id="fcaf64">
+    <a href="http://www.finnbay.com/" target="_blank">http://www.finnbay.com/</a>
+    <span class="clickable" onclick="golocal('#fcaf64');">local</span>
+    <span class="clickable" onclick="gonational('#fcaf64');">national</span>
+    <span class="clickable" onclick="goblog('#fcaf64');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#fcaf64');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#fcaf64', 'http://www.finnbay.com/');">show now</span>
+</div>
+
+
+
+<div id="7f8c0b">
+    <a href="http://www.forssanlehti.fi/" target="_blank">http://www.forssanlehti.fi/</a>
+    <span class="clickable" onclick="golocal('#7f8c0b');">local</span>
+    <span class="clickable" onclick="gonational('#7f8c0b');">national</span>
+    <span class="clickable" onclick="goblog('#7f8c0b');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#7f8c0b');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#7f8c0b', 'http://www.forssanlehti.fi/');">show now</span>
+</div>
+
+
+
+<div id="df6db8">
+    <a href="http://www.hameensanomat.fi/" target="_blank">http://www.hameensanomat.fi/</a>
+    <span class="clickable" onclick="golocal('#df6db8');">local</span>
+    <span class="clickable" onclick="gonational('#df6db8');">national</span>
+    <span class="clickable" onclick="goblog('#df6db8');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#df6db8');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#df6db8', 'http://www.hameensanomat.fi/');">show now</span>
+</div>
+
+
+
+<div id="f83c74">
+    <a href="http://www.helsinkitimes.fi/" target="_blank">http://www.helsinkitimes.fi/</a>
+    <span class="clickable" onclick="golocal('#f83c74');">local</span>
+    <span class="clickable" onclick="gonational('#f83c74');">national</span>
+    <span class="clickable" onclick="goblog('#f83c74');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#f83c74');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#f83c74', 'http://www.helsinkitimes.fi/');">show now</span>
+</div>
+
+
+
+<div id="d29dd4">
+    <a href="http://www.hs.fi/" target="_blank">http://www.hs.fi/</a>
+    <span class="clickable" onclick="golocal('#d29dd4');">local</span>
+    <span class="clickable" onclick="gonational('#d29dd4');">national</span>
+    <span class="clickable" onclick="goblog('#d29dd4');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#d29dd4');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#d29dd4', 'http://www.hs.fi/');">show now</span>
+</div>
+
+
+
+<div id="5ff96e">
+    <a href="http://www.iisalmensanomat.fi/" target="_blank">http://www.iisalmensanomat.fi/</a>
+    <span class="clickable" onclick="golocal('#5ff96e');">local</span>
+    <span class="clickable" onclick="gonational('#5ff96e');">national</span>
+    <span class="clickable" onclick="goblog('#5ff96e');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#5ff96e');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#5ff96e', 'http://www.iisalmensanomat.fi/');">show now</span>
+</div>
+
+
+
+<div id="e5a072">
+    <a href="http://www.ilkka.fi/" target="_blank">http://www.ilkka.fi/</a>
+    <span class="clickable" onclick="golocal('#e5a072');">local</span>
+    <span class="clickable" onclick="gonational('#e5a072');">national</span>
+    <span class="clickable" onclick="goblog('#e5a072');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#e5a072');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#e5a072', 'http://www.ilkka.fi/');">show now</span>
+</div>
+
+
+
+<div id="54ae0b">
+    <a href="http://www.iltalehti.fi/etusivu/" target="_blank">http://www.iltalehti.fi/etusivu/</a>
+    <span class="clickable" onclick="golocal('#54ae0b');">local</span>
+    <span class="clickable" onclick="gonational('#54ae0b');">national</span>
+    <span class="clickable" onclick="goblog('#54ae0b');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#54ae0b');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#54ae0b', 'http://www.iltalehti.fi/etusivu/');">show now</span>
+</div>
+
+
+
+<div id="4f4bec">
+    <a href="http://www.iltasanomat.fi/" target="_blank">http://www.iltasanomat.fi/</a>
+    <span class="clickable" onclick="golocal('#4f4bec');">local</span>
+    <span class="clickable" onclick="gonational('#4f4bec');">national</span>
+    <span class="clickable" onclick="goblog('#4f4bec');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#4f4bec');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#4f4bec', 'http://www.iltasanomat.fi/');">show now</span>
+</div>
+
+
+
+<div id="be1437">
+    <a href="http://www.inarilainen.fi/" target="_blank">http://www.inarilainen.fi/</a>
+    <span class="clickable" onclick="golocal('#be1437');">local</span>
+    <span class="clickable" onclick="gonational('#be1437');">national</span>
+    <span class="clickable" onclick="goblog('#be1437');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#be1437');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#be1437', 'http://www.inarilainen.fi/');">show now</span>
+</div>
+
+
+
+<div id="39d44a">
+    <a href="http://www.jamsanseutu.fi/Etusivu" target="_blank">http://www.jamsanseutu.fi/Etusivu</a>
+    <span class="clickable" onclick="golocal('#39d44a');">local</span>
+    <span class="clickable" onclick="gonational('#39d44a');">national</span>
+    <span class="clickable" onclick="goblog('#39d44a');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#39d44a');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#39d44a', 'http://www.jamsanseutu.fi/Etusivu');">show now</span>
+</div>
+
+
+
+<div id="d727b0">
+    <a href="http://www.joroistenlehti.fi/" target="_blank">http://www.joroistenlehti.fi/</a>
+    <span class="clickable" onclick="golocal('#d727b0');">local</span>
+    <span class="clickable" onclick="gonational('#d727b0');">national</span>
+    <span class="clickable" onclick="goblog('#d727b0');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#d727b0');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#d727b0', 'http://www.joroistenlehti.fi/');">show now</span>
+</div>
+
+
+
+<div id="9e4564">
+    <a href="http://www.joutsanseutu.fi/" target="_blank">http://www.joutsanseutu.fi/</a>
+    <span class="clickable" onclick="golocal('#9e4564');">local</span>
+    <span class="clickable" onclick="gonational('#9e4564');">national</span>
+    <span class="clickable" onclick="goblog('#9e4564');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#9e4564');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#9e4564', 'http://www.joutsanseutu.fi/');">show now</span>
+</div>
+
+
+
+<div id="ffb1ba">
+    <a href="http://www.jrs.fi/" target="_blank">http://www.jrs.fi/</a>
+    <span class="clickable" onclick="golocal('#ffb1ba');">local</span>
+    <span class="clickable" onclick="gonational('#ffb1ba');">national</span>
+    <span class="clickable" onclick="goblog('#ffb1ba');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#ffb1ba');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#ffb1ba', 'http://www.jrs.fi/');">show now</span>
+</div>
+
+
+
+<div id="2f5fbc">
+    <a href="http://www.kaapeli.fi/~nytid/" target="_blank">http://www.kaapeli.fi/~nytid/</a>
+    <span class="clickable" onclick="golocal('#2f5fbc');">local</span>
+    <span class="clickable" onclick="gonational('#2f5fbc');">national</span>
+    <span class="clickable" onclick="goblog('#2f5fbc');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#2f5fbc');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#2f5fbc', 'http://www.kaapeli.fi/~nytid/');">show now</span>
+</div>
+
+
+
+<div id="7b5fef">
+    <a href="http://www.kaarina-lehti.fi/" target="_blank">http://www.kaarina-lehti.fi/</a>
+    <span class="clickable" onclick="golocal('#7b5fef');">local</span>
+    <span class="clickable" onclick="gonational('#7b5fef');">national</span>
+    <span class="clickable" onclick="goblog('#7b5fef');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#7b5fef');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#7b5fef', 'http://www.kaarina-lehti.fi/');">show now</span>
+</div>
+
+
+
+<div id="b68af8">
+    <a href="http://www.kainuunsanomat.fi/" target="_blank">http://www.kainuunsanomat.fi/</a>
+    <span class="clickable" onclick="golocal('#b68af8');">local</span>
+    <span class="clickable" onclick="gonational('#b68af8');">national</span>
+    <span class="clickable" onclick="goblog('#b68af8');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#b68af8');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#b68af8', 'http://www.kainuunsanomat.fi/');">show now</span>
+</div>
+
+
+
+<div id="b9db7e">
+    <a href="http://www.kaleva.fi/" target="_blank">http://www.kaleva.fi/</a>
+    <span class="clickable" onclick="golocal('#b9db7e');">local</span>
+    <span class="clickable" onclick="gonational('#b9db7e');">national</span>
+    <span class="clickable" onclick="goblog('#b9db7e');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#b9db7e');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#b9db7e', 'http://www.kaleva.fi/');">show now</span>
+</div>
+
+
+
+<div id="ec6e1b">
+    <a href="http://www.kankaanpaanseutu.fi" target="_blank">http://www.kankaanpaanseutu.fi</a>
+    <span class="clickable" onclick="golocal('#ec6e1b');">local</span>
+    <span class="clickable" onclick="gonational('#ec6e1b');">national</span>
+    <span class="clickable" onclick="goblog('#ec6e1b');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#ec6e1b');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#ec6e1b', 'http://www.kankaanpaanseutu.fi');">show now</span>
+</div>
+
+
+
+<div id="4353c5">
+    <a href="http://www.kansanuutiset.fi/" target="_blank">http://www.kansanuutiset.fi/</a>
+    <span class="clickable" onclick="golocal('#4353c5');">local</span>
+    <span class="clickable" onclick="gonational('#4353c5');">national</span>
+    <span class="clickable" onclick="goblog('#4353c5');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#4353c5');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#4353c5', 'http://www.kansanuutiset.fi/');">show now</span>
+</div>
+
+
+
+<div id="3713ac">
+    <a href="http://www.karkkilalainen.fi/" target="_blank">http://www.karkkilalainen.fi/</a>
+    <span class="clickable" onclick="golocal('#3713ac');">local</span>
+    <span class="clickable" onclick="gonational('#3713ac');">national</span>
+    <span class="clickable" onclick="goblog('#3713ac');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#3713ac');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#3713ac', 'http://www.karkkilalainen.fi/');">show now</span>
+</div>
+
+
+
+<div id="e516e3">
+    <a href="http://www.kauppalehti.fi/5/i/etusivu/" target="_blank">http://www.kauppalehti.fi/5/i/etusivu/</a>
+    <span class="clickable" onclick="golocal('#e516e3');">local</span>
+    <span class="clickable" onclick="gonational('#e516e3');">national</span>
+    <span class="clickable" onclick="goblog('#e516e3');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#e516e3');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#e516e3', 'http://www.kauppalehti.fi/5/i/etusivu/');">show now</span>
+</div>
+
+
+
+<div id="9921f7">
+    <a href="http://www.keskiespooseura.fi/sanomat/" target="_blank">http://www.keskiespooseura.fi/sanomat/</a>
+    <span class="clickable" onclick="golocal('#9921f7');">local</span>
+    <span class="clickable" onclick="gonational('#9921f7');">national</span>
+    <span class="clickable" onclick="goblog('#9921f7');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#9921f7');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#9921f7', 'http://www.keskiespooseura.fi/sanomat/');">show now</span>
+</div>
+
+
+
+<div id="fe3bef">
+    <a href="http://www.keski-uusimaa.fi/" target="_blank">http://www.keski-uusimaa.fi/</a>
+    <span class="clickable" onclick="golocal('#fe3bef');">local</span>
+    <span class="clickable" onclick="gonational('#fe3bef');">national</span>
+    <span class="clickable" onclick="goblog('#fe3bef');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#fe3bef');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#fe3bef', 'http://www.keski-uusimaa.fi/');">show now</span>
+</div>
+
+
+
+<div id="615aca">
+    <a href="http://www.koillissanomat.fi/etusivu/index.html" target="_blank">http://www.koillissanomat.fi/etusivu/index.html</a>
+    <span class="clickable" onclick="golocal('#615aca');">local</span>
+    <span class="clickable" onclick="gonational('#615aca');">national</span>
+    <span class="clickable" onclick="goblog('#615aca');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#615aca');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#615aca', 'http://www.koillissanomat.fi/etusivu/index.html');">show now</span>
+</div>
+
+
+
+<div id="bf42ea">
+    <a href="http://www.kokemaenjokilaakso.fi/" target="_blank">http://www.kokemaenjokilaakso.fi/</a>
+    <span class="clickable" onclick="golocal('#bf42ea');">local</span>
+    <span class="clickable" onclick="gonational('#bf42ea');">national</span>
+    <span class="clickable" onclick="goblog('#bf42ea');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#bf42ea');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#bf42ea', 'http://www.kokemaenjokilaakso.fi/');">show now</span>
+</div>
+
+
+
+<div id="61c7de">
+    <a href="http://www.kouvolansanomat.fi/" target="_blank">http://www.kouvolansanomat.fi/</a>
+    <span class="clickable" onclick="golocal('#61c7de');">local</span>
+    <span class="clickable" onclick="gonational('#61c7de');">national</span>
+    <span class="clickable" onclick="goblog('#61c7de');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#61c7de');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#61c7de', 'http://www.kouvolansanomat.fi/');">show now</span>
+</div>
+
+
+
+<div id="0910e4">
+    <a href="http://www.kp24.fi/?brand=1" target="_blank">http://www.kp24.fi/?brand=1</a>
+    <span class="clickable" onclick="golocal('#0910e4');">local</span>
+    <span class="clickable" onclick="gonational('#0910e4');">national</span>
+    <span class="clickable" onclick="goblog('#0910e4');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#0910e4');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#0910e4', 'http://www.kp24.fi/?brand=1');">show now</span>
+</div>
+
+
+
+<div id="3dbf1f">
+    <a href="http://www.ksml.fi/" target="_blank">http://www.ksml.fi/</a>
+    <span class="clickable" onclick="golocal('#3dbf1f');">local</span>
+    <span class="clickable" onclick="gonational('#3dbf1f');">national</span>
+    <span class="clickable" onclick="goblog('#3dbf1f');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#3dbf1f');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#3dbf1f', 'http://www.ksml.fi/');">show now</span>
+</div>
+
+
+
+<div id="e5ddfe">
+    <a href="http://www.kunnallislehti.fi/" target="_blank">http://www.kunnallislehti.fi/</a>
+    <span class="clickable" onclick="golocal('#e5ddfe');">local</span>
+    <span class="clickable" onclick="gonational('#e5ddfe');">national</span>
+    <span class="clickable" onclick="goblog('#e5ddfe');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#e5ddfe');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#e5ddfe', 'http://www.kunnallislehti.fi/');">show now</span>
+</div>
+
+
+
+<div id="5cc212">
+    <a href="http://www.kymensanomat.fi/" target="_blank">http://www.kymensanomat.fi/</a>
+    <span class="clickable" onclick="golocal('#5cc212');">local</span>
+    <span class="clickable" onclick="gonational('#5cc212');">national</span>
+    <span class="clickable" onclick="goblog('#5cc212');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#5cc212');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#5cc212', 'http://www.kymensanomat.fi/');">show now</span>
+</div>
+
+
+
+<div id="e47f24">
+    <a href="http://www.kymilehti.net/" target="_blank">http://www.kymilehti.net/</a>
+    <span class="clickable" onclick="golocal('#e47f24');">local</span>
+    <span class="clickable" onclick="gonational('#e47f24');">national</span>
+    <span class="clickable" onclick="goblog('#e47f24');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#e47f24');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#e47f24', 'http://www.kymilehti.net/');">show now</span>
+</div>
+
+
+
+<div id="2ca68f">
+    <a href="http://www.lansi-savo.fi/" target="_blank">http://www.lansi-savo.fi/</a>
+    <span class="clickable" onclick="golocal('#2ca68f');">local</span>
+    <span class="clickable" onclick="gonational('#2ca68f');">national</span>
+    <span class="clickable" onclick="goblog('#2ca68f');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#2ca68f');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#2ca68f', 'http://www.lansi-savo.fi/');">show now</span>
+</div>
+
+
+
+<div id="961b93">
+    <a href="http://www.lansi-uusimaa.fi/" target="_blank">http://www.lansi-uusimaa.fi/</a>
+    <span class="clickable" onclick="golocal('#961b93');">local</span>
+    <span class="clickable" onclick="gonational('#961b93');">national</span>
+    <span class="clickable" onclick="goblog('#961b93');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#961b93');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#961b93', 'http://www.lansi-uusimaa.fi/');">show now</span>
+</div>
+
+
+
+<div id="01c0af">
+    <a href="http://www.lansivayla.fi/" target="_blank">http://www.lansivayla.fi/</a>
+    <span class="clickable" onclick="golocal('#01c0af');">local</span>
+    <span class="clickable" onclick="gonational('#01c0af');">national</span>
+    <span class="clickable" onclick="goblog('#01c0af');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#01c0af');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#01c0af', 'http://www.lansivayla.fi/');">show now</span>
+</div>
+
+
+
+<div id="575660">
+    <a href="http://www.lapinkansa.fi/Etusivu" target="_blank">http://www.lapinkansa.fi/Etusivu</a>
+    <span class="clickable" onclick="golocal('#575660');">local</span>
+    <span class="clickable" onclick="gonational('#575660');">national</span>
+    <span class="clickable" onclick="goblog('#575660');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#575660');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#575660', 'http://www.lapinkansa.fi/Etusivu');">show now</span>
+</div>
+
+
+
+<div id="efe177">
+    <a href="http://www.loimaanlehti.fi/" target="_blank">http://www.loimaanlehti.fi/</a>
+    <span class="clickable" onclick="golocal('#efe177');">local</span>
+    <span class="clickable" onclick="gonational('#efe177');">national</span>
+    <span class="clickable" onclick="goblog('#efe177');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#efe177');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#efe177', 'http://www.loimaanlehti.fi/');">show now</span>
+</div>
+
+
+
+<div id="1f362c">
+    <a href="http://www.luoteis-lappi.com/" target="_blank">http://www.luoteis-lappi.com/</a>
+    <span class="clickable" onclick="golocal('#1f362c');">local</span>
+    <span class="clickable" onclick="gonational('#1f362c');">national</span>
+    <span class="clickable" onclick="goblog('#1f362c');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#1f362c');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#1f362c', 'http://www.luoteis-lappi.com/');">show now</span>
+</div>
+
+
+
+<div id="ce094d">
+    <a href="http://www.maaseuduntulevaisuus.fi/" target="_blank">http://www.maaseuduntulevaisuus.fi/</a>
+    <span class="clickable" onclick="golocal('#ce094d');">local</span>
+    <span class="clickable" onclick="gonational('#ce094d');">national</span>
+    <span class="clickable" onclick="goblog('#ce094d');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#ce094d');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#ce094d', 'http://www.maaseuduntulevaisuus.fi/');">show now</span>
+</div>
+
+
+
+<div id="d31c70">
+    <a href="http://www.mantsalanuutiset.fi/" target="_blank">http://www.mantsalanuutiset.fi/</a>
+    <span class="clickable" onclick="golocal('#d31c70');">local</span>
+    <span class="clickable" onclick="gonational('#d31c70');">national</span>
+    <span class="clickable" onclick="goblog('#d31c70');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#d31c70');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#d31c70', 'http://www.mantsalanuutiset.fi/');">show now</span>
+</div>
+
+
+
+<div id="774541">
+    <a href="http://www.mofile.fi/fennia/um/" target="_blank">http://www.mofile.fi/fennia/um/</a>
+    <span class="clickable" onclick="golocal('#774541');">local</span>
+    <span class="clickable" onclick="gonational('#774541');">national</span>
+    <span class="clickable" onclick="goblog('#774541');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#774541');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#774541', 'http://www.mofile.fi/fennia/um/');">show now</span>
+</div>
+
+
+
+<div id="f55951">
+    <a href="http://www.multi.fi/ps/" target="_blank">http://www.multi.fi/ps/</a>
+    <span class="clickable" onclick="golocal('#f55951');">local</span>
+    <span class="clickable" onclick="gonational('#f55951');">national</span>
+    <span class="clickable" onclick="goblog('#f55951');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#f55951');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#f55951', 'http://www.multi.fi/ps/');">show now</span>
+</div>
+
+
+
+<div id="65c767">
+    <a href="http://www.norraposten.com/" target="_blank">http://www.norraposten.com/</a>
+    <span class="clickable" onclick="golocal('#65c767');">local</span>
+    <span class="clickable" onclick="gonational('#65c767');">national</span>
+    <span class="clickable" onclick="goblog('#65c767');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#65c767');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#65c767', 'http://www.norraposten.com/');">show now</span>
+</div>
+
+
+
+<div id="981c1f">
+    <a href="http://www.nyan.aland.fi/nyheter/" target="_blank">http://www.nyan.aland.fi/nyheter/</a>
+    <span class="clickable" onclick="golocal('#981c1f');">local</span>
+    <span class="clickable" onclick="gonational('#981c1f');">national</span>
+    <span class="clickable" onclick="goblog('#981c1f');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#981c1f');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#981c1f', 'http://www.nyan.aland.fi/nyheter/');">show now</span>
+</div>
+
+
+
+<div id="b42164">
+    <a href="http://www.oulunetelainen.net/" target="_blank">http://www.oulunetelainen.net/</a>
+    <span class="clickable" onclick="golocal('#b42164');">local</span>
+    <span class="clickable" onclick="gonational('#b42164');">national</span>
+    <span class="clickable" onclick="goblog('#b42164');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#b42164');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#b42164', 'http://www.oulunetelainen.net/');">show now</span>
+</div>
+
+
+
+<div id="16dff1">
+    <a href="http://www.pohjolansanomat.fi/Etusivu" target="_blank">http://www.pohjolansanomat.fi/Etusivu</a>
+    <span class="clickable" onclick="golocal('#16dff1');">local</span>
+    <span class="clickable" onclick="gonational('#16dff1');">national</span>
+    <span class="clickable" onclick="goblog('#16dff1');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#16dff1');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#16dff1', 'http://www.pohjolansanomat.fi/Etusivu');">show now</span>
+</div>
+
+
+
+<div id="6721b7">
+    <a href="http://www.pyhajarvensanomat.fi/uusin.html" target="_blank">http://www.pyhajarvensanomat.fi/uusin.html</a>
+    <span class="clickable" onclick="golocal('#6721b7');">local</span>
+    <span class="clickable" onclick="gonational('#6721b7');">national</span>
+    <span class="clickable" onclick="goblog('#6721b7');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#6721b7');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#6721b7', 'http://www.pyhajarvensanomat.fi/uusin.html');">show now</span>
+</div>
+
+
+
+<div id="ed01d4">
+    <a href="http://www.pyhajokiseutu.sps.fi/" target="_blank">http://www.pyhajokiseutu.sps.fi/</a>
+    <span class="clickable" onclick="golocal('#ed01d4');">local</span>
+    <span class="clickable" onclick="gonational('#ed01d4');">national</span>
+    <span class="clickable" onclick="goblog('#ed01d4');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#ed01d4');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#ed01d4', 'http://www.pyhajokiseutu.sps.fi/');">show now</span>
+</div>
+
+
+
+<div id="0e119c">
+    <a href="http://www.rannikkoseudunsanomat.fi/" target="_blank">http://www.rannikkoseudunsanomat.fi/</a>
+    <span class="clickable" onclick="golocal('#0e119c');">local</span>
+    <span class="clickable" onclick="gonational('#0e119c');">national</span>
+    <span class="clickable" onclick="goblog('#0e119c');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#0e119c');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#0e119c', 'http://www.rannikkoseudunsanomat.fi/');">show now</span>
+</div>
+
+
+
+<div id="3060d4">
+    <a href="http://www.rantalakeus.fi/etusivu/index.html" target="_blank">http://www.rantalakeus.fi/etusivu/index.html</a>
+    <span class="clickable" onclick="golocal('#3060d4');">local</span>
+    <span class="clickable" onclick="gonational('#3060d4');">national</span>
+    <span class="clickable" onclick="goblog('#3060d4');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#3060d4');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#3060d4', 'http://www.rantalakeus.fi/etusivu/index.html');">show now</span>
+</div>
+
+
+
+<div id="5b1bfc">
+    <a href="http://www.satakunnankansa.fi/Etusivu" target="_blank">http://www.satakunnankansa.fi/Etusivu</a>
+    <span class="clickable" onclick="golocal('#5b1bfc');">local</span>
+    <span class="clickable" onclick="gonational('#5b1bfc');">national</span>
+    <span class="clickable" onclick="goblog('#5b1bfc');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#5b1bfc');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#5b1bfc', 'http://www.satakunnankansa.fi/Etusivu');">show now</span>
+</div>
+
+
+
+<div id="8d000d">
+    <a href="http://www.satakunnantyo.fi/" target="_blank">http://www.satakunnantyo.fi/</a>
+    <span class="clickable" onclick="golocal('#8d000d');">local</span>
+    <span class="clickable" onclick="gonational('#8d000d');">national</span>
+    <span class="clickable" onclick="goblog('#8d000d');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#8d000d');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#8d000d', 'http://www.satakunnantyo.fi/');">show now</span>
+</div>
+
+
+
+<div id="f4535d">
+    <a href="http://www.saunalahti.fi/urjsanom/" target="_blank">http://www.saunalahti.fi/urjsanom/</a>
+    <span class="clickable" onclick="golocal('#f4535d');">local</span>
+    <span class="clickable" onclick="gonational('#f4535d');">national</span>
+    <span class="clickable" onclick="goblog('#f4535d');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#f4535d');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#f4535d', 'http://www.saunalahti.fi/urjsanom/');">show now</span>
+</div>
+
+
+
+<div id="d94f18">
+    <a href="http://www.savonmaa.fi/" target="_blank">http://www.savonmaa.fi/</a>
+    <span class="clickable" onclick="golocal('#d94f18');">local</span>
+    <span class="clickable" onclick="gonational('#d94f18');">national</span>
+    <span class="clickable" onclick="goblog('#d94f18');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#d94f18');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#d94f18', 'http://www.savonmaa.fi/');">show now</span>
+</div>
+
+
+
+<div id="4449b6">
+    <a href="http://www.savonsanomat.fi/" target="_blank">http://www.savonsanomat.fi/</a>
+    <span class="clickable" onclick="golocal('#4449b6');">local</span>
+    <span class="clickable" onclick="gonational('#4449b6');">national</span>
+    <span class="clickable" onclick="goblog('#4449b6');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#4449b6');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#4449b6', 'http://www.savonsanomat.fi/');">show now</span>
+</div>
+
+
+
+<div id="6b20ad">
+    <a href="http://www.siikkis.fi/etusivu/" target="_blank">http://www.siikkis.fi/etusivu/</a>
+    <span class="clickable" onclick="golocal('#6b20ad');">local</span>
+    <span class="clickable" onclick="gonational('#6b20ad');">national</span>
+    <span class="clickable" onclick="goblog('#6b20ad');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#6b20ad');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#6b20ad', 'http://www.siikkis.fi/etusivu/');">show now</span>
+</div>
+
+
+
+<div id="5bf14d">
+    <a href="http://www.sisis.fi/" target="_blank">http://www.sisis.fi/</a>
+    <span class="clickable" onclick="golocal('#5bf14d');">local</span>
+    <span class="clickable" onclick="gonational('#5bf14d');">national</span>
+    <span class="clickable" onclick="goblog('#5bf14d');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#5bf14d');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#5bf14d', 'http://www.sisis.fi/');">show now</span>
+</div>
+
+
+
+<div id="5071f6">
+    <a href="http://www.sss.fi/" target="_blank">http://www.sss.fi/</a>
+    <span class="clickable" onclick="golocal('#5071f6');">local</span>
+    <span class="clickable" onclick="gonational('#5071f6');">national</span>
+    <span class="clickable" onclick="goblog('#5071f6');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#5071f6');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#5071f6', 'http://www.sss.fi/');">show now</span>
+</div>
+
+
+
+<div id="d06486">
+    <a href="http://www.suomenmaa.fi/etusivu/index.html" target="_blank">http://www.suomenmaa.fi/etusivu/index.html</a>
+    <span class="clickable" onclick="golocal('#d06486');">local</span>
+    <span class="clickable" onclick="gonational('#d06486');">national</span>
+    <span class="clickable" onclick="goblog('#d06486');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#d06486');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#d06486', 'http://www.suomenmaa.fi/etusivu/index.html');">show now</span>
+</div>
+
+
+
+<div id="2bf00d">
+    <a href="http://www.tamperelainen.fi/" target="_blank">http://www.tamperelainen.fi/</a>
+    <span class="clickable" onclick="golocal('#2bf00d');">local</span>
+    <span class="clickable" onclick="gonational('#2bf00d');">national</span>
+    <span class="clickable" onclick="goblog('#2bf00d');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#2bf00d');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#2bf00d', 'http://www.tamperelainen.fi/');">show now</span>
+</div>
+
+
+
+<div id="655b99">
+    <a href="http://www.tervareitti.fi/" target="_blank">http://www.tervareitti.fi/</a>
+    <span class="clickable" onclick="golocal('#655b99');">local</span>
+    <span class="clickable" onclick="gonational('#655b99');">national</span>
+    <span class="clickable" onclick="goblog('#655b99');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#655b99');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#655b99', 'http://www.tervareitti.fi/');">show now</span>
+</div>
+
+
+
+<div id="6edcad">
+    <a href="http://www.ts.fi/" target="_blank">http://www.ts.fi/</a>
+    <span class="clickable" onclick="golocal('#6edcad');">local</span>
+    <span class="clickable" onclick="gonational('#6edcad');">national</span>
+    <span class="clickable" onclick="goblog('#6edcad');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#6edcad');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#6edcad', 'http://www.ts.fi/');">show now</span>
+</div>
+
+
+
+<div id="ca48ca">
+    <a href="http://www.tyrma.com/verkkoapina/index.html" target="_blank">http://www.tyrma.com/verkkoapina/index.html</a>
+    <span class="clickable" onclick="golocal('#ca48ca');">local</span>
+    <span class="clickable" onclick="gonational('#ca48ca');">national</span>
+    <span class="clickable" onclick="goblog('#ca48ca');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#ca48ca');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#ca48ca', 'http://www.tyrma.com/verkkoapina/index.html');">show now</span>
+</div>
+
+
+
+<div id="0a951f">
+    <a href="http://www.uusimaa.fi/" target="_blank">http://www.uusimaa.fi/</a>
+    <span class="clickable" onclick="golocal('#0a951f');">local</span>
+    <span class="clickable" onclick="gonational('#0a951f');">national</span>
+    <span class="clickable" onclick="goblog('#0a951f');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#0a951f');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#0a951f', 'http://www.uusimaa.fi/');">show now</span>
+</div>
+
+
+
+<div id="839ba6">
+    <a href="http://www.verkkouutiset.fi/" target="_blank">http://www.verkkouutiset.fi/</a>
+    <span class="clickable" onclick="golocal('#839ba6');">local</span>
+    <span class="clickable" onclick="gonational('#839ba6');">national</span>
+    <span class="clickable" onclick="goblog('#839ba6');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#839ba6');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#839ba6', 'http://www.verkkouutiset.fi/');">show now</span>
+</div>
+
+
+
+<div id="2406d0">
+    <a href="http://www.viispiikkinen.net/" target="_blank">http://www.viispiikkinen.net/</a>
+    <span class="clickable" onclick="golocal('#2406d0');">local</span>
+    <span class="clickable" onclick="gonational('#2406d0');">national</span>
+    <span class="clickable" onclick="goblog('#2406d0');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#2406d0');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#2406d0', 'http://www.viispiikkinen.net/');">show now</span>
+</div>
+
+
+
+<div id="798719">
+    <a href="http://www.wakkanet.fi/plari/" target="_blank">http://www.wakkanet.fi/plari/</a>
+    <span class="clickable" onclick="golocal('#798719');">local</span>
+    <span class="clickable" onclick="gonational('#798719');">national</span>
+    <span class="clickable" onclick="goblog('#798719');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#798719');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#798719', 'http://www.wakkanet.fi/plari/');">show now</span>
+</div>
+
+
+
+<div id="b05954">
+    <a href="http://ylioppilaslehti.fi/" target="_blank">http://ylioppilaslehti.fi/</a>
+    <span class="clickable" onclick="golocal('#b05954');">local</span>
+    <span class="clickable" onclick="gonational('#b05954');">national</span>
+    <span class="clickable" onclick="goblog('#b05954');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#b05954');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#b05954', 'http://ylioppilaslehti.fi/');">show now</span>
+</div>
+
+
+
+<br>
+<button onclick="removebutton();">Press here when you've finished! can be easier copy/paste</button>
+<br>
+<button onclick="showbutton();">Press if you've made a mistake, make buttons comeback</button>
+</body>
+</html>

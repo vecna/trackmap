@@ -1,0 +1,312 @@
+
+<html>
+
+<head>
+    <title>Just the test</title>
+    <script type="application/javascript" src="bower_components/jquery-2.1.0.min/index.js"></script>
+
+    <script type="application/javascript">
+
+        function goblog(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#blogList");
+        }
+
+        function golocal(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#localList");
+        }
+
+        function gonational(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#nationalList");
+        }
+
+        function removebutton() {
+            $('.clickable').hide();
+        }
+
+        function showbutton() {
+            $('.clickable').show();
+        }
+
+        function openiframe(elem, url) {
+            $('<br>').appendTo(elem);
+            $('<iframe />', {
+                'src' :url,
+                'width': "80%",
+                'height': "40%",
+                'class': 'stigma'
+            }).appendTo(elem);
+        }
+
+        function justfuckingdeletethisshit(elem) {
+            $(elem).remove()
+        }
+
+    </script>
+    <style type="text/css">
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        .urlList {
+            border-color: red;
+            background-color: palegoldenrod;
+            border-bottom-left-radius: 2px;
+            width: 100%;
+            margin-bottom: 3px;
+            font-family: monospace;
+        }
+        h1 {
+            text-align: center;
+            color: cadetblue;
+            font-size: 3em;
+        }
+        .clickable {
+            background-color: yellow;
+            color: blueviolet;
+            margin-left: 2em;
+            margin-right: 2em;
+        }
+        .show {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>
+kenya
+</h1>
+
+<h2>National List</h2>
+<div class="urlList" id="nationalList">
+</div>
+
+<h2>Local/Specialistic List</h2>
+<div class="urlList" id="localList">
+</div>
+
+<h2>personal/community Blog List</h2>
+<div class="urlList" id="blogList">
+</div>
+
+<h2>Unverified List</h2>
+
+
+<div id="69910b">
+    <a href="http://www.africasciencenews.org" target="_blank">http://www.africasciencenews.org</a>
+    <span class="clickable" onclick="golocal('#69910b');">local</span>
+    <span class="clickable" onclick="gonational('#69910b');">national</span>
+    <span class="clickable" onclick="goblog('#69910b');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#69910b');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#69910b', 'http://www.africasciencenews.org');">show now</span>
+</div>
+
+
+
+<div id="0aab8b">
+    <a href="http://www.akenyanews.com/" target="_blank">http://www.akenyanews.com/</a>
+    <span class="clickable" onclick="golocal('#0aab8b');">local</span>
+    <span class="clickable" onclick="gonational('#0aab8b');">national</span>
+    <span class="clickable" onclick="goblog('#0aab8b');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#0aab8b');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#0aab8b', 'http://www.akenyanews.com/');">show now</span>
+</div>
+
+
+
+<div id="b53b70">
+    <a href="http://www.kenya-today.com/" target="_blank">http://www.kenya-today.com/</a>
+    <span class="clickable" onclick="golocal('#b53b70');">local</span>
+    <span class="clickable" onclick="gonational('#b53b70');">national</span>
+    <span class="clickable" onclick="goblog('#b53b70');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#b53b70');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#b53b70', 'http://www.kenya-today.com/');">show now</span>
+</div>
+
+
+
+<div id="6fea48">
+    <a href="http://whatsupkenya.com/" target="_blank">http://whatsupkenya.com/</a>
+    <span class="clickable" onclick="golocal('#6fea48');">local</span>
+    <span class="clickable" onclick="gonational('#6fea48');">national</span>
+    <span class="clickable" onclick="goblog('#6fea48');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#6fea48');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#6fea48', 'http://whatsupkenya.com/');">show now</span>
+</div>
+
+
+
+<div id="6ad079">
+    <a href="http://www.iq4news.com/" target="_blank">http://www.iq4news.com/</a>
+    <span class="clickable" onclick="golocal('#6ad079');">local</span>
+    <span class="clickable" onclick="gonational('#6ad079');">national</span>
+    <span class="clickable" onclick="goblog('#6ad079');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#6ad079');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#6ad079', 'http://www.iq4news.com/');">show now</span>
+</div>
+
+
+
+<div id="5c6283">
+    <a href="http://www.eastafricanewspost.com" target="_blank">http://www.eastafricanewspost.com</a>
+    <span class="clickable" onclick="golocal('#5c6283');">local</span>
+    <span class="clickable" onclick="gonational('#5c6283');">national</span>
+    <span class="clickable" onclick="goblog('#5c6283');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#5c6283');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#5c6283', 'http://www.eastafricanewspost.com');">show now</span>
+</div>
+
+
+
+<div id="4606cc">
+    <a href="http://in2eastafrica.net/" target="_blank">http://in2eastafrica.net/</a>
+    <span class="clickable" onclick="golocal('#4606cc');">local</span>
+    <span class="clickable" onclick="gonational('#4606cc');">national</span>
+    <span class="clickable" onclick="goblog('#4606cc');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#4606cc');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#4606cc', 'http://in2eastafrica.net/');">show now</span>
+</div>
+
+
+
+<div id="c3dc09">
+    <a href="http://newske.apphb.com/" target="_blank">http://newske.apphb.com/</a>
+    <span class="clickable" onclick="golocal('#c3dc09');">local</span>
+    <span class="clickable" onclick="gonational('#c3dc09');">national</span>
+    <span class="clickable" onclick="goblog('#c3dc09');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#c3dc09');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#c3dc09', 'http://newske.apphb.com/');">show now</span>
+</div>
+
+
+
+<div id="5cf7d2">
+    <a href="http://www.kenyastar.com/" target="_blank">http://www.kenyastar.com/</a>
+    <span class="clickable" onclick="golocal('#5cf7d2');">local</span>
+    <span class="clickable" onclick="gonational('#5cf7d2');">national</span>
+    <span class="clickable" onclick="goblog('#5cf7d2');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#5cf7d2');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#5cf7d2', 'http://www.kenyastar.com/');">show now</span>
+</div>
+
+
+
+<div id="863864">
+    <a href="http://www.kawowo.com/" target="_blank">http://www.kawowo.com/</a>
+    <span class="clickable" onclick="golocal('#863864');">local</span>
+    <span class="clickable" onclick="gonational('#863864');">national</span>
+    <span class="clickable" onclick="goblog('#863864');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#863864');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#863864', 'http://www.kawowo.com/');">show now</span>
+</div>
+
+
+
+<div id="1f9b3c">
+    <a href="http://www.thezambezian.com/" target="_blank">http://www.thezambezian.com/</a>
+    <span class="clickable" onclick="golocal('#1f9b3c');">local</span>
+    <span class="clickable" onclick="gonational('#1f9b3c');">national</span>
+    <span class="clickable" onclick="goblog('#1f9b3c');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#1f9b3c');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#1f9b3c', 'http://www.thezambezian.com/');">show now</span>
+</div>
+
+
+
+<div id="6c03b1">
+    <a href="http://newskenya.co.ke/" target="_blank">http://newskenya.co.ke/</a>
+    <span class="clickable" onclick="golocal('#6c03b1');">local</span>
+    <span class="clickable" onclick="gonational('#6c03b1');">national</span>
+    <span class="clickable" onclick="goblog('#6c03b1');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#6c03b1');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#6c03b1', 'http://newskenya.co.ke/');">show now</span>
+</div>
+
+
+
+<div id="ad76d4">
+    <a href="http://www.nation.co.ke/" target="_blank">http://www.nation.co.ke/</a>
+    <span class="clickable" onclick="golocal('#ad76d4');">local</span>
+    <span class="clickable" onclick="gonational('#ad76d4');">national</span>
+    <span class="clickable" onclick="goblog('#ad76d4');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#ad76d4');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#ad76d4', 'http://www.nation.co.ke/');">show now</span>
+</div>
+
+
+
+<div id="520ec4">
+    <a href="https://www.standard.com/" target="_blank">https://www.standard.com/</a>
+    <span class="clickable" onclick="golocal('#520ec4');">local</span>
+    <span class="clickable" onclick="gonational('#520ec4');">national</span>
+    <span class="clickable" onclick="goblog('#520ec4');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#520ec4');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#520ec4', 'https://www.standard.com/');">show now</span>
+</div>
+
+
+
+<div id="5c7a72">
+    <a href="http://ssinformer.com/" target="_blank">http://ssinformer.com/</a>
+    <span class="clickable" onclick="golocal('#5c7a72');">local</span>
+    <span class="clickable" onclick="gonational('#5c7a72');">national</span>
+    <span class="clickable" onclick="goblog('#5c7a72');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#5c7a72');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#5c7a72', 'http://ssinformer.com/');">show now</span>
+</div>
+
+
+
+<div id="97c4cc">
+    <a href="http://wn.com/kenyadaily" target="_blank">http://wn.com/kenyadaily</a>
+    <span class="clickable" onclick="golocal('#97c4cc');">local</span>
+    <span class="clickable" onclick="gonational('#97c4cc');">national</span>
+    <span class="clickable" onclick="goblog('#97c4cc');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#97c4cc');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#97c4cc', 'http://wn.com/kenyadaily');">show now</span>
+</div>
+
+
+
+<div id="8fe862">
+    <a href="http://www.nairobi.com/" target="_blank">http://www.nairobi.com/</a>
+    <span class="clickable" onclick="golocal('#8fe862');">local</span>
+    <span class="clickable" onclick="gonational('#8fe862');">national</span>
+    <span class="clickable" onclick="goblog('#8fe862');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#8fe862');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#8fe862', 'http://www.nairobi.com/');">show now</span>
+</div>
+
+
+
+<div id="c07e80">
+    <a href="http://www.kenyaindustry.com/" target="_blank">http://www.kenyaindustry.com/</a>
+    <span class="clickable" onclick="golocal('#c07e80');">local</span>
+    <span class="clickable" onclick="gonational('#c07e80');">national</span>
+    <span class="clickable" onclick="goblog('#c07e80');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#c07e80');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#c07e80', 'http://www.kenyaindustry.com/');">show now</span>
+</div>
+
+
+
+<div id="88f4e5">
+    <a href="http://www.newstimeafrica.com/archives/category/east-africa/kenya-east-africa" target="_blank">http://www.newstimeafrica.com/archives/category/east-africa/kenya-east-africa</a>
+    <span class="clickable" onclick="golocal('#88f4e5');">local</span>
+    <span class="clickable" onclick="gonational('#88f4e5');">national</span>
+    <span class="clickable" onclick="goblog('#88f4e5');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#88f4e5');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#88f4e5', 'http://www.newstimeafrica.com/archives/category/east-africa/kenya-east-africa');">show now</span>
+</div>
+
+
+
+<br>
+<button onclick="removebutton();">Press here when you've finished! can be easier copy/paste</button>
+<br>
+<button onclick="showbutton();">Press if you've made a mistake, make buttons comeback</button>
+</body>
+</html>

@@ -1,0 +1,169 @@
+
+<html>
+
+<head>
+    <title>Just the test</title>
+    <script type="application/javascript" src="bower_components/jquery-2.1.0.min/index.js"></script>
+
+    <script type="application/javascript">
+
+        function goblog(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#blogList");
+        }
+
+        function golocal(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#localList");
+        }
+
+        function gonational(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#nationalList");
+        }
+
+        function removebutton() {
+            $('.clickable').hide();
+        }
+
+        function showbutton() {
+            $('.clickable').show();
+        }
+
+        function openiframe(elem, url) {
+            $('<br>').appendTo(elem);
+            $('<iframe />', {
+                'src' :url,
+                'width': "80%",
+                'height': "40%",
+                'class': 'stigma'
+            }).appendTo(elem);
+        }
+
+        function justfuckingdeletethisshit(elem) {
+            $(elem).remove()
+        }
+
+    </script>
+    <style type="text/css">
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        .urlList {
+            border-color: red;
+            background-color: palegoldenrod;
+            border-bottom-left-radius: 2px;
+            width: 100%;
+            margin-bottom: 3px;
+            font-family: monospace;
+        }
+        h1 {
+            text-align: center;
+            color: cadetblue;
+            font-size: 3em;
+        }
+        .clickable {
+            background-color: yellow;
+            color: blueviolet;
+            margin-left: 2em;
+            margin-right: 2em;
+        }
+        .show {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>
+luxemburg
+</h1>
+
+<h2>National List</h2>
+<div class="urlList" id="nationalList">
+</div>
+
+<h2>Local/Specialistic List</h2>
+<div class="urlList" id="localList">
+</div>
+
+<h2>personal/community Blog List</h2>
+<div class="urlList" id="blogList">
+</div>
+
+<h2>Unverified List</h2>
+
+
+<div id="909abe">
+    <a href="http://fuze.lu/" target="_blank">http://fuze.lu/</a>
+    <span class="clickable" onclick="golocal('#909abe');">local</span>
+    <span class="clickable" onclick="gonational('#909abe');">national</span>
+    <span class="clickable" onclick="goblog('#909abe');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#909abe');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#909abe', 'http://fuze.lu/');">show now</span>
+</div>
+
+
+
+<div id="0f3de9">
+    <a href="http://www.duluxembourg.com" target="_blank">http://www.duluxembourg.com</a>
+    <span class="clickable" onclick="golocal('#0f3de9');">local</span>
+    <span class="clickable" onclick="gonational('#0f3de9');">national</span>
+    <span class="clickable" onclick="goblog('#0f3de9');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#0f3de9');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#0f3de9', 'http://www.duluxembourg.com');">show now</span>
+</div>
+
+
+
+<div id="fd20fe">
+    <a href="http://www.expatica.lu/" target="_blank">http://www.expatica.lu/</a>
+    <span class="clickable" onclick="golocal('#fd20fe');">local</span>
+    <span class="clickable" onclick="gonational('#fd20fe');">national</span>
+    <span class="clickable" onclick="goblog('#fd20fe');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#fd20fe');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#fd20fe', 'http://www.expatica.lu/');">show now</span>
+</div>
+
+
+
+<div id="802c42">
+    <a href="http://www.luxemburgerrundschau.com/" target="_blank">http://www.luxemburgerrundschau.com/</a>
+    <span class="clickable" onclick="golocal('#802c42');">local</span>
+    <span class="clickable" onclick="gonational('#802c42');">national</span>
+    <span class="clickable" onclick="goblog('#802c42');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#802c42');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#802c42', 'http://www.luxemburgerrundschau.com/');">show now</span>
+</div>
+
+
+
+<div id="ba9758">
+    <a href="http://www.tageblatt.lu/" target="_blank">http://www.tageblatt.lu/</a>
+    <span class="clickable" onclick="golocal('#ba9758');">local</span>
+    <span class="clickable" onclick="gonational('#ba9758');">national</span>
+    <span class="clickable" onclick="goblog('#ba9758');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#ba9758');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#ba9758', 'http://www.tageblatt.lu/');">show now</span>
+</div>
+
+
+
+<div id="ecc03b">
+    <a href="http://www.wort.lu" target="_blank">http://www.wort.lu</a>
+    <span class="clickable" onclick="golocal('#ecc03b');">local</span>
+    <span class="clickable" onclick="gonational('#ecc03b');">national</span>
+    <span class="clickable" onclick="goblog('#ecc03b');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#ecc03b');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#ecc03b', 'http://www.wort.lu');">show now</span>
+</div>
+
+
+
+<br>
+<button onclick="removebutton();">Press here when you've finished! can be easier copy/paste</button>
+<br>
+<button onclick="showbutton();">Press if you've made a mistake, make buttons comeback</button>
+</body>
+</html>
