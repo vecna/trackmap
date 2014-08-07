@@ -228,10 +228,15 @@ def main():
             print "unable to create %s: %s" % (OUTPUTDIR, error)
 
     if len(sys.argv) < 2:
-        print "Usage: %s verified_media/$YOUR_COUNTRY_NAME <lp>" % sys.argv[0]
-        print "(hopefully the name of your country)\n"
-        print "Optionally put 'lp' to use your /usr/bin/phantomjs, if you follow README.md is not needed"
-        print "(because by default, this software is looking for symlink 'phantom-1.9.2' )"
+        print colored("Usage: %s $YOUR_COUNTRY_NAME <lp>" % sys.argv[0], "red", 'on_white')
+        print ""
+        print " 'lp' as 3rd argument is needed if you want use your own /usr/bin/phantomjs"
+        print " (if you follow README.md, this is not needed because you've phantomjs 1.9.2)"
+        print " ",colored("By default, this software is looking for symlink 'phantom-1.9.2'", "green", "on_white")
+        if os.path.islink('phantom-1.9.2'):
+            print " ",colored("Link that I've checked: you have ;)", "green", "on_white")
+        else:
+            print " ",colored("Link that I've checked: YOU HAVE NOT!", "red", "on_white")
         quit(-1)
 
     # check if the user is running phantom as installed on the system (also vagrant make this)
@@ -261,7 +266,7 @@ def main():
             if existing_c in ['README.md', 'test']:
                 continue
             print "\t", existing_c
-        print colored("You can put your own country following the instruction here:", 'blue', 'on_yellow')
+        print colored("You can propose your own country media list following these instructions:", 'blue', 'on_yellow')
         print colored("https://github.com/vecna/helpagainsttrack/blob/master/unverified_media_list/README.md", 'blue', 'on_yellow')
         quit(-1)
 
@@ -270,10 +275,17 @@ def main():
     with file(os.path.join(OUTPUTDIR, 'country'), 'w+') as f:
         f.write(proposed_country.lower())
 
+    # reading media list, cleaning media list and copy media list
     cfp = file(country_f, 'r')
-    media_entries = media_file_cleanings(cfp.readlines())
+    unclean_lines = cfp.readlines()
+
+    with file(os.path.join(OUTPUTDIR, 'used_media_list'), 'w+') as f:
+        f.writelines(unclean_lines)
+
+    media_entries = media_file_cleanings(unclean_lines)
     cfp.close()
 
+    # here start iteration over the media!
     for cleanurl, media_kind in media_entries.iteritems():
 
         urldir = os.path.join(OUTPUTDIR, cleanurl)
@@ -314,7 +326,7 @@ def main():
     if not os.path.isdir(verbotracelogs):
         os.mkdir(verbotracelogs)
 
-    print "running traceroute to", len(included_url_dict.keys()), "hosts!"
+    print "Running traceroute to", len(included_url_dict.keys()), "hosts!"
     counter = 1
     failure = 0
     for url, domain_info in included_url_dict.iteritems():
@@ -333,13 +345,11 @@ def main():
     with file( os.path.join(OUTPUTDIR, "unique_id"), "w+") as f:
         f.write("%d%d%d" % (random.randint(0, 0xffff), random.randint(0, 0xffff), random.randint(0, 0xffff)) )
 
-    basename_media = os.path.basename(sys.argv[1])
-    print "Finished! compressing the data", basename_media
-    output_name = 'results-%s.tar.gz' % basename_media
+    output_name = 'results-%s.tar.gz' % proposed_country.lower()
+    print colored("Finished! compressing the data in %s" % output_name, "green")
 
     if os.path.isfile(output_name):
-        print "Finished! and the data is already compressed ? remove %s to make a new one" % output_name
-        quit(0)
+        os.unlink(output_name)
 
     tar = Popen(['tar', '-z', '-c', '-v', '-f', output_name, OUTPUTDIR], stdout=PIPE)
 

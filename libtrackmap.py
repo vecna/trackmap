@@ -3,6 +3,7 @@
 import os, re, json, sys, random, time
 import GeoIP
 import tldextract
+from tldextract import TLDExtract
 
 from subprocess import Popen, PIPE
 from termcolor import colored
@@ -31,7 +32,7 @@ def sortify(outputdir):
 
     for urldir in os.listdir(outputdir):
 
-        if urldir in ['phantom.log', '_traceroutes', 'unique_id',
+        if urldir in ['phantom.log', '_traceroutes', 'unique_id', 'used_media_list',
                       '_verbotracelogs', 'domain.infos', 'country']:
             continue
 
@@ -42,17 +43,18 @@ def sortify(outputdir):
             print "Unable to read", urldir, einfo, "skipping"
             continue
 
+        TLDio = TLDExtract(cache_file='mozilla_tld_name.dat')
         for url in related_urls:
 
             if urldict.has_key(url):
                 skipped +=1
                 continue
 
-            dnsquery = tldextract.extract(url)
+            dnsplit= TLDio(url)
             urldict.update({url : {
-                    'domain' : dnsquery.domain,
-                    'tld' : dnsquery.suffix,
-                    'subdomain' : dnsquery.subdomain }
+                    'domain' : dnsplit.domain,
+                    'tld' : dnsplit.suffix,
+                    'subdomain' : dnsplit.subdomain }
                 })
 
         # note: 
