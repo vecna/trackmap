@@ -43,7 +43,7 @@ def sortify(outputdir):
             print "Unable to read", urldir, einfo, "skipping"
             continue
 
-        TLDio = TLDExtract(cache_file='mozilla_tld_name.dat')
+        TLDio = TLDExtract(cache_file='mozilla_tld_file.dat')
         for url in related_urls:
 
             if urldict.has_key(url):

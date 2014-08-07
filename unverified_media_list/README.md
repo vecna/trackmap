@@ -1,12 +1,12 @@
-## MEDIA LISTS
+### unverified MEDIA LISTS
 
-These media lists has been scraped by various site, like wikipedia and other
-online resources.
+These media lists has been scraped by various online resourse. 
+They are not:
 
-They can be **SERIOUSLY WRONG** about the news media usage in a country :(
+  * Accurate (there are website that are not media list)
+  * Updated (something is missing, something is expired)
+  * Separated (is needed a separation between National and Local and Blog)
 
-In the media list under the name of 'unverified' there are:
+If your country is missing, you can provide your own list, or just ask to me because probaly I've soe scraped resource.
 
-  * missing some important media (please, update if you know about them)
-  * some not-media website that need to be removed
-  * and is needed a local-national separation among the media
+For sure, once I've uploaded here, need to be review by someone in the country, or someone expert about the country media, in order to perform the verification on separation.
