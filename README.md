@@ -93,7 +93,7 @@ In this case, will be pretty easy to us update the test and run them, without ha
   * Collect <object> elements to compare flash injections
   * Perform traceroute for every included URL 
   * GeoIP conversion from every IP included.
-  * send the results to our hidden service (**XXX TODO we've to write here the definitive one**)
+  * send the results to our hidden service (**mzvbyzovjazwzch6.onion**)
 
 This shows all the nations capable of knowing which users are visiting the (selected) news media.
 
