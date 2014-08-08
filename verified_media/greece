@@ -1,4 +1,6 @@
-National
+[global]
+
+[national]
 
 http://www.emprosnet.gr/
 http://www.elliniko-fenomeno.gr/
@@ -46,7 +48,7 @@ http://www.xronos.gr/
 http://www.xtypos.gr/index.php/el/
 
 
-Local
+[local]
 
 http://imerazante.gr/
 http://www.zonews.gr/
@@ -79,7 +81,7 @@ http://www.rodiaki.gr/
 http://www.serrestoday.gr/ 
 
 
-Blogs
+[blog]
 
 http://www.dimotikosantilogos.gr/
 http://dimoskaipoliteia.blogspot.it/ 
