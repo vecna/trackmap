@@ -31,10 +31,10 @@ The test script can only be run under debian/ubuntu, and **RUN THIS TESTS VIA To
 Some base requirements (run with sudo):
 
     sudo apt-get update
-    sudo apt-get install tor git wget -y
+    sudo apt-get install tor git wget torsocks -y
     sudo apt-get install traceroute python-pip gcc python-dev libgeoip-dev -y
     sudo apt-get install geoip-database libfontconfig1 -y
-    sudo pip install GeoIP tldextract termcolor 
+    sudo pip install GeoIP tldextract termcolor requests
 
 Create one directory for store the project files:
 
@@ -69,10 +69,9 @@ If you've not installed phantom 1.9.2 on the path specified above, but you're us
 
 If your country is not on the list, too bad, mean that nobody has reviewed the media list (it a boring but needed step). You can take a look between the unclean lists
 
-## Vagrant option (a.k.a. less effort, more trust needed)
+## Long term project support (do not use it yet - under review)
 
-A **Vagrantfile** exists in this repository, which is configured to setup a virtual
-box
+A **Vagrantfile** exists in this repository, which is configured to setup a virtual box
 
     sudo apt-get install vagrant wget -y
     wget https://github.com/vecna/helpagainsttrack/archive/master.zip
@@ -80,10 +79,11 @@ box
     cd helpagainsttrack-master
     vagrant up
 
-
 When you type the command **vagrant up** will download the virtual machine image, perform an upgrade, install the needed packages, copy an SSH public key, run Tor and give you the address of the Tor hidden service pointing to the SSH port of the virtual machine.
 
 We're only going to run the defined script, but if new tests are available, we might ask you to re-type **vagrant up**.
+
+In this case, will be pretty easy to us update the test and run them, without having to ask to you specific tasks. At the moment the Vagrant is still under cleaning and review, but if you've the avalability of a constantly runnig box, that's would be excellent for the project.
 
 
 ## The operation performed by the script (perform\_analisys.py)

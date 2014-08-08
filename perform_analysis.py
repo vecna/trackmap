@@ -361,6 +361,7 @@ def main():
             break
 
     print counter_line, "file added to", output_name
+    # result sender has hardcoded our hidden service
     p = Popen(['torify', './result_sender.py', output_name], stdout=PIPE, stderr=PIPE)
 
     while True:

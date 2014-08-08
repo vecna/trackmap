@@ -5,7 +5,8 @@
 import requests, sys
 
 # test HS - need to be put our official one
-url = 'http://xdwjkgpdku6gvh5e.onion:12345/'
+# url = 'http://xdwjkgpdku6gvh5e.onion:12345/'
+url = 'http://lo:3232/upload'
 
 if len(sys.argv) == 1:
     print "This script sent the result file to us, via hidden service"
@@ -13,6 +14,10 @@ if len(sys.argv) == 1:
     print ""
     print "usage: %s output-$country.tar.gz" % sys.argv[0]
     quit(-1)
+
+print "I'm going to send the results to the hidden service...please wait a bit"
+print "If something goes wrong, please type again the command:"
+print "  %s %s" % (sys.argv[0], sys.argv[1])
 
 filename = sys.argv[1]
 
@@ -36,5 +41,4 @@ files = { 'myfile' : open(filename, 'rb') }
 # r = requests.post(url, files=files, proxies=proxy)
 # is used via torify because this proxy approach is not working :(
 r = requests.post(url, files=files)
-print dir(r)
 print "Done."
