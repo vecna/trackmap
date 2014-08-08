@@ -1,0 +1,5 @@
+- hosts: suporter
+  roles:
+    - { role: ansible-role-trackmap,
+        user: vagrant
+      } 
