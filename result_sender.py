@@ -10,12 +10,12 @@ if len(sys.argv) == 1:
     print "This script sent the result file to us, via hidden service"
     print "Do not run by hand, is called directly by perform_analysis"
     print ""
-    print "usage: %s output-$country.tar.gz" % sys.argv[0]
+    print "usage: python %s output-$country.tar.gz" % sys.argv[0]
     quit(-1)
 
 print "I'm going to send the results to the hidden service...please wait a bit"
 print "If something goes wrong, please type again the command:"
-print "  %s %s" % (sys.argv[0], sys.argv[1])
+print "  torify python %s %s" % (sys.argv[0], sys.argv[1])
 
 filename = sys.argv[1]
 

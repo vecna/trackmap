@@ -35,7 +35,8 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
 
     def software_execution():
 
-        binary = 'phantom-1.9.2' if local_phantomjs else 'phantomjs'
+        binary = 'phantomjs' if local_phantomjs else './phantom-1.9.2'
+        print "Using THE BINARY", binary
 
         # is just a blocking function that execute phantomjs
         p = Popen([binary, 'collect_included_url.js',
@@ -360,9 +361,9 @@ def main():
         if not line:
             break
 
-    print counter_line, "file added to", output_name
+    print colored("%d file added to %s, Starting 'result_sender.py'" % (counter_line, output_name), "green")
     # result sender has hardcoded our hidden service
-    p = Popen(['torify', './result_sender.py', output_name], stdout=PIPE, stderr=PIPE)
+    p = Popen(['torify', 'python', './result_sender.py', output_name], stdout=PIPE, stderr=PIPE)
 
     while True:
         line = p.stdout.readline()
@@ -377,7 +378,7 @@ def main():
             continue
 
         if line:
-            print colored(line, 'yellow'),
+            print colored("   %s" % line, 'yellow'),
         if exx:
             print colored(exx, 'red'),
 
