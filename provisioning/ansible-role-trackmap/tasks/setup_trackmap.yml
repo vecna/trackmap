@@ -1,0 +1,50 @@
+---
+
+- name: install required packages for trackmap                                            
+  sudo: true                                                                    
+  apt:                                                                          
+    pkg={{ item }}                                                              
+    state=latest                                                                
+    install_recommends=no                                                       
+  with_items:                                                                   
+    - git
+    - traceroute                                                                
+    - gcc                                                                       
+    - python-dev                                                                
+    - libgeoip-dev                                                              
+    - geoip-database                                                            
+    - libfontconfig1  
+  tags:
+    - setuptrackmap
+
+- name: gather state of virtualenv target dir
+  stat: path="{{ trackmap_home }}/{{ trackmap_virtualenv }}"
+  register: virtualenv_st
+  tags:
+    - setuptrackmap
+
+- name: ensure virtual env is created
+  command: "{{ trackmap_home }}/{{ virtualenv_dir }}/virtualenv.py {{ trackmap_home }}/{{ trackmap_virtualenv }}"
+  when: virtualenv_st.stat.isdir is not defined
+  tags:
+    - setuptrackmap
+
+- name: ensure trackmap is cloned                                       
+  git: >                                                                        
+    repo={{ trackmap_repo }}                                            
+    dest={{ trackmap_home }}/{{ trackmap_dir }}  
+  tags:
+    - setuptrackmap
+
+- name: ensure pip trackmap dependencies are installed in the virtualenv
+  pip: >
+    requirements={{ trackmap_home }}/{{ trackmap_dir }}/requirements.txt 
+    virtualenv="{{ trackmap_home }}/{{ trackmap_virtualenv }}"
+    executable="{{ trackmap_home }}/{{ trackmap_virtualenv }}/bin/pip"
+    virtualenv_command="{{ trackmap_home }}/{{ virtualenv_dir }}/virtualenv.py"
+    state=latest
+  environment:
+    PIP_DOWNLOAD_CACHE: "{{ trackmap_home }}/.pip_download_cache" 
+  tags:
+    - setuptrackmap
+
