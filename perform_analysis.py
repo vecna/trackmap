@@ -270,6 +270,24 @@ def main():
         print colored("https://github.com/vecna/helpagainsttrack/blob/master/unverified_media_list/README.md", 'blue', 'on_yellow')
         quit(-1)
 
+    # ask free information to the script runner
+    information = {}
+    print colored("Optionally, provide the informations requested below, or press Enter to skip:", 'green')
+
+    def question(description):
+        print colored(description, 'white', 'on_blue')
+        answer = sys.stdin.readline()
+        answer = answer.strip('\n')
+        return None if not len(answer) else answer
+
+    information['name'] = question('Your name:')
+    information['contact'] = question('Mail or jabber contact:')
+    information['ISP'] = question('Which ISP is providing your link:')
+    information['city'] = question('From which city you\'re running this script:')
+
+    with file(os.path.join(OUTPUTDIR, 'information'), 'w+') as f:
+        json.dump(information, f)
+
 
     # writing in a file which country you're using!
     with file(os.path.join(OUTPUTDIR, 'country'), 'w+') as f:
@@ -282,9 +300,11 @@ def main():
     with file(os.path.join(OUTPUTDIR, 'used_media_list'), 'w+') as f:
         f.writelines(unclean_lines)
 
+    print colored("Importing media list:", 'green')
     media_entries = media_file_cleanings(unclean_lines)
     cfp.close()
 
+    print colored("Starting media crawling:", 'green')
     # here start iteration over the media!
     for cleanurl, media_kind in media_entries.iteritems():
 
