@@ -34,7 +34,7 @@ Some base requirements (run with sudo):
     sudo apt-get install tor git wget torsocks -y
     sudo apt-get install traceroute python-pip gcc python-dev libgeoip-dev -y
     sudo apt-get install geoip-database libfontconfig1 -y
-    sudo pip install GeoIP tldextract termcolor requests
+    sudo pip install GeoIP tldextract termcolor 
 
 Create one directory for store the project files:
 

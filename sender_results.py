@@ -2,9 +2,9 @@
 # This script send the results to the TrackMap hidden service
 # This script is called at the end of perform_analysis.py and is used via 'torify'
 
-import requests, sys
+import socket, sys
 
-url = 'http://mzvbyzovjazwzch6.onion/upload'
+hiddenaddr = 'mzvbyzovjazwzch6.onion'
 
 if len(sys.argv) == 1:
     print "This script sent the result file to us, via hidden service"
@@ -34,6 +34,24 @@ except Exception as info:
     print info
     quit(-1)
 
-files = { 'myfile' : open(filename, 'rb') }
-r = requests.post(url, files=files)
+with open(filename, 'rb') as fp:
+    c = socket.socket()
+    c.connect( (hiddenaddr, 80) )
+
+    datacounter = 0
+    while True:
+
+        data = fp.read(1024)
+        if not data:
+            break
+
+        datacounter += len(data)
+        check = c.send(data)
+
+        # assert datacounter == check, "your OS is making fun of you, or, Tor is different than expected"
+        if len(data) != check:
+            print "XXX: have read", len(data), "but sent", check, "?"
+
+    c.close()
+
 print "Done."
