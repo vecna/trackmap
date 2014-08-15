@@ -33,7 +33,7 @@ def sortify(outputdir):
     for urldir in os.listdir(outputdir):
 
         if urldir in ['phantom.log', '_traceroutes', 'unique_id', 'used_media_list',
-                      '_verbotracelogs', 'domain.infos', 'country']:
+                      '_verbotracelogs', 'domain.infos', 'country', 'information' ]:
             continue
 
         try:
@@ -152,10 +152,12 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
                 print "The section in", line, "is invalid: do not match with", PERMITTED_SECTIONS
                 quit(-1)
 
-            # if we hot 'global' section: is special!
+            # if we had 'global' section: is special!
             if candidate_section == 'global':
-                retdict, counter_section = load_global_file(globalfile)
+                global_section, counter_section = load_global_file(globalfile)
+                retdict.update(global_section)
                 print "Global file loaded, with # entries", counter_section
+                current_section = candidate_section
                 continue
 
             if current_section:
@@ -166,9 +168,8 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
             continue
 
         cleanurl = url_cleaner(line)
-
-        if not current_section:
-            print "detected URL", cleanurl, "without a section! (old file format ?"
+        if current_section not in [ 'national', 'local', 'blog' ]:
+            print "detected URL", cleanurl, "without a section!"
             quit(-1)
 
         if retdict.has_key(cleanurl):

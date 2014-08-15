@@ -1,4 +1,12 @@
 #!/usr/bin/python
+# -*- encoding: utf-8 -*-
+#
+# This software is constantly updated in https://github.com/vecna/helpagainsttrack
+# Is described and used on http://myshadow.org and has been developed by
+# Claudio <vecna at globaleaks dot org> April-Sept 2014, initially for a personal
+# research, and after with Tactical Technology Collective http://tacticaltech.org
+#
+
 
 import os, re, json, sys, random, time, shutil, socket
 import GeoIP
@@ -288,7 +296,6 @@ def main():
     with file(os.path.join(OUTPUTDIR, 'information'), 'w+') as f:
         json.dump(information, f)
 
-
     # writing in a file which country you're using!
     with file(os.path.join(OUTPUTDIR, 'country'), 'w+') as f:
         f.write(proposed_country.lower())
@@ -324,13 +331,53 @@ def main():
 
         do_phantomjs(local_phantomjs, cleanurl, urldir, media_kind)
 
-    # take every directory in 'output/' and works on the content
+    # take every directory in 'output/', get the included URL and dump in a dict
     included_url_dict = sortify(OUTPUTDIR)
-
     assert included_url_dict, "No url included after phantom scraping and collection !?"
-
     with file(os.path.join(OUTPUTDIR, 'domain.infos'), 'w+') as f:
         json.dump(included_url_dict, f)
+
+    # generate DNS resolution map. for every host resolve an IP, for every IP resolve again DNS
+    ip_map = {}
+    for domain in included_url_dict.keys():
+        try:
+            resolved_v4 = socket.gethostbyname(domain)
+        except Exception as xxx:
+            print "\nResolution of", domain, "broken", xxx
+            continue
+
+        # when a "+" is printed, mean that a new IP has been added, 
+        # when a "*" is printed, mean that an older IP has a new domain
+        if ip_map.has_key(resolved_v4):
+            print "*",
+            ip_map[resolved_v4].append(domain)
+        else:
+            print "+",
+            ip_map.update({resolved_v4 : [ domain ] })
+
+    print "\n Resolved %d unique IPv4 from %d unique domain" % (len(ip_map.keys()), len(included_url_dict.keys()) )
+   
+    true_domain_map = {} 
+    for ipv4 in ip_map.keys():
+        try:
+            resolved_set = socket.gethostbyaddr(ipv4)
+            resolved_name = resolved_set[0]
+        except Exception as xxx:
+            if not xxx.strerror == 'Unknown host':
+                print "\nReverse of", ipv4, "broken", xxx
+            continue
+
+        if true_domain_map.has_key(resolved_name):
+            print "*",
+            true_domain_map[resolved_name].append(ipv4)
+        else:
+            print "+",
+            true_domain_map.update({resolved_name : [ ipv4 ] })
+
+    print "\n Reversed %d unique True FQDN" % len(true_domain_map.keys() )
+
+    # TODO dump true_domain_map and ip_map in a JSON file
+
 
     # traceroutes contains all the output of traceroute in JSON format, separated
     # for logs. this output is not in the media directory, because some host like
