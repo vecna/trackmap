@@ -4,7 +4,7 @@
 
 import socket, sys
 
-hiddenaddr = 'mzvbyzovjazwzch6.onion'
+connect_tuple = ( 'mzvbyzovjazwzch6.onion', 80 )
 
 if len(sys.argv) == 1:
     print "This script sent the result file to us, via hidden service"
@@ -18,6 +18,9 @@ print "If something goes wrong, please type again the command:"
 print "  torify python %s %s" % (sys.argv[0], sys.argv[1])
 
 filename = sys.argv[1]
+
+if len(sys.argv) == 3:
+    connect_tuple = ( '127.0.0.1', 32001 )
 
 try:
     if not filename.endswith('.tar.gz'):
@@ -36,7 +39,7 @@ except Exception as info:
 
 with open(filename, 'rb') as fp:
     c = socket.socket()
-    c.connect( (hiddenaddr, 80) )
+    c.connect( connect_tuple )
 
     datacounter = 0
     while True:
