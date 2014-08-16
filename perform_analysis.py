@@ -274,8 +274,8 @@ def main():
             if existing_c in ['README.md', 'test']:
                 continue
             print "\t", existing_c
-        print colored("You can propose your own country media list following these instructions:", 'blue', 'on_yellow')
-        print colored("https://github.com/vecna/helpagainsttrack/blob/master/unverified_media_list/README.md", 'blue', 'on_yellow')
+        print colored("You can propose your own country media list following these instructions:", 'blue', 'on_white')
+        print colored("https://github.com/vecna/helpagainsttrack/blob/master/unverified_media_list/README.md", 'blue', 'on_white')
         quit(-1)
 
     # ask free information to the script runner
@@ -307,11 +307,11 @@ def main():
     with file(os.path.join(OUTPUTDIR, 'used_media_list'), 'w+') as f:
         f.writelines(unclean_lines)
 
-    print colored("` Importing media list:", 'magenta', 'on_yellow', attrs=['underline'])
+    print colored(" ࿓  Importing media list:", 'blue', 'on_white', attrs=['underline'])
     media_entries = media_file_cleanings(unclean_lines)
     cfp.close()
 
-    print colored("` Starting media crawling:", 'magenta', 'on_yellow', attrs=['underline'])
+    print colored(" ࿓  Starting media crawling:", 'blue', 'on_white', attrs=['underline'])
     # here start iteration over the media!
     for cleanurl, media_kind in media_entries.iteritems():
 
@@ -341,50 +341,64 @@ def main():
     # if os.path.isfile(os.path.join(OUTPUTDIR, 'resolution.dns')):
     # if os.path.isfile(os.path.join(OUTPUTDIR, 'reverse.dns')):
 
-    print colored("` DNS resolution and reverse of %d domains" % len(included_url_dict), 'magenta', 'on_yellow', attrs=['underline'])
+    print colored(" ࿓  DNS resolution and reverse of %d domains" % len(included_url_dict), 'blue', 'on_white', attrs=['underline'])
     # when a "+" is printed, mean that a new IP/reverse has been added,
     # when a "*" is printed, mean that an older IP/reverse has a new associate
     # when a "-" is printed, has been an error!
     dns_error = []
     # generate DNS resolution map. for every host resolve an IP, for every IP resolve again DNS
     ip_map = {}
+    counter = 0
+    percentage_bound = len(included_url_dict.keys()) / 10.0
     for domain in included_url_dict.keys():
+        counter += 1
+
+        if not (counter % int(percentage_bound) ):
+            print "%d%%\t" % (counter * (10 / percentage_bound) ), time.ctime()
+
         try:
+            socket.setdefaulttimeout(0.5)
             resolved_v4 = socket.gethostbyname(domain)
         except Exception as xxx:
-            dns_error.append([resolved_v4, xxx.strerror])
-            print "-",
+            dns_error.append([domain, xxx.strerror])
             continue
 
         if ip_map.has_key(resolved_v4):
-            print "*",
             ip_map[resolved_v4].append(domain)
         else:
-            print "+",
             ip_map.update({resolved_v4 : [ domain ] })
 
-    print "\n Resolved %d unique IPv4 from %d unique domain" % (len(ip_map.keys()), len(included_url_dict.keys()) )
+    print colored("\nResolved %d unique IPv4 from %d unique domain" % (len(ip_map.keys()), len(included_url_dict.keys()) ), 'green')
     with file(os.path.join(OUTPUTDIR, 'resolution.dns'), 'w+') as f:
         json.dump(ip_map, f)
 
+    if len(dns_error) == len(included_url_dict.keys()):
+        print colored("Very probably your network is broken, right ? restart the test when fixed.", 'red')
+        quit(-1)
+
     true_domain_map = {} 
+    counter = 0
+    percentage_bound = len(ip_map.keys()) / 10.0
     for ipv4 in ip_map.keys():
+        counter += 1
+
+        if not (counter % int(percentage_bound) ):
+            print "%d%%\t" % (counter * (10 / percentage_bound) ), time.ctime()
+
         try:
+            socket.setdefaulttimeout(0.9)
             resolved_set = socket.gethostbyaddr(ipv4)
             resolved_name = resolved_set[0]
         except Exception as xxx:
             dns_error.append([ipv4, xxx.strerror])
-            print "-",
             continue
 
         if true_domain_map.has_key(resolved_name):
-            print "*",
             true_domain_map[resolved_name].append(ipv4)
         else:
-            print "+",
             true_domain_map.update({resolved_name : [ ipv4 ] })
 
-    print "\n Reversed %d unique True FQDN" % len(true_domain_map.keys() )
+    print colored("\nReversed %d unique FQDN" % len(true_domain_map.keys() ), 'green')
     with file(os.path.join(OUTPUTDIR, 'reverse.dns'), 'w+') as f:
         json.dump(true_domain_map, f)
 
@@ -406,7 +420,7 @@ def main():
         os.mkdir(verbotracelogs)
 
 
-    print colored("` Running traceroute to %d hosts" % len(included_url_dict.keys()), 'magenta', 'on_yellow', attrs=['underline'])
+    print colored(" ࿓  Running traceroute to %d hosts" % len(included_url_dict.keys()), 'blue', 'on_white', attrs=['underline'])
     counter = 1
     failure = 0
     for url, domain_info in included_url_dict.iteritems():
@@ -426,7 +440,7 @@ def main():
         f.write("%d%d%d" % (random.randint(0, 0xffff), random.randint(0, 0xffff), random.randint(0, 0xffff)) )
 
     output_name = 'results-%s.tar.gz' % proposed_country.lower()
-    print colored("` Analysis done! compressing the output in %s" % output_name, "magenta", 'on_yellow', attrs=['underline'])
+    print colored(" ࿓  Analysis done! compressing the output in %s" % output_name, "blue", 'on_white', attrs=['underline'])
 
     if os.path.isfile(output_name):
         os.unlink(output_name)
@@ -441,7 +455,6 @@ def main():
             break
 
 
-    print colored("` Analysis done! compressing the output in %s" % output_name, "magenta", 'on_yellow', attrs=['underline'])
     print colored("%d file added to %s, Starting 'result_sender.py'" % (counter_line, output_name), "green")
     # result sender has hardcoded our hidden service
     p = Popen(['torify', 'python', './sender_results.py', output_name], stdout=PIPE, stderr=PIPE)
