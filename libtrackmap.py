@@ -1,13 +1,12 @@
 #!/usr/bin/python
 
-import os, re, json, sys, random, time
-import GeoIP
-import tldextract
+import os
 from tldextract import TLDExtract
-
-from subprocess import Popen, PIPE
 from termcolor import colored
 
+INFOFILES = [ 'phantom.log', '_traceroutes', 'unique_id', 'used_media_list',
+              '_verbotracelogs', 'domain.infos', 'country', 'information',
+              'errors.dns', 'reverse.dns', 'resolution.dns' ]
 
 def get_unique_urls(source_urldir, urldumpsf):
     urls = {}
@@ -19,8 +18,10 @@ def get_unique_urls(source_urldir, urldumpsf):
                 urls[ url_request[8:].split('/')[0] ] = True
             elif url_request.startswith('data:'):
                 continue
+            elif url_request.startswith('about:blank'):
+                continue
             else:
-                print "![ Unexpected link format!", url_request, "from", source_urldir, "]!"
+                print colored("%% Unexpected URL schema '%s' from '%s'" % ( url_request, source_urldir ), 'red')
                 continue
 
     return urls.keys()
@@ -32,8 +33,7 @@ def sortify(outputdir):
 
     for urldir in os.listdir(outputdir):
 
-        if urldir in ['phantom.log', '_traceroutes', 'unique_id', 'used_media_list',
-                      '_verbotracelogs', 'domain.infos', 'country', 'information' ]:
+        if urldir in INFOFILES:
             continue
 
         try:
@@ -61,10 +61,8 @@ def sortify(outputdir):
         # https://raw.github.com/mozilla/gecko-dev/master/netwerk/dns/effective_tld_names.dat
         # tldextract is based on this file, and cloudfront.net is readed as TLD. but is fine
         # I've only to sum domain + TLD in order to identify the "included entity"
-
-    # just to know if the optimization is working well :)
-    print "multiple entry on", skipped,
     return urldict
+
 
 def url_cleaner(line):
 

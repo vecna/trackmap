@@ -95,7 +95,7 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
             print colored("Failed again! :(", "red")
 
     else:
-        print colored("Correctly fetch %d URLs - %s media" % (included_url_number, media_kind), "green")
+        print colored("fetch %d URLs (%s)" % (included_url_number, media_kind), "green")
 
 
 def do_trace(dumpprefix, host):
@@ -307,11 +307,11 @@ def main():
     with file(os.path.join(OUTPUTDIR, 'used_media_list'), 'w+') as f:
         f.writelines(unclean_lines)
 
-    print colored("Importing media list:", 'green')
+    print colored("` Importing media list:", 'magenta', 'on_yellow', attrs=['underline'])
     media_entries = media_file_cleanings(unclean_lines)
     cfp.close()
 
-    print colored("Starting media crawling:", 'green')
+    print colored("` Starting media crawling:", 'magenta', 'on_yellow', attrs=['underline'])
     # here start iteration over the media!
     for cleanurl, media_kind in media_entries.iteritems():
 
@@ -337,17 +337,25 @@ def main():
     with file(os.path.join(OUTPUTDIR, 'domain.infos'), 'w+') as f:
         json.dump(included_url_dict, f)
 
+    # TODO optimization
+    # if os.path.isfile(os.path.join(OUTPUTDIR, 'resolution.dns')):
+    # if os.path.isfile(os.path.join(OUTPUTDIR, 'reverse.dns')):
+
+    print colored("` DNS resolution and reverse of %d domains" % len(included_url_dict), 'magenta', 'on_yellow', attrs=['underline'])
+    # when a "+" is printed, mean that a new IP/reverse has been added,
+    # when a "*" is printed, mean that an older IP/reverse has a new associate
+    # when a "-" is printed, has been an error!
+    dns_error = []
     # generate DNS resolution map. for every host resolve an IP, for every IP resolve again DNS
     ip_map = {}
     for domain in included_url_dict.keys():
         try:
             resolved_v4 = socket.gethostbyname(domain)
         except Exception as xxx:
-            print "\nResolution of", domain, "broken", xxx
+            dns_error.append([resolved_v4, xxx.strerror])
+            print "-",
             continue
 
-        # when a "+" is printed, mean that a new IP has been added, 
-        # when a "*" is printed, mean that an older IP has a new domain
         if ip_map.has_key(resolved_v4):
             print "*",
             ip_map[resolved_v4].append(domain)
@@ -356,15 +364,17 @@ def main():
             ip_map.update({resolved_v4 : [ domain ] })
 
     print "\n Resolved %d unique IPv4 from %d unique domain" % (len(ip_map.keys()), len(included_url_dict.keys()) )
-   
+    with file(os.path.join(OUTPUTDIR, 'resolution.dns'), 'w+') as f:
+        json.dump(ip_map, f)
+
     true_domain_map = {} 
     for ipv4 in ip_map.keys():
         try:
             resolved_set = socket.gethostbyaddr(ipv4)
             resolved_name = resolved_set[0]
         except Exception as xxx:
-            if not xxx.strerror == 'Unknown host':
-                print "\nReverse of", ipv4, "broken", xxx
+            dns_error.append([ipv4, xxx.strerror])
+            print "-",
             continue
 
         if true_domain_map.has_key(resolved_name):
@@ -375,9 +385,11 @@ def main():
             true_domain_map.update({resolved_name : [ ipv4 ] })
 
     print "\n Reversed %d unique True FQDN" % len(true_domain_map.keys() )
+    with file(os.path.join(OUTPUTDIR, 'reverse.dns'), 'w+') as f:
+        json.dump(true_domain_map, f)
 
-    # TODO dump true_domain_map and ip_map in a JSON file
-
+    with file(os.path.join(OUTPUTDIR, 'errors.dns'), 'w+') as f:
+        json.dump(dns_error, f)
 
     # traceroutes contains all the output of traceroute in JSON format, separated
     # for logs. this output is not in the media directory, because some host like
@@ -393,7 +405,8 @@ def main():
     if not os.path.isdir(verbotracelogs):
         os.mkdir(verbotracelogs)
 
-    print "Running traceroute to", len(included_url_dict.keys()), "hosts!"
+
+    print colored("` Running traceroute to %d hosts" % len(included_url_dict.keys()), 'magenta', 'on_yellow', attrs=['underline'])
     counter = 1
     failure = 0
     for url, domain_info in included_url_dict.iteritems():
@@ -413,7 +426,7 @@ def main():
         f.write("%d%d%d" % (random.randint(0, 0xffff), random.randint(0, 0xffff), random.randint(0, 0xffff)) )
 
     output_name = 'results-%s.tar.gz' % proposed_country.lower()
-    print colored("Finished! compressing the data in %s" % output_name, "green")
+    print colored("` Analysis done! compressing the output in %s" % output_name, "magenta", 'on_yellow', attrs=['underline'])
 
     if os.path.isfile(output_name):
         os.unlink(output_name)
@@ -428,6 +441,7 @@ def main():
             break
 
 
+    print colored("` Analysis done! compressing the output in %s" % output_name, "magenta", 'on_yellow', attrs=['underline'])
     print colored("%d file added to %s, Starting 'result_sender.py'" % (counter_line, output_name), "green")
     # result sender has hardcoded our hidden service
     p = Popen(['torify', 'python', './sender_results.py', output_name], stdout=PIPE, stderr=PIPE)
