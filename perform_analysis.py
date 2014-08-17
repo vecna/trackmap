@@ -354,7 +354,7 @@ def main():
         counter += 1
 
         if not (counter % int(percentage_bound) ):
-            print "%d%%\t" % (counter * (10 / percentage_bound) ), time.ctime()
+            print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
 
         try:
             socket.setdefaulttimeout(0.5)
@@ -383,7 +383,7 @@ def main():
         counter += 1
 
         if not (counter % int(percentage_bound) ):
-            print "%d%%\t" % (counter * (10 / percentage_bound) ), time.ctime()
+            print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
 
         try:
             socket.setdefaulttimeout(0.9)
