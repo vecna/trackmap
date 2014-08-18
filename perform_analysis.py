@@ -279,22 +279,34 @@ def main():
         quit(-1)
 
     # ask free information to the script runner
-    information = {}
-    print colored("Optionally, provide the informations requested below, or press Enter to skip:", 'green')
+    info_f = os.path.join(OUTPUTDIR, 'information')
+    if os.path.isfile(info_f):
+        f = open(info_f, 'r')
+        information = json.load(f)
+        f.close()
+        print colored("Recovered information of previous collection:", 'green')
+        print " name:", information['name']
+        print " contact:", information['contact']
+        print " ISP:", information['ISP']
+        print " city:", information['city']
+    else:
+        information = {}
+        print colored("Optionally, provide the informations requested below, or press Enter to skip:", 'green')
 
-    def question(description):
-        print colored(description, 'white', 'on_blue')
-        answer = sys.stdin.readline()
-        answer = answer.strip('\n')
-        return None if not len(answer) else answer
+        def question(description):
+            print colored(description, 'white', 'on_blue')
+            answer = sys.stdin.readline()
+            answer = answer.strip('\n')
+            return None if not len(answer) else answer
 
-    information['name'] = question('Your name:')
-    information['contact'] = question('Mail or jabber contact:')
-    information['ISP'] = question('Which ISP is providing your link:')
-    information['city'] = question('From which city you\'re running this script:')
+        information['name'] = question('Your name:')
+        information['contact'] = question('Mail or jabber contact:')
+        information['ISP'] = question('Which ISP is providing your link:')
+        information['city'] = question('From which city you\'re running this script:')
 
-    with file(os.path.join(OUTPUTDIR, 'information'), 'w+') as f:
-        json.dump(information, f)
+        with file(info_f, 'w+') as f:
+            json.dump(information, f)
+
 
     # writing in a file which country you're using!
     with file(os.path.join(OUTPUTDIR, 'country'), 'w+') as f:
@@ -337,73 +349,86 @@ def main():
     with file(os.path.join(OUTPUTDIR, 'domain.infos'), 'w+') as f:
         json.dump(included_url_dict, f)
 
-    # TODO optimization
-    # if os.path.isfile(os.path.join(OUTPUTDIR, 'resolution.dns')):
-    # if os.path.isfile(os.path.join(OUTPUTDIR, 'reverse.dns')):
-
+    # generate DNS resolution map. for every host resolve an IP, for every IP resolve again DNS
     print colored(" ࿓  DNS resolution and reverse of %d domains" % len(included_url_dict), 'blue', 'on_white', attrs=['underline'])
     # when a "+" is printed, mean that a new IP/reverse has been added,
     # when a "*" is printed, mean that an older IP/reverse has a new associate
     # when a "-" is printed, has been an error!
     dns_error = []
-    # generate DNS resolution map. for every host resolve an IP, for every IP resolve again DNS
-    ip_map = {}
-    counter = 0
-    percentage_bound = len(included_url_dict.keys()) / 10.0
-    for domain in included_url_dict.keys():
-        counter += 1
 
-        if not (counter % int(percentage_bound) ):
-            print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
+    resolution_dns_f = os.path.join(OUTPUTDIR, 'resolution.dns')
+    if os.path.isfile(resolution_dns_f):
+        fp = file(resolution_dns_f, 'r')
+        ip_map = json.load(fp)
+        fp.close()
+    else:
+        ip_map = {}
+        counter = 0
+        percentage_bound = len(included_url_dict.keys()) / 10.0
+        for domain in included_url_dict.keys():
+            counter += 1
 
-        try:
-            socket.setdefaulttimeout(0.5)
-            resolved_v4 = socket.gethostbyname(domain)
-        except Exception as xxx:
-            dns_error.append([domain, xxx.strerror])
-            continue
+            if not (counter % int(percentage_bound) ):
+                print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
 
-        if ip_map.has_key(resolved_v4):
-            ip_map[resolved_v4].append(domain)
-        else:
-            ip_map.update({resolved_v4 : [ domain ] })
+            try:
+                socket.setdefaulttimeout(0.5)
+                resolved_v4 = socket.gethostbyname(domain)
+            except Exception as xxx:
+                dns_error.append([domain, xxx.strerror])
+                continue
+
+            if ip_map.has_key(resolved_v4):
+                ip_map[resolved_v4].append(domain)
+            else:
+                ip_map.update({resolved_v4 : [ domain ] })
+
+        with file(resolution_dns_f, 'w+') as f:
+            json.dump(ip_map, f)
 
     print colored("\nResolved %d unique IPv4 from %d unique domain" % (len(ip_map.keys()), len(included_url_dict.keys()) ), 'green')
-    with file(os.path.join(OUTPUTDIR, 'resolution.dns'), 'w+') as f:
-        json.dump(ip_map, f)
 
     if len(dns_error) == len(included_url_dict.keys()):
         print colored("Very probably your network is broken, right ? restart the test when fixed.", 'red')
         quit(-1)
 
-    true_domain_map = {} 
-    counter = 0
-    percentage_bound = len(ip_map.keys()) / 10.0
-    for ipv4 in ip_map.keys():
-        counter += 1
+    reverse_dns_f = os.path.join(OUTPUTDIR, 'reverse.dns')
+    if os.path.isfile(reverse_dns_f):
+        fp = file(reverse_dns_f, 'r')
+        true_domain_map = json.load(fp)
+        fp.close()
+    else:
+        true_domain_map = {}
+        counter = 0
+        percentage_bound = len(ip_map.keys()) / 10.0
+        for ipv4 in ip_map.keys():
+            counter += 1
 
-        if not (counter % int(percentage_bound) ):
-            print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
+            if not (counter % int(percentage_bound) ):
+                print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
 
-        try:
-            socket.setdefaulttimeout(0.9)
-            resolved_set = socket.gethostbyaddr(ipv4)
-            resolved_name = resolved_set[0]
-        except Exception as xxx:
-            dns_error.append([ipv4, xxx.strerror])
-            continue
+            try:
+                socket.setdefaulttimeout(0.9)
+                resolved_set = socket.gethostbyaddr(ipv4)
+                resolved_name = resolved_set[0]
+            except Exception as xxx:
+                dns_error.append([ipv4, xxx.strerror])
+                continue
 
-        if true_domain_map.has_key(resolved_name):
-            true_domain_map[resolved_name].append(ipv4)
-        else:
-            true_domain_map.update({resolved_name : [ ipv4 ] })
+            if true_domain_map.has_key(resolved_name):
+                true_domain_map[resolved_name].append(ipv4)
+            else:
+                true_domain_map.update({resolved_name : [ ipv4 ] })
+
+        with file(reverse_dns_f, 'w+') as f:
+            json.dump(true_domain_map, f)
 
     print colored("\nReversed %d unique FQDN" % len(true_domain_map.keys() ), 'green')
-    with file(os.path.join(OUTPUTDIR, 'reverse.dns'), 'w+') as f:
-        json.dump(true_domain_map, f)
 
-    with file(os.path.join(OUTPUTDIR, 'errors.dns'), 'w+') as f:
-        json.dump(dns_error, f)
+    if len(dns_error):
+        print colored("Saving %d errors in 'errors.dns'" % len(dns_error))
+        with file(os.path.join(OUTPUTDIR, 'errors.dns'), 'w+') as f:
+            json.dump(dns_error, f)
 
     # traceroutes contains all the output of traceroute in JSON format, separated
     # for logs. this output is not in the media directory, because some host like
