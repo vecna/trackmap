@@ -154,7 +154,6 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
             if candidate_section == 'global':
                 global_section, counter_section = load_global_file(globalfile)
                 retdict.update(global_section)
-                print "Global file loaded, with # entries", counter_section
                 current_section = candidate_section
                 continue
 

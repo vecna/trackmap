@@ -1,0 +1,63 @@
+[global]
+
+[national]
+# (in order of popularity, more or less)
+# (mainstream media & news/entertainment tabloids)
+
+http://standardmedia.co.ke
+http://www.nation.co.ke/
+http://ghafla.co.ke
+http://capitalfm.co.ke
+http://businessdailyafrica.com
+http://the-star.co.ke
+http://kenyabuzz.com
+http://kenyandailynews.com
+http://africagossipnews.com/
+http://niaje.com
+http://www.enews.co.ke/
+
+http://newske.apphb.com/
+http://www.kawowo.com/
+http://www.thezambezian.com/
+http://newskenya.co.ke/
+http://ssinformer.com/
+http://www.kenyaindustry.com/
+
+[local] 
+http://www.nairobi.com/
+http://www.nairobiexposed.com/
+http://nairobiwire.com
+http://wn.com/kenyadaily
+
+# rank 4
+http://www.kenyastar.com/
+http://www.kenya-today.com/
+http://in2eastafrica.net/
+http://www.iq4news.com/
+http://www.africasciencenews.org
+http://www.eastafricanewspost.com
+
+# rank 0 (but updated)
+http://whatsupkenya.com/
+http://www.akenyanews.com/
+
+[blog]
+
+
+# [mainstream media on Facebook]
+# 
+# KTN Kenya
+# NTV Kenya
+# 
+# Insyder Magazine - https://www.facebook.com/Insydermagazine
+# XYZ Show - comedy news TV show - https://www.facebook.com/profile.php?id=135609983117046
+# Easy FM
+# Daily Nation
+# Citizen TV
+# News24 Kenya	
+# Capital FM
+# Nation FM - https://www.facebook.com/Nationfm
+# Standard Media Group
+# Maina Kageni (morning radio show host)
+# Ghetto Radio - https://www.facebook.com/Ghettoradio
+
