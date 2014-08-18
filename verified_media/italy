@@ -1,8 +1,8 @@
 [global]
 
 [national]
-http://www.repubblica.it
-http://www.corriere.it/
+# http://www.repubblica.it # in global list
+# http://www.corriere.it/ # in global list
 http://www.linkiesta.it
 http://www.lettera43.it
 http://www.agi.it
@@ -177,7 +177,6 @@ http://www.sicilianews24.it/
 http://www.tempi.it/
 http://www.theflorentine.net/
 # The English-speaking news magazine in Florence
-http://www.tuononews.it/
 http://www.unionesarda.it/
 http://www.valenza.it/
 http://www.vernacoliere.com/
