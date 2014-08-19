@@ -48,4 +48,7 @@ if match a CDN => mark as such => consider a table CDN/Country
 
 So, the question is: can I map all the CDN technology, and this helps when tracedpaths finish in the local country ?
 
+## source IP and topology
+
+    http http://json.whatisyourip.org/
 

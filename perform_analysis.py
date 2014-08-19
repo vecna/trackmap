@@ -15,8 +15,29 @@ from subprocess import Popen, PIPE
 from termcolor import colored
 from libtrackmap import sortify, media_file_cleanings
 
+ANALYSIS_VERSION = 1
 OUTPUTDIR = 'output'
 PERMITTED_SECTIONS = [ 'global', 'national', 'local', 'blog' ]
+
+def do_wget(fdestname):
+
+    if os.path.isfile('index.html'):
+        raise Exception("Why you've an index.html file here ? report this error please")
+
+    p = Popen(['wget', 'http://json.whatisyourip.org/'], stdout=PIPE, stderr=PIPE)
+    while True:
+        line = p.stdout.readline()
+        if not line:
+            break
+
+    pathdest = os.path.join(OUTPUTDIR, fdestname)
+    if os.path.isfile('index.html'):
+        shutil.move('index.html', pathdest)
+    else:
+        with file(pathdest, 'w+') as fp:
+            fp.write("Error :\\")
+
+
 
 def write_interruption_line(fp, content, start=True):
     interruption_line = 78
@@ -303,6 +324,7 @@ def main():
         information['contact'] = question('Mail or jabber contact:')
         information['ISP'] = question('Which ISP is providing your link:')
         information['city'] = question('From which city you\'re running this script:')
+        information['version'] = ANALYSIS_VERSION
 
         with file(info_f, 'w+') as f:
             json.dump(information, f)
@@ -322,6 +344,9 @@ def main():
     print colored(" ࿓  Importing media list:", 'blue', 'on_white', attrs=['underline'])
     media_entries = media_file_cleanings(unclean_lines)
     cfp.close()
+
+    print colored(" ࿓  Checking your network source.", 'blue', 'on_white', attrs=['underline'])
+    do_wget('first.json')
 
     print colored(" ࿓  Starting media crawling:", 'blue', 'on_white', attrs=['underline'])
     # here start iteration over the media!
@@ -445,6 +470,8 @@ def main():
         os.mkdir(verbotracelogs)
 
 
+    # saving again information about network location
+    do_wget('second.json')
     print colored(" ࿓  Running traceroute to %d hosts" % len(included_url_dict.keys()), 'blue', 'on_white', attrs=['underline'])
     counter = 1
     failure = 0

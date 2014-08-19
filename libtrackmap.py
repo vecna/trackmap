@@ -6,7 +6,8 @@ from termcolor import colored
 
 INFOFILES = [ 'phantom.log', '_traceroutes', 'unique_id', 'used_media_list',
               '_verbotracelogs', 'domain.infos', 'country', 'information',
-              'errors.dns', 'reverse.dns', 'resolution.dns' ]
+              'errors.dns', 'reverse.dns', 'resolution.dns', 
+              'first.json', 'second.json' ]
 
 def get_unique_urls(source_urldir, urldumpsf):
     urls = {}
