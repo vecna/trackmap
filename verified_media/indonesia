@@ -1,4 +1,6 @@
-Nationwide
+[global]
+
+[national]
 http://www.tribunnews.com/
 http://www.okezone.com/
 http://rctinews.okezone.com/
@@ -14,7 +16,7 @@ http://www.dnaberita.com/home
 http://www.kompas.com/
 http://www.mediaindonesia.com/
 http://www.republika.co.id/
-http://www.suaramerdeka.com/v1/index.php
+http://www.suaramerdeka.com/
 http://www.suarapembaruan.com/home/
 http://www.tempo.co/
 http://en.tempo.co/
@@ -35,7 +37,7 @@ http://www.jurnal3.com
 http://www.portalkbr.com/
 http://www.tvonenews.tv/
 
-Local
+[local]
 http://makassar.tribunnews.com/
 http://aceh.tribunnews.com/
 http://surabaya.tribunnews.com/
@@ -128,15 +130,11 @@ http://www.sumeks.co.id/
 http://sumutpos.co/
 http://www.berita3jambi.com/
 
-Not updated
-http://www.balipost.co.id/ - since Jan, 2014
-http://www.bernasjogja.co/ - under construction
-http://suratkabar.com/
-http://www.theindustrialpost.com/
-http://www.radartarakan.com/
+# Not updated
+# http://www.balipost.co.id/ - since Jan, 2014
+# http://www.bernasjogja.co/ - under construction
+# http://suratkabar.com/
+# http://www.theindustrialpost.com/
+# http://www.radartarakan.com/
 
-Domain expired
-http://www.indoexchange.com/indonesian-observer/
-
-Not relevan
-http://www.laksamana.net/
+[blog]
