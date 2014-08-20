@@ -390,10 +390,13 @@ def main():
         ip_map = {}
         counter = 0
         percentage_bound = len(included_url_dict.keys()) / 10.0
+
+        if not int(percentage_bound):
+            percentage_bound = 1.0
+
         for domain in included_url_dict.keys():
             counter += 1
-
-            if not (counter % int(percentage_bound) ):
+            if not counter % int(percentage_bound):
                 print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
 
             try:
@@ -426,6 +429,10 @@ def main():
         true_domain_map = {}
         counter = 0
         percentage_bound = len(ip_map.keys()) / 10.0
+
+        if not int(percentage_bound):
+            percentage_bound = 1.0
+
         for ipv4 in ip_map.keys():
             counter += 1
 
@@ -507,7 +514,11 @@ def main():
             break
 
 
-    print colored("%d file added to %s, Starting 'result_sender.py'" % (counter_line, output_name), "green")
+    print colored("%d file added to %s, Starting 'result_sender.py'\n" % (counter_line, output_name), "green")
+    print colored("If something goes bad, please type:", "red")
+    print colored(" torify python ./sender_results.py %s" % output_name, "green")
+    print colored("If something goes bad again (raise a python Exception), please... report to trackmap at tacticaltech dot org :)", 'red')
+
     # result sender has hardcoded our hidden service
     p = Popen(['torify', 'python', './sender_results.py', output_name], stdout=PIPE, stderr=PIPE)
 
@@ -524,9 +535,9 @@ def main():
             continue
 
         if line:
-            print colored("   %s" % line, 'yellow'),
+            print colored("   %s" % line, 'yellow')
         if exx:
-            print colored(exx, 'red'),
+            print colored(exx, 'red')
 
 
 if __name__ == '__main__':
