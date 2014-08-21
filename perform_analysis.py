@@ -260,12 +260,13 @@ def main():
         print colored("Usage: %s $YOUR_COUNTRY_NAME <lp>" % sys.argv[0], "red", 'on_white')
         print ""
         print " 'lp' as 3rd argument is needed if you want use your own /usr/bin/phantomjs"
-        print " (if you follow README.md, this is not needed because you've phantomjs 1.9.2)"
+        print " (if you follow README.md, this is not needed because you downloaded phantomjs 1.9.2)"
         print " ",colored("By default, this software is looking for symlink 'phantom-1.9.2'", "green", "on_white")
         if os.path.islink('phantom-1.9.2'):
-            print " ",colored("Link that I've checked: you have ;)", "green", "on_white")
+            print " ",colored("phantom-1.9.2 is a link, as expected.", "green", "on_white")
         else:
-            print " ",colored("Link that I've checked: YOU HAVE NOT!", "red", "on_white")
+            print " ",colored("The phantom-1.9.2 link is missing!", "red", "on_white")
+        print "Look in the verified_media/ for a list of countries."
         quit(-1)
 
     # check if the user is running phantom as installed on the system (also vagrant make this)
@@ -273,14 +274,14 @@ def main():
     if len(sys.argv) == 3 and sys.argv[2] == 'lp':
         local_phantomjs = True
 
-        print colored("You're using your local installed phantomjs. It is needed a version >= than 1.9.0", 'blue', 'on_white')
-        print colored("I'm not gonna to compare the string, so, be aware: this is your version:", 'red')
+        print colored("You're using your local installed phantomjs. A version >= than 1.9.0 is needed.", 'blue', 'on_white')
+        print colored("I'm not going to compare the string. Be aware: this is your version:", 'red')
 
         phantom_version = Popen(['phantomjs', '-v'], stdout=PIPE).stdout.readline()
         print colored(phantom_version, 'blue', 'on_white')
     else:
         if not os.path.islink('phantom-1.9.2'):
-            print colored("You have not followd README.md :( I was expecting a symbolick link called phantom-1.9.2", 'red', 'on_white')
+            print colored("Missing phantom-1.9.2. A symbolic link named phantom-1.9.2 was expected, but not found. Please consult README.md and make sure you've followed the installation procedure exactly.", 'red', 'on_white')
             quit(-1)
 
         local_phantomjs = False
@@ -312,7 +313,7 @@ def main():
         print " city:", information['city']
     else:
         information = {}
-        print colored("Optionally, provide the informations requested below, or press Enter to skip:", 'green')
+        print colored("Optionally, provide the information requested below, or press Enter to skip:", 'green')
 
         def question(description):
             print colored(description, 'white', 'on_blue')
@@ -417,7 +418,7 @@ def main():
     print colored("\nResolved %d unique IPv4 from %d unique domain" % (len(ip_map.keys()), len(included_url_dict.keys()) ), 'green')
 
     if len(dns_error) == len(included_url_dict.keys()):
-        print colored("Very probably your network is broken, right ? restart the test when fixed.", 'red')
+        print colored("It appears that you can't access the internet. Please fix that and restart the test.", 'red')
         quit(-1)
 
     reverse_dns_f = os.path.join(OUTPUTDIR, 'reverse.dns')
@@ -515,9 +516,9 @@ def main():
 
 
     print colored("%d file added to %s, Starting 'result_sender.py'\n" % (counter_line, output_name), "green")
-    print colored("If something goes bad, please type:", "red")
+    print colored("If submitting results fails please type:", "red")
     print colored(" torify python ./sender_results.py %s" % output_name, "green")
-    print colored("If something goes bad again (raise a python Exception), please... report to trackmap at tacticaltech dot org :)", 'red')
+    print colored("If this command also fails (and raise a python Exception), please report the error to trackmap at tacticaltech dot org :)", 'red')
 
     # result sender has hardcoded our hidden service
     p = Popen(['torify', 'python', './sender_results.py', output_name], stdout=PIPE, stderr=PIPE)
