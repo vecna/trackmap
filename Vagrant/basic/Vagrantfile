@@ -25,6 +25,19 @@ apt-get update -y
 echo "*** Installing setup requirements (Tor, git and wget)"
 apt-get install wget tor git -y
 
+apt-get remove phantomjs -y
+apt-get install traceroute python-pip gcc python-dev libgeoip-dev -y
+apt-get install geoip-database libfontconfig1 unzip -y
+pip install GeoIP tldextract termcolor 
+
+mkdir trackmap
+cd trackmap
+
+wget https://github.com/vecna/helpagainsttrack/archive/master.zip -o /tmp/wget.log
+unzip master.zip
+cd helpagainsttrack-master
+
+
 echo "*** downloading phantomjs 1.9.2"
 wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 -o /tmp/wget.log
 
@@ -39,8 +52,8 @@ if [ "$?" != "0" ]; then
 fi
 
 tar jxf phantomjs-1.9.2-linux-i686.tar.bz2 
-cd phantomjs-1.9.2-linux-i686/bin
-ln -s `pwd`/phantomjs /usr/bin/phantomjs
+ln -s phantomjs-1.9.2-linux-i686/bin/phantomjs phantom-1.9.2
+
 cd /home/vagrant
 
 echo "*** Creating the hidden service"
@@ -82,16 +95,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACCQDXs4GKO11jVef9U4DMFV8+IlJn2Qz8DtHA251tBXmN
 EOF
 rm /home/vagrant/.ssh/authorized_keys
 
-echo "*** Installing a lots of needed packages"
-apt-get install traceroute python-pip gcc python-dev libgeoip-dev geoip-database libfontconfig1 -y
-if [ "$?" != "0" ]; then
-   echo "!!! fatal error, unable to install a required package"
-   init 0
-fi
-aptitude remove phantomjs -y
-
 echo "*** Installing python external packages"
-pip install GeoIP tldextract termcolor requests
 
 
 echo "*** Running some topology tests..."
