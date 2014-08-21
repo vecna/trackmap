@@ -1,8 +1,11 @@
 # TrackMap project
 
-The TrackMap project is research by [Tactical Tech](http://www.tacticaltech.org), which is a part of the [MyShadow](http://myshadow.org) project.
+The TrackMap project is research by [Claudio ࿓  vecna](https://twitter.com/sniffjoke), develped with [Tactical Tech](http://www.tacticaltech.org), as part of the [MyShadow](http://myshadow.org) project.
 
-Our aim is to show where our data travels when we visit our favorite news websites through a visualization. We are currently looking for people to collaborate with in various countries in the world which would make this project possible.
+*When you access the national media from your country, your internet connection is being tracked by multiple third parties. And this happens constantly*. That's what we aim to illustrate.
+
+Our aim is to show where our data travels when we visit our favorite news websites through a visualization. We are currently looking for people to collaborate with in various countries in the world which would make this project possible. 
+
 
 ## This code 
 
@@ -12,7 +15,7 @@ The collection of data needs to happen in a distributed way, _which means that t
 
 ### For every country we need two kinds of supporters:
 
-If you're a **Media experts/Aware citizen**:
+If you're a **Media expert/Aware citizen**:
 
   * we need a reliable media list for every country, take a look at the directory [unverified media list](https://github.com/vecna/helpagainsttrack/tree/master/unverified_media_list) if your country is present: we need someone with local experience to review the media list (add the missing media, check if the current sites are still active and separate the national from the local media).
 
