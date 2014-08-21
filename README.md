@@ -69,22 +69,9 @@ If you've not installed phantom 1.9.2 on the path specified above, but you're us
 
 If your country is not on the list, too bad, mean that nobody has reviewed the media list (it a boring but needed step). You can take a look between the unclean lists
 
-## Long term project support (do not use it yet - under review)
+## Long term project support 
 
-A **Vagrantfile** exists in this repository, which is configured to setup a virtual box
-
-    sudo apt-get install vagrant wget -y
-    wget https://github.com/vecna/helpagainsttrack/archive/master.zip
-    unzip master.zip
-    cd helpagainsttrack-master
-    vagrant up
-
-When you type the command **vagrant up** will download the virtual machine image, perform an upgrade, install the needed packages, copy an SSH public key, run Tor and give you the address of the Tor hidden service pointing to the SSH port of the virtual machine.
-
-We're only going to run the defined script, but if new tests are available, we might ask you to re-type **vagrant up**.
-
-In this case, will be pretty easy to us update the test and run them, without having to ask to you specific tasks. At the moment the Vagrant is still under cleaning and review, but if you've the avalability of a constantly runnig box, that's would be excellent for the project.
-
+Please read [Vagrant usage description](https://github.com/vecna/helpagainsttrack/tree/master/Vagrant)
 
 ## The operation performed by the script (perform\_analisys.py)
 
@@ -127,7 +114,7 @@ Further improvements are in progress.
 
 ## Countermeasure
 
-**Each of the following need to be reviewed**, as at the moment I'm not aware if a privacy assessment on these technologies has been made yet.
+**As far as I know, those technologies lack on security/privacy audit**, but ideally they are a good start:
 
   * NoScript (FireFox)
   * SafeScript (Chrome)
