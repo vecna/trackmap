@@ -11,5 +11,5 @@ PHANTOMJS_URL=https://phantomjs.googlecode.com/files/$PHANTOMJS_DIST
 wget -c $PHANTOMJS_URL
 if [ ! -d $PHANTOMJS ] ; then
     tar xf $PHANTOMJS_DIST
-    ln $PHANTOMJS/bin/phantomjs $PHANTOMJS_BIN
+    ln -s $PHANTOMJS/bin/phantomjs $PHANTOMJS_BIN
 fi
