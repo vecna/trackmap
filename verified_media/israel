@@ -2,6 +2,12 @@
 
 [national]
 
+http://www.ynetnews.com
+http://www.inn.co.il
+http://www.israelnationalnews.com/
+http://www.maariv.co.il
+http://www.jtimes.co.il
+http://www.isra.com
 
 http://www.iba.org.il
 http://www.mako.co.il
@@ -32,6 +38,10 @@ http://www.themarker.com/
 
 [local]
 
+http://www.local.co.il
+http://akhbarna.com/ar/
+http://yedhaifa.co.il/
+
 http://www.krayot.com
 http://haipo.co.il/
 http://www.bokra.net/
@@ -45,4 +55,9 @@ http://www.israelpost.co.il/
 http://www.israelhayom.co.il/
 
 [blog]
+
 http://www.geektime.com
+http://megafon-news.co.il
+http://sikurmemukad.com
+http://www.debka.co.il/
+http://www.rotter.net
