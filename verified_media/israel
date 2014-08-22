@@ -2,11 +2,12 @@
 
 [national]
 
+
 http://www.iba.org.il
 http://www.mako.co.il
 http://reshet.tv
 http://news.walla.co.il
-http://www.nrg.co.il/online/HP_1.html
+http://www.nrg.co.il/
 http://news.nana10.co.il
 http://www.calcalist.co.il
 http://www.0404.co.il
@@ -14,19 +15,34 @@ http://www.kikarhashabat.co.il
 http://mekomit.co.il
 http://972mag.com
 http://www.news1.co.il
-http://www.bhol.co.il/lobby.aspx?id=1
+http://www.bhol.co.il/
 http://www.sonara.net
 http://www.alarab.net
 http://www.alquds.com
 http://israelinfo.co.il
 http://www.newsru.co.il
 
+# 4imn
+http://www.jpost.com/
+http://www.haaretz.co.il/
+http://www.ynet.co.il/
+http://www.panet.co.il/
+http://www.globes.co.il/
+http://www.themarker.com/
+
 [local]
 
 http://www.krayot.com
-http://haipo.co.il/forum/newspage.php
+http://haipo.co.il/
 http://www.bokra.net/
 http://www.arabs48.com
 http://www.jerusalemonline.com
-http://www.jerusalemnet.co.il/חדשות
+http://www.jerusalemnet.co.il
 http://www.beershevacity.com
+
+# 4imn < 1000
+http://www.israelpost.co.il/
+http://www.israelhayom.co.il/
+
+[blog]
+http://www.geektime.com
