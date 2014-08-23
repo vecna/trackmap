@@ -24,11 +24,33 @@ If you're a **Linux user** with a constantly running box and few times:
 
   * You can run the **Vagrant script** explained  below to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we will eventually send you an email asking you to start your box when the tests get updated).
 
-## Run the test script
+## Install the test script
 
 The test script can only be run under debian/ubuntu, and **RUN THIS TESTS VIA Tor IS POINTLESS**: because the important data are obtained via traceroute, and works in a lower level than Tor (also works in UDP, that cannot be anonymized).
 
-Some base requirements (run with sudo):
+### Automated installation
+
+Before you run this, ensure that you are running as a user that can `sudo` to root. 
+
+Create a directory to store the project files and change directory there:
+
+    mkdir trackmap
+    cd trackmap
+    
+fetch the setup script:
+
+    wget -c https://raw.githubusercontent.com/vecna/helpagainsttrack/master/setup.sh
+    
+and run this script with bash:
+
+    bash setup.sh
+    
+This script uses `sudo` to execute some commands, so it will ask for your password when it executes. The project
+scripts are installed in a subdirectory called *helpagainsttrack*.
+
+### Manual installation
+
+Install some base requirements (run with sudo):
 
     sudo apt-get update
     sudo apt-get install tor git wget torsocks -y
@@ -59,15 +81,22 @@ if you have a 64 bit system:
     tar jxf phantomjs-1.9.2-linux-x86_64.tar.bz2
     ln -s phantomjs-1.9.2-linux-x86_64/bin/phantomjs phantom-1.9.2
 
-And then finally run:
+## Run the test script
+
+Change directory to the directory where you installed the test script and run:
 
     ./perform_analysis.py NAME_OF_YOUR_COUNTRY
 
-If you've not installed phantom 1.9.2 on the path specified above, but you're using your distribution phantomjs, and add the option **lp** (local phantom):
+If you have not installed phantom 1.9.2 on the path specified above, but are using your distribution's phantomjs, add 
+the option **lp** (local phantom):
 
     ./perform_analysis.py NAME_OF_YOUR_COUNTRY lp
 
-If your country is not on the list, too bad, mean that nobody has reviewed the media list (it a boring but needed step). You can take a look between the unclean lists
+To see a list of countries, look in the *verified_media* folder.
+
+If your country is not on the list, it means that nobody has reviewed the media list (a boring but necessary step) for you
+country. You can take a look at the unclean lists in the *unverified_media_list* folder and if your country is listed 
+there you can review the provided list before using it with the test tool.
 
 ## Long term project support (do not use it yet - under review)
 
@@ -85,12 +114,18 @@ We're only going to run the defined script, but if new tests are available, we m
 
 In this case, will be pretty easy to us update the test and run them, without having to ask to you specific tasks. At the moment the Vagrant is still under cleaning and review, but if you've the avalability of a constantly runnig box, that's would be excellent for the project.
 
+## Docker image (do not use yet - experimental)
 
-## The operation performed by the script (perform\_analisys.py)
+A [Docker](https://www.docker.com/) image has been created for this tool, using the Dockerfile provided in the test 
+tool directory. If you wish to use this, you can run the test tool using:
+
+    docker run -t -i pvanheus/helpagainsttrack NAME_OF_YOUR_COUNTRY
+    
+## The operation performed by the script (perform\_analysis.py)
 
   * an HTTP connection (using phantomjs) to every news media under analysis
   * Collect all the URL included as third party (trackers, ADS, social)
-  * Collect <object> elements to compare flash injections
+  * Collect &lt;object&gt; elements to compare flash injections
   * Perform traceroute for every included URL 
   * GeoIP conversion from every IP included.
   * send the results to our hidden service (**mzvbyzovjazwzch6.onion**)
