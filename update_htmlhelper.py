@@ -163,6 +163,9 @@ if __name__ == '__main__':
             counter = 1
             for media in mf.readlines():
 
+                if len(media) < 2 or media[0] == '[' or media[0] == '#':
+                    continue
+
                 counter += 1
                 media_id = sha1(str(counter)).hexdigest()[:6]
                 media = media[:-1]
