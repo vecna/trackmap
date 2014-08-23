@@ -140,6 +140,12 @@ if __name__ == '__main__':
     assert os.path.isdir(unvm), "unverified_media_list not found"
     assert os.path.isdir(helpdir), "helpers dir missing"
 
+    for html_old in os.listdir(helpdir):
+        old_helper_f = os.path.join(helpdir, html_old)
+        if os.path.isfile(old_helper_f):
+            print "removing previous .html", old_helper_f
+            os.unlink(old_helper_f)
+        
     excluded = ['htmlhelpers', 'README.md']
     for media_entry in os.listdir(unvm):
 
@@ -147,10 +153,6 @@ if __name__ == '__main__':
             continue
 
         destfile = os.path.join(helpdir, "%s.html" % media_entry)
-        if os.path.isfile(destfile):
-            print "removing previous .html", destfile
-            os.unlink(destfile)
-
         fp = file(destfile, 'w+')
         fp.write(first_section)
         fp.write(media_entry)
@@ -158,9 +160,11 @@ if __name__ == '__main__':
 
         with file(os.path.join(unvm, media_entry), 'r') as mf:
 
+            counter = 1
             for media in mf.readlines():
 
-                media_id = sha1(str(random())).hexdigest()[:6]
+                counter += 1
+                media_id = sha1(str(counter)).hexdigest()[:6]
                 media = media[:-1]
 
                 fp.write(
@@ -169,4 +173,5 @@ if __name__ == '__main__':
                 fp.write("\n\n")
 
         fp.write(final_section)
+        print "created", media_entry
 
