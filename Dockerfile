@@ -2,6 +2,7 @@
 # version 0.1
 FROM ubuntu
 MAINTAINER Peter van Heusden <pvh@webbedfeet.co.za>
+RUN apt-get update
 RUN apt-get install -y tor git wget torsocks traceroute python-pip gcc python-dev libgeoip-dev geoip-database libfontconfig1 unzip
 RUN pip install GeoIP tldextract termcolor
 RUN adduser --disabled-password --gecos "Track Map User" trackmap
