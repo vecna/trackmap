@@ -194,3 +194,13 @@ sha224 cksum of phantomjs-1.9.2 x86\_64
 
     2937cea726e7fe4dd600f36e7c5f0cca358593e96808dc71b6feb166 
 
+# Our PGP key
+
+    pub   3200R/0x94E7EF47 2014-08-05 [expires: 2015-08-30]
+          Key fingerprint = ABC2 7639 5EE3 3245 A0A1  3973 40E2 6C25 94E7 EF47
+    uid                    TrackMap project <trackmap@tacticaltech.org>
+    sub   3200R/0x504DEBDF 2014-08-05 [expires: 2015-08-30]
+
+You can retrieve this key via keyserver, of using the [git copy of the Projects key](https://raw.githubusercontent.com/vecna/helpagainsttrack/master/trackmap_ABC276395EE33245A0A1397340E26C2594E7EF47.asc)
+
+
