@@ -2,7 +2,7 @@
 
 The TrackMap project is research by [Claudio ࿓  vecna](https://twitter.com/sniffjoke), develped with [Tactical Tech](http://www.tacticaltech.org), as part of the [MyShadow](http://myshadow.org) project.
 
-*When you access the national media from your country, your internet connection is being tracked by multiple third parties. And this happens constantly*. That's what we aim to illustrate.
+*When you access the national media from your country, your Internet connection is being tracked by multiple third parties. And this happens constantly*. That's what we aim to illustrate.
 
 Our aim is to show where our data travels when we visit our favorite news websites through a visualization. We are currently looking for people to collaborate with in various countries in the world which would make this project possible. 
 
@@ -13,23 +13,27 @@ This repository contains the script and the data source needed to generate our n
 
 The collection of data needs to happen in a distributed way, _which means that the script needs to run from each of the selected countries_. This is important because the network and the trackers behave differently based on the provenience country of the user. 
 
-### For every country we need two kinds of supporters:
+### Is your country present in TrackMap ?
 
-If you're a **Media expert/Aware citizen**:
+**NO**: two reasons are possible:
 
-  * we need a reliable media list for every country, take a look at the directory [unverified media list](https://github.com/vecna/helpagainsttrack/tree/master/unverified_media_list) if your country is present: we need someone with local experience to review the media list (add the missing media, check if the current sites are still active and separate the national from the local media).
+  * No one has review or created the **media list**, check in [this directory](https://github.com/vecna/helpagainsttrack/tree/master/verified_media) and look at the expected format on the bottom of the page. An unverified media list [can be present here](https://github.com/vecna/helpagainsttrack/tree/master/unverified_media_list), if is not, sent to us an email at **trackmap** at **tacticaltech** dot **org** (because we have some not refined list usable as starter) of provide to us list from your own.
 
-If you're a **Linux user**:
+  * No one has yet runs the script from your country: In this case, read the sections below
+
+**YES**: perfect, this mean that someone has already run the script: you can still help, because different ISP and different Geographical locations in a country brings different results, having multiple feedback can be useful for further analysis and comparison.
+
+## how you can help ? 
+
+If you're a **Media aware citizen**, we need a reliable media list for every country. In the chapter above is explained what is important, use git to help us or open an issue.
+
+### Technical help, for Linux users:
 
   * you can run the script *perform\_analysis.py* on your own (it will automatically send the results to our hidden service). 
 
-If you're a **Linux user** with a constantly running box and few times:
-
-  * You can run the **Vagrant script** explained  below to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we will eventually send you an email asking you to start your box when the tests get updated).
-
 ## Install the test script
 
-The test script can only be run under debian/ubuntu, and **RUN THIS TESTS VIA Tor IS POINTLESS**: because the important data are obtained via traceroute, and works in a lower level than Tor (also works in UDP, that cannot be anonymized).
+The test script can only be run under Debian/Ubuntu, and **RUN THIS TESTS VIA Tor IS POINTLESS**: because the important data are obtained via traceroute, and works in a lower level than Tor (also works in UDP, that cannot be anonymised).
 
 ### Automated installation
 
@@ -70,7 +74,7 @@ Create one directory for store the project files:
     unzip master.zip
     cd helpagainsttrack-master
 
-**PhantomJS** has to be downloaded because distribution repositories had old versions. We need >= 1.9.0 (*sha244 checksum at the end the file*). You can skip this step if you are in Debian Sid (is a 1.9.0 version), but in other distribution older versions are given.
+**PhantomJS** has to be downloaded because distribution repositories had old versions. We need >= 1.9.0 (*[sha224](http://en.wikipedia.org/wiki/SHA-2) checksum at the end the file*). You can skip this step if you are in Debian Sid (is a 1.9.0 version), but in other distribution older versions are given.
 
 If you have a 32 bit system:
 
@@ -101,32 +105,61 @@ If your country is not on the list, it means that nobody has reviewed the media 
 country. You can take a look at the unclean lists in the *unverified_media_list* folder and if your country is listed 
 there you can review the provided list before using it with the test tool.
 
-## Long term project support 
+
+## Resources needed
+
+Very few resources are needed. Is not possible make a precise estimation, because the resources and the time requested depends directly from the amount of media website under analysis, anyhow, based on the current results:
+
+  * A list with around 200 media site starts for (200 + 50) times a "one time browser". It use 5-10 seconds each. more or less expend 300 Kb for each website ( ~75 megabyte used in download ).
+  * For every media fetch, 7 to 20 hosts are discovered to be included. the script need to iterated over them. commonly are between 1400 - 1700 unique hosts.
+  * It expend (depends on your network speed) 30 minutes to 2 hours to resolve and reverse the DNS (is an operation that expend few bandwidth, is just slow)
+  * Then, over the 1400 ~ 1700 host, start a traceroute. it use at least three hours (up to 6), expend not so much bandwidth.
+  * At the end, we have 50-60 megabyte of collected data, they are sent to our server.
+
+Do not require strong capability from the running computer, **but is very likely have a stable network**. If you can avoid WI-FI (or be physically near the access point), it is better.
+
+## Long term project support (experimental)
+
+If you're a **Linux user** with a constantly running box and few times:
+
+  * You can run the **Vagrant script** explained  below to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we will eventually send you an email asking you to start your box when the tests get updated).
 
 Please read [Vagrant usage description](https://github.com/vecna/helpagainsttrack/tree/master/Vagrant)
 
-## Docker image (do not use yet - experimental)
+## Docker image (experimental)
 
 A [Docker](https://www.docker.com/) image has been created for this tool, using the Dockerfile provided in the test 
 tool directory. If you wish to use this, you can run the test tool using:
 
     docker run -t -i pvanheus/helpagainsttrack NAME_OF_YOUR_COUNTRY
     
-## The operation performed by the script (perform\_analysis.py)
+### The operation performed by the script
 
   * an HTTP connection (using phantomjs) to every news media under analysis
   * Collect all the URL included as third party (trackers, ADS, social)
-  * Collect &lt;object&gt; elements to compare flash injections
+  * Dump &lt;object&gt; elements ( Can be used for future analysis. analyzing this code, we can point out [who are the worst tracker ;) ](http://rt.com/usa/175116-white-house-website-canvas-fingerprinting/) this analysis is not yet done.)
   * Perform traceroute for every included URL 
   * GeoIP conversion from every IP included.
   * send the results to our hidden service (**mzvbyzovjazwzch6.onion**)
 
 This shows all the nations capable of knowing which users are visiting the (selected) news media.
 
-## Why care about these results ?
+## Technopolitical goal
 
-This has been done by the NSA, which intercepts the advertising network of the Angry Birds
-game. Angry Birds was the most deployed game, but was still an option for citizens. News media, however, are accessed by the majority of populations around the world and by tracking which websites users access, third parties can gain a unique insight into the types of interests people have, their ideas, beliefs and concerns. In other words, by tracking news media, third parties can map out the interests of individuals and groups and potentially target them. The aim of this project is to expose how the ADS and tracking business works based on third party injections.
+We know **online business model is mostly based on tracking**, who is producing content is just pushing hard in order to get more visibility, clicks and provide advertising. 
+If you don't want that a specific organization get money from your interaction because you don't like it, or you don't want be tracked by that company, your only option is the 'opt out'.
+But what are the options ? this is one of the first goals of TrackMap: make you aware of the amount of tracking involved in your daily navigation. We've addressed the media, because they represent something touching all the active citizens in a country.
+
+But why bother if Google, NewYorkTimes or others track your behavior and interests ? It's pointless to be scared by those organizations, after all, they have done nothing bad against users.
+But sadly, these data are extremely valuable for market and political strategies, and those companies has been targeted by Intelligence Agencies for those reason. So it's easier to understand what we want show:
+tracking is not something performed by Internet Companies only, but something used actively as Nation assets.
+And Nations are easier to be perceived as troublesome, instead of an abstract Internet Company. Or not? What if the main medias of a country are leaking (and are they aware ?) the citizen interest to a political enemy ?
+
+With TrackMap we show the invisible links between a news reader from a nation and all the nation that can eventually snoop on their behavior. on a foreign network, you have no rights.
+
+**Is this paranoia ?**
+
+No ;) This has been done by the NSA, which intercepts the advertising network of the Angry Birds game. Angry Birds was the most deployed game, but was still an option for citizens. News media, however, are accessed by the majority of populations around the world and by tracking which websites users access, third parties can gain a unique insight into the types of interests people have, their ideas, beliefs and concerns. In other words, by tracking news media, third parties can map out the interests of individuals and groups and potentially target them. The aim of this project is to expose how the ADS and tracking business works based on third party injections.
 
 
 ### Theoretical elements
@@ -140,24 +173,102 @@ In this (very first version) of the TrackMap project we want answer to the follo
 
 Due to limited resources from our side, our research might face the following limitations:
 
-  * The GeoIP is only partially reliable, because IP classes can change organizations and therefore nations.
+
   * The GeoIP resolution, from an IP address to a Country, might return a continent (for example, some classes are assigned to Europe, without more precision about the physical location).
-  * We're performing traceroute without checking if the resource included is in https (this happens very seldomly, and in these cases we consider the data stored in the recipient country but not exposed in-transit interception and manipulation)
-  * Some service providers use CDN and this means that in order to interact with them, this might be resolved as part o
-f the same country of the user, also if the content is obviously stored by a foreign country. (very rare, anyway)
+  * We're performing traceroute without checking if the resource included is in https/http2 (this happens very seldom, and in these cases we consider the data stored in the recipient country but not exposed in-transit interception and manipulation)
+  * Some service providers use Content Delivery Network and this means that in order to interact with them, this might be resolved as part of the same country of the user, also if the content is obviously stored by a foreign country.
   * We cannot know if a service has some Cloud Provider as a backend
   * We cannot automatize the seeking of company information over every tracking agent
+  * GeoIP applied to traceroute may return unexpected or doubtful results. A technical progress can be used by interpolating GeoIP + Autonomous System + TLD/domain analysis. GeoIP for sure show: if an IP address is in a country or if an IP address is assigned to a company based on a certain country. For example:
 
-Further improvements are in progress.
+      traceroute to www.zerocalcare.it (144.76.179.61), 30 hops max, 60 byte packets
+       1  172.16.1.1 [*]  6.556 ms
+       2  151.6.151.72 [AS1267]  13.176 ms
+       3  151.6.92.105 [AS1267]  15.431 ms
+       4  151.6.0.80 [AS1267]  16.456 ms
+       5  151.6.2.50 [AS1267]  19.675 ms
+       6  80.81.192.164 [AS6695]  33.343 ms
+       7  213.239.245.6 [AS24940]  42.645 ms
+       8  213.239.245.217 [AS24940]  40.540 ms
+       9  213.239.245.170 [AS24940]  66.506 ms
+      10  213.239.248.196 [AS24940]  49.232 ms
+      11  144.76.158.83 [AS24940]  59.938 ms
+      11 HOP passing thru None IT IT IT IT DE DE DE DE DE DE .
+
+This is quite easy: the first IP is a private IP address (None), after there are some Italian (my ISP) and then the connection reach a provider in Germany, where the target host is placed. If we take a look hostnames:
+
+      traceroute to www.zerocalcare.it (144.76.179.61), 30 hops max, 60 byte packets
+       1  172.16.1.1 (172.16.1.1)  7.504 ms
+       2  151.6.151.72 (151.6.151.72)  13.879 ms
+       3  151.6.92.105 (151.6.92.105)  20.831 ms
+       4  MIOT-RP01-MIOT-T02.wind.it (151.6.0.82)  31.363 ms
+       5  MICL-N01-MICA-T02-po02.wind.it (151.6.2.50)  38.390 ms
+       6  decix-gw.hetzner.de (80.81.192.164)  36.001 ms
+       7  core1.hetzner.de (213.239.245.6)  39.237 ms
+       8  core22.hetzner.de (213.239.245.178)  45.404 ms
+       9  juniper2.rz20.hetzner.de (213.239.245.158)  46.696 ms
+      10  hos-tr6.ex3k3.rz20.hetzner.de (213.239.233.170)  61.476
+      11  83.158.76.144-scoundr.el (144.76.158.83)  55.756 ms
+
+Between the hops 5 (from wind.it, my ISP) and 7 (the first gateway of the server I'm contacting) the connection pass throu **decix-gw.hetzner.de**, [DE-CIX](http://en.wikipedia.org/wiki/DE-CIX) is a business to business carrier, that is providing a direct connection between the two ISPs. I don't know if the IP 80.81.192.164 of DE-CIX is phisically in Italy, in Germany, or in some other place: GeoIP resolve them as "DE" because is assigned to the Germanic company DE-CIX.
+
+In other situation, the API returned by TrackMap (*they will be documented, but at the moment the service is not yet released*) return a more unexpected result like:
+
+    {
+        "company": "Twitter", 
+        "country_chain": [
+            null, 
+            "South Africa", 
+            "South Africa", 
+            "South Africa", 
+            "South Africa", 
+            "South Africa", 
+            "South Africa", 
+            "United Kingdom", 
+            "United States", 
+            "United States", 
+            "United States", 
+            "United States", 
+            "United Kingdom"
+        ], 
+        "host": "platform.twitter.com", 
+        "id": "980429ab-5b71-4fd0-8aa7-7eaef4150f84", 
+        "is_intended_media": false, 
+        "media_id": "005962d0", 
+        "media_url": "www.dieburger.com"
+    }
+
+This is the GeoIP resolution of a traceroute from the South Africa ISP **Mweb** to the host platform.twitter.com, that is a [CND](http://en.wikipedia.org/wiki/Content_delivery_network) managed by edgecastcdn.net, this is an extraction of the traceroute collected:
+
+     8  176.67.177.146 [AS10474] 195.777 ms
+     9  4.69.166.129 [AS3356] 176.582 ms
+    10  4.69.166.17 [AS3356]  215.669 ms
+
+The hop at position 8 is the last one in South Africa:
+
+    $ host 176.67.177.146
+    146.177.67.176.in-addr.arpa domain name pointer be-4-778-thd-p-2.mweb.co.za.
+
+The hop in position 9 is localized as UK, and probably is assigned to an England section of the carrier provider:
+
+    $ host 4.69.166.129
+    129.166.69.4.in-addr.arpa domain name pointer vl-3501-ve-115.csw1.London1.Level3.net.
+
+But in fact, [Level3](http://en.wikipedia.org/wiki/Level3) is an USA based carrier, and a CDN role is to be near as possible from the client requesting the content, so is very likely possible that connection never reach USA directly. Still, in TrackMap, the connection will be show to reach both UK and USA, because both intelligence agency or lawful enforment (or unlawful interception) can snitch on this connection.
+
+    $ host 4.69.166.17
+    17.166.69.4.in-addr.arpa domain name pointer ae-229-3605.edge4.London1.Level3.net.
+
+Just to be complete, the third hop, position 10, is still resolved as London gateway in Level3 carrier, but is recognized as US by GeoIP.
 
 
 ## Countermeasure
 
 **As far as I know, those technologies lack on security/privacy audit**, but ideally they are a good start:
 
-  * NoScript (FireFox)
+  * [NoScript](http://en.wikipedia.org/wiki/Noscript) (FireFox)
   * SafeScript (Chrome)
-  * Disconnect
+  * [Disconnect](https://disconnect.me/)
   * Ghostery 
   * AdBlock+
 
@@ -167,7 +278,7 @@ The tracking elements are well documented in the websites.
 If you read site A, B, C and D, the tracking agent present in A, B and D know almost 75% of information about you.
 
 The distributed nature of the Internet will always make the development of sites like "C" possible: a site without a tracking agent. 
-Sadly, due to the online adverising business, mixing between social and ADV, SEO and infrastructural needs, the creation of independent and trackless sites is extremely rare.
+Sadly, due to the online advertising business, mixing between social and ADV, SEO and infrastructural needs, the creation of independent and trackless sites is extremely rare.
 
 When someone shares a link, this link often contains some identifier used to recognize users connected by other means (eg: sharing a link via chat or via mail: the tracker does not know how you got that link, but can now link you and the users who have shared the link).
 
@@ -194,7 +305,7 @@ sha224 cksum of phantomjs-1.9.2 x86\_64
 
     2937cea726e7fe4dd600f36e7c5f0cca358593e96808dc71b6feb166 
 
-# Our PGP key
+### Our PGP key
 
     pub   3200R/0x94E7EF47 2014-08-05 [expires: 2015-08-30]
           Key fingerprint = ABC2 7639 5EE3 3245 A0A1  3973 40E2 6C25 94E7 EF47
