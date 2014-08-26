@@ -6,24 +6,23 @@ The TrackMap project is research by [Claudio ࿓  vecna](https://twitter.com/sni
 
 Our aim is to show where our data travels when we visit our favorite news websites through a visualization. We are currently looking for people to collaborate with in various countries in the world which would make this project possible. 
 
-
-## This code 
+## You, your country and the code 
 
 This repository contains the script and the data source needed to generate our needed data.
 
 The collection of data needs to happen in a distributed way, _which means that the script needs to run from each of the selected countries_. This is important because the network and the trackers behave differently based on the provenience country of the user. 
 
-### Is your country present in TrackMap ?
+### Is it your country analyzed in TrackMap ?
 
-**NO**: two reasons are possible:
+If the answer is **NO**: two reasons are possible:
 
   * No one has review or created the **media list**, check in [this directory](https://github.com/vecna/helpagainsttrack/tree/master/verified_media) and look at the expected format on the bottom of the page. An unverified media list [can be present here](https://github.com/vecna/helpagainsttrack/tree/master/unverified_media_list), if is not, sent to us an email at **trackmap** at **tacticaltech** dot **org** (because we have some not refined list usable as starter) of provide to us list from your own.
 
   * No one has yet runs the script from your country: In this case, read the sections below
 
-**YES**: perfect, this mean that someone has already run the script: you can still help, because different ISP and different Geographical locations in a country brings different results, having multiple feedback can be useful for further analysis and comparison.
+If the answer is **YES**: perfect, this mean that someone has already run the script: you can still help, because different ISP and different Geographical locations in a country brings different results, having multiple feedback can be useful for further analysis and comparison.
 
-## how you can help ? 
+### How you can help ? 
 
 If you're a **Media aware citizen**, we need a reliable media list for every country. In the chapter above is explained what is important, use git to help us or open an issue.
 
@@ -31,7 +30,7 @@ If you're a **Media aware citizen**, we need a reliable media list for every cou
 
   * you can run the script *perform\_analysis.py* on your own (it will automatically send the results to our hidden service). 
 
-## Install the test script
+### Install the test script
 
 The test script can only be run under Debian/Ubuntu, and **RUN THIS TESTS VIA Tor IS POINTLESS**: because the important data are obtained via traceroute, and works in a lower level than Tor (also works in UDP, that cannot be anonymised).
 
@@ -99,16 +98,11 @@ the option **lp** (local phantom):
 
     ./perform_analysis.py NAME_OF_YOUR_COUNTRY lp
 
-To see a list of countries, look in the *verified_media* folder.
+To see a list of countries, just tape something random, the script show the available countries (or check [here](https://github.com/vecna/helpagainsttrack/tree/master/verified_media) )
 
-If your country is not on the list, it means that nobody has reviewed the media list (a boring but necessary step) for you
-country. You can take a look at the unclean lists in the *unverified_media_list* folder and if your country is listed 
-there you can review the provided list before using it with the test tool.
+### Resources needed
 
-
-## Resources needed
-
-Very few resources are needed. Is not possible make a precise estimation, because the resources and the time requested depends directly from the amount of media website under analysis, anyhow, based on the current results:
+Few resources are needed. Is not possible make a precise estimation, because the resources and the time requested depends directly from the amount of media website under analysis, anyhow, based on the current results:
 
   * A list with around 200 media site starts for (200 + 50) times a "one time browser". It use 5-10 seconds each. more or less expend 300 Kb for each website ( ~75 megabyte used in download ).
   * For every media fetch, 7 to 20 hosts are discovered to be included. the script need to iterated over them. commonly are between 1400 - 1700 unique hosts.
@@ -118,21 +112,6 @@ Very few resources are needed. Is not possible make a precise estimation, becaus
 
 Do not require strong capability from the running computer, **but is very likely have a stable network**. If you can avoid WI-FI (or be physically near the access point), it is better.
 
-## Long term project support (experimental)
-
-If you're a **Linux user** with a constantly running box and few times:
-
-  * You can run the **Vagrant script** explained  below to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we will eventually send you an email asking you to start your box when the tests get updated).
-
-Please read [Vagrant usage description](https://github.com/vecna/helpagainsttrack/tree/master/Vagrant)
-
-## Docker image (experimental)
-
-A [Docker](https://www.docker.com/) image has been created for this tool, using the Dockerfile provided in the test 
-tool directory. If you wish to use this, you can run the test tool using:
-
-    docker run -t -i pvanheus/helpagainsttrack NAME_OF_YOUR_COUNTRY
-    
 ### The operation performed by the script
 
   * an HTTP connection (using phantomjs) to every news media under analysis
@@ -144,6 +123,22 @@ tool directory. If you wish to use this, you can run the test tool using:
 
 This shows all the nations capable of knowing which users are visiting the (selected) news media.
 
+
+### Long term project support (experimental)
+
+If you're a **Linux user** with a constantly running box and few times:
+
+  * You can run the **Vagrant script** explained  below to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we will eventually send you an email asking you to start your box when the tests get updated).
+
+Please read [Vagrant usage description](https://github.com/vecna/helpagainsttrack/tree/master/Vagrant)
+
+### Docker image (experimental)
+
+A [Docker](https://www.docker.com/) image has been created for this tool, using the Dockerfile provided in the test 
+tool directory. If you wish to use this, you can run the test tool using:
+
+    docker run -t -i pvanheus/helpagainsttrack NAME_OF_YOUR_COUNTRY
+    
 ## Technopolitical goal
 
 We know **online business model is mostly based on tracking**, who is producing content is just pushing hard in order to get more visibility, clicks and provide advertising. 
@@ -180,6 +175,7 @@ Due to limited resources from our side, our research might face the following li
   * We cannot know if a service has some Cloud Provider as a backend
   * We cannot automatize the seeking of company information over every tracking agent
   * GeoIP applied to traceroute may return unexpected or doubtful results. A technical progress can be used by interpolating GeoIP + Autonomous System + TLD/domain analysis. GeoIP for sure show: if an IP address is in a country or if an IP address is assigned to a company based on a certain country. For example:
+
 
       traceroute to www.zerocalcare.it (144.76.179.61), 30 hops max, 60 byte packets
        1  172.16.1.1 [*]  6.556 ms
