@@ -174,8 +174,9 @@ Due to limited resources from our side, our research might face the following li
   * Some service providers use Content Delivery Network and this means that in order to interact with them, this might be resolved as part of the same country of the user, also if the content is obviously stored by a foreign country.
   * We cannot know if a service has some Cloud Provider as a backend
   * We cannot automatize the seeking of company information over every tracking agent
-  * GeoIP applied to traceroute may return unexpected or doubtful results. A technical progress can be used by interpolating GeoIP + Autonomous System + TLD/domain analysis. GeoIP for sure show: if an IP address is in a country or if an IP address is assigned to a company based on a certain country. For example:
+  * GeoIP applied to traceroute may return unexpected or doubtful results. A technical progress can be used by interpolating GeoIP + Autonomous System + TLD/domain analysis. GeoIP for sure show: if an IP address is in a country or if an IP address is assigned to a company based on a certain country. 
 
+For example:
 
       traceroute to www.zerocalcare.it (144.76.179.61), 30 hops max, 60 byte packets
        1  172.16.1.1 [*]  6.556 ms
@@ -189,7 +190,8 @@ Due to limited resources from our side, our research might face the following li
        9  213.239.245.170 [AS24940]  66.506 ms
       10  213.239.248.196 [AS24940]  49.232 ms
       11  144.76.158.83 [AS24940]  59.938 ms
-      11 HOP passing thru None IT IT IT IT DE DE DE DE DE DE .
+ 
+**11 HOP passing thru None IT IT IT IT DE DE DE DE DE DE**
 
 This is quite easy: the first IP is a private IP address (None), after there are some Italian (my ISP) and then the connection reach a provider in Germany, where the target host is placed. If we take a look hostnames:
 
@@ -234,7 +236,10 @@ In other situation, the API returned by TrackMap (*they will be documented, but 
         "media_url": "www.dieburger.com"
     }
 
-This is the GeoIP resolution of a traceroute from the South Africa ISP **Mweb** to the host platform.twitter.com, that is a [CND](http://en.wikipedia.org/wiki/Content_delivery_network) managed by edgecastcdn.net, this is an extraction of the traceroute collected:
+This is the GeoIP resolution of a traceroute from the South Africa ISP **Mweb** to the host platform.twitter.com (hosted by a [CND](http://en.wikipedia.org/wiki/Content_delivery_network) managed by edgecastcdn.net )
+
+It's unexpected, maybe, because can sounds weird from South Africa go in UK, in US and then comeback to UK. but this is due to GeoIP resolution, not to an actual continental travel.
+This is an extraction of the traceroute collected:
 
      8  176.67.177.146 [AS10474] 195.777 ms
      9  4.69.166.129 [AS3356] 176.582 ms
