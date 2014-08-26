@@ -17,7 +17,6 @@ from libtrackmap import sortify, media_file_cleanings
 
 ANALYSIS_VERSION = 1
 OUTPUTDIR = 'output'
-PERMITTED_SECTIONS = [ 'global', 'national', 'local', 'blog' ]
 
 def do_wget(fdestname):
 
