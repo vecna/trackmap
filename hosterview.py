@@ -109,7 +109,7 @@ if __name__ == '__main__':
         cfp.close()
     else:
         print "Not found file", target, "assuming as single host"
-        media_entries = { target : None }
+        media_entries = { target : 'hand' }
 
     if not os.path.isdir('hostseer'):
         os.mkdir('hostseer')
