@@ -1,4 +1,6 @@
 [global]
+http://www.antaranews.com/en/
+http://www.thebalitimes.com/
 
 [national]
 http://www.tribunnews.com/
@@ -36,6 +38,13 @@ http://www.mongabay.co.id/
 http://www.jurnal3.com
 http://www.portalkbr.com/
 http://www.tvonenews.tv/
+http://www.kontan.co.id/
+http://www.viva.co.id/
+http://www.rri.co.id/home.html
+http://www.inilah.com/
+http://www.elshinta.com/
+https://id.berita.yahoo.com/
+http://www.iradiofm.com/
 
 [local]
 http://makassar.tribunnews.com/
@@ -136,5 +145,7 @@ http://www.berita3jambi.com/
 # http://suratkabar.com/
 # http://www.theindustrialpost.com/
 # http://www.radartarakan.com/
+# http://www.dailyindonesia.com/
 
 [blog]
+http://www.suarakita.org/
