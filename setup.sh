@@ -9,14 +9,25 @@ sudo apt-get update
 sudo apt-get install -y ${REQUIREMENTS[*]}
 sudo pip install GeoIP tldextract termcolor
 
+
+traceroute --version
+if [ $? != "0"  ]; then echo "Missing traceroute" && exit; fi
+git --version
+if [ $? != "0"  ]; then echo "Missing git" && exit; fi
+
+
 if [ ! -d helpagainsttrack ] ; then
     git clone https://github.com/vecna/helpagainsttrack.git
+    if [ ! -d helpagainsttrack ] ; then
+        echo "git failed! Quitting"
+        exit
+    fi
+    cd helpagainsttrack
 else
     ( cd helpagainsttrack ; git pull )
 fi
 
 (
-    cd helpagainsttrack
     if [ -x ./fetch_phantomjs.sh ] ; then
         ./fetch_phantomjs.sh
     else
@@ -36,4 +47,8 @@ fi
         fi
      fi
 )
-echo "helpagainsttrack installed and updated"
+
+./perform_analysis.py --version
+if [ $? != "0"  ]; then echo "Something goes wrong in the install, please follow the README" && exit; fi
+echo "TrackMap collection system: installed correctly"
+echo "Now you can run ./perform_analysis.py $NAME_OF_YOUR_COUNTRY"

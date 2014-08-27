@@ -8,12 +8,17 @@
 #
 
 
-import os, re, json, sys, random, time, shutil, socket
-import GeoIP
-
-from subprocess import Popen, PIPE
-from termcolor import colored
-from libtrackmap import sortify, media_file_cleanings
+try:
+    import os, re, json, sys, random, time, shutil, socket
+    import GeoIP
+    from subprocess import Popen, PIPE
+    from termcolor import colored
+    from libtrackmap import sortify, media_file_cleanings
+except ImportError:
+    print "TrackMap collection system is not correctly installed"
+    print "Please, follow the instruction or mail to trackmap at tacticaltech.org"
+    print "https://github.com/vecna/helpagainsttrack"
+    quit(-1)
 
 ANALYSIS_VERSION = 1
 OUTPUTDIR = 'output'
@@ -541,5 +546,10 @@ def main():
 
 
 if __name__ == '__main__':
+
+    if len(sys.argv) == 2 and sys.argv[1] == '--version':
+        print "TrackMap collection tool version: %d" % ANALYSIS_VERSION
+        quit(0)
+
     main()
 

@@ -30,31 +30,29 @@ If you're a **Media aware citizen**, we need a reliable media list for every cou
 
   * you can run the script *perform\_analysis.py* on your own (it will automatically send the results to our hidden service). 
 
-### Install the test script
+### Use the test script
 
-The test script can only be run under Debian/Ubuntu, and **RUN THIS TESTS VIA Tor IS POINTLESS**: because the important data are obtained via traceroute, and works in a lower level than Tor (also works in UDP, that cannot be anonymised).
+The procedure reported use an apt-get based system (Debian/Ubuntu etc), and a couple of experimental option (Vagrant and Docker)
+**RUN THIS TESTS VIA Tor IS POINTLESS**: because the important data are obtained via traceroute, and works in a lower level than Tor (also works in UDP, that cannot be anonymised), so if you don't feel safe, just don't contribute. anyway no personal information are collected, your computer is just used to see "how your ISP connects citizen like you"
 
-### Automated installation
+Tor is used when the script has completed the collection, because we anonymize the users interacting with us.
 
-Before you run this, ensure that you are running as a user that can `sudo` to root. 
+### Ubuntu automation 
 
+only tested in Ubuntu (may work in other distribution, but is untested)
 Create a directory to store the project files and change directory there:
 
     mkdir trackmap
     cd trackmap
-    
-fetch the setup script:
-
     wget -c https://raw.githubusercontent.com/vecna/helpagainsttrack/master/setup.sh
-    
-and run this script with bash:
-
     bash setup.sh
     
 This script uses `sudo` to execute some commands, so it will ask for your password when it executes. The project
 scripts are installed in a subdirectory called *helpagainsttrack*.
 
-### Manual installation
+If you read "OK" at the end, go to the section [Run the test script](https://github.com/vecna/helpagainsttrack#run-the-test-script)
+
+### Installation
 
 Install some base requirements (run with sudo):
 
