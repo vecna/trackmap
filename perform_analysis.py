@@ -20,7 +20,7 @@ except ImportError:
     print "https://github.com/vecna/helpagainsttrack"
     quit(-1)
 
-ANALYSIS_VERSION = 1
+ANALYSIS_VERSION = 2
 OUTPUTDIR = 'output'
 
 def do_wget(fdestname):
@@ -123,16 +123,16 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
         print colored("fetch %d URLs (%s)" % (included_url_number, media_kind), "green")
 
 
-def do_trace(dumpprefix, host):
+def do_trace(hostlist, ipv4):
 
     def software_execution(timeout):
         # commonly timeout is '0.5' but can be increase to '2.1'
 
         iplist = []
         asterisks_total = 0
-        p = Popen(['traceroute', '-n', '-w', timeout, '-q', '10', '-A', resolved_ip], stdout=PIPE)
+        p = Popen(['traceroute', '-n', '-w', timeout, '-q', '10', '-A', ipv4], stdout=PIPE)
 
-        traceoutf = os.path.join(OUTPUTDIR, '_verbotracelogs', host)
+        traceoutf = os.path.join(OUTPUTDIR, '_verbotracelogs', ipv4)
         if os.path.isfile(traceoutf):
             os.unlink(traceoutf)
 
@@ -191,20 +191,18 @@ def do_trace(dumpprefix, host):
 
 
     # -- Here starts the do_trace logic --
-    ip_file = os.path.join(OUTPUTDIR, '_traceroutes', "%s_ip.json" % dumpprefix)
-    country_file = os.path.join(OUTPUTDIR, '_traceroutes', "%s_countries.json" % dumpprefix)
 
-    if os.path.isfile(ip_file) and os.path.isfile(country_file):
-        print colored ("%s already traced: skipping" % host, "green")
+    host_check = hostlist[0]
+
+    check_ip_link = os.path.join(OUTPUTDIR, '_traceroutes', "%s_ip.json" % host_check)
+    check_country_link = os.path.join(OUTPUTDIR, '_traceroutes', "%s_countries.json" % host_check)
+
+    if os.path.islink(check_ip_link) and os.path.islink(check_country_link):
+        print colored ("%s already traced (%d hosts): skipping" %
+                       (ipv4, len(hostlist) ), "green")
         return True
     else:
-        print host,
-
-    try:
-        resolved_ip = socket.gethostbyname(host)
-    except Exception:
-        print colored("Failure in DNS resolution!", "red")
-        return False
+        print ipv4,
 
     totalsterisks, iplist = software_execution("0.5")
 
@@ -218,37 +216,56 @@ def do_trace(dumpprefix, host):
             print colored("\n\tFailed again! (%d *'s)" % secondtotalrisks, "red")
             return False
 
-    with file(ip_file, 'w+') as f:
+    # resolve Geo info for all the IP involved
+    gi = GeoIP.new(GeoIP.GEOIP_MEMORY_CACHE)
+    country_travel_path = {}
+    counter = 0
+    print len(iplist), "HOP through",
+    for ip in iplist:
+
+        # if is an "* * * * *" I'll record as None and here is stripped
+        if not ip:
+            continue
+
+        # is always as list ['x.x.x.x'] sometime more than 1
+        if isinstance(ip, list):
+            ip = ip[0]
+
+        code = gi.country_code_by_addr(ip)
+        if not code:
+            print colored(code, "red"),
+        else:
+            print colored(code, "green"),
+
+        country = gi.country_name_by_addr(ip)
+        country_travel_path.update({counter:country})
+        counter += 1
+
+    print "Done"
+
+    # dump in the IPv4 file and then make symlink
+    ip_list_file = os.path.join(OUTPUTDIR, '_traceroutes', "%s_ip.json" % ipv4)
+    country_list_file = os.path.join(OUTPUTDIR, '_traceroutes', "%s_countries.json" % ipv4)
+
+    with file(ip_list_file, 'w+') as f:
         json.dump(iplist, f)
 
-    with file(country_file, 'w+') as f:
-        gi = GeoIP.new(GeoIP.GEOIP_MEMORY_CACHE)
-        country_travel_path = {}
-        counter = 0
-
-        print len(iplist), "HOP through",
-        for ip in iplist:
-
-            # if is an "* * * * *" I'll record as None and here is stripped
-            if not ip:
-                continue
-
-            # is always as list ['x.x.x.x'] sometime more than 1
-            if isinstance(ip, list):
-                ip = ip[0]
-
-            code = gi.country_code_by_addr(ip)
-            if not code:
-                print colored(code, "red"),
-            else:
-                print colored(code, "green"),
-
-            country = gi.country_name_by_addr(ip)
-            country_travel_path.update({counter:country})
-            counter += 1
-
-        print "Done"
+    with file(check_country_link, 'w+') as f:
         json.dump(country_travel_path, f)
+
+    for host in hostlist:
+
+        ip_host_link = os.path.join(OUTPUTDIR, '_traceroutes', "%s.ip" % host)
+        country_host_link = os.path.join(OUTPUTDIR, '_traceroutes', "%s.countries" % host)
+
+        try:
+            os.symlink( ip_list_file, ip_host_link )
+            os.symlink( country_list_file, country_host_link )
+        except Exception as xxx:
+            print colored("Failure in symlink %s to %s: %s" % (
+                ipv4, host, xxx
+            ))
+            continue
 
     return True
 
@@ -411,10 +428,7 @@ def main():
                 dns_error.append([domain, xxx.strerror])
                 continue
 
-            if ip_map.has_key(resolved_v4):
-                ip_map[resolved_v4].append(domain)
-            else:
-                ip_map.update({resolved_v4 : [ domain ] })
+            ip_map.setdefault(resolved_v4, []).append(domain)
 
         with file(resolution_dns_f, 'w+') as f:
             json.dump(ip_map, f)
@@ -452,10 +466,7 @@ def main():
                 dns_error.append([ipv4, xxx.strerror])
                 continue
 
-            if true_domain_map.has_key(resolved_name):
-                true_domain_map[resolved_name].append(ipv4)
-            else:
-                true_domain_map.update({resolved_name : [ ipv4 ] })
+            true_domain_map.setdefault(resolved_name, []).append(ipv4)
 
         with file(reverse_dns_f, 'w+') as f:
             json.dump(true_domain_map, f)
@@ -481,18 +492,23 @@ def main():
     if not os.path.isdir(verbotracelogs):
         os.mkdir(verbotracelogs)
 
-
     # saving again information about network location
     do_wget('second.json')
-    print colored(" ࿓  Running traceroute to %d hosts" % len(included_url_dict.keys()), 'blue', 'on_white', attrs=['underline'])
+
+    # starting traceroute to all the collected IP
+    print colored(" ࿓  Running traceroute to %d IP address (from %d hosts)" % (
+        len(ip_map.keys()),
+        len(included_url_dict.keys())),
+                  'blue', 'on_white', attrs=['underline'])
+
     counter = 1
     failure = 0
-    for url, domain_info in included_url_dict.iteritems():
+    for ip_addr, hostlist in ip_map.iteritems():
 
-        progress_string = "%d/%d" % (counter, len(included_url_dict.keys()))
+        progress_string = "%d/%d" % (counter, len(ip_map.keys()))
         print colored("%s%s" % (progress_string, (10 - len(progress_string)) * " " ), "cyan" ),
 
-        if not do_trace(url, url):
+        if not do_trace(hostlist, ip_addr):
             failure += 1
         counter += 1
 
