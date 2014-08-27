@@ -5,10 +5,10 @@
 import sys
 import socket
 import os
-import json
 import shutil
 import re
 import GeoIP
+import pprint
 
 from libtrackmap import media_file_cleanings, PERMITTED_SECTIONS
 from perform_analysis import do_phantomjs
@@ -26,74 +26,22 @@ from subprocess import Popen, PIPE
 # else:
 #     ranked.update({ rankinfo['rank'] : [ url ] })
 
-def ip(media_entries):
-
-    ip_map = {}
-    for media_host, kind in media_entries.iteritems():
-        if kind == 'global':
-            continue
-
-        try:
-            resolved_v4 = socket.gethostbyname(media_host)
-        except Exception as xxx:
-            print media_host, "broken", xxx
-            continue
-
-        if ip_map.has_key(resolved_v4):
-            ip_map[resolved_v4].append(media_host)
-            continue
-
-        ip_map.update({resolved_v4 : [ media_host ] })
-
-    unique = 0
-    for ipv4, hostlist in ip_map.iteritems():
-        if len(hostlist) == 1:
-            unique += 1
-        else:
-            print ipv4, "=", len(hostlist)
-            for med in hostlist:
-                print med, media_entries[med]
-            print "\n"
-
-    print "unique", unique
-
-    with file("myresolved", 'w+') as f:
-        json.dump(ip_map, f)
-
-
-def rank(media_entries):
-
-    counter = 0
-    for url, kind in media_entries.iteritems():
-
-        if kind != 'blog':
-            continue
-        import random
-
-        if counter == 49:
-            print "FORCE BREAK"
-            break
-
-        counter += 1
-    with file("myranked", 'w+') as f:
-        json.dump(ranked, f)
 
 
 if __name__ == '__main__':
 
-    permitted_cmd = ['dns', 'phantom', 'analyze' ]
-
     if len(sys.argv) == 1 or sys.argv[1] == '-h' or sys.argv[1] == '--help':
         print "Host overview - debug utility for TrackMap "
-        print "%s [DNS|phantom] [ media_list [section] | host ]" % sys.argv[0]
-        print "\tDNS: traceroute + GeoIP + resolve + reverse"
+        print "%s [Geo|phantom|DNS] [ media_list [section] | host ]" % sys.argv[0]
+        print "\tGeo: traceroute + GeoIP"
         print "\tphantom: HTTP included url and unique URL count"
+        print "\tDNS: resolve + reverse"
         quit(-1)
 
     command = sys.argv[1]
 
-    if command not in ['DNS', 'phantom' ]:
-        print "Error, expected '%s' be in %s " % (command, permitted_cmd)
+    if command not in [ 'DNS', 'phantom', 'Geo' ]:
+        print "Error unexpected command:", command
         quit(-1)
 
     # understand the third argument
@@ -138,7 +86,7 @@ if __name__ == '__main__':
 
             do_phantomjs(False, media, urldir, kind)
 
-    if command == 'DNS':
+    if command == 'Geo':
 
         for media, kind in media_entries.iteritems():
 
@@ -179,4 +127,38 @@ if __name__ == '__main__':
 
                 line = line[:-1]
                 print colored(" %s\t [%s] %s %s" % (c_code[0], line, reverse_name, country), 'blue', 'on_white')
+
+    if command == 'DNS':
+
+        ip_map = {}
+        for media, kind in media_entries.iteritems():
+
+            if check_section(kind):
+                continue
+
+            try:
+                resolved_v4 = socket.gethostbyname(media)
+            except Exception as xxx:
+                print media, "broken", xxx
+                continue
+
+            ip_map.setdefault(resolved_v4, []).append(media)
+
+        pprint.pprint(ip_map)
+        print "Press enter..."
+        sys.stdin.read(1)
+
+        reverse_map = {}
+        for v4, hostlist in ip_map.iteritems():
+
+            try:
+                socket.setdefaulttimeout(1.5)
+                reverse_name = socket.gethostbyaddr(v4)[0]
+            except Exception as xxx:
+                print xxx, "“", v4,"“ ", pprint.pprint(hostlist)
+                continue
+
+            reverse_map.update({ v4 : reverse_name })
+
+        pprint.pprint(reverse_map)
 
