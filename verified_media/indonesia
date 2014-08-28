@@ -1,6 +1,7 @@
 [global]
 
 [national]
+http://www.thebalitimes.com/
 http://www.tribunnews.com/
 http://www.okezone.com/
 http://rctinews.okezone.com/
@@ -36,11 +37,17 @@ http://www.mongabay.co.id/
 http://www.jurnal3.com
 http://www.portalkbr.com/
 http://www.tvonenews.tv/
+http://www.kontan.co.id/
+http://www.viva.co.id/
+http://www.rri.co.id/home.html
+http://www.inilah.com/
+http://www.elshinta.com/
+http://id.berita.yahoo.com/
+http://www.iradiofm.com/
 
 [local]
 http://makassar.tribunnews.com/
 http://aceh.tribunnews.com/
-http://surabaya.tribunnews.com/
 http://medan.tribunnews.com/
 http://bali.tribunnews.com
 http://pekanbaru.tribunnews.com
@@ -83,7 +90,6 @@ http://www.cenderawasihpos.com/
 http://dumaipos.co/
 http://www.klik-galamedia.com/
 http://www.harianhaluan.com/
-http://www.jambiekspres.co.id/
 http://www.kaltengpos.web.id/
 http://krjogja.com/
 http://www.kendaripos.biz/home/
@@ -136,5 +142,7 @@ http://www.berita3jambi.com/
 # http://suratkabar.com/
 # http://www.theindustrialpost.com/
 # http://www.radartarakan.com/
+# http://www.dailyindonesia.com/
 
 [blog]
+http://www.suarakita.org/
