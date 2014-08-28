@@ -23,6 +23,24 @@ except ImportError:
 ANALYSIS_VERSION = 2
 OUTPUTDIR = 'output'
 
+class TraceStats:
+
+    v4_paths = {}
+
+    def __init__(self, v4_path=[]):
+
+        assert isinstance(v4_path, list)
+        for hopcount, ip in enumerate(v4_path):
+            TraceStats.v4_paths.setdefault(hopcount, [ ip ]).append(ip)
+
+    def dump_stats(self):
+        print "I'm gonna dump the stat"
+        sys.stdin.read(1)
+        import pprint
+        pprint.pprint(TraceStats.v4_paths)
+
+
+
 def do_wget(fdestname):
 
     if os.path.isfile('index.html'):
@@ -243,29 +261,35 @@ def do_trace(hostlist, ipv4):
 
     print "Done"
 
-    # dump in the IPv4 file and then make symlink
-    ip_list_file = os.path.join(OUTPUTDIR, '_traceroutes', "%s_ip.json" % ipv4)
-    country_list_file = os.path.join(OUTPUTDIR, '_traceroutes', "%s_countries.json" % ipv4)
+    # TraceStats(iplist)
 
-    with file(ip_list_file, 'w+') as f:
+    # dump in the IPv4 file and then make symlink
+    os.chdir(os.path.join(OUTPUTDIR, '_traceroutes'))
+    ipv4_traced_hop_f = "%s_ip.json" % ipv4
+    ipv4_traced_countr_f = "%s_countries.json" % ipv4
+    #ipv4_traced_hop_f = os.path.join(OUTPUTDIR, '_traceroutes', "%s_ip.json" % ipv4)
+    #ipv4_traced_countr_f = os.path.join(OUTPUTDIR, '_traceroutes', "%s_countries.json" % ipv4)
+
+    with file(ipv4_traced_hop_f, 'w+') as f:
         json.dump(iplist, f)
 
-    with file(check_country_link, 'w+') as f:
+    with file(ipv4_traced_countr_f, 'w+') as f:
         json.dump(country_travel_path, f)
 
     for host in hostlist:
 
-        ip_host_link = os.path.join(OUTPUTDIR, '_traceroutes', "%s.ip" % host)
-        country_host_link = os.path.join(OUTPUTDIR, '_traceroutes', "%s.countries" % host)
+        named_link_addr_f = "%s.ip" % host
+        named_link_cc_f = "%s.countries" % host
 
         try:
-            os.symlink( ip_list_file, ip_host_link )
-            os.symlink( country_list_file, country_host_link )
+            os.symlink( ipv4_traced_hop_f, named_link_addr_f )
+            os.symlink( ipv4_traced_countr_f, named_link_cc_f )
         except Exception as xxx:
             print colored("Failure in symlink %s to %s: %s" % (
                 ipv4, host, xxx
             ))
             continue
+    os.chdir('../../')
 
     return True
 
@@ -511,6 +535,7 @@ def main():
         if not do_trace(hostlist, ip_addr):
             failure += 1
         counter += 1
+        # TraceStats([]).dump_stats()
 
     if failure:
         print colored("Registered %d failures" % failure, "red")
