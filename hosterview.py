@@ -59,8 +59,8 @@ if __name__ == '__main__':
         print "Not found file", target, "assuming as single host"
         media_entries = { target : 'hand' }
 
-    if not os.path.isdir('hostseer'):
-        os.mkdir('hostseer')
+    if not os.path.isdir('_hostseer'):
+        os.mkdir('_hostseer')
 
     def check_section(kind):
 
@@ -76,7 +76,7 @@ if __name__ == '__main__':
             if check_section(kind):
                     continue
 
-            urldir = os.path.join('hostseer', media)
+            urldir = os.path.join('_hostseer', media)
             if os.path.isdir(urldir):
                 print "Removing", urldir,
                 shutil.rmtree(urldir)
@@ -96,7 +96,7 @@ if __name__ == '__main__':
             try:
                 resolved_ip = socket.gethostbyname(media)
             except Exception:
-                print colored("Failure in DNS resolution!", "red")
+                print colored("Failure in DNS resolution! %s" % media, "red")
                 continue
 
             gi = GeoIP.new(GeoIP.GEOIP_MEMORY_CACHE)
