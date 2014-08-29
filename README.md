@@ -98,6 +98,15 @@ the option **lp** (local phantom):
 
 To see a list of countries, just tape something random, the script show the available countries (or check [here](https://github.com/vecna/helpagainsttrack/tree/master/verified_media) )
 
+### Information requested
+
+When the script start asks for four (**they are optional, but useful**) Information that **will never be released**: 
+
+  * Your name: is not important, but if we already known you or meet you in the future, we can say **thankyou** :)
+  * Your city: this maybe relevant because results from city very far among, reports different results.
+  * Your contact: an email or jabber, but is a free text. Put also a GPG fingerprint if you like, can be useful if eventually we've to contact you in the future. very likely, to run again the test.
+  * Your ISP: if you know it, can be useful, because in the same country different ISP return lightly different results.
+
 ### Resources needed
 
 Few resources are needed. Is not possible make a precise estimation, because the resources and the time requested depends directly from the amount of media website under analysis, anyhow, based on the current results:
