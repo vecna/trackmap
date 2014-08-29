@@ -20,7 +20,7 @@ except ImportError:
     print "https://github.com/vecna/helpagainsttrack"
     quit(-1)
 
-ANALYSIS_VERSION = 2
+ANALYSIS_VERSION = 3
 OUTPUTDIR = 'output'
 
 class TraceStats:
@@ -134,11 +134,14 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
         second_test = validate_phantomjs_output()
         if second_test:
             print colored("Ok! %d links" % second_test, "green")
+            return 'failures'
         else:
             print colored("Failed again! :(", "red")
+            return 'second'
 
     else:
         print colored("fetch %d URLs (%s)" % (included_url_number, media_kind), "green")
+        return 'first'
 
 
 def do_trace(hostlist, ipv4):
@@ -183,7 +186,9 @@ def do_trace(hostlist, ipv4):
         return asterisks_total, iplist
 
     def validate_traceroute_output(asterisk_amount, tracelines, tolerance):
-        # what I wanna spot is traceroute can give a better results
+        # what I wanna spot is the number of asterisk, and handle the
+        # case of a firewall in front of the target host (that cause a lots of
+        # "*" but they don't matter
         if len(tracelines) == 30:
             # we've got an host that do not return answers
             while True:
@@ -387,6 +392,10 @@ def main():
     with file(os.path.join(OUTPUTDIR, 'used_media_list'), 'w+') as f:
         f.writelines(unclean_lines)
 
+    # reconding an unique number is always useful, also if I've not yet in mind an usage right now.
+    with file( os.path.join(OUTPUTDIR, "unique_id"), "w+") as f:
+        f.write("%d%d%d" % (random.randint(0, 0xffff), random.randint(0, 0xffff), random.randint(0, 0xffff)) )
+
     print colored(" ࿓  Importing media list:", 'blue', 'on_white', attrs=['underline'])
     media_entries = media_file_cleanings(unclean_lines)
     cfp.close()
@@ -396,6 +405,7 @@ def main():
 
     print colored(" ࿓  Starting media crawling:", 'blue', 'on_white', attrs=['underline'])
     # here start iteration over the media!
+    phantom_stats = {}
     for cleanurl, media_kind in media_entries.iteritems():
 
         urldir = os.path.join(OUTPUTDIR, cleanurl)
@@ -403,6 +413,7 @@ def main():
 
         if os.path.isdir(urldir) and os.path.isfile(title_check):
             print "-", urldir, "already present: skipped"
+            phantom_stats.setdefault('resumed', []).append(cleanurl)
             continue
 
         if os.path.isdir(urldir):
@@ -412,7 +423,8 @@ def main():
         print "+ Creating directory", urldir
         os.mkdir(urldir)
 
-        do_phantomjs(local_phantomjs, cleanurl, urldir, media_kind)
+        retinfo = do_phantomjs(local_phantomjs, cleanurl, urldir, media_kind)
+        phantom_stats.setdefault(retinfo, []).append(cleanurl)
 
     # take every directory in 'output/', get the included URL and dump in a dict
     included_url_dict = sortify(OUTPUTDIR)
@@ -526,23 +538,31 @@ def main():
                   'blue', 'on_white', attrs=['underline'])
 
     counter = 1
-    failure = 0
+    trace_stats = {}
     for ip_addr, hostlist in ip_map.iteritems():
 
         progress_string = "%d/%d" % (counter, len(ip_map.keys()))
         print colored("%s%s" % (progress_string, (10 - len(progress_string)) * " " ), "cyan" ),
 
         if not do_trace(hostlist, ip_addr):
-            failure += 1
+            trace_stats.update({ip_addr : False })
+        else:
+            trace_stats.update({ip_addr : True })
+
         counter += 1
         # TraceStats([]).dump_stats()
 
-    if failure:
-        print colored("Registered %d failures" % failure, "red")
+    if trace_stats.values().count(False):
+        print colored("Registered %d failures" % trace_stats.values().count(False), "red")
 
-    # putting the unique number into
-    with file( os.path.join(OUTPUTDIR, "unique_id"), "w+") as f:
-        f.write("%d%d%d" % (random.randint(0, 0xffff), random.randint(0, 0xffff), random.randint(0, 0xffff)) )
+    ptsj = os.path.join(OUTPUTDIR, '_phantom.trace.stats.json')
+    if os.path.isfile(ptsj):
+        os.unlink(ptsj)
+    with file(ptsj, 'w+') as fp:
+        json.dump([ phantom_stats, trace_stats ], fp)
+
+    # saving again*again information about network location
+    do_wget('third.json')
 
     output_name = 'results-%s.tar.gz' % proposed_country.lower()
     print colored(" ࿓  Analysis done! compressing the output in %s" % output_name, "blue", 'on_white', attrs=['underline'])
