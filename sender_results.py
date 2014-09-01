@@ -4,22 +4,26 @@
 
 import socket, sys
 
+
+def help():
+    return "  torify python %s %s" % (sys.argv[0], sys.argv[1])
+
 connect_tuple = ( 'mzvbyzovjazwzch6.onion', 80 )
 
 if len(sys.argv) == 1:
     print "This script sent the result file to us, via hidden service"
     print "Do not run by hand, is called directly by perform_analysis"
     print ""
-    print "usage: python %s output-$country.tar.gz" % sys.argv[0]
+    print "usage: python %s results-$country.tar.gz" % sys.argv[0]
     quit(-1)
 
-print "I'm going to send the results to the hidden service...please wait a bit"
-print "If something goes wrong, please type again the command:"
-print "  torify python %s %s" % (sys.argv[0], sys.argv[1])
+
+print "I'm going to send the results to the hidden service...please wait a bit\n"
 
 filename = sys.argv[1]
 
 if len(sys.argv) == 3:
+    # this is intended if I'm debugging, putting some extra useless argument
     connect_tuple = ( '127.0.0.1', 32001 )
 
 try:
@@ -37,6 +41,8 @@ except Exception as info:
     print info
     quit(-1)
 
+total_sent = 0
+result_len = 0
 with open(filename, 'rb') as fp:
     c = socket.socket()
     c.connect( connect_tuple )
@@ -48,8 +54,10 @@ with open(filename, 'rb') as fp:
         if not data:
             break
 
+        result_len += len(data)
         datacounter += len(data)
         check = c.send(data)
+        total_sent += check
 
         # assert datacounter == check, "your OS is making fun of you, or, Tor is different than expected"
         if len(data) != check:
@@ -57,4 +65,11 @@ with open(filename, 'rb') as fp:
 
     c.close()
 
-print "Done."
+
+if total_sent == result_len:
+    print "\n\tData collected has been sent, Thank You! :)\n"
+else:
+    print "\n\tSome error has happen, please, execute again:"
+    print "\t", help(), "\n"
+
+

@@ -70,20 +70,7 @@ Create one directory for store the project files:
     wget https://github.com/vecna/helpagainsttrack/archive/master.zip
     unzip master.zip
     cd helpagainsttrack-master
-
-**PhantomJS** has to be downloaded because distribution repositories had old versions. We need >= 1.9.0 (*[sha224](http://en.wikipedia.org/wiki/SHA-2) checksum at the end the file*). You can skip this step if you are in Debian Sid (is a 1.9.0 version), but in other distribution older versions are given.
-
-If you have a 32 bit system:
-
-    wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 
-    tar jxf phantomjs-1.9.2-linux-i686.tar.bz2 
-    ln -s phantomjs-1.9.2-linux-i686/bin/phantomjs phantom-1.9.2
-    
-if you have a 64 bit system:
-
-    wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
-    tar jxf phantomjs-1.9.2-linux-x86_64.tar.bz2
-    ln -s phantomjs-1.9.2-linux-x86_64/bin/phantomjs phantom-1.9.2
+    ./fetch_phantomjs.sh
 
 ## Run the test script
 
@@ -98,7 +85,15 @@ the option **lp** (local phantom):
 
 To see a list of countries, just tape something random, the script show the available countries (or check [here](https://github.com/vecna/helpagainsttrack/tree/master/verified_media) )
 
-### Information requested
+### Clean the data
+
+When you've completed the collection, and the script report:
+
+    Data collected has been sent, Thank You! :)
+
+you can safely delete the directory **trackmap** created at the beginning
+
+### (Some yours) Information requested
 
 When the script start asks for four (**they are optional, but useful**) Information that **will never be released**: 
 
