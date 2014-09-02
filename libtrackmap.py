@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import os
+import json
 from tldextract import TLDExtract
 from termcolor import colored
 
@@ -183,3 +184,205 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
     return retdict
 
 
+
+class Importer:
+    """
+    Class (overloaded below) to load the 'output/' when received
+    the validation are here (or the lack of thereof :( =) )
+    distraction: https://www.youtube.com/watch?v=6wCgZh-nczY
+    """
+
+    def _pathof(self, filename):
+
+        retpath = os.path.join(self.outputdir, filename)
+        if not os.path.isfile(retpath):
+            raise Exception("file %s not found" % retpath)
+        return retpath
+
+
+    def __init__(self, verified_media_dir, output_dir):
+        """
+        assertion on top, then init:
+            self.information
+            self.country
+            self.used_media_list
+
+        """
+        assert os.path.isdir(verified_media_dir), "Invalid dir %s" % verified_media_dir
+        assert os.path.isdir(output_dir), "Invalid dir %s" % output_dir
+
+        self.outputdir = output_dir
+
+        self.country = None
+        try:
+            with file(self._pathof('country'), 'r') as c_f:
+                country_name = c_f.readline()
+
+            assert len(country_name) > 2 and len(country_name) < 30, "weird length"
+            valid_country = str(country_name).lower()
+            valid_country.strip(".,/;[}'\"\ %$?*\\-")
+
+            our_media_list = os.path.join(verified_media_dir, valid_country)
+            assert os.path.isfile(our_media_list), "Invalid country %s" % our_media_list
+
+            self.country = valid_country
+
+        except Exception as xxx:
+            print "Country validation failed:", xxx
+            raise xxx
+
+        self.contact_info = None
+        try:
+            with file(self._pathof('information'), 'r') as info_f:
+                info = json.load(info_f)
+
+                assert isinstance(info, dict)
+                assert info.has_key('city'), "missing city key"
+                assert info.has_key('name'), "missing name key"
+                assert info.has_key('ISP'), "missing ISP key"
+                assert info.has_key('contact'), "missing contact key"
+                assert info.has_key('version'), "missing contact key"
+                assert len(info.keys()) == 5, "too much keys"
+
+                self.contact_info = info
+        except Exception as xxx:
+            print "Contact information failed:", xxx
+            raise xxx
+
+        self.unique_id = None
+        try:
+            with file(self._pathof('unique_id'), 'r') as c_f:
+                self.unique_id = int(c_f.readline())
+        except Exception as xxx:
+            print "unique ID retrieve fail:", xxx
+            raise xxx
+
+
+    def get_cinfo_str(self):
+        assert isinstance(self.contact_info, dict)
+
+        cinfo_str = ""
+        if len(self.contact_info['name']):
+            cinfo_str = "%s" % self.contact_info['name']
+        if len(self.contact_info['ISP']):
+            cinfo_str = "%s %s" % (cinfo_str, self.contact_info['country'])
+        return cinfo_str
+
+
+    def __repr__(self):
+        return "%s %s" % (self.country, self.get_cinfo_str() )
+
+
+    def _validate_ipfile(self, fname):
+        """
+        can return an IPv4 in str, or None if was not avail
+        """
+        retip = None
+
+        try:
+            fp = file(self._pathof(fname), 'r')
+            maybe_json = fp.readline()
+            if maybe_json.startswith('Error'):
+                return retip
+
+            ip_struct = json.loads(maybe_json)
+
+            assert ip_struct.has_key('ip') and \
+                   isinstance(ip_struct['ip'], str) and \
+                   ip_struct['ip'].find('.') == 3 and \
+                   len(ip_struct['ip']) > 8 and \
+                   len(ip_struct['ip']) < 16, "Invalid ip key in %s: %s" % \
+                                              (fname, ip_struct)
+
+            # I'm not getting the hostname because of validation paranoia
+            # will not fit with a DNS lookup that will delay my stuff running
+            retip = ip_struct['ip']
+
+        except Exception as xxx:
+            print "Failure in retrieve ip from %s: %s" % (fname, xxx)
+            raise xxx
+
+
+    def get_tester_ip(self):
+        """
+        Just to remind the format:
+        { "ip":"1XX.X6.1XX.XXX",
+          "name":"string",
+          "ipnum":-15432432423
+        }
+        """
+        raise Exception("This has not to be implemented here!")
+
+    def get_TLD_map(self):
+        pass
+    def get_ipv4_map(self):
+        pass
+    def get_reverse_map(self):
+        pass
+    def get_url_per_media(self):
+        pass
+    def get_traceroutes(self):
+        pass
+
+
+
+class Import3(Importer):
+
+    def get_tester_ip(self):
+
+        self.client_ip = None
+        try:
+            ip1 = self._validate_ipfile('first.json')
+            ip2 = self._validate_ipfile('second.json')
+            ip3 = self._validate_ipfile('third.json')
+
+            if not (ip1 or ip2 or ip3):
+                raise Exception("Getting IP address failure!?")
+
+            if ip1 and ip2:
+                assert ip1 == ip2, "IP 1 and 2 mismatch"
+            if ip1 and ip3:
+                assert ip1 == ip3, "IP 1 and 3 mismatch"
+            if ip2 and ip3:
+                assert ip2 == ip3, "IP 2 and 3 mismatch"
+
+            if ip1:
+                self.client_ip = ip1
+            if ip2:
+                self.client_ip = ip2
+            if ip3:
+                self.client_ip = ip3
+
+        except Exception as xxx:
+            print "Unable to import the three IP json file", xxx
+            raise xxx
+
+        return self.client_ip
+
+
+class Import1(Importer):
+
+    def get_tester_ip(self):
+
+        self.client_ip = None
+        try:
+            ip1 = self._validate_ipfile('first.json')
+            ip2 = self._validate_ipfile('second.json')
+
+            if not (ip1 or ip2):
+                raise Exception("Getting IP address failure!?")
+
+            if ip1 and ip2:
+                assert ip1 == ip2, "IP mismatch"
+
+            if ip1:
+                self.client_ip = ip1
+
+            if ip2:
+                self.client_ip = ip2
+
+        except Exception as xxx:
+            print "Unable to get matching IP from the files", xxx
+            raise xxx
+
+        return self.client_ip
