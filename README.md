@@ -26,9 +26,7 @@ If the answer is **YES**: perfect, this mean that someone has already run the sc
 
 If you're a **Media aware citizen**, we need a reliable media list for every country. In the chapter above is explained what is important, use git to help us or open an issue.
 
-### Technical help, for Linux users:
-
-  * you can run the script *perform\_analysis.py* on your own (it will automatically send the results to our hidden service). 
+If you're a **Linux user** you can help running the script and collecting result from your country. Is needed a distributed effort, because the Internet is perceived differenty from different location. You can run the script explained below, and it will automatically send the results to our hidden service.
 
 ### Use the test script
 
@@ -102,17 +100,20 @@ When the script start asks for four (**they are optional, but useful**) Informat
   * Your contact: an email or jabber, but is a free text. Put also a GPG fingerprint if you like, can be useful if eventually we've to contact you in the future. very likely, to run again the test.
   * Your ISP: if you know it, can be useful, because in the same country different ISP return lightly different results.
 
-### Resources needed
+### Step details, timing and resources
 
-Few resources are needed. Is not possible make a precise estimation, because the resources and the time requested depends directly from the amount of media website under analysis, anyhow, based on the current results:
+Few Bandwidth/CPU/disk resources are needed. Is not possible make a precise estimation, because the executed operations  depends directly from the amount of media website under analysis, anyhow, based on the past experience:
 
   * A list with around 200 media site starts for (200 + 50) times a "one time browser". It use 5-10 seconds each. more or less expend 300 Kb for each website ( ~75 megabyte used in download ).
-  * For every media fetch, 7 to 20 hosts are discovered to be included. the script need to iterated over them. commonly are between 1400 - 1700 unique hosts.
-  * It expend (depends on your network speed) 30 minutes to 2 hours to resolve and reverse the DNS (is an operation that expend few bandwidth, is just slow)
-  * Then, over the 1400 ~ 1700 host, start a traceroute. it use at least three hours (up to 6), expend not so much bandwidth.
-  * At the end, we have 50-60 megabyte of collected data, they are sent to our server.
+  * For every media fetch, 7 to 20 hosts are discovered to be included. the script need process them in such ways:
+    * every host is resolved in an IPv4 address, this help to minimize duplicated result (happen quite often that different hosts has the same IP address). Depends on the first point, but commonly are between 1400 - 1700 unique hosts. This operation require 40 to 90 minutes.
+    * For every resolved IPv4, perform a reverse DNS resolution. This operation is slower than the previous one, require at lest 60 to 120 minutes.
+  * Then, for every unique IPv4 address, start a traceroute. it use at least four hours (up to 8), expend not so much bandwidth.
+  * **The script require more or less 12 hours to be completed, and at the end send to us 20-30 megabytes of data**
 
-Do not require strong capability from the running computer, **but is very likely have a stable network**. If you can avoid WI-FI (or be physically near the access point), it is better.
+**You can interrupt the script execution with control+C**, and when the command is given again, **it resume the previous execution**. To start a new collection, remove the 'output' directory. 
+
+**Is very likely have a stable network**. If you can avoid WI-FI (or be physically near the access point), it is better.
 
 ### The operation performed by the script
 
