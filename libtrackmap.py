@@ -2,6 +2,7 @@
 
 import os
 import json
+import datetime
 from tldextract import TLDExtract
 from termcolor import colored
 
@@ -184,6 +185,8 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
     return retdict
 
 
+# The class Importer and the subclasses are used to read the results
+# collected by perform_analysis.py script
 
 class Importer:
     """
@@ -203,15 +206,16 @@ class Importer:
     def __init__(self, verified_media_dir, output_dir):
         """
         assertion on top, then init:
-            self.information
-            self.country
-            self.used_media_list
-
+            self.country '<str>'
+            self.contact_info '<dict>'
+            self.unique_id '<int>'
+            self.submission_date
         """
         assert os.path.isdir(verified_media_dir), "Invalid dir %s" % verified_media_dir
         assert os.path.isdir(output_dir), "Invalid dir %s" % output_dir
 
         self.outputdir = output_dir
+        self.verified_media_dir = verified_media_dir
 
         self.country = None
         try:
@@ -257,14 +261,19 @@ class Importer:
             print "unique ID retrieve fail:", xxx
             raise xxx
 
+        # this is the date set on the file domain.infos
+        self.submission_date = datetime.datetime.fromtimestamp(
+                os.path.getctime( self._pathof('domain.infos') )
+            )
+
 
     def get_cinfo_str(self):
         assert isinstance(self.contact_info, dict)
 
         cinfo_str = ""
-        if len(self.contact_info['name']):
+        if self.contact_info['name'] and len(self.contact_info['name']):
             cinfo_str = "%s" % self.contact_info['name']
-        if len(self.contact_info['ISP']):
+        if self.contact_info['ISP'] and len(self.contact_info['ISP']):
             cinfo_str = "%s %s" % (cinfo_str, self.contact_info['country'])
         return cinfo_str
 
@@ -283,14 +292,14 @@ class Importer:
             fp = file(self._pathof(fname), 'r')
             maybe_json = fp.readline()
             if maybe_json.startswith('Error'):
-                return retip
+                return None
 
             ip_struct = json.loads(maybe_json)
 
             assert ip_struct.has_key('ip') and \
-                   isinstance(ip_struct['ip'], str) and \
-                   ip_struct['ip'].find('.') == 3 and \
-                   len(ip_struct['ip']) > 8 and \
+                   isinstance(ip_struct['ip'], unicode) and \
+                   ip_struct['ip'].count('.') == 3 and \
+                   len(ip_struct['ip']) > 6 and \
                    len(ip_struct['ip']) < 16, "Invalid ip key in %s: %s" % \
                                               (fname, ip_struct)
 
@@ -301,6 +310,9 @@ class Importer:
         except Exception as xxx:
             print "Failure in retrieve ip from %s: %s" % (fname, xxx)
             raise xxx
+
+        return retip
+
 
 
     def get_tester_ip(self):
@@ -321,12 +333,129 @@ class Importer:
         pass
     def get_url_per_media(self):
         pass
+
+    def get_traced_hosts(self):
+        self.domain_data = json.load(file(self._pathof('domain.infos'), 'r'))
+
+        # TODO strongest validation ?
+        assert isinstance(self.domain_data, dict)
+        # Remind, struct is
+        #
+        # { "jabar.tribunnews.com":
+        #   { "domain": "tribunnews",
+        #     "subdomain": "jabar",
+        #     "tld": "com"
+        #   },
+        #   "gp4.googleusercontent.com":
+        #   { "domain": "googleusercontent",
+        #     "subdomain": "gp4",
+        #     "tld": "com"}
+        #   }
+        # }
+
+        # assertion: need current media list
+        assert isinstance(self.analyzed_media, dict) and \
+               len(self.analyzed_media.keys()) > 1, "not initialized!"
+
+        # is used 'sortify' function to fill out the domain.infos
+        return self.domain_data.keys()
+
+
+    def get_company(self, host):
+
+        if not hasattr(self, 'disconnect_data'):
+            try:
+                # TODO check this file part of the git directory
+                assert os.path.isfile('imported_disconnect.json')
+                self.disconnect_data = json.load(file('imported_disconnect.json', 'r'))
+            except Exception as xxx:
+                print "Unable to load 'imported_disconnect.json':", xxx
+                quit(-1)
+            assert isinstance(self.disconnect_data, dict)
+
+        try:
+            tldparsed = self.domain_data.get(host)
+            full_domain = "%s.%s" % (tldparsed['domain'], tldparsed['tld'])
+            if self.disconnect_data.has_key(tldparsed['tld']):
+                return self.disconnect_data[tldparsed['tld']]
+            elif self.disconnect_data.has_key(full_domain):
+                return self.disconnect_data[full_domain]
+            else:
+                return None
+        except Exception:
+            return None
+
+
+    def get_trace_info(self, host):
+        raise Exception("Has been implemented differently on version 1 or 3")
+
     def get_traceroutes(self):
         pass
+
+    def media_list_acquire(self):
+        """
+        get the current media list for the country,
+        get the used media list in the analysis.
+        populate:
+            media_list_comparation '<str>'
+            analyzed_media '<list>'
+        """
+        current_media_f = os.path.join(self.verified_media_dir, self.country)
+        with file(current_media_f, 'r') as fp:
+            current_media = media_file_cleanings(fp.readlines(),
+                    os.path.join(self.verified_media_dir, '..', 'special_media', 'global')
+            )
+        # BUG ? the global media list is shared
+        with file(self._pathof('used_media_list'), 'r') as fp:
+            self.analyzed_media = media_file_cleanings(fp.readlines(),
+                    os.path.join(self.verified_media_dir, '..', 'special_media', 'global')
+            )
+
+        now_present =  set(current_media) - set(self.analyzed_media)
+        now_deleted =  set(self.analyzed_media) - set(current_media)
+        self.media_list_comparation = {
+            'now_present' : now_present,
+            'now_deleted' : now_deleted
+        }
 
 
 
 class Import3(Importer):
+
+    def get_success_ratio(self):
+
+        with file(self._pathof("_phantom.trace.stats.json"), 'r') as fp:
+            pha_tra_stat = json.load(fp)
+
+        try:
+            assert isinstance(pha_tra_stat, list)
+            assert len(pha_tra_stat) == 2
+
+            phantom_s = pha_tra_stat[0]
+            trace_s = pha_tra_stat[1]
+
+            assert isinstance(phantom_s, dict)
+            assert isinstance(trace_s, dict)
+        except Exception as xxx:
+            print "Unable to load the Phantom/Traceroute stats: %s" % xxx
+            raise xxx
+
+        # collect the results of the large dict returning just three numbers
+        self.phantom_stats = {}
+        keys = [ 'first', 'second', 'failures']
+        for k in keys:
+            if phantom_s.has_key(k):
+                self.phantom_stats[k] = len(phantom_s[k])
+            else:
+                self.phantom_stats[k] = 0
+
+        # collect the number of True and False = the number of successful trace
+        self.trace_stats = {
+            'success' : trace_s.items().count(True),
+            'failures' : trace_s.items().count(False)
+        }
+        return self.phantom_stats, self.trace_stats
+
 
     def get_tester_ip(self):
 
@@ -347,11 +476,11 @@ class Import3(Importer):
                 assert ip2 == ip3, "IP 2 and 3 mismatch"
 
             if ip1:
-                self.client_ip = ip1
+                self.client_ip = ip1['ip']
             if ip2:
-                self.client_ip = ip2
+                self.client_ip = ip2['ip']
             if ip3:
-                self.client_ip = ip3
+                self.client_ip = ip3['ip']
 
         except Exception as xxx:
             print "Unable to import the three IP json file", xxx
@@ -375,11 +504,7 @@ class Import1(Importer):
             if ip1 and ip2:
                 assert ip1 == ip2, "IP mismatch"
 
-            if ip1:
-                self.client_ip = ip1
-
-            if ip2:
-                self.client_ip = ip2
+            self.client_ip = ip1 if ip1 else ip2
 
         except Exception as xxx:
             print "Unable to get matching IP from the files", xxx
