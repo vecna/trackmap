@@ -12,6 +12,11 @@ if (system.args.length === 1) {
 
 address = system.args[1];
 
+page.onResourceError = function(resourceError) {
+    page.reason = resourceError.errorString;
+    page.reason_url = resourceError.url;
+};
+
 page.onResourceRequested = function (req) {
     // console.log('requested: ' + JSON.stringify(req, undefined, 4));
 
@@ -47,6 +52,9 @@ page.onResourceTimeout = function(e) {
 page.open(address, function (status) {
     if (status !== 'success') {
         console.log('FAIL to load the address');
+        console.log(status);
+        console.log(page.reason);
+        console.log(page.reason_url);
     } else {
         landing_title =  page.evaluate(function () {
             return document.title;

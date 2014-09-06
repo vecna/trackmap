@@ -8,7 +8,7 @@ from termcolor import colored
 
 INFOFILES = [ 'phantom.log', '_traceroutes', 'unique_id', 'used_media_list',
               '_verbotracelogs', 'domain.infos', 'country', 'information',
-              'errors.dns', 'reverse.dns', 'resolution.dns', 
+              'errors.dns', 'reverse.dns', 'resolution.dns',
               'first.json', 'second.json', 'third.json', '_phantom.trace.stats.json' ]
 
 def get_unique_urls(source_urldir, urldumpsf):
@@ -60,7 +60,7 @@ def sortify(outputdir):
                     'subdomain' : dnsplit.subdomain }
                 })
 
-        # note: 
+        # note:
         # https://raw.github.com/mozilla/gecko-dev/master/netwerk/dns/effective_tld_names.dat
         # tldextract is based on this file, and cloudfront.net is readed as TLD. but is fine
         # I've only to sum domain + TLD in order to identify the "included entity"
@@ -314,7 +314,6 @@ class Importer:
         return retip
 
 
-
     def get_tester_ip(self):
         """
         Just to remind the format:
@@ -331,10 +330,42 @@ class Importer:
         pass
     def get_reverse_map(self):
         pass
-    def get_url_per_media(self):
-        pass
 
-    def get_traced_hosts(self):
+    def get_details_per_media(self, media_url):
+        """
+        Return some details (title, objects, blah)
+        in future will be expanded with more information about the kind of the
+        inclusion, perhaps ?
+        """
+        try:
+            title = file( self._pathof("%s/__title" % media_url) ).readline()
+            included_url = get_unique_urls(media_url, self._pathof("%s/__urls" % media_url))
+        except Exception as xxx:
+            print "Unable to load properly media %s: %s" % (media_url, xxx)
+            return None
+
+        try:
+            media_type = self.analyzed_media[media_url]
+        except KeyError:
+            print "Media", media_url,"has been scanned, but is removed from our list: importing as 'removed'"
+            media_type = u'removed'
+
+        try:
+            title = file( self._pathof("%s/__title" % media_url) ).readline()
+            active_object = True
+        except Exception:
+            active_object = False
+
+        return {
+            'title' : title,
+            'included_url' : included_url,
+            'media_type' : media_type,
+            'active_object' : active_object
+        }
+
+
+
+    def get_included_hosts(self):
         self.domain_data = json.load(file(self._pathof('domain.infos'), 'r'))
 
         # TODO strongest validation ?
@@ -386,11 +417,9 @@ class Importer:
             return None
 
 
-    def get_trace_info(self, host):
+    def get_trace_country(self, host):
         raise Exception("Has been implemented differently on version 1 or 3")
 
-    def get_traceroutes(self):
-        pass
 
     def media_list_acquire(self):
         """
@@ -451,8 +480,8 @@ class Import3(Importer):
 
         # collect the number of True and False = the number of successful trace
         self.trace_stats = {
-            'success' : trace_s.items().count(True),
-            'failures' : trace_s.items().count(False)
+            'success' : trace_s.values().count(True),
+            'failures' : trace_s.values().count(False)
         }
         return self.phantom_stats, self.trace_stats
 
@@ -476,17 +505,53 @@ class Import3(Importer):
                 assert ip2 == ip3, "IP 2 and 3 mismatch"
 
             if ip1:
-                self.client_ip = ip1['ip']
+                self.client_ip = ip1
             if ip2:
-                self.client_ip = ip2['ip']
+                self.client_ip = ip2
             if ip3:
-                self.client_ip = ip3['ip']
+                self.client_ip = ip3
 
         except Exception as xxx:
             print "Unable to import the three IP json file", xxx
             raise xxx
 
         return self.client_ip
+
+
+    def get_trace_country(self, host):
+        """
+        This is used differently in version 1 or version 3,
+        Here is version 3
+            has IP traced and
+            symbolic link from the hostname
+        """
+        try:
+            country_tjf = self._pathof('_traceroutes/%s.countries' % host)
+            assert os.path.islink(country_tjf), "Not a symlink as expected"
+        except Exception:
+            print "No traceroute output available for %s" % host
+            return None
+
+        country_list = []
+        with file(country_tjf) as f:
+            # convert the ordered dictionary in a list
+            numeric_flow_of_country = json.load(f)
+            limit = len(numeric_flow_of_country.keys())
+
+            for i in xrange(limit):
+                unicode_key = u"%s" % i
+
+                # TODO - remove dups,
+                country_list.append(numeric_flow_of_country[unicode_key])
+
+        return country_list
+
+
+    def get_trace_tim(self, host):
+        return os.path.getctime(
+            self._pathof('_traceroutes/%s.countries' % host)
+        )
+
 
 
 class Import1(Importer):
@@ -511,3 +576,74 @@ class Import1(Importer):
             raise xxx
 
         return self.client_ip
+
+    def get_trace_complete(self, host):
+        """
+
+        try:
+        # IP traceroute dict
+    ip_pick_f = os.path.join(datadir, '_traceroutes', "%s_countries.json" % included)
+
+    # Country conversion of IP tracerouted dict
+    country_pick_f = os.path.join(datadir, '_traceroutes', "%s_countries.json" % included)
+
+    if not (os.path.isfile(ip_pick_f) and os.path.isfile(country_pick_f) ):
+        print "Fatal ? missing one of", ip_pick_f, country_pick_f
+        raise Exception("Missing output of expected tracroute: %s" % included)
+
+    with file(ip_pick_f) as f:
+        route.routing_ip_chain = json.load(f)
+
+    with file(country_pick_f) as f:
+        # convert the ordered dictionary in a list
+        numeric_flow_of_country = json.load(f)
+        limit = len(numeric_flow_of_country.keys())
+        route.routing_country_chain = []
+
+        for i in xrange(limit):
+            unicode_key = u"%s" % i
+            route.routing_country_chain.append(numeric_flow_of_country[unicode_key])
+
+    with file(os.path.join(datadir, '_verbotracelogs', urldir), 'r') as f:
+        route.routing_raw_output = unicode(f.read())
+
+    store.add(route)
+        """
+        raise Exception("NYI")
+
+
+    def get_trace_country(self, host):
+        """
+        This is used differently in version 1 or version 3,
+        Here is version 1:
+            has every host a traceroute dump in .json
+            they are "trace JSON files"
+        """
+        try:
+            country_tjf = self._pathof('_traceroutes/%s_countries.json' % host)
+        except Exception:
+            print "No traceroute output available for %s" % host
+            return None
+
+        country_list = []
+        with file(country_tjf) as f:
+            # convert the ordered dictionary in a list
+            numeric_flow_of_country = json.load(f)
+            limit = len(numeric_flow_of_country.keys())
+
+            for i in xrange(limit):
+                unicode_key = u"%s" % i
+
+                # TODO - remove dups,
+                country_list.append(numeric_flow_of_country[unicode_key])
+
+        return country_list
+
+
+    def get_trace_tim(self, host):
+        return os.path.getctime(
+            self._pathof('_traceroutes/%s_countries.json' % host)
+        )
+
+
+
