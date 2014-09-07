@@ -232,7 +232,7 @@ def do_trace(hostlist, ipv4):
     if not validate_traceroute_output(totalsterisks, iplist, tolerance=False):
         print colored("Traceroute got %d *'s: waiting 10 seconds and retry slower" % totalsterisks, "red"),
         time.sleep(10)
-        secondtotalrisks, iplist = software_execution("2.1")
+        secondtotalrisks, iplist = software_execution("2.8")
         if validate_traceroute_output(secondtotalrisks, iplist, tolerance=True):
             print colored("\n\tOk! tracerouted with a more reliable output (%d)" % secondtotalrisks, "green"),
         else:
@@ -272,8 +272,6 @@ def do_trace(hostlist, ipv4):
     os.chdir(os.path.join(OUTPUTDIR, '_traceroutes'))
     ipv4_traced_hop_f = "%s_ip.json" % ipv4
     ipv4_traced_countr_f = "%s_countries.json" % ipv4
-    #ipv4_traced_hop_f = os.path.join(OUTPUTDIR, '_traceroutes', "%s_ip.json" % ipv4)
-    #ipv4_traced_countr_f = os.path.join(OUTPUTDIR, '_traceroutes', "%s_countries.json" % ipv4)
 
     with file(ipv4_traced_hop_f, 'w+') as f:
         json.dump(iplist, f)
