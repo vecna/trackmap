@@ -3,6 +3,8 @@
 import os
 import json
 import datetime
+import GeoIP
+
 from tldextract import TLDExtract
 from termcolor import colored
 
@@ -10,6 +12,9 @@ INFOFILES = [ 'phantom.log', '_traceroutes', 'unique_id', 'used_media_list',
               '_verbotracelogs', 'domain.infos', 'country', 'information',
               'errors.dns', 'reverse.dns', 'resolution.dns',
               'first.json', 'second.json', 'third.json', '_phantom.trace.stats.json' ]
+
+PERMITTED_SECTIONS = [ 'global', 'national', 'local', 'blog', 'removed' ]
+
 
 def get_unique_urls(source_urldir, urldumpsf):
     urls = {}
@@ -116,7 +121,6 @@ def load_global_file(GLOBAL_MEDIA_FILE):
 
 
 GLOBAL_MEDIA_FILE = 'special_media/global'
-PERMITTED_SECTIONS = [ 'global', 'national', 'local', 'blog' ]
 
 def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
     """
@@ -161,7 +165,7 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
                 continue
 
             if current_section:
-                print "Section", current_section, "has got # entries", counter_section
+                # print "Section", current_section, "has got # entries", counter_section
                 counter_section = 0
 
             current_section = candidate_section
@@ -180,9 +184,23 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
 
     # the last section is printed here
     if current_section:
-        print "Section", current_section, "has got # entries", counter_section
+        # print "Section", current_section, "has got # entries", counter_section
+        pass # this is because is commented the line above
 
     return retdict
+
+
+def ip_to_country_tuple(ip):
+    """
+    This can be removed and or/never called by perform_analysis: is useless
+    in the supporter computer, I can compute them only before the import
+    """
+
+    gi = GeoIP.new(GeoIP.GEOIP_MEMORY_CACHE)
+    cc = gi.country_code_by_addr(ip)
+    cn = gi.country_name_by_addr(ip)
+    return cc, cn
+
 
 
 # The class Importer and the subclasses are used to read the results
@@ -274,7 +292,7 @@ class Importer:
         if self.contact_info['name'] and len(self.contact_info['name']):
             cinfo_str = "%s" % self.contact_info['name']
         if self.contact_info['ISP'] and len(self.contact_info['ISP']):
-            cinfo_str = "%s %s" % (cinfo_str, self.contact_info['country'])
+            cinfo_str = "%s %s" % (cinfo_str, self.contact_info['ISP'])
         return cinfo_str
 
 
@@ -326,8 +344,17 @@ class Importer:
 
     def get_TLD_map(self):
         pass
+
     def get_ipv4_map(self):
-        pass
+
+        self.resolution_dns = {}
+        with file(self._pathof('resolution.dns')) as fp:
+            self.resolution_dns = json.load(fp)
+
+        return self.resolution_dns
+
+
+
     def get_reverse_map(self):
         pass
 
@@ -402,7 +429,12 @@ class Importer:
             except Exception as xxx:
                 print "Unable to load 'imported_disconnect.json':", xxx
                 quit(-1)
-            assert isinstance(self.disconnect_data, dict)
+
+        if not hasattr(self, 'domain_data') :
+            self.get_included_hosts()
+
+        assert isinstance(self.disconnect_data, dict)
+        assert isinstance(self.domain_data, dict)
 
         try:
             tldparsed = self.domain_data.get(host)
@@ -481,7 +513,7 @@ class Import3(Importer):
         # collect the number of True and False = the number of successful trace
         self.trace_stats = {
             'success' : trace_s.values().count(True),
-            'failures' : trace_s.values().count(False)
+            'fails' : trace_s.values().count(False)
         }
         return self.phantom_stats, self.trace_stats
 
@@ -540,8 +572,6 @@ class Import3(Importer):
 
             for i in xrange(limit):
                 unicode_key = u"%s" % i
-
-                # TODO - remove dups,
                 country_list.append(numeric_flow_of_country[unicode_key])
 
         return country_list
@@ -622,7 +652,7 @@ class Import1(Importer):
         try:
             country_tjf = self._pathof('_traceroutes/%s_countries.json' % host)
         except Exception:
-            print "No traceroute output available for %s" % host
+            # print "No traceroute output available for %s" % host
             return None
 
         country_list = []
@@ -633,8 +663,6 @@ class Import1(Importer):
 
             for i in xrange(limit):
                 unicode_key = u"%s" % i
-
-                # TODO - remove dups,
                 country_list.append(numeric_flow_of_country[unicode_key])
 
         return country_list
@@ -647,3 +675,141 @@ class Import1(Importer):
 
 
 
+
+def local_resolve_host(host, resolution_storage):
+
+    for ip, hostlist in resolution_storage.iteritems():
+        if host in hostlist:
+            return ip
+
+    raise Exception("Failure in resolve something ? %s" % host)
+
+
+class TrackingResearch:
+
+    def __init__(self, country, test_id, media_kind, media_url, media_ip):
+
+        assert media_ip, "TrackResearch: resolution fail %s" % media_url
+        c_code, c_name = ip_to_country_tuple(media_ip)
+        self.description = {
+            'country': country,
+            'test_id': test_id,
+            'media_url': media_url,
+            'media_kind': media_kind,
+            'media_location': "%s (%s)" % (c_name, c_code)
+        }
+        self.company_collection = {}
+        self.country_collection = {}
+
+    def add_company(self, company):
+        self.company_collection.setdefault(company, 0)
+        self.company_collection[company] += 1
+
+    def add_countries(self, country_list):
+        for country in country_list:
+            self.country_collection.setdefault(country, 0)
+            self.country_collection[country] += 1
+
+    def get_numbers(self):
+        """
+        Return numbers for the class below, PercentageResearch,
+        that computer percentages based on the data here stored.
+        """
+        return self.description['media_kind'], \
+               self.country_collection, \
+               self.company_collection
+
+    def dump(self, directory):
+
+        complete_data = {
+            'info' : self.description,
+            'companies' : self.company_collection,
+            'countries' : self.country_collection
+        }
+
+        destdir = os.path.join(directory, self.description['country'])
+        try:
+            os.makedirs(destdir)
+        except Exception:
+            pass
+
+        destfile = os.path.join(destdir, '%s-%s.json' %
+                                    ( self.description['test_id'],
+                                      self.description['media_kind']) )
+        previous = []
+        if os.path.isfile(destfile):
+            with file(destfile) as f:
+                previous = json.load(f)
+
+            os.unlink(destfile)
+
+        previous.append(complete_data)
+        with file(destfile, 'w+') as f:
+            json.dump(previous, f)
+
+
+class PercentageResearch:
+
+    def __init__(self, country, importer_id):
+
+        self.country = country
+        self.importer_id = importer_id
+
+        self.media_counter = {
+            'global' : 0,
+            'national' : 0,
+            'local' : 0,
+            'blog' : 0
+        }
+        self.country_collector = {}
+        self.company_collector = {}
+
+    def add_media_info(self, blob):
+        """
+        (
+            'global',
+                {
+                    None: 51,  u'Europe': 1, u'Australia': 3,
+                    u'Singapore': 17, u'Indonesia': 50, u'India': 1,
+                    u'United States': 24, u'Asia/Pacific Region': 1,
+                    u'Japan': 2, u'Hong Kong': 1, 'ID': 45
+                }, {
+                    None: 18, u'Google': 11, u'Adobe': 2, u'Nielsen': 1,
+                    u'cXense': 1, u'comScore': 1, u'Fairfax Media': 1,
+                    u'Chartbeat': 2, u'Fox One Stop Media': 3, u'Amazon.com': 1,
+                    u'Skimlinks': 2, u'Optimizely': 2
+                }
+        )
+        """
+        self.media_counter[blob[0]] += 1
+
+        # TODO evaluate if remove 'global' from the country stats
+
+        for country, entrances in blob[1].iteritems():
+            self.country_collector.setdefault(country, 0)
+            self.country_collector[country] += entrances
+
+        for company, inclusions in blob[2].iteritems():
+            self.company_collector.setdefault(company, 0)
+            self.company_collector[company] += inclusions
+
+    def dump(self, percentdir):
+
+        destdir = os.path.join(percentdir, self.country)
+        try:
+            os.makedirs(destdir)
+        except Exception:
+            pass
+
+        destfile = os.path.join(destdir, '%s-%s.json' %
+                                         ( self.importer_id, self.country))
+
+        # TODO do the percentage computation and put them in this dict
+        summary_dict = {
+            'countries_sum' : self.country_collector,
+            'companies_sum' : self.company_collector,
+            'media_sum' : self.media_counter
+        }
+
+        with file(destfile, 'w+') as f:
+            json.dump(summary_dict, f)
