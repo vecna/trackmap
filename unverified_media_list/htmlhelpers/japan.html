@@ -1,0 +1,1203 @@
+
+<html>
+
+<head>
+    <title>Just the test</title>
+    <script type="application/javascript" src="bower_components/jquery-2.1.0.min/index.js"></script>
+
+    <script type="application/javascript">
+
+        function goblog(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#blogList");
+        }
+
+        function golocal(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#localList");
+        }
+
+        function gonational(elem) {
+            $('.stigma').remove();
+            $(elem).appendTo("#nationalList");
+        }
+
+        function removebutton() {
+            $('.clickable').hide();
+        }
+
+        function showbutton() {
+            $('.clickable').show();
+        }
+
+        function openiframe(elem, url) {
+            $('<br>').appendTo(elem);
+            $('<iframe />', {
+                'src' :url,
+                'width': "80%",
+                'height': "40%",
+                'class': 'stigma'
+            }).appendTo(elem);
+        }
+
+        function justfuckingdeletethisshit(elem) {
+            $(elem).remove()
+        }
+
+    </script>
+    <style type="text/css">
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        .urlList {
+            border-color: red;
+            background-color: palegoldenrod;
+            border-bottom-left-radius: 2px;
+            width: 100%;
+            margin-bottom: 3px;
+            font-family: monospace;
+        }
+        h1 {
+            text-align: center;
+            color: cadetblue;
+            font-size: 3em;
+        }
+        .clickable {
+            background-color: yellow;
+            color: blueviolet;
+            margin-left: 2em;
+            margin-right: 2em;
+        }
+        .show {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>
+japan
+</h1>
+
+<h2>National List</h2>
+<div class="urlList" id="nationalList">
+</div>
+
+<h2>Local/Specialistic List</h2>
+<div class="urlList" id="localList">
+</div>
+
+<h2>personal/community Blog List</h2>
+<div class="urlList" id="blogList">
+</div>
+
+<h2>Unverified List</h2>
+
+
+<div id="da4b92">
+    <a href="http://373news.com/" target="_blank">http://373news.com/</a>
+    <span class="clickable" onclick="golocal('#da4b92');">local</span>
+    <span class="clickable" onclick="gonational('#da4b92');">national</span>
+    <span class="clickable" onclick="goblog('#da4b92');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#da4b92');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#da4b92', 'http://373news.com/');">show now</span>
+</div>
+
+
+
+<div id="77de68">
+    <a href="http://community.skynetjp.com/" target="_blank">http://community.skynetjp.com/</a>
+    <span class="clickable" onclick="golocal('#77de68');">local</span>
+    <span class="clickable" onclick="gonational('#77de68');">national</span>
+    <span class="clickable" onclick="goblog('#77de68');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#77de68');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#77de68', 'http://community.skynetjp.com/');">show now</span>
+</div>
+
+
+
+<div id="1b6453">
+    <a href="http://english.kyodonews.jp/" target="_blank">http://english.kyodonews.jp/</a>
+    <span class="clickable" onclick="golocal('#1b6453');">local</span>
+    <span class="clickable" onclick="gonational('#1b6453');">national</span>
+    <span class="clickable" onclick="goblog('#1b6453');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#1b6453');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#1b6453', 'http://english.kyodonews.jp/');">show now</span>
+</div>
+
+
+
+<div id="ac3478">
+    <a href="http://gendai.net/" target="_blank">http://gendai.net/</a>
+    <span class="clickable" onclick="golocal('#ac3478');">local</span>
+    <span class="clickable" onclick="gonational('#ac3478');">national</span>
+    <span class="clickable" onclick="goblog('#ac3478');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#ac3478');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#ac3478', 'http://gendai.net/');">show now</span>
+</div>
+
+
+
+<div id="c1dfd9">
+    <a href="http://kiryutimes.co.jp/" target="_blank">http://kiryutimes.co.jp/</a>
+    <span class="clickable" onclick="golocal('#c1dfd9');">local</span>
+    <span class="clickable" onclick="gonational('#c1dfd9');">national</span>
+    <span class="clickable" onclick="goblog('#c1dfd9');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#c1dfd9');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#c1dfd9', 'http://kiryutimes.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="902ba3">
+    <a href="http://kumanichi.com/index.htm" target="_blank">http://kumanichi.com/index.htm</a>
+    <span class="clickable" onclick="golocal('#902ba3');">local</span>
+    <span class="clickable" onclick="gonational('#902ba3');">national</span>
+    <span class="clickable" onclick="goblog('#902ba3');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#902ba3');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#902ba3', 'http://kumanichi.com/index.htm');">show now</span>
+</div>
+
+
+
+<div id="fe5dbb">
+    <a href="http://kyushu.yomiuri.co.jp" target="_blank">http://kyushu.yomiuri.co.jp</a>
+    <span class="clickable" onclick="golocal('#fe5dbb');">local</span>
+    <span class="clickable" onclick="gonational('#fe5dbb');">national</span>
+    <span class="clickable" onclick="goblog('#fe5dbb');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#fe5dbb');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#fe5dbb', 'http://kyushu.yomiuri.co.jp');">show now</span>
+</div>
+
+
+
+<div id="0ade7c">
+    <a href="http://osaka.yomiuri.co.jp/" target="_blank">http://osaka.yomiuri.co.jp/</a>
+    <span class="clickable" onclick="golocal('#0ade7c');">local</span>
+    <span class="clickable" onclick="gonational('#0ade7c');">national</span>
+    <span class="clickable" onclick="goblog('#0ade7c');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#0ade7c');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#0ade7c', 'http://osaka.yomiuri.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="b1d578">
+    <a href="http://ryukyushimpo.jp/" target="_blank">http://ryukyushimpo.jp/</a>
+    <span class="clickable" onclick="golocal('#b1d578');">local</span>
+    <span class="clickable" onclick="gonational('#b1d578');">national</span>
+    <span class="clickable" onclick="goblog('#b1d578');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#b1d578');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#b1d578', 'http://ryukyushimpo.jp/');">show now</span>
+</div>
+
+
+
+<div id="17ba07">
+    <a href="http://www.niigata-nippo.co.jp" target="_blank">http://www.niigata-nippo.co.jp</a>
+    <span class="clickable" onclick="golocal('#17ba07');">local</span>
+    <span class="clickable" onclick="gonational('#17ba07');">national</span>
+    <span class="clickable" onclick="goblog('#17ba07');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#17ba07');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#17ba07', 'http://www.niigata-nippo.co.jp');">show now</span>
+</div>
+
+
+
+<div id="7b5200">
+    <a href="http://theblackship.com/" target="_blank">http://theblackship.com/</a>
+    <span class="clickable" onclick="golocal('#7b5200');">local</span>
+    <span class="clickable" onclick="gonational('#7b5200');">national</span>
+    <span class="clickable" onclick="goblog('#7b5200');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#7b5200');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#7b5200', 'http://theblackship.com/');">show now</span>
+</div>
+
+
+
+<div id="bd307a">
+    <a href="http://www.agara.co.jp/" target="_blank">http://www.agara.co.jp/</a>
+    <span class="clickable" onclick="golocal('#bd307a');">local</span>
+    <span class="clickable" onclick="gonational('#bd307a');">national</span>
+    <span class="clickable" onclick="goblog('#bd307a');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#bd307a');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#bd307a', 'http://www.agara.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="fa35e1">
+    <a href="http://www.agrinews.co.jp/" target="_blank">http://www.agrinews.co.jp/</a>
+    <span class="clickable" onclick="golocal('#fa35e1');">local</span>
+    <span class="clickable" onclick="gonational('#fa35e1');">national</span>
+    <span class="clickable" onclick="goblog('#fa35e1');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#fa35e1');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#fa35e1', 'http://www.agrinews.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="f1abd6">
+    <a href="http://www.asahi.com/" target="_blank">http://www.asahi.com/</a>
+    <span class="clickable" onclick="golocal('#f1abd6');">local</span>
+    <span class="clickable" onclick="gonational('#f1abd6');">national</span>
+    <span class="clickable" onclick="goblog('#f1abd6');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#f1abd6');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#f1abd6', 'http://www.asahi.com/');">show now</span>
+</div>
+
+
+
+<div id="1574bd">
+    <a href="http://www.asahi.com/english/" target="_blank">http://www.asahi.com/english/</a>
+    <span class="clickable" onclick="golocal('#1574bd');">local</span>
+    <span class="clickable" onclick="gonational('#1574bd');">national</span>
+    <span class="clickable" onclick="goblog('#1574bd');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#1574bd');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#1574bd', 'http://www.asahi.com/english/');">show now</span>
+</div>
+
+
+
+<div id="0716d9">
+    <a href="http://www.awamnews.com/" target="_blank">http://www.awamnews.com/</a>
+    <span class="clickable" onclick="golocal('#0716d9');">local</span>
+    <span class="clickable" onclick="gonational('#0716d9');">national</span>
+    <span class="clickable" onclick="goblog('#0716d9');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#0716d9');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#0716d9', 'http://www.awamnews.com/');">show now</span>
+</div>
+
+
+
+<div id="9e6a55">
+    <a href="http://www.bocho-shinbun.com/" target="_blank">http://www.bocho-shinbun.com/</a>
+    <span class="clickable" onclick="golocal('#9e6a55');">local</span>
+    <span class="clickable" onclick="gonational('#9e6a55');">national</span>
+    <span class="clickable" onclick="goblog('#9e6a55');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#9e6a55');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#9e6a55', 'http://www.bocho-shinbun.com/');">show now</span>
+</div>
+
+
+
+<div id="b3f0c7">
+    <a href="http://www.chibanippo.co.jp/" target="_blank">http://www.chibanippo.co.jp/</a>
+    <span class="clickable" onclick="golocal('#b3f0c7');">local</span>
+    <span class="clickable" onclick="gonational('#b3f0c7');">national</span>
+    <span class="clickable" onclick="goblog('#b3f0c7');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#b3f0c7');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#b3f0c7', 'http://www.chibanippo.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="91032a">
+    <a href="http://www.chugoku-np.co.jp/" target="_blank">http://www.chugoku-np.co.jp/</a>
+    <span class="clickable" onclick="golocal('#91032a');">local</span>
+    <span class="clickable" onclick="gonational('#91032a');">national</span>
+    <span class="clickable" onclick="goblog('#91032a');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#91032a');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#91032a', 'http://www.chugoku-np.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="472b07">
+    <a href="http://www.chukei.ne.jp/" target="_blank">http://www.chukei.ne.jp/</a>
+    <span class="clickable" onclick="golocal('#472b07');">local</span>
+    <span class="clickable" onclick="gonational('#472b07');">national</span>
+    <span class="clickable" onclick="goblog('#472b07');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#472b07');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#472b07', 'http://www.chukei.ne.jp/');">show now</span>
+</div>
+
+
+
+<div id="12c6fc">
+    <a href="http://www.chunichi.co.jp/" target="_blank">http://www.chunichi.co.jp/</a>
+    <span class="clickable" onclick="golocal('#12c6fc');">local</span>
+    <span class="clickable" onclick="gonational('#12c6fc');">national</span>
+    <span class="clickable" onclick="goblog('#12c6fc');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#12c6fc');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#12c6fc', 'http://www.chunichi.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="d435a6">
+    <a href="http://www.cosmos.ne.jp" target="_blank">http://www.cosmos.ne.jp</a>
+    <span class="clickable" onclick="golocal('#d435a6');">local</span>
+    <span class="clickable" onclick="gonational('#d435a6');">national</span>
+    <span class="clickable" onclick="goblog('#d435a6');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#d435a6');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#d435a6', 'http://www.cosmos.ne.jp');">show now</span>
+</div>
+
+
+
+<div id="4d134b">
+    <a href="http://www.daily.co.jp/" target="_blank">http://www.daily.co.jp/</a>
+    <span class="clickable" onclick="golocal('#4d134b');">local</span>
+    <span class="clickable" onclick="gonational('#4d134b');">national</span>
+    <span class="clickable" onclick="goblog('#4d134b');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#4d134b');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#4d134b', 'http://www.daily.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="f6e112">
+    <a href="http://www.daily-tohoku.co.jp/" target="_blank">http://www.daily-tohoku.co.jp/</a>
+    <span class="clickable" onclick="golocal('#f6e112');">local</span>
+    <span class="clickable" onclick="gonational('#f6e112');">national</span>
+    <span class="clickable" onclick="goblog('#f6e112');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#f6e112');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#f6e112', 'http://www.daily-tohoku.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="887309">
+    <a href="http://www.ehime-np.co.jp/" target="_blank">http://www.ehime-np.co.jp/</a>
+    <span class="clickable" onclick="golocal('#887309');">local</span>
+    <span class="clickable" onclick="gonational('#887309');">national</span>
+    <span class="clickable" onclick="goblog('#887309');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#887309');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#887309', 'http://www.ehime-np.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="bc33ea">
+    <a href="http://www.estripes.com/" target="_blank">http://www.estripes.com/</a>
+    <span class="clickable" onclick="golocal('#bc33ea');">local</span>
+    <span class="clickable" onclick="gonational('#bc33ea');">national</span>
+    <span class="clickable" onclick="goblog('#bc33ea');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#bc33ea');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#bc33ea', 'http://www.estripes.com/');">show now</span>
+</div>
+
+
+
+<div id="0a57cb">
+    <a href="http://www.fukuishimbun.co.jp/" target="_blank">http://www.fukuishimbun.co.jp/</a>
+    <span class="clickable" onclick="golocal('#0a57cb');">local</span>
+    <span class="clickable" onclick="gonational('#0a57cb');">national</span>
+    <span class="clickable" onclick="goblog('#0a57cb');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#0a57cb');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#0a57cb', 'http://www.fukuishimbun.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="7719a1">
+    <a href="http://www.higashiaichi.co.jp/" target="_blank">http://www.higashiaichi.co.jp/</a>
+    <span class="clickable" onclick="golocal('#7719a1');">local</span>
+    <span class="clickable" onclick="gonational('#7719a1');">national</span>
+    <span class="clickable" onclick="goblog('#7719a1');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#7719a1');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#7719a1', 'http://www.higashiaichi.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="22d200">
+    <a href="http://www.hokkaido-np.co.jp/" target="_blank">http://www.hokkaido-np.co.jp/</a>
+    <span class="clickable" onclick="golocal('#22d200');">local</span>
+    <span class="clickable" onclick="gonational('#22d200');">national</span>
+    <span class="clickable" onclick="goblog('#22d200');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#22d200');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#22d200', 'http://www.hokkaido-np.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="632667">
+    <a href="http://www.hokkoku.co.jp/" target="_blank">http://www.hokkoku.co.jp/</a>
+    <span class="clickable" onclick="golocal('#632667');">local</span>
+    <span class="clickable" onclick="gonational('#632667');">national</span>
+    <span class="clickable" onclick="goblog('#632667');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#632667');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#632667', 'http://www.hokkoku.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="cb4e52">
+    <a href="http://www.ibaraki-np.co.jp/" target="_blank">http://www.ibaraki-np.co.jp/</a>
+    <span class="clickable" onclick="golocal('#cb4e52');">local</span>
+    <span class="clickable" onclick="gonational('#cb4e52');">national</span>
+    <span class="clickable" onclick="goblog('#cb4e52');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#cb4e52');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#cb4e52', 'http://www.ibaraki-np.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="b6692e">
+    <a href="http://www.iht.com" target="_blank">http://www.iht.com</a>
+    <span class="clickable" onclick="golocal('#b6692e');">local</span>
+    <span class="clickable" onclick="gonational('#b6692e');">national</span>
+    <span class="clickable" onclick="goblog('#b6692e');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#b6692e');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#b6692e', 'http://www.iht.com');">show now</span>
+</div>
+
+
+
+<div id="f1f836">
+    <a href="http://www.ipcjapan.com/" target="_blank">http://www.ipcjapan.com/</a>
+    <span class="clickable" onclick="golocal('#f1f836');">local</span>
+    <span class="clickable" onclick="gonational('#f1f836');">national</span>
+    <span class="clickable" onclick="goblog('#f1f836');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#f1f836');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#f1f836', 'http://www.ipcjapan.com/');">show now</span>
+</div>
+
+
+
+<div id="972a67">
+    <a href="http://www.ipcworld.co.jp/" target="_blank">http://www.ipcworld.co.jp/</a>
+    <span class="clickable" onclick="golocal('#972a67');">local</span>
+    <span class="clickable" onclick="gonational('#972a67');">national</span>
+    <span class="clickable" onclick="goblog('#972a67');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#972a67');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#972a67', 'http://www.ipcworld.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="fc074d">
+    <a href="http://www.isenp.co.jp/" target="_blank">http://www.isenp.co.jp/</a>
+    <span class="clickable" onclick="golocal('#fc074d');">local</span>
+    <span class="clickable" onclick="gonational('#fc074d');">national</span>
+    <span class="clickable" onclick="goblog('#fc074d');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#fc074d');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#fc074d', 'http://www.isenp.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="cb7a1d">
+    <a href="http://www.iwanichi.co.jp/" target="_blank">http://www.iwanichi.co.jp/</a>
+    <span class="clickable" onclick="golocal('#cb7a1d');">local</span>
+    <span class="clickable" onclick="gonational('#cb7a1d');">national</span>
+    <span class="clickable" onclick="goblog('#cb7a1d');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#cb7a1d');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#cb7a1d', 'http://www.iwanichi.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="5b384c">
+    <a href="http://www.iwate-np.co.jp/" target="_blank">http://www.iwate-np.co.jp/</a>
+    <span class="clickable" onclick="golocal('#5b384c');">local</span>
+    <span class="clickable" onclick="gonational('#5b384c');">national</span>
+    <span class="clickable" onclick="goblog('#5b384c');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#5b384c');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#5b384c', 'http://www.iwate-np.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="ca3512">
+    <a href="http://www.japanmorningpost.com/" target="_blank">http://www.japanmorningpost.com/</a>
+    <span class="clickable" onclick="golocal('#ca3512');">local</span>
+    <span class="clickable" onclick="gonational('#ca3512');">national</span>
+    <span class="clickable" onclick="goblog('#ca3512');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#ca3512');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#ca3512', 'http://www.japanmorningpost.com/');">show now</span>
+</div>
+
+
+
+<div id="af3e13">
+    <a href="http://www.japannewsreview.com/" target="_blank">http://www.japannewsreview.com/</a>
+    <span class="clickable" onclick="golocal('#af3e13');">local</span>
+    <span class="clickable" onclick="gonational('#af3e13');">national</span>
+    <span class="clickable" onclick="goblog('#af3e13');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#af3e13');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#af3e13', 'http://www.japannewsreview.com/');">show now</span>
+</div>
+
+
+
+<div id="761f22">
+    <a href="http://www.japantoday.com/" target="_blank">http://www.japantoday.com/</a>
+    <span class="clickable" onclick="golocal('#761f22');">local</span>
+    <span class="clickable" onclick="gonational('#761f22');">national</span>
+    <span class="clickable" onclick="goblog('#761f22');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#761f22');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#761f22', 'http://www.japantoday.com/');">show now</span>
+</div>
+
+
+
+<div id="92cfce">
+    <a href="http://www.japanupdate.com/home.htm" target="_blank">http://www.japanupdate.com/home.htm</a>
+    <span class="clickable" onclick="golocal('#92cfce');">local</span>
+    <span class="clickable" onclick="gonational('#92cfce');">national</span>
+    <span class="clickable" onclick="goblog('#92cfce');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#92cfce');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#92cfce', 'http://www.japanupdate.com/home.htm');">show now</span>
+</div>
+
+
+
+<div id="0286dd">
+    <a href="http://www.jic-gifu.or.jp/np/" target="_blank">http://www.jic-gifu.or.jp/np/</a>
+    <span class="clickable" onclick="golocal('#0286dd');">local</span>
+    <span class="clickable" onclick="gonational('#0286dd');">national</span>
+    <span class="clickable" onclick="goblog('#0286dd');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#0286dd');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#0286dd', 'http://www.jic-gifu.or.jp/np/');">show now</span>
+</div>
+
+
+
+<div id="98fbc4">
+    <a href="http://www.jmd.co.jp/" target="_blank">http://www.jmd.co.jp/</a>
+    <span class="clickable" onclick="golocal('#98fbc4');">local</span>
+    <span class="clickable" onclick="gonational('#98fbc4');">national</span>
+    <span class="clickable" onclick="goblog('#98fbc4');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#98fbc4');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#98fbc4', 'http://www.jmd.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="fb6443">
+    <a href="http://www.jomo-news.co.jp/" target="_blank">http://www.jomo-news.co.jp/</a>
+    <span class="clickable" onclick="golocal('#fb6443');">local</span>
+    <span class="clickable" onclick="gonational('#fb6443');">national</span>
+    <span class="clickable" onclick="goblog('#fb6443');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#fb6443');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#fb6443', 'http://www.jomo-news.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="fe2ef4">
+    <a href="http://www.kagoshimashinpo.com/" target="_blank">http://www.kagoshimashinpo.com/</a>
+    <span class="clickable" onclick="golocal('#fe2ef4');">local</span>
+    <span class="clickable" onclick="gonational('#fe2ef4');">national</span>
+    <span class="clickable" onclick="goblog('#fe2ef4');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#fe2ef4');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#fe2ef4', 'http://www.kagoshimashinpo.com/');">show now</span>
+</div>
+
+
+
+<div id="827bfc">
+    <a href="http://www.kahoku.co.jp/" target="_blank">http://www.kahoku.co.jp/</a>
+    <span class="clickable" onclick="golocal('#827bfc');">local</span>
+    <span class="clickable" onclick="gonational('#827bfc');">national</span>
+    <span class="clickable" onclick="goblog('#827bfc');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#827bfc');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#827bfc', 'http://www.kahoku.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="64e095">
+    <a href="http://www.kanagawa-np.co.jp/" target="_blank">http://www.kanagawa-np.co.jp/</a>
+    <span class="clickable" onclick="golocal('#64e095');">local</span>
+    <span class="clickable" onclick="gonational('#64e095');">national</span>
+    <span class="clickable" onclick="goblog('#64e095');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#64e095');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#64e095', 'http://www.kanagawa-np.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="2e01e1">
+    <a href="http://www.kitanippon.co.jp/" target="_blank">http://www.kitanippon.co.jp/</a>
+    <span class="clickable" onclick="golocal('#2e01e1');">local</span>
+    <span class="clickable" onclick="gonational('#2e01e1');">national</span>
+    <span class="clickable" onclick="goblog('#2e01e1');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#2e01e1');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#2e01e1', 'http://www.kitanippon.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="e1822d">
+    <a href="http://www.kobe-np.co.jp/index.html" target="_blank">http://www.kobe-np.co.jp/index.html</a>
+    <span class="clickable" onclick="golocal('#e1822d');">local</span>
+    <span class="clickable" onclick="gonational('#e1822d');">national</span>
+    <span class="clickable" onclick="goblog('#e1822d');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#e1822d');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#e1822d', 'http://www.kobe-np.co.jp/index.html');">show now</span>
+</div>
+
+
+
+<div id="b7eb6c">
+    <a href="http://www.kochinews.co.jp/" target="_blank">http://www.kochinews.co.jp/</a>
+    <span class="clickable" onclick="golocal('#b7eb6c');">local</span>
+    <span class="clickable" onclick="gonational('#b7eb6c');">national</span>
+    <span class="clickable" onclick="goblog('#b7eb6c');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#b7eb6c');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#b7eb6c', 'http://www.kochinews.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="a93349">
+    <a href="http://www.kyodo.co.jp/" target="_blank">http://www.kyodo.co.jp/</a>
+    <span class="clickable" onclick="golocal('#a93349');">local</span>
+    <span class="clickable" onclick="gonational('#a93349');">national</span>
+    <span class="clickable" onclick="goblog('#a93349');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#a93349');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#a93349', 'http://www.kyodo.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="c5b76d">
+    <a href="http://www.kyoto-np.co.jp/" target="_blank">http://www.kyoto-np.co.jp/</a>
+    <span class="clickable" onclick="golocal('#c5b76d');">local</span>
+    <span class="clickable" onclick="gonational('#c5b76d');">national</span>
+    <span class="clickable" onclick="goblog('#c5b76d');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#c5b76d');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#c5b76d', 'http://www.kyoto-np.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="80e28a">
+    <a href="http://www.mainichi.co.jp/" target="_blank">http://www.mainichi.co.jp/</a>
+    <span class="clickable" onclick="golocal('#80e28a');">local</span>
+    <span class="clickable" onclick="gonational('#80e28a');">national</span>
+    <span class="clickable" onclick="goblog('#80e28a');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#80e28a');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#80e28a', 'http://www.mainichi.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="8effee">
+    <a href="http://www.matsusaka.ne.jp/yuukanmie/" target="_blank">http://www.matsusaka.ne.jp/yuukanmie/</a>
+    <span class="clickable" onclick="golocal('#8effee');">local</span>
+    <span class="clickable" onclick="gonational('#8effee');">national</span>
+    <span class="clickable" onclick="goblog('#8effee');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#8effee');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#8effee', 'http://www.matsusaka.ne.jp/yuukanmie/');">show now</span>
+</div>
+
+
+
+<div id="54ceb9">
+    <a href="http://www.minamishinshu.co.jp/" target="_blank">http://www.minamishinshu.co.jp/</a>
+    <span class="clickable" onclick="golocal('#54ceb9');">local</span>
+    <span class="clickable" onclick="gonational('#54ceb9');">national</span>
+    <span class="clickable" onclick="goblog('#54ceb9');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#54ceb9');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#54ceb9', 'http://www.minamishinshu.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="9109c8">
+    <a href="http://www.minato-yamaguchi.co.jp/" target="_blank">http://www.minato-yamaguchi.co.jp/</a>
+    <span class="clickable" onclick="golocal('#9109c8');">local</span>
+    <span class="clickable" onclick="gonational('#9109c8');">national</span>
+    <span class="clickable" onclick="goblog('#9109c8');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#9109c8');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#9109c8', 'http://www.minato-yamaguchi.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="667be5">
+    <a href="http://www.minpo.jp/" target="_blank">http://www.minpo.jp/</a>
+    <span class="clickable" onclick="golocal('#667be5');">local</span>
+    <span class="clickable" onclick="gonational('#667be5');">national</span>
+    <span class="clickable" onclick="goblog('#667be5');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#667be5');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#667be5', 'http://www.minpo.jp/');">show now</span>
+</div>
+
+
+
+<div id="5a5b0f">
+    <a href="http://www.minyu-net.com/" target="_blank">http://www.minyu-net.com/</a>
+    <span class="clickable" onclick="golocal('#5a5b0f');">local</span>
+    <span class="clickable" onclick="gonational('#5a5b0f');">national</span>
+    <span class="clickable" onclick="goblog('#5a5b0f');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#5a5b0f');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#5a5b0f', 'http://www.minyu-net.com/');">show now</span>
+</div>
+
+
+
+<div id="e6c3dd">
+    <a href="http://www.miyakomainichi.com/" target="_blank">http://www.miyakomainichi.com/</a>
+    <span class="clickable" onclick="golocal('#e6c3dd');">local</span>
+    <span class="clickable" onclick="gonational('#e6c3dd');">national</span>
+    <span class="clickable" onclick="goblog('#e6c3dd');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#e6c3dd');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#e6c3dd', 'http://www.miyakomainichi.com/');">show now</span>
+</div>
+
+
+
+<div id="6c1e67">
+    <a href="http://www.muromin.mnw.jp/" target="_blank">http://www.muromin.mnw.jp/</a>
+    <span class="clickable" onclick="golocal('#6c1e67');">local</span>
+    <span class="clickable" onclick="gonational('#6c1e67');">national</span>
+    <span class="clickable" onclick="goblog('#6c1e67');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#6c1e67');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#6c1e67', 'http://www.muromin.mnw.jp/');">show now</span>
+</div>
+
+
+
+<div id="511a41">
+    <a href="http://www.nagano-np.co.jp/index.shtml" target="_blank">http://www.nagano-np.co.jp/index.shtml</a>
+    <span class="clickable" onclick="golocal('#511a41');">local</span>
+    <span class="clickable" onclick="gonational('#511a41');">national</span>
+    <span class="clickable" onclick="goblog('#511a41');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#511a41');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#511a41', 'http://www.nagano-np.co.jp/index.shtml');">show now</span>
+</div>
+
+
+
+<div id="a17554">
+    <a href="http://www.nankainn.com/" target="_blank">http://www.nankainn.com/</a>
+    <span class="clickable" onclick="golocal('#a17554');">local</span>
+    <span class="clickable" onclick="gonational('#a17554');">national</span>
+    <span class="clickable" onclick="goblog('#a17554');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#a17554');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#a17554', 'http://www.nankainn.com/');">show now</span>
+</div>
+
+
+
+<div id="c66c65">
+    <a href="http://www.news-kushiro.jp/" target="_blank">http://www.news-kushiro.jp/</a>
+    <span class="clickable" onclick="golocal('#c66c65');">local</span>
+    <span class="clickable" onclick="gonational('#c66c65');">national</span>
+    <span class="clickable" onclick="goblog('#c66c65');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#c66c65');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#c66c65', 'http://www.news-kushiro.jp/');">show now</span>
+</div>
+
+
+
+<div id="2a4593">
+    <a href="http://www.nikkan.co.jp/" target="_blank">http://www.nikkan.co.jp/</a>
+    <span class="clickable" onclick="golocal('#2a4593');">local</span>
+    <span class="clickable" onclick="gonational('#2a4593');">national</span>
+    <span class="clickable" onclick="goblog('#2a4593');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#2a4593');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#2a4593', 'http://www.nikkan.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="59129a">
+    <a href="http://www.nikkansports.com/" target="_blank">http://www.nikkansports.com/</a>
+    <span class="clickable" onclick="golocal('#59129a');">local</span>
+    <span class="clickable" onclick="gonational('#59129a');">national</span>
+    <span class="clickable" onclick="goblog('#59129a');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#59129a');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#59129a', 'http://www.nikkansports.com/');">show now</span>
+</div>
+
+
+
+<div id="4d89d2">
+    <a href="http://www.nikkei.com/" target="_blank">http://www.nikkei.com/</a>
+    <span class="clickable" onclick="golocal('#4d89d2');">local</span>
+    <span class="clickable" onclick="gonational('#4d89d2');">national</span>
+    <span class="clickable" onclick="goblog('#4d89d2');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#4d89d2');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#4d89d2', 'http://www.nikkei.com/');">show now</span>
+</div>
+
+
+
+<div id="b4c96d">
+    <a href="http://www.nishinippon.co.jp/" target="_blank">http://www.nishinippon.co.jp/</a>
+    <span class="clickable" onclick="golocal('#b4c96d');">local</span>
+    <span class="clickable" onclick="gonational('#b4c96d');">national</span>
+    <span class="clickable" onclick="goblog('#b4c96d');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#b4c96d');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#b4c96d', 'http://www.nishinippon.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="a72b20">
+    <a href="http://www.nnn.co.jp/" target="_blank">http://www.nnn.co.jp/</a>
+    <span class="clickable" onclick="golocal('#a72b20');">local</span>
+    <span class="clickable" onclick="gonational('#a72b20');">national</span>
+    <span class="clickable" onclick="goblog('#a72b20');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#a72b20');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#a72b20', 'http://www.nnn.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="b7103c">
+    <a href="http://www.oita-press.co.jp/" target="_blank">http://www.oita-press.co.jp/</a>
+    <span class="clickable" onclick="golocal('#b7103c');">local</span>
+    <span class="clickable" onclick="gonational('#b7103c');">national</span>
+    <span class="clickable" onclick="goblog('#b7103c');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#b7103c');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#b7103c', 'http://www.oita-press.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="d02560">
+    <a href="http://www.okanichi.co.jp/" target="_blank">http://www.okanichi.co.jp/</a>
+    <span class="clickable" onclick="golocal('#d02560');">local</span>
+    <span class="clickable" onclick="gonational('#d02560');">national</span>
+    <span class="clickable" onclick="goblog('#d02560');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#d02560');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#d02560', 'http://www.okanichi.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="c09763">
+    <a href="http://www.okinawatimes.co.jp/" target="_blank">http://www.okinawatimes.co.jp/</a>
+    <span class="clickable" onclick="golocal('#c09763');">local</span>
+    <span class="clickable" onclick="gonational('#c09763');">national</span>
+    <span class="clickable" onclick="goblog('#c09763');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#c09763');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#c09763', 'http://www.okinawatimes.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="35e995">
+    <a href="http://www.osakanews.com/" target="_blank">http://www.osakanews.com/</a>
+    <span class="clickable" onclick="golocal('#35e995');">local</span>
+    <span class="clickable" onclick="gonational('#35e995');">national</span>
+    <span class="clickable" onclick="goblog('#35e995');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#35e995');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#35e995', 'http://www.osakanews.com/');">show now</span>
+</div>
+
+
+
+<div id="1f1362">
+    <a href="http://www.pakjapannews.com/" target="_blank">http://www.pakjapannews.com/</a>
+    <span class="clickable" onclick="golocal('#1f1362');">local</span>
+    <span class="clickable" onclick="gonational('#1f1362');">national</span>
+    <span class="clickable" onclick="goblog('#1f1362');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#1f1362');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#1f1362', 'http://www.pakjapannews.com/');">show now</span>
+</div>
+
+
+
+<div id="450dde">
+    <a href="http://www.saga-s.co.jp/" target="_blank">http://www.saga-s.co.jp/</a>
+    <span class="clickable" onclick="golocal('#450dde');">local</span>
+    <span class="clickable" onclick="gonational('#450dde');">national</span>
+    <span class="clickable" onclick="goblog('#450dde');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#450dde');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#450dde', 'http://www.saga-s.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="d54ad0">
+    <a href="http://www.saitama-np.co.jp/" target="_blank">http://www.saitama-np.co.jp/</a>
+    <span class="clickable" onclick="golocal('#d54ad0');">local</span>
+    <span class="clickable" onclick="gonational('#d54ad0');">national</span>
+    <span class="clickable" onclick="goblog('#d54ad0');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#d54ad0');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#d54ad0', 'http://www.saitama-np.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="d321d6">
+    <a href="http://www.sakigake.jp/" target="_blank">http://www.sakigake.jp/</a>
+    <span class="clickable" onclick="golocal('#d321d6');">local</span>
+    <span class="clickable" onclick="gonational('#d321d6');">national</span>
+    <span class="clickable" onclick="goblog('#d321d6');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#d321d6');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#d321d6', 'http://www.sakigake.jp/');">show now</span>
+</div>
+
+
+
+<div id="eb4ac3">
+    <a href="http://www.sanin-chuo.co.jp/" target="_blank">http://www.sanin-chuo.co.jp/</a>
+    <span class="clickable" onclick="golocal('#eb4ac3');">local</span>
+    <span class="clickable" onclick="gonational('#eb4ac3');">national</span>
+    <span class="clickable" onclick="goblog('#eb4ac3');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#eb4ac3');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#eb4ac3', 'http://www.sanin-chuo.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="b74f5e">
+    <a href="http://www.sankei.co.jp/" target="_blank">http://www.sankei.co.jp/</a>
+    <span class="clickable" onclick="golocal('#b74f5e');">local</span>
+    <span class="clickable" onclick="gonational('#b74f5e');">national</span>
+    <span class="clickable" onclick="goblog('#b74f5e');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#b74f5e');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#b74f5e', 'http://www.sankei.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="b888b2">
+    <a href="http://www.sannichi.co.jp/" target="_blank">http://www.sannichi.co.jp/</a>
+    <span class="clickable" onclick="golocal('#b888b2');">local</span>
+    <span class="clickable" onclick="gonational('#b888b2');">national</span>
+    <span class="clickable" onclick="goblog('#b888b2');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#b888b2');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#b888b2', 'http://www.sannichi.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="1d513c">
+    <a href="http://www.sanspo.com/" target="_blank">http://www.sanspo.com/</a>
+    <span class="clickable" onclick="golocal('#1d513c');">local</span>
+    <span class="clickable" onclick="gonational('#1d513c');">national</span>
+    <span class="clickable" onclick="goblog('#1d513c');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#1d513c');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#1d513c', 'http://www.sanspo.com/');">show now</span>
+</div>
+
+
+
+<div id="76546f">
+    <a href="http://www.sanyo.oni.co.jp/" target="_blank">http://www.sanyo.oni.co.jp/</a>
+    <span class="clickable" onclick="golocal('#76546f');">local</span>
+    <span class="clickable" onclick="gonational('#76546f');">national</span>
+    <span class="clickable" onclick="goblog('#76546f');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#76546f');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#76546f', 'http://www.sanyo.oni.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="7d7116">
+    <a href="http://www.shikoku-np.co.jp/" target="_blank">http://www.shikoku-np.co.jp/</a>
+    <span class="clickable" onclick="golocal('#7d7116');">local</span>
+    <span class="clickable" onclick="gonational('#7d7116');">national</span>
+    <span class="clickable" onclick="goblog('#7d7116');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#7d7116');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#7d7116', 'http://www.shikoku-np.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="be461a">
+    <a href="http://www.shimintimes.co.jp/" target="_blank">http://www.shimintimes.co.jp/</a>
+    <span class="clickable" onclick="golocal('#be461a');">local</span>
+    <span class="clickable" onclick="gonational('#be461a');">national</span>
+    <span class="clickable" onclick="goblog('#be461a');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#be461a');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#be461a', 'http://www.shimintimes.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="135224">
+    <a href="http://www.shimotsuke.co.jp/" target="_blank">http://www.shimotsuke.co.jp/</a>
+    <span class="clickable" onclick="golocal('#135224');">local</span>
+    <span class="clickable" onclick="gonational('#135224');">national</span>
+    <span class="clickable" onclick="goblog('#135224');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#135224');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#135224', 'http://www.shimotsuke.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="3c26df">
+    <a href="http://www.shinmai.co.jp/" target="_blank">http://www.shinmai.co.jp/</a>
+    <span class="clickable" onclick="golocal('#3c26df');">local</span>
+    <span class="clickable" onclick="gonational('#3c26df');">national</span>
+    <span class="clickable" onclick="goblog('#3c26df');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#3c26df');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#3c26df', 'http://www.shinmai.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="e62d7f">
+    <a href="http://www.sponichi.co.jp/" target="_blank">http://www.sponichi.co.jp/</a>
+    <span class="clickable" onclick="golocal('#e62d7f');">local</span>
+    <span class="clickable" onclick="gonational('#e62d7f');">national</span>
+    <span class="clickable" onclick="goblog('#e62d7f');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#e62d7f');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#e62d7f', 'http://www.sponichi.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="b37f6d">
+    <a href="http://www.suikei.co.jp/" target="_blank">http://www.suikei.co.jp/</a>
+    <span class="clickable" onclick="golocal('#b37f6d');">local</span>
+    <span class="clickable" onclick="gonational('#b37f6d');">national</span>
+    <span class="clickable" onclick="goblog('#b37f6d');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#b37f6d');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#b37f6d', 'http://www.suikei.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="16b06b">
+    <a href="http://www.the-miyanichi.co.jp/" target="_blank">http://www.the-miyanichi.co.jp/</a>
+    <span class="clickable" onclick="golocal('#16b06b');">local</span>
+    <span class="clickable" onclick="gonational('#16b06b');">national</span>
+    <span class="clickable" onclick="goblog('#16b06b');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#16b06b');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#16b06b', 'http://www.the-miyanichi.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="2d0c8a">
+    <a href="http://www.tokachi.co.jp/" target="_blank">http://www.tokachi.co.jp/</a>
+    <span class="clickable" onclick="golocal('#2d0c8a');">local</span>
+    <span class="clickable" onclick="gonational('#2d0c8a');">national</span>
+    <span class="clickable" onclick="goblog('#2d0c8a');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#2d0c8a');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#2d0c8a', 'http://www.tokachi.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="4cd66d">
+    <a href="http://www.tokyonews.co.jp/" target="_blank">http://www.tokyonews.co.jp/</a>
+    <span class="clickable" onclick="golocal('#4cd66d');">local</span>
+    <span class="clickable" onclick="gonational('#4cd66d');">national</span>
+    <span class="clickable" onclick="goblog('#4cd66d');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#4cd66d');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#4cd66d', 'http://www.tokyonews.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="8ee51c">
+    <a href="http://www.tokyo-np.co.jp/" target="_blank">http://www.tokyo-np.co.jp/</a>
+    <span class="clickable" onclick="golocal('#8ee51c');">local</span>
+    <span class="clickable" onclick="gonational('#8ee51c');">national</span>
+    <span class="clickable" onclick="goblog('#8ee51c');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#8ee51c');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#8ee51c', 'http://www.tokyo-np.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="08a352">
+    <a href="http://www.tokyo-sports.co.jp/" target="_blank">http://www.tokyo-sports.co.jp/</a>
+    <span class="clickable" onclick="golocal('#08a352');">local</span>
+    <span class="clickable" onclick="gonational('#08a352');">national</span>
+    <span class="clickable" onclick="goblog('#08a352');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#08a352');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#08a352', 'http://www.tokyo-sports.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="215bb4">
+    <a href="http://www.tokyotimes.com/" target="_blank">http://www.tokyotimes.com/</a>
+    <span class="clickable" onclick="golocal('#215bb4');">local</span>
+    <span class="clickable" onclick="gonational('#215bb4');">national</span>
+    <span class="clickable" onclick="goblog('#215bb4');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#215bb4');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#215bb4', 'http://www.tokyotimes.com/');">show now</span>
+</div>
+
+
+
+<div id="8e63fd">
+    <a href="http://www.tomamin.co.jp/" target="_blank">http://www.tomamin.co.jp/</a>
+    <span class="clickable" onclick="golocal('#8e63fd');">local</span>
+    <span class="clickable" onclick="gonational('#8e63fd');">national</span>
+    <span class="clickable" onclick="goblog('#8e63fd');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#8e63fd');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#8e63fd', 'http://www.tomamin.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="6fb84a">
+    <a href="http://www.toonippo.co.jp/index.asp" target="_blank">http://www.toonippo.co.jp/index.asp</a>
+    <span class="clickable" onclick="golocal('#6fb84a');">local</span>
+    <span class="clickable" onclick="gonational('#6fb84a');">national</span>
+    <span class="clickable" onclick="goblog('#6fb84a');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#6fb84a');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#6fb84a', 'http://www.toonippo.co.jp/index.asp');">show now</span>
+</div>
+
+
+
+<div id="812ed4">
+    <a href="http://www.topics.or.jp/" target="_blank">http://www.topics.or.jp/</a>
+    <span class="clickable" onclick="golocal('#812ed4');">local</span>
+    <span class="clickable" onclick="gonational('#812ed4');">national</span>
+    <span class="clickable" onclick="goblog('#812ed4');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#812ed4');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#812ed4', 'http://www.topics.or.jp/');">show now</span>
+</div>
+
+
+
+<div id="31bd9b">
+    <a href="http://www.urduworldnews.net/" target="_blank">http://www.urduworldnews.net/</a>
+    <span class="clickable" onclick="golocal('#31bd9b');">local</span>
+    <span class="clickable" onclick="gonational('#31bd9b');">national</span>
+    <span class="clickable" onclick="goblog('#31bd9b');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#31bd9b');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#31bd9b', 'http://www.urduworldnews.net/');">show now</span>
+</div>
+
+
+
+<div id="9a79be">
+    <a href="http://www.yamagata-np.co.jp/" target="_blank">http://www.yamagata-np.co.jp/</a>
+    <span class="clickable" onclick="golocal('#9a79be');">local</span>
+    <span class="clickable" onclick="gonational('#9a79be');">national</span>
+    <span class="clickable" onclick="goblog('#9a79be');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#9a79be');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#9a79be', 'http://www.yamagata-np.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="310b86">
+    <a href="http://www.yomiuri.co.jp/" target="_blank">http://www.yomiuri.co.jp/</a>
+    <span class="clickable" onclick="golocal('#310b86');">local</span>
+    <span class="clickable" onclick="gonational('#310b86');">national</span>
+    <span class="clickable" onclick="goblog('#310b86');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#310b86');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#310b86', 'http://www.yomiuri.co.jp/');">show now</span>
+</div>
+
+
+
+<div id="dbc0f0">
+    <a href="http://www.zakzak.co.jp/" target="_blank">http://www.zakzak.co.jp/</a>
+    <span class="clickable" onclick="golocal('#dbc0f0');">local</span>
+    <span class="clickable" onclick="gonational('#dbc0f0');">national</span>
+    <span class="clickable" onclick="goblog('#dbc0f0');">blog</span>
+    <span class="clickable" onclick="justfuckingdeletethisshit('#dbc0f0');">is shit!</span>
+    <span class="clickable show" onclick="openiframe('#dbc0f0', 'http://www.zakzak.co.jp/');">show now</span>
+</div>
+
+
+
+<br>
+<button onclick="removebutton();">Press here when you've finished! can be easier copy/paste</button>
+<br>
+<button onclick="showbutton();">Press if you've made a mistake, make buttons comeback</button>
+</body>
+</html>
