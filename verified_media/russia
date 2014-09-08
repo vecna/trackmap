@@ -27,11 +27,13 @@ http://www.kp.ru/
 http://www.zavtra.ru/
 http://www.ruscur.ru/
 
+# 4imn
+http://www.aif.ru
+
 [local]
 
 # local by cities
 
-http://www.aha.ru/~mgo/bullet.htm
 http://www.avi.spb.ru/
 http://www.expatica.ru/
 http://www.arsvest.ru/
@@ -115,6 +117,22 @@ http://www.express.am/
 
 [blog]
 
-# [global]
+# This is a political party in russia, I've put here because blog are intended 
+# for something 'specific' like a local media, but more content oriented.
 http://www.yabloko.ru/
+
+# some blog found in a ranked list, 
+# need to be found a proper ranked list for blog.
+http://www.austereinsomniac.info
+http://dyingrussia.wordpress.com/
+http://www.agoodtreaty.com/
+http://poemless.wordpress.com/
+http://www.russiaotherpointsofview.com/
+http://streetwiseprofessor.com/
+
+
+# This line is fine at the end of the file.
+[global]
+
+
 
