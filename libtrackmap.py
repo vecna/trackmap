@@ -693,10 +693,11 @@ class TrackingResearch:
         c_code, c_name = ip_to_country_tuple(media_ip)
         self.description = {
             'country': country,
-            'test_id': test_id,
             'media_url': media_url,
             'media_kind': media_kind,
-            'media_location': "%s (%s)" % (c_name, c_code)
+            'media_location': "%s (%s)" % (c_name, c_code),
+            'test_id': test_id,
+            # remind: test_id and importer_id are the same
         }
         self.company_collection = {}
         self.country_collection = {}
@@ -733,7 +734,7 @@ class TrackingResearch:
         except Exception:
             pass
 
-        destfile = os.path.join(destdir, '%s-%s.json' %
+        destfile = os.path.join(destdir, '%d-%s.json' %
                                     ( self.description['test_id'],
                                       self.description['media_kind']) )
         previous = []
@@ -801,7 +802,7 @@ class PercentageResearch:
         except Exception:
             pass
 
-        destfile = os.path.join(destdir, '%s-%s.json' %
+        destfile = os.path.join(destdir, '%d-%s.json' %
                                          ( self.importer_id, self.country))
 
         # TODO do the percentage computation and put them in this dict

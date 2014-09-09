@@ -20,12 +20,13 @@ except ImportError:
     print "https://github.com/vecna/helpagainsttrack"
     quit(-1)
 
-ANALYSIS_VERSION = 3
+ANALYSIS_VERSION = 4
 OUTPUTDIR = 'output'
 
 class TraceStats:
 
     v4_paths = {}
+    three_hundres = 0
 
     def __init__(self, v4_path=[]):
 
@@ -34,10 +35,27 @@ class TraceStats:
             TraceStats.v4_paths.setdefault(hopcount, [ ip ]).append(ip)
 
     def dump_stats(self):
-        print "I'm gonna dump the stat"
-        sys.stdin.read(1)
-        import pprint
-        pprint.pprint(TraceStats.v4_paths)
+
+        analysis_test = os.path.join(OUTPUTDIR, '_verbotracelogs', 'TraceStats.json')
+        with file(analysis_test, 'w+') as f:
+            json.dump(TraceStats.v4_paths, f)
+
+    @staticmethod
+    def three_hundred_sadness():
+        """
+        This function is called every time a 20 "*" are returned by a Traceroute.
+        Mean that network is down or ICMP are filtered.
+        Is called three hunderd because before there was 10 probes for 30 hop
+        """
+        TraceStats.three_hundres += 1
+
+        if TraceStats.three_hundres >= 5:
+            print "\n\n"
+            print colored("\tHas been detected five time a complete Traceroute failure", "red")
+            print colored("\tMaybe the network is down, maybe your host is filtering ICMP", "red")
+            print colored("\tIn both cases, the test is interrupted.", "red")
+            print "\n\n"
+            quit(-1)
 
 
 
@@ -144,16 +162,119 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
         return 'first'
 
 
-def do_trace(hostlist, ipv4):
 
-    def software_execution(timeout):
-        # commonly timeout is '0.5' but can be increase to '2.1'
 
-        iplist = []
-        asterisks_total = 0
-        p = Popen(['traceroute', '-n', '-w', timeout, '-q', '10', '-A', ipv4], stdout=PIPE)
 
-        traceoutf = os.path.join(OUTPUTDIR, '_verbotracelogs', ipv4)
+
+
+class Traceroute:
+
+
+    def __init__(self, ip_addr, hostlist):
+
+        self._odir = os.path.join(OUTPUTDIR, '_traceroutes')
+        self._vdir = os.path.join(OUTPUTDIR, '_verbotracelogs')
+
+        self.v4_target = ip_addr
+        self.hostlist = hostlist
+
+        self.ipv4_trace_file =  os.path.join(self._odir, "%s_ip.json" % self.v4_target)
+        self.cc_trace_file = os.path.join(self._odir, "%s_countries.json" % self.v4_target)
+
+        self.ips_links = []
+        self.countries_links = []
+
+        for _host in self.hostlist:
+            self.ips_links.append(os.path.join(self._odir, "%s_ip.json" % _host))
+            self.countries_links.append(os.path.join(self._odir, "%s_countries.json" % _host))
+
+
+    def already_traced(self):
+
+        if os.path.isfile(self.ipv4_trace_file) and os.path.isfile(self.cc_trace_file):
+
+            for ip_link in self.ips_links:
+                if not os.path.islink(ip_link):
+                    raise Exception("Inconsistency! %s" % ip_link)
+
+            for cc_link in self.countries_links:
+                if not os.path.islink(cc_link):
+                    raise Exception("Inconsistency! %s" % cc_link)
+
+            return True
+
+        return False
+
+
+    def file_dump(self):
+
+        with file(self.ipv4_trace_file, 'w+') as f:
+            json.dump(self.iplist, f)
+
+        with file(self.cc_trace_file, 'w+') as f:
+            json.dump(self.country_travel_path, f)
+
+        for ip_link in self.ips_links:
+            # dest has the path, souece has not
+            os.symlink("%s_ip.json" % self.v4_target, ip_link)
+
+        for cc_link in self.countries_links:
+            # ipv4_traced_hop_f, named_link_addr_f )
+            os.symlink("%s_countries.json" % self.v4_target, cc_link)
+
+
+    def do_trace(self):
+        """
+        Return True of False if the trace has gone successful or not
+        """
+        timeout = "0.3"
+
+        print colored("%s ..." % self.hostlist, "yellow")
+        self._software_execution(timeout)
+
+        if not self.validate_traceroute_output():
+            return False
+
+        # resolve Geo info for all the IP involved
+        gi = GeoIP.new(GeoIP.GEOIP_MEMORY_CACHE)
+        self.country_travel_path = {}
+        counter = 0
+        print "\t", len(self.iplist), "HOP through",
+        for ip in self.iplist:
+
+            # if is an "* * * * *" I'll record as None and here is stripped
+            if not ip:
+                continue
+
+            # is always as list ['x.x.x.x'] sometime more than 1
+            if isinstance(ip, list):
+                ip = ip[0]
+
+            code = gi.country_code_by_addr(ip)
+            if not code:
+                print colored(code, "red"),
+            else:
+                print colored(code, "green"),
+
+            country = gi.country_name_by_addr(ip)
+            self.country_travel_path.update({counter:country})
+            counter += 1
+
+        print ""
+        # These statistic can help future optimization!
+        TraceStats(self.iplist)
+        return True
+
+
+    def _software_execution(self, timeout):
+
+        # these two are the "return value"
+        self.iplist = []
+        self.asterisks_total = 0
+
+        p = Popen(['traceroute', '-n', '-m 20', '-w', timeout, '-q', '1', '-A', self.v4_target], stdout=PIPE)
+
+        traceoutf = os.path.join(OUTPUTDIR, '_verbotracelogs', self.v4_target)
         if os.path.isfile(traceoutf):
             os.unlink(traceoutf)
 
@@ -174,129 +295,32 @@ def do_trace(hostlist, ipv4):
 
             asterisks = line.count("*")
             # not yet handled if traceroute cripple
-            asterisks_total += asterisks
+            self.asterisks_total += asterisks
 
             ip = re.findall( r'[0-9]+(?:\.[0-9]+){3}', line )
             if not ip:
-                iplist.append(None)
+                self.iplist.append(None)
                 continue
-            iplist.append(ip)
+            self.iplist.append(ip)
 
         logfile.close()
-        return asterisks_total, iplist
 
-    def validate_traceroute_output(asterisk_amount, tracelines, tolerance):
-        # what I wanna spot is the number of asterisk, and handle the
-        # case of a firewall in front of the target host (that cause a lots of
-        # "*" but they don't matter
-        if len(tracelines) == 30:
-            # we've got an host that do not return answers
-            while True:
 
-                # if this happen, are 300 *'s
-                if not len(tracelines):
-                    return False
+    def validate_traceroute_output(self):
 
-                if not tracelines[-1]:
-                    asterisk_amount -= 10
-                    tracelines.pop()
-                else:
-                    break
-
-        medium_failures = asterisk_amount / len(tracelines)
-
-        if medium_failures > 3 and not tolerance:
-            return False
-        if medium_failures > 6 and tolerance:
+        # TODO put this 20 in a variable passed also to -m above
+        if self.iplist.count(None) == 20:
+            TraceStats.three_hundred_sadness()
             return False
 
         return True
 
 
-    # -- Here starts the do_trace logic --
-
-    host_check = hostlist[0]
-
-    check_ip_link = os.path.join(OUTPUTDIR, '_traceroutes', "%s_ip.json" % host_check)
-    check_country_link = os.path.join(OUTPUTDIR, '_traceroutes', "%s_countries.json" % host_check)
-
-    if os.path.islink(check_ip_link) and os.path.islink(check_country_link):
-        print colored ("%s already traced (%d hosts): skipping" %
-                       (ipv4, len(hostlist) ), "green")
-        return True
-    else:
-        print ipv4,
-
-    totalsterisks, iplist = software_execution("0.5")
-
-    if not validate_traceroute_output(totalsterisks, iplist, tolerance=False):
-        print colored("Traceroute got %d *'s: waiting 10 seconds and retry slower" % totalsterisks, "red"),
-        time.sleep(10)
-        secondtotalrisks, iplist = software_execution("2.8")
-        if validate_traceroute_output(secondtotalrisks, iplist, tolerance=True):
-            print colored("\n\tOk! tracerouted with a more reliable output (%d)" % secondtotalrisks, "green"),
-        else:
-            print colored("\n\tFailed again! (%d *'s)" % secondtotalrisks, "red")
-            return False
-
-    # resolve Geo info for all the IP involved
-    gi = GeoIP.new(GeoIP.GEOIP_MEMORY_CACHE)
-    country_travel_path = {}
-    counter = 0
-    print len(iplist), "HOP through",
-    for ip in iplist:
-
-        # if is an "* * * * *" I'll record as None and here is stripped
-        if not ip:
-            continue
-
-        # is always as list ['x.x.x.x'] sometime more than 1
-        if isinstance(ip, list):
-            ip = ip[0]
-
-        code = gi.country_code_by_addr(ip)
-        if not code:
-            print colored(code, "red"),
-        else:
-            print colored(code, "green"),
-
-        country = gi.country_name_by_addr(ip)
-        country_travel_path.update({counter:country})
-        counter += 1
-
-    print "Done"
-
-    # TraceStats(iplist)
-
-    # dump in the IPv4 file and then make symlink
-    os.chdir(os.path.join(OUTPUTDIR, '_traceroutes'))
-    ipv4_traced_hop_f = "%s_ip.json" % ipv4
-    ipv4_traced_countr_f = "%s_countries.json" % ipv4
-
-    with file(ipv4_traced_hop_f, 'w+') as f:
-        json.dump(iplist, f)
-
-    with file(ipv4_traced_countr_f, 'w+') as f:
-        json.dump(country_travel_path, f)
-
-    for host in hostlist:
-
-        named_link_addr_f = "%s.ip" % host
-        named_link_cc_f = "%s.countries" % host
-
-        try:
-            os.symlink( ipv4_traced_hop_f, named_link_addr_f )
-            os.symlink( ipv4_traced_countr_f, named_link_cc_f )
-        except Exception as xxx:
-            print colored("Failure in symlink %s to %s: %s" % (
-                ipv4, host, xxx
-            ))
-            continue
-    os.chdir('../../')
-
-    return True
 
 
+#------------------------------------------------
+# Here start TrackMap supporter script
+#------------------------------------------------
 def main():
     if not os.path.isdir(OUTPUTDIR):
         try:
@@ -422,6 +446,7 @@ def main():
         os.mkdir(urldir)
 
         retinfo = do_phantomjs(local_phantomjs, cleanurl, urldir, media_kind)
+        assert retinfo in [ 'first', 'second', 'failures' ]
         phantom_stats.setdefault(retinfo, []).append(cleanurl)
 
     # take every directory in 'output/', get the included URL and dump in a dict
@@ -531,9 +556,7 @@ def main():
 
     # starting traceroute to all the collected IP
     print colored(" ࿓  Running traceroute to %d IP address (from %d hosts)" % (
-        len(ip_map.keys()),
-        len(included_url_dict.keys())),
-                  'blue', 'on_white', attrs=['underline'])
+        len(ip_map.keys()), len(included_url_dict.keys())), 'blue', 'on_white', attrs=['underline'])
 
     counter = 1
     trace_stats = {}
@@ -542,13 +565,29 @@ def main():
         progress_string = "%d/%d" % (counter, len(ip_map.keys()))
         print colored("%s%s" % (progress_string, (10 - len(progress_string)) * " " ), "cyan" ),
 
-        if not do_trace(hostlist, ip_addr):
-            trace_stats.update({ip_addr : False })
-        else:
-            trace_stats.update({ip_addr : True })
-
+        t = Traceroute(ip_addr, hostlist)
         counter += 1
-        # TraceStats([]).dump_stats()
+
+        if t.already_traced():
+            print colored ("%s already traced (%d hosts): skipping" % (ip_addr, len(hostlist) ), "green")
+            retinfo = "recover"
+        elif not t.do_trace():
+            retinfo = "fail"
+            print colored("Traceroute fails!", "red")
+        else:
+            retinfo = "success"
+            try:
+                t.file_dump()
+            except Exception:
+                retinfo = "anomaly"
+                pass
+
+        del t
+        assert retinfo in [ 'recover', 'success', 'anomaly', 'fail' ]
+        trace_stats.setdefault(retinfo, []).append(ip_addr)
+
+
+    TraceStats([]).dump_stats()
 
     if trace_stats.values().count(False):
         print colored("Registered %d failures" % trace_stats.values().count(False), "red")

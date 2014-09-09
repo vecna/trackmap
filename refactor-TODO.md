@@ -63,3 +63,12 @@ http://mxr.mozilla.org/mozilla-central/source/netwerk/dns/effective_tld_names.da
 https://raw.github.com/mozilla/gecko-dev/master/netwerk/dns/effective_tld_names.dat
 
 
+
+## MaxMind
+
+http://dev.maxmind.com/geoip/legacy/geolite/
+
+ASN + GeoIP city + GeoIP Country
+
+Version 2 late 2014: http://dev.maxmind.com/geoip/geoip2/geolite2/
+how used MaxMind db: http://stackoverflow.com/questions/tagged/geoip ?
