@@ -8,9 +8,11 @@
 #
 
 
+
 try:
     import os, re, json, sys, random, time, shutil, socket
     import GeoIP
+    from optparse import OptionParser
     from subprocess import Popen, PIPE
     from termcolor import colored
     from libtrackmap import sortify, media_file_cleanings
@@ -21,7 +23,6 @@ except ImportError:
     quit(-1)
 
 ANALYSIS_VERSION = 4
-OUTPUTDIR = 'output'
 
 class TraceStats:
 
@@ -34,7 +35,7 @@ class TraceStats:
         for hopcount, ip in enumerate(v4_path):
             TraceStats.v4_paths.setdefault(hopcount, [ ip ]).append(ip)
 
-    def dump_stats(self):
+    def dump_stats(self, OUTPUTDIR):
 
         analysis_test = os.path.join(OUTPUTDIR, '_verbotracelogs', 'TraceStats.json')
         with file(analysis_test, 'w+') as f:
@@ -59,7 +60,7 @@ class TraceStats:
 
 
 
-def do_wget(fdestname):
+def do_wget(pathdest):
 
     if os.path.isfile('index.html'):
         raise Exception("Why you've an index.html file here ? report this error please")
@@ -70,7 +71,6 @@ def do_wget(fdestname):
         if not line:
             break
 
-    pathdest = os.path.join(OUTPUTDIR, fdestname)
     if os.path.isfile('index.html'):
         shutil.move('index.html', pathdest)
     else:
@@ -96,7 +96,7 @@ def write_interruption_line(fp, content, start=True):
         ))
 
 
-def do_phantomjs(local_phantomjs, url, destfile, media_kind):
+def do_phantomjs(local_phantomjs, url, destfile, media_kind, OUTPUTDIR):
     # information that deserve to be saved for the time
     kindfile = os.path.join(destfile, '__kind')
     with file(kindfile, 'w+') as f:
@@ -170,7 +170,7 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
 class Traceroute:
 
 
-    def __init__(self, ip_addr, hostlist):
+    def __init__(self, OUTPUTDIR, ip_addr, hostlist):
 
         self._odir = os.path.join(OUTPUTDIR, '_traceroutes')
         self._vdir = os.path.join(OUTPUTDIR, '_verbotracelogs')
@@ -274,7 +274,7 @@ class Traceroute:
 
         p = Popen(['traceroute', '-n', '-m 20', '-w', timeout, '-q', '1', '-A', self.v4_target], stdout=PIPE)
 
-        traceoutf = os.path.join(OUTPUTDIR, '_verbotracelogs', self.v4_target)
+        traceoutf = os.path.join(self._vdir, self.v4_target)
         if os.path.isfile(traceoutf):
             os.unlink(traceoutf)
 
@@ -322,16 +322,23 @@ class Traceroute:
 # Here start TrackMap supporter script
 #------------------------------------------------
 def main():
-    if not os.path.isdir(OUTPUTDIR):
-        try:
-            os.mkdir(OUTPUTDIR)
-        except OSError as error:
-            print "unable to create %s: %s" % (OUTPUTDIR, error)
 
-    if len(sys.argv) < 2:
-        print colored("Usage: %s $YOUR_COUNTRY_NAME <lp>" % sys.argv[0], "red", 'on_white')
+    parser = OptionParser()
+
+    parser.add_option("-c", "--country-name", type="string",
+                      help="the country from which you want run the test", dest="medialist")
+    parser.add_option("-o", "--output-dir", type="string", default=None,
+                      help="directory to store results", dest="user_outputdir")
+    parser.add_option("-l", "--local-phantom", action="store_true",
+                      help="use local phantomjs instead of the downloaded one", dest="lp")
+
+    (args, _) = parser.parse_args()
+    if not args.medialist:
+        print colored("Usage: %s -c $YOUR_COUNTRY_NAME" % sys.argv[0], "red", 'on_white')
+        print colored("Other option are -l (local phantom, instead of the symlink here)", "red", 'on_white')
+        print colored("Other option are -o output directory, used to collect test", "red", 'on_white')
         print ""
-        print " 'lp' as 3rd argument is needed if you want use your own /usr/bin/phantomjs"
+        print " -l option is needed if you want use your own /usr/bin/phantomjs"
         print " (if you follow README.md, this is not needed because you downloaded phantomjs 1.9.2)"
         print " ",colored("By default, this software is looking for symlink 'phantom-1.9.2'", "green", "on_white")
         if os.path.islink('phantom-1.9.2'):
@@ -339,11 +346,12 @@ def main():
         else:
             print " ",colored("The phantom-1.9.2 link is missing!", "red", "on_white")
         print "Look in the verified_media/ for a list of countries."
+        print "TrackMap collection tool version: %d" % ANALYSIS_VERSION
         quit(-1)
 
     # check if the user is running phantom as installed on the system (also vagrant make this)
     # of if is using
-    if len(sys.argv) == 3 and sys.argv[2] == 'lp':
+    if args.lp:
         local_phantomjs = True
 
         print colored("You're using your local installed phantomjs. A version >= than 1.9.0 is needed.", 'blue', 'on_white')
@@ -359,7 +367,7 @@ def main():
         local_phantomjs = False
 
     # country check
-    proposed_country = sys.argv[1]
+    proposed_country = args.medialist
     country_f = os.path.join('verified_media', proposed_country.lower())
     if not os.path.isfile(country_f):
         print colored("Invalid country! not found %s in directory 'verified_media/' " % proposed_country, 'red')
@@ -371,6 +379,19 @@ def main():
         print colored("You can propose your own country media list following these instructions:", 'blue', 'on_white')
         print colored("https://github.com/vecna/helpagainsttrack/blob/master/unverified_media_list/README.md", 'blue', 'on_white')
         quit(-1)
+
+    # check if the output directory is not the default and/or if need to be created
+    if args.user_outputdir:
+        OUTPUTDIR = args.user_outputdir
+    else:
+        OUTPUTDIR = 'output/'
+
+    if not os.path.isdir(OUTPUTDIR):
+        try:
+            os.mkdir(OUTPUTDIR)
+        except OSError as error:
+            print "unable to create %s: %s" % (OUTPUTDIR, error)
+
 
     # ask free information to the script runner
     info_f = os.path.join(OUTPUTDIR, 'information')
@@ -423,7 +444,7 @@ def main():
     cfp.close()
 
     print colored(" ࿓  Checking your network source.", 'blue', 'on_white', attrs=['underline'])
-    do_wget('first.json')
+    do_wget( os.path.join(OUTPUTDIR, 'first.json'))
 
     print colored(" ࿓  Starting media crawling:", 'blue', 'on_white', attrs=['underline'])
     # here start iteration over the media!
@@ -445,7 +466,7 @@ def main():
         print "+ Creating directory", urldir
         os.mkdir(urldir)
 
-        retinfo = do_phantomjs(local_phantomjs, cleanurl, urldir, media_kind)
+        retinfo = do_phantomjs(local_phantomjs, cleanurl, urldir, media_kind, OUTPUTDIR)
         assert retinfo in [ 'first', 'second', 'failures' ]
         phantom_stats.setdefault(retinfo, []).append(cleanurl)
 
@@ -552,7 +573,7 @@ def main():
         os.mkdir(verbotracelogs)
 
     # saving again information about network location
-    do_wget('second.json')
+    do_wget( os.path.join(OUTPUTDIR, 'second.json') )
 
     # starting traceroute to all the collected IP
     print colored(" ࿓  Running traceroute to %d IP address (from %d hosts)" % (
@@ -565,7 +586,7 @@ def main():
         progress_string = "%d/%d" % (counter, len(ip_map.keys()))
         print colored("%s%s" % (progress_string, (10 - len(progress_string)) * " " ), "cyan" ),
 
-        t = Traceroute(ip_addr, hostlist)
+        t = Traceroute(OUTPUTDIR, ip_addr, hostlist)
         counter += 1
 
         if t.already_traced():
@@ -587,7 +608,7 @@ def main():
         trace_stats.setdefault(retinfo, []).append(ip_addr)
 
 
-    TraceStats([]).dump_stats()
+    TraceStats([]).dump_stats(OUTPUTDIR)
 
     if trace_stats.values().count(False):
         print colored("Registered %d failures" % trace_stats.values().count(False), "red")
@@ -599,7 +620,7 @@ def main():
         json.dump([ phantom_stats, trace_stats ], fp)
 
     # saving again*again information about network location
-    do_wget('third.json')
+    do_wget(os.path.join(OUTPUTDIR, 'third.json'))
 
     output_name = 'results-%s.tar.gz' % proposed_country.lower()
     print colored(" ࿓  Analysis done! compressing the output in %s" % output_name, "blue", 'on_white', attrs=['underline'])
@@ -644,10 +665,6 @@ def main():
 
 
 if __name__ == '__main__':
-
-    if len(sys.argv) == 2 and sys.argv[1] == '--version':
-        print "TrackMap collection tool version: %d" % ANALYSIS_VERSION
-        quit(0)
 
     main()
 
