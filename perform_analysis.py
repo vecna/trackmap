@@ -349,6 +349,8 @@ def main():
                       help="directory to store results", dest="user_outputdir")
     parser.add_option("-l", "--local-phantom", action="store_true",
                       help="use local phantomjs instead of the downloaded one", dest="lp")
+    parser.add_option("-d", "--disable-sending", action="store_true",
+                      help="disable the result sending at the end of the test", dest="disable_send")
 
     (args, _) = parser.parse_args()
     if not args.medialist:
@@ -383,6 +385,19 @@ def main():
             quit(-1)
 
         local_phantomjs = False
+
+    if not args.disable_send:
+        tor_test = ("127.0.0.1", 9050)
+        c = socket.socket()
+        try:
+            c.connect( tor_test )
+            c.close()
+        except Exception as xxx:
+            print colored("Unable to connect to %s, Tor is needed to send results" % str(tor_test), "red")
+            print colored(xxx, "red")
+            print colored("You can disable result sending with the option -d", "yellow")
+            quit(-1)
+        del c
 
     # country check
     proposed_country = args.medialist
@@ -659,6 +674,10 @@ def main():
         if not line:
             break
 
+    if args.disable_send:
+        print colored("%d file added to %s" % (counter_line, output_name), "green")
+        print colored("Sending disable, test completed'\n", "yellow")
+        quit(0)
 
     print colored("%d file added to %s, Starting 'result_sender.py'\n" % (counter_line, output_name), "green")
     print colored("If submitting results fails please type:", "red")
