@@ -170,7 +170,7 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind, OUTPUTDIR):
 class Traceroute:
 
 
-    def __init__(self, OUTPUTDIR, ip_addr, hostlist):
+    def __init__(self, OUTPUTDIR, ip_addr, hostlist, geoif):
 
         self._odir = os.path.join(OUTPUTDIR, '_traceroutes')
         self._vdir = os.path.join(OUTPUTDIR, '_verbotracelogs')
@@ -183,6 +183,8 @@ class Traceroute:
 
         self.ips_links = []
         self.countries_links = []
+
+        self.geoif = geoif
 
         for _host in self.hostlist:
             self.ips_links.append(os.path.join(self._odir, "%s_ip.json" % _host))
@@ -205,6 +207,19 @@ class Traceroute:
 
         return False
 
+    def cant_trace(self):
+
+        # sometime here you find multicast or shit
+        dest_country = self.geoif.country_name_by_addr(self.v4_target)
+        if not dest_country:
+            return True # mean "I can't trace this shit"
+
+        dest_code = self.geoif.country_code_by_addr(self.v4_target)
+        self.destination_geoinfo = [ dest_country, dest_code ]
+
+        # double negation False that you Can't Trace.
+        return False
+
 
     def file_dump(self):
 
@@ -212,7 +227,11 @@ class Traceroute:
             json.dump(self.iplist, f)
 
         with file(self.cc_trace_file, 'w+') as f:
-            json.dump(self.country_travel_path, f)
+            aggregate_country_info = [
+                self.country_travel_path,
+                self.destination_geoinfo
+            ]
+            json.dump(aggregate_country_info, f)
 
         for ip_link in self.ips_links:
             # dest has the path, souece has not
@@ -236,7 +255,6 @@ class Traceroute:
             return False
 
         # resolve Geo info for all the IP involved
-        gi = GeoIP.new(GeoIP.GEOIP_MEMORY_CACHE)
         self.country_travel_path = {}
         counter = 0
         print "\t", len(self.iplist), "HOP through",
@@ -250,13 +268,13 @@ class Traceroute:
             if isinstance(ip, list):
                 ip = ip[0]
 
-            code = gi.country_code_by_addr(ip)
+            code = self.geoif.country_code_by_addr(ip)
             if not code:
                 print colored(code, "red"),
             else:
                 print colored(code, "green"),
 
-            country = gi.country_name_by_addr(ip)
+            country = self.geoif.country_name_by_addr(ip)
             self.country_travel_path.update({counter:country})
             counter += 1
 
@@ -581,17 +599,21 @@ def main():
 
     counter = 1
     trace_stats = {}
+    gi = GeoIP.new(GeoIP.GEOIP_MEMORY_CACHE)
     for ip_addr, hostlist in ip_map.iteritems():
 
         progress_string = "%d/%d" % (counter, len(ip_map.keys()))
         print colored("%s%s" % (progress_string, (10 - len(progress_string)) * " " ), "cyan" ),
 
-        t = Traceroute(OUTPUTDIR, ip_addr, hostlist)
+        t = Traceroute(OUTPUTDIR, ip_addr, hostlist, gi)
         counter += 1
 
         if t.already_traced():
             print colored ("%s already traced (%d hosts): skipping" % (ip_addr, len(hostlist) ), "green")
             retinfo = "recover"
+        elif t.cant_trace():
+            print colored ("%s cannot be traced because has not a Geo destination" % ip_addr, "red")
+            retinfo = "skipped"
         elif not t.do_trace():
             retinfo = "fail"
             print colored("Traceroute fails!", "red")
@@ -604,7 +626,7 @@ def main():
                 pass
 
         del t
-        assert retinfo in [ 'recover', 'success', 'anomaly', 'fail' ]
+        assert retinfo in [ 'recover', 'success', 'anomaly', 'fail', 'skipped' ]
         trace_stats.setdefault(retinfo, []).append(ip_addr)
 
 
