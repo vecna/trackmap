@@ -74,12 +74,12 @@ Create one directory for store the project files:
 
 Change directory to the directory where you installed the test script and run:
 
-    ./perform_analysis.py NAME_OF_YOUR_COUNTRY
+    ./perform_analysis.py -c NAME_OF_YOUR_COUNTRY
 
 If you have not installed phantom 1.9.2 on the path specified above, but are using your distribution's phantomjs, add 
-the option **lp** (local phantom):
+the option **-l** (local phantom):
 
-    ./perform_analysis.py NAME_OF_YOUR_COUNTRY lp
+    ./perform_analysis.py -c NAME_OF_YOUR_COUNTRY -l
 
 To see a list of countries, just tape something random, the script show the available countries (or check [here](https://github.com/vecna/helpagainsttrack/tree/master/verified_media) )
 
@@ -140,7 +140,7 @@ Please read [Vagrant usage description](https://github.com/vecna/helpagainsttrac
 A [Docker](https://www.docker.com/) image has been created for this tool, using the Dockerfile provided in the test 
 tool directory. If you wish to use this, you can run the test tool using:
 
-    docker run -t -i pvanheus/helpagainsttrack NAME_OF_YOUR_COUNTRY
+    docker run -t -i pvanheus/helpagainsttrack -c NAME_OF_YOUR_COUNTRY
     
 ## Technopolitical goal
 
