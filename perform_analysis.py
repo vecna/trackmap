@@ -55,6 +55,8 @@ class TraceStats:
             print colored("\tHas been detected five time a complete Traceroute failure", "red")
             print colored("\tMaybe the network is down, maybe your host is filtering ICMP", "red")
             print colored("\tIn both cases, the test is interrupted.", "red")
+            print "\n"
+            print colored("\tIf the test has reach more than 5 traceroute, try to restart the command: it will resume", "red")
             print "\n\n"
             quit(-1)
 
@@ -194,18 +196,9 @@ class Traceroute:
     def already_traced(self):
 
         if os.path.isfile(self.ipv4_trace_file) and os.path.isfile(self.cc_trace_file):
-
-            for ip_link in self.ips_links:
-                if not os.path.islink(ip_link):
-                    raise Exception("Inconsistency! %s" % ip_link)
-
-            for cc_link in self.countries_links:
-                if not os.path.islink(cc_link):
-                    raise Exception("Inconsistency! %s" % cc_link)
-
             return True
-
-        return False
+        else:
+            return False
 
     def cant_trace(self):
 
@@ -246,7 +239,7 @@ class Traceroute:
         """
         Return True of False if the trace has gone successful or not
         """
-        timeout = "0.3"
+        timeout = "0.6"
 
         print colored("%s ..." % self.hostlist, "yellow")
         self._software_execution(timeout)
