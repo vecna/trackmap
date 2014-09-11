@@ -619,9 +619,9 @@ def main():
         if t.already_traced():
             print colored ("%s already traced (%d hosts): skipping" % (ip_addr, len(hostlist) ), "green")
             retinfo = "recover"
-        elif t.cant_trace():
-            print colored ("%s cannot be traced because has not a Geo destination" % ip_addr, "red")
-            retinfo = "skipped"
+        #if t.cant_trace():
+        #    print colored ("%s has not a Geo destination, tracing anyway" % ip_addr, "red")
+        #    retinfo = "skipped"
         elif not t.do_trace():
             retinfo = "fail"
             print colored("Traceroute fails!", "red")
@@ -669,7 +669,8 @@ def main():
 
     if args.disable_send:
         print colored("%d file added to %s" % (counter_line, output_name), "green")
-        print colored("Sending disable, test completed'\n", "yellow")
+        print colored("Sending disable, test complete.", "yellow"),
+        print colored("亷 亸", 'blue', 'on_white')
         quit(0)
 
     print colored("%d file added to %s, Starting 'result_sender.py'\n" % (counter_line, output_name), "green")
