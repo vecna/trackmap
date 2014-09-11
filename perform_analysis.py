@@ -239,7 +239,7 @@ class Traceroute:
         """
         Return True of False if the trace has gone successful or not
         """
-        timeout = "0.6"
+        timeout = "0.8"
 
         print colored("%s ..." % self.hostlist, "yellow")
         self._software_execution(timeout)
@@ -674,7 +674,7 @@ def main():
 
     print colored("%d file added to %s, Starting 'result_sender.py'\n" % (counter_line, output_name), "green")
     print colored("If submitting results fails please type:", "red")
-    print colored(" torify python ./sender_results.py %s" % output_name, "green")
+    print colored(" torify ./sender_results.py %s" % output_name, "green")
     print colored("If this command also fails (and raise a python Exception), please report the error to trackmap at tacticaltech dot org :)", 'red')
 
     # result sender has hardcoded our hidden service

@@ -2,13 +2,17 @@
 # This script send the results to the TrackMap hidden service
 # This script is called at the end of perform_analysis.py and is used via 'torify'
 
-import socket, sys
+import socket
+import sys
+import os
+import time
+import random
 
-
-def help():
-    return "  torify python %s %s" % (sys.argv[0], sys.argv[1])
 
 connect_tuple = ( 'mzvbyzovjazwzch6.onion', 80 )
+
+def get_help():
+    return "  torify %s %s" % (sys.argv[0], sys.argv[1])
 
 if len(sys.argv) == 1:
     print "This script sent the result file to us, via hidden service"
@@ -42,10 +46,16 @@ except Exception as info:
     quit(-1)
 
 total_sent = 0
-result_len = 0
+
+statinfo = os.stat(filename)
+
 with open(filename, 'rb') as fp:
     c = socket.socket()
     c.connect( connect_tuple )
+
+    anxiety_handler = 0
+    # anxiety is the counter to show a progress percentage, in order to do not make
+    # the user press ^C
 
     datacounter = 0
     while True:
@@ -54,22 +64,17 @@ with open(filename, 'rb') as fp:
         if not data:
             break
 
-        result_len += len(data)
-        datacounter += len(data)
-        check = c.send(data)
-        total_sent += check
+        total_sent += c.send(data)
 
-        # assert datacounter == check, "your OS is making fun of you, or, Tor is different than expected"
-        if len(data) != check:
-            print "XXX: have read", len(data), "but sent", check, "?"
+        if random.randint(1, 20) == 13:
+            print "%f%%\t%s\t%d\tof %d bytes sent" % (
+                ( 100 * (float(total_sent) / statinfo.st_size)), time.ctime(),
+                total_sent, statinfo.st_size
+            )
 
     c.close()
 
 
-if total_sent == result_len:
-    print "\n\tData collected has been sent, Thank You! :)\n"
-else:
-    print "\n\tSome error has happen, please, execute again:"
-    print "\t", help(), "\n"
+print "\n\tData collected has been sent, Thank You! :)\n"
 
 
