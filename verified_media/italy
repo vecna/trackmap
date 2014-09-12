@@ -175,8 +175,6 @@ http://www.romagnaoggi.it/
 http://www.rovigooggi.it/
 http://www.sicilianews24.it/
 http://www.tempi.it/
-http://www.theflorentine.net/
-# The English-speaking news magazine in Florence
 http://www.unionesarda.it/
 http://www.valenza.it/
 http://www.vernacoliere.com/
@@ -188,4 +186,16 @@ http://www.wired.it
 http://www.zerosette.it/
 http://www.zeusnews.it
 
+http://www.theflorentine.net/
+# The English-speaking news magazine in Florence
+
 [blog]
+# some blog from blogbabel, removed the media already on top.
+http://www.beppegrillo.it/
+http://www.macchianera.net/
+http://www.mantellini.it/
+http://www.gadlerner.it/
+http://attivissimo.blogspot.it/
+http://www.tvblog.it/
+http://www.minimaetmoralia.it/
+http://blog.debiase.com/
