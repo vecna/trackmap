@@ -200,18 +200,12 @@ class Traceroute:
         else:
             return False
 
-    def cant_trace(self):
+    def resolve_target_geoip(self):
 
         # sometime here you find multicast or shit
         dest_country = self.geoif.country_name_by_addr(self.v4_target)
-        if not dest_country:
-            return True # mean "I can't trace this shit"
-
         dest_code = self.geoif.country_code_by_addr(self.v4_target)
         self.destination_geoinfo = [ dest_country, dest_code ]
-
-        # double negation False that you Can't Trace.
-        return False
 
 
     def file_dump(self):
@@ -628,6 +622,7 @@ def main():
         else:
             retinfo = "success"
             try:
+                t.resolve_target_geoip()
                 t.file_dump()
             except Exception:
                 retinfo = "anomaly"
