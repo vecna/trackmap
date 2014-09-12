@@ -4,6 +4,7 @@ import os
 import json
 import datetime
 import GeoIP
+import operator
 
 from tldextract import TLDExtract
 from termcolor import colored
@@ -199,6 +200,7 @@ def ip_to_country_tuple(ip):
     gi = GeoIP.new(GeoIP.GEOIP_MEMORY_CACHE)
     cc = gi.country_code_by_addr(ip)
     cn = gi.country_name_by_addr(ip)
+    del gi
     return cc, cn
 
 
@@ -234,6 +236,9 @@ class Importer:
 
         self.outputdir = output_dir
         self.verified_media_dir = verified_media_dir
+
+        # will be initialized later, if
+        self.resolution_dns = None
 
         self.country = None
         try:
@@ -347,7 +352,9 @@ class Importer:
 
     def get_ipv4_map(self):
 
-        self.resolution_dns = {}
+        if self.resolution_dns:
+            return self.resolution_dns
+
         with file(self._pathof('resolution.dns')) as fp:
             self.resolution_dns = json.load(fp)
 
@@ -483,39 +490,48 @@ class Importer:
 
 class Import3(Importer):
 
+    def _phantom_collected_stats(self, stored_info):
+
+        assert self.analyzed_media, "Is not yet initialized analyzed_media"
+
+        retdict = {}
+        keys = [ 'first', 'second', 'failures']
+
+        for k in keys:
+            if stored_info.has_key(k):
+                retdict[k] = len(stored_info[k])
+            else:
+                retdict[k] = 0
+
+        retdict.update({
+            'total' : len(self.analyzed_media)
+        })
+        return retdict
+
+
     def get_success_ratio(self):
+        """
+        In version three are collected correctly only
+
+        """
 
         with file(self._pathof("_phantom.trace.stats.json"), 'r') as fp:
-            pha_tra_stat = json.load(fp)
+            mixed_stats = json.load(fp)
 
         try:
-            assert isinstance(pha_tra_stat, list)
-            assert len(pha_tra_stat) == 2
+            assert isinstance(mixed_stats, list)
+            assert len(mixed_stats) == 2
 
-            phantom_s = pha_tra_stat[0]
-            trace_s = pha_tra_stat[1]
+            phantom_s = mixed_stats[0]
+            # Here are broken and useless: mixed_stats[1]
 
             assert isinstance(phantom_s, dict)
-            assert isinstance(trace_s, dict)
         except Exception as xxx:
             print "Unable to load the Phantom/Traceroute stats: %s" % xxx
             raise xxx
 
-        # collect the results of the large dict returning just three numbers
-        self.phantom_stats = {}
-        keys = [ 'first', 'second', 'failures']
-        for k in keys:
-            if phantom_s.has_key(k):
-                self.phantom_stats[k] = len(phantom_s[k])
-            else:
-                self.phantom_stats[k] = 0
-
-        # collect the number of True and False = the number of successful trace
-        self.trace_stats = {
-            'success' : trace_s.values().count(True),
-            'fails' : trace_s.values().count(False)
-        }
-        return self.phantom_stats, self.trace_stats
+        self.phantom_stats = self._phantom_collected_stats(phantom_s)
+        return self.phantom_stats
 
 
     def get_tester_ip(self):
@@ -556,13 +572,12 @@ class Import3(Importer):
         Here is version 3
             has IP traced and
             symbolic link from the hostname
+        return [list], 'target_country'
         """
-        try:
-            country_tjf = self._pathof('_traceroutes/%s.countries' % host)
-            assert os.path.islink(country_tjf), "Not a symlink as expected"
-        except Exception:
-            print "No traceroute output available for %s" % host
-            return None
+
+        country_tjf = self._pathof('_traceroutes/%s.countries' % host)
+        # exception is catch on caller
+        assert os.path.islink(country_tjf), "Not a symlink as expected"
 
         country_list = []
         with file(country_tjf) as f:
@@ -574,13 +589,122 @@ class Import3(Importer):
                 unicode_key = u"%s" % i
                 country_list.append(numeric_flow_of_country[unicode_key])
 
-        return country_list
+        # before return country_list is resolved target destination
+        target_v4 = local_resolve_host(host, self.resolution_dns)
+        target_country_name = ip_to_country_tuple(target_v4)[1]
+
+        return country_list, target_country_name
 
 
     def get_trace_tim(self, host):
         return os.path.getctime(
             self._pathof('_traceroutes/%s.countries' % host)
         )
+
+
+
+
+class Import4(Import3):
+
+
+    def _trace_collected_stata(self, received_stats):
+
+        retdict = {}
+        keys = ['fail', 'anomaly', 'skipped', 'recover', 'success']
+
+        for k in keys:
+            if received_stats.has_key(k):
+                retdict.update({k : len(received_stats[k])})
+            else:
+                retdict.update({k : 0})
+
+        retdict.update({
+            'total' : len(self.resolution_dns.keys())
+        })
+        return retdict
+
+
+    def get_success_ratio(self):
+        """
+        In version three are collected correctly only
+        """
+
+        with file(self._pathof("_phantom.trace.stats.json"), 'r') as fp:
+            mixed_stats = json.load(fp)
+
+        try:
+            assert isinstance(mixed_stats, list)
+            assert len(mixed_stats) == 2
+
+            phantom_s = mixed_stats[0]
+            traces_s = mixed_stats[1]
+
+            assert isinstance(phantom_s, dict)
+            assert isinstance(traces_s, dict)
+
+        except Exception as xxx:
+            print "Unable to load the Phantom/Traceroute stats: %s" % xxx
+            raise xxx
+
+        self.phantom_stats = self._phantom_collected_stats(phantom_s)
+        self.trace_stats = self._trace_collected_stata(traces_s)
+
+        return self.phantom_stats, self.trace_stats
+
+
+    def get_trace_country(self, host):
+        """
+        Here is version 4
+            has IP traced and
+            symbolic link from the hostname
+            inside of the traced data there are a list and not a dict
+            [
+                { "0": null, "1": "Italy", "2": "Italy", "3": "Italy",
+                  "4": "Italy", "5": "Netherlands", "6": "Europe"
+                },
+                ["Europe", "EU"]
+            ]
+        """
+        country_tjf = self._pathof('_traceroutes/%s_countries.json' % host)
+        # exception catch on caller
+        assert os.path.islink(country_tjf), "Not a symlink as expected"
+
+        country_list = []
+        with file(country_tjf) as f:
+            # convert the ordered dictionary in a list
+            composed_traceout = json.load(f)
+
+            destination_location = composed_traceout[1]
+            assert isinstance(destination_location, list), "*Expected list %s" % host
+            numeric_flow_of_country = composed_traceout[0]
+            assert isinstance(numeric_flow_of_country, dict), "*Expected dict %s" % host
+
+            limit = len(numeric_flow_of_country.keys())
+
+            for i in xrange(limit):
+                unicode_key = u"%s" % i
+                country_list.append(numeric_flow_of_country[unicode_key])
+
+        self.target_geoip = destination_location[0]
+
+        # destination_location is [ CountryName, CCode ]
+        #if country_list[-1] != destination_location[0]:
+        #    country_list.append(destination_location[0])
+        #    Import4.Useful_times += 1
+
+        return country_list, self.target_geoip
+
+    def get_trace_tim(self, host):
+        try:
+            retfloat = os.path.getctime(
+                self._pathof('_traceroutes/%s_countries.json' % host)
+            )
+            return retfloat
+        except Exception as xxx:
+            # do not rise alarm the coutry chain is still missing
+            # on the mediaroute. class
+            return 0.0
+
 
 
 
@@ -649,11 +773,9 @@ class Import1(Importer):
             has every host a traceroute dump in .json
             they are "trace JSON files"
         """
-        try:
-            country_tjf = self._pathof('_traceroutes/%s_countries.json' % host)
-        except Exception:
-            # print "No traceroute output available for %s" % host
-            return None
+
+        # if file do not exist, exception catch on caller
+        country_tjf = self._pathof('_traceroutes/%s_countries.json' % host)
 
         country_list = []
         with file(country_tjf) as f:
@@ -665,7 +787,11 @@ class Import1(Importer):
                 unicode_key = u"%s" % i
                 country_list.append(numeric_flow_of_country[unicode_key])
 
-        return country_list
+        # before return country_list is resolved target destination
+        target_v4 = local_resolve_host(host, self.resolution_dns)
+        target_country_name = ip_to_country_tuple(target_v4)[1]
+
+        return country_list, target_country_name
 
 
     def get_trace_tim(self, host):
@@ -750,6 +876,20 @@ class TrackingResearch:
 
 
 class PercentageResearch:
+    """
+    The goal of this class is represent the presence of a foreign country
+    in the media usage of a target country.
+    """
+
+    def _do_dir_join(self, percentdir, fname):
+        # useful utility for such
+        destdir = os.path.join(percentdir, self.country)
+        try:
+            os.makedirs(destdir)
+        except Exception:
+            pass
+        return os.path.join(destdir, fname)
+
 
     def __init__(self, country, importer_id):
 
@@ -762,18 +902,51 @@ class PercentageResearch:
             'local' : 0,
             'blog' : 0
         }
+
+        self.foreign_presence = {
+            'global' : {},
+            'national' : {},
+            'local': {},
+            'blog' : {}
+        }
+        self.company_presence = {
+            'global' : {},
+            'national' : {},
+            'local': {},
+            'blog' : {}
+        }
+
         self.country_collector = {}
         self.company_collector = {}
 
-    def add_media_info(self, blob):
+
+    def add_country_presence(self, media, kind, country_chain):
+        if self.foreign_presence[kind].has_key(media):
+            self.foreign_presence[kind][media] += country_chain
+        else:
+            self.foreign_presence[kind].update({ media : country_chain })
+
+
+    def add_company_presence(self, media, kind, company):
+
+        if not company:
+            return
+
+        # this is a single string. so if good the setdefault
+        self.company_presence[kind].\
+            setdefault(media, []).append(company)
+
+
+    def add_large_chaotic_info(self, blob):
         """
+        blob is:
         (
             'global',
                 {
                     None: 51,  u'Europe': 1, u'Australia': 3,
                     u'Singapore': 17, u'Indonesia': 50, u'India': 1,
                     u'United States': 24, u'Asia/Pacific Region': 1,
-                    u'Japan': 2, u'Hong Kong': 1, 'ID': 45
+                    u'Japan': 2, u'Hong Kong': 1, 'Indonesia': 45
                 }, {
                     None: 18, u'Google': 11, u'Adobe': 2, u'Nielsen': 1,
                     u'cXense': 1, u'comScore': 1, u'Fairfax Media': 1,
@@ -784,8 +957,6 @@ class PercentageResearch:
         """
         self.media_counter[blob[0]] += 1
 
-        # TODO evaluate if remove 'global' from the country stats
-
         for country, entrances in blob[1].iteritems():
             self.country_collector.setdefault(country, 0)
             self.country_collector[country] += entrances
@@ -794,18 +965,123 @@ class PercentageResearch:
             self.company_collector.setdefault(company, 0)
             self.company_collector[company] += inclusions
 
-    def dump(self, percentdir):
 
-        destdir = os.path.join(percentdir, self.country)
-        try:
-            os.makedirs(destdir)
-        except Exception:
-            pass
+    def dump_country_presence(self, percentdir):
+        """
+        The concept is, for every media stock every country you
+        pass through, then, after, make computation over the
+        media number of section.
+        """
+        for kind, mediamap in self.foreign_presence.iteritems():
 
-        destfile = os.path.join(destdir, '%d-%s.json' %
-                                         ( self.importer_id, self.country))
+            country_occourrence = {}
+            for media, country_chain in mediamap.iteritems():
 
-        # TODO do the percentage computation and put them in this dict
+                for c in country_chain:
+
+                    if country_occourrence.has_key(c):
+                        continue
+
+                    # for the country not present in the country_occourrence
+                    # iter over all the chains and count
+                    media_passing_thru = 0
+                    for test_cc_list in mediamap.itervalues():
+
+                        if c in test_cc_list:
+                            media_passing_thru += 1
+                            # jump to the next media
+                            continue
+
+                    country_occourrence.update({c : media_passing_thru})
+
+                # when this loop is completed, next to the other
+                # country_chain, looking for more rare country
+
+            clean_kind_content = []
+            for country, media_passing_thru in country_occourrence.iteritems():
+                clean_kind_content.append({
+                    "country" : country,
+                    "media_passing_thru" : media_passing_thru,
+                    "percentage" : round( 100 *
+                                  ( float(media_passing_thru) /
+                                    len(mediamap.keys())), 2 )
+                })
+
+            clean_kind_content.sort(key=operator.itemgetter('percentage'))
+
+            if not clean_kind_content:
+                continue
+
+            dumpf = self._do_dir_join(percentdir,
+                                "%d-%s-country-presence.json" % (
+                                    self.importer_id, kind
+                                ))
+
+            fp = file(dumpf, 'w+')
+            json.dump(clean_kind_content, fp)
+            fp.close()
+
+
+
+    def dump_company_presence(self, percentdir):
+        """
+        is the same code above, just applied to company list
+        """
+        for kind, ads_mediamap in self.company_presence.iteritems():
+
+            company_occourrence = {}
+            for media, companies_list in ads_mediamap.iteritems():
+
+                for c in companies_list:
+
+                    if company_occourrence.has_key(c):
+                        continue
+
+                    # for the company is not present in the company_occourrence
+                    # iter over all the chains and count
+                    media_passing_thru = 0
+                    for test_ads_comp_list in ads_mediamap.itervalues():
+
+                        if c in test_ads_comp_list:
+                            media_passing_thru += 1
+                            # jump to the next media
+                            continue
+
+                    company_occourrence.update({c : media_passing_thru})
+
+                    # when this loop is completed, next to the other
+                    # country_chain, looking for more rare country
+
+            clean_kind_content = []
+            for company, media_passing_thru in company_occourrence.iteritems():
+                clean_kind_content.append({
+                    "company" : company,
+                    "media_associated_at" : media_passing_thru,
+                    "percentage" : round( 100 *
+                                          ( float(media_passing_thru) /
+                                            len(ads_mediamap.keys())), 2 )
+                })
+
+            clean_kind_content.sort(key=operator.itemgetter('percentage'))
+
+            if not clean_kind_content:
+                continue
+
+            dumpf = self._do_dir_join(percentdir,
+                                      "%d-%s-company-presence.json" % (
+                                          self.importer_id, kind
+                                      ))
+
+            fp = file(dumpf, 'w+')
+            json.dump(clean_kind_content, fp)
+            fp.close()
+
+
+    def dump_large_chaotic_info(self, percentdir):
+
+        destfile = self._do_dir_join(percentdir,
+                                     "%d-chaotic_info.json" % self.importer_id)
+
         summary_dict = {
             'countries_sum' : self.country_collector,
             'companies_sum' : self.company_collector,
