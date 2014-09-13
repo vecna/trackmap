@@ -50,13 +50,13 @@ class TraceStats:
         """
         TraceStats.three_hundres += 1
 
-        if TraceStats.three_hundres >= 5:
+        if TraceStats.three_hundres >= 10:
             print "\n\n"
-            print colored("\tHas been detected five time a complete Traceroute failure", "red")
+            print colored("\tHas been detected ten time a complete Traceroute failure", "red")
             print colored("\tMaybe the network is down, maybe your host is filtering ICMP", "red")
             print colored("\tIn both cases, the test is interrupted.", "red")
             print "\n"
-            print colored("\tIf the test has reach more than 5 traceroute, try to restart the command: it will resume", "red")
+            print colored("\tIf the test has reach more than 10 traceroute, try to restart the command: it will resume", "red")
             print "\n\n"
             quit(-1)
 
@@ -613,9 +613,6 @@ def main():
         if t.already_traced():
             print colored ("%s already traced (%d hosts): skipping" % (ip_addr, len(hostlist) ), "green")
             retinfo = "recover"
-        #if t.cant_trace():
-        #    print colored ("%s has not a Geo destination, tracing anyway" % ip_addr, "red")
-        #    retinfo = "skipped"
         elif not t.do_trace():
             retinfo = "fail"
             print colored("Traceroute fails!", "red")
@@ -626,10 +623,36 @@ def main():
                 t.file_dump()
             except Exception:
                 retinfo = "anomaly"
-                pass
 
         del t
-        assert retinfo in [ 'recover', 'success', 'anomaly', 'fail', 'skipped' ]
+        assert retinfo in [ 'recover', 'success', 'anomaly', 'fail'  ]
+        trace_stats.setdefault(retinfo, []).append(ip_addr)
+
+    # Traceroute class need to be enhanced with some kind of:
+    #  *  failure measurement and GUESSING WHY
+    #  *  retry after a while
+    #  *  extimation of shared path - optimization and stabler collection
+    if trace_stats.has_key('fail') and len(trace_stats['fail']):
+        print colored(" ࿓  Testing again the failed traceroute to %d IP address" %
+                len(trace_stats['fail']))
+
+    counter = 1
+    for failed_trace in trace_stats['fail']:
+
+        t = Traceroute(OUTPUTDIR, ip_addr, hostlist, gi)
+        counter += 1
+        if not t.do_trace():
+            print colored("Failure again.", "red")
+        else:
+            retinfo = "retry"
+            try:
+                t.resolve_target_geoip()
+                t.file_dump()
+            except Exception:
+                retinfo = "anomaly"
+
+        del t
+        assert retinfo in [ 'recover', 'success', 'anomaly', 'fail', 'skipped', 'retry' ]
         trace_stats.setdefault(retinfo, []).append(ip_addr)
 
 
@@ -668,7 +691,7 @@ def main():
         print colored("亷 亸", 'blue', 'on_white')
         quit(0)
 
-    print colored("%d file added to %s, Starting 'result_sender.py'\n" % (counter_line, output_name), "green")
+    print colored("%d file added to %s, Starting 'sender_results.py' program\n" % (counter_line, output_name), "green")
     print colored("If submitting results fails please type:", "red")
     print colored(" torify ./sender_results.py %s" % output_name, "green")
     print colored("If this command also fails (and raise a python Exception), please report the error to trackmap at tacticaltech dot org :)", 'red')
@@ -689,7 +712,7 @@ def main():
             continue
 
         if line:
-            print colored("   %s" % line, 'yellow')
+            print colored("   %s" % line, 'yellow'),
         if exx:
             print colored(exx, 'red')
 
