@@ -66,7 +66,7 @@ with open(filename, 'rb') as fp:
 
         total_sent += c.send(data)
 
-        if random.randint(1, 20) == 13:
+        if random.randint(1, 200) == 13:
             print "%f%%\t%s\t%d\tof %d bytes sent" % (
                 ( 100 * (float(total_sent) / statinfo.st_size)), time.ctime(),
                 total_sent, statinfo.st_size

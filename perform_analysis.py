@@ -23,6 +23,7 @@ except ImportError:
     quit(-1)
 
 ANALYSIS_VERSION = 4
+# remind: error.dns is changed in the middle of version 4 because is still not yet used
 
 class TraceStats:
 
@@ -67,17 +68,19 @@ def do_wget(pathdest):
     if os.path.isfile('index.html'):
         raise Exception("Why you've an index.html file here ? report this error please")
 
-    p = Popen(['wget', 'http://json.whatisyourip.org/'], stdout=PIPE, stderr=PIPE)
+    p = Popen(['wget', '--timeout', '10', '--tries', '3', 'http://json.whatisyourip.org/'], stdout=PIPE, stderr=PIPE)
     while True:
-        line = p.stdout.readline()
+        line = p.stderr.readline()
         if not line:
             break
+        print line,
 
     if os.path.isfile('index.html'):
         shutil.move('index.html', pathdest)
     else:
         with file(pathdest, 'w+') as fp:
             fp.write("Error :\\")
+        print colored("Error in get location IP address in %s" % pathdest, 'red')
 
 
 
@@ -148,8 +151,8 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind, OUTPUTDIR):
 
     included_url_number = validate_phantomjs_output()
     if not included_url_number:
-        print colored("Unable to fetch correctly %s, waiting 30 seconds and retry" % url, "red")
-        time.sleep(30)
+        print colored("Unable to fetch correctly %s, waiting 10 seconds and retry" % url, "red")
+        time.sleep(10)
         software_execution()
         second_test = validate_phantomjs_output()
         if second_test:
@@ -497,12 +500,15 @@ def main():
         json.dump(included_url_dict, f)
 
     # generate DNS resolution map. for every host resolve an IP, for every IP resolve again DNS
-    print colored(" ࿓  DNS resolution and reverse of %d domains" % len(included_url_dict), 'blue', 'on_white', attrs=['underline'])
-    # when a "+" is printed, mean that a new IP/reverse has been added,
-    # when a "*" is printed, mean that an older IP/reverse has a new associate
-    # when a "-" is printed, has been an error!
-    dns_error = []
+    print colored(" ࿓  DNS resolution and reverse of %d domains..." % len(included_url_dict), 'blue', 'on_white', attrs=['underline'])
 
+    # new format contain:
+    # first dict: resolution error
+    # second dict: reverse error
+    dns_error = [{}, {}]
+
+    # now, until there is not refactor based on classes,
+    # the resolution of the previously failed DN will not happen
     resolution_dns_f = os.path.join(OUTPUTDIR, 'resolution.dns')
     if os.path.isfile(resolution_dns_f):
         fp = file(resolution_dns_f, 'r')
@@ -520,25 +526,29 @@ def main():
             counter += 1
             if not counter % int(percentage_bound):
                 print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
+            # other random possibility based on birthday paradox to show counters...
+            if random.randint(0, int(percentage_bound * 10 )) == counter:
+                print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
 
             try:
                 socket.setdefaulttimeout(0.5)
                 resolved_v4 = socket.gethostbyname(domain)
             except Exception as xxx:
-                dns_error.append([domain, xxx.strerror])
+                dns_error[0].setdefault(xxx.strerror, []).append(domain)
                 continue
 
             ip_map.setdefault(resolved_v4, []).append(domain)
 
-        with file(resolution_dns_f, 'w+') as f:
-            json.dump(ip_map, f)
+            with file(resolution_dns_f, 'w+') as f:
+                json.dump(ip_map, f)
 
     print colored("\nResolved %d unique IPv4 from %d unique domain" % (len(ip_map.keys()), len(included_url_dict.keys()) ), 'green')
 
-    if len(dns_error) == len(included_url_dict.keys()):
+    if not len(ip_map.keys()):
         print colored("It appears that you can't access the internet. Please fix that and restart the test.", 'red')
         quit(-1)
 
+    print colored("\nReversing DNS for %d unique IP address..." % len(ip_map.keys() ), 'green')
     reverse_dns_f = os.path.join(OUTPUTDIR, 'reverse.dns')
     if os.path.isfile(reverse_dns_f):
         fp = file(reverse_dns_f, 'r')
@@ -557,13 +567,16 @@ def main():
 
             if not (counter % int(percentage_bound) ):
                 print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
+            # other random possibility based on birthday paradox to show counters...
+            if random.randint(0, int(percentage_bound * 10 )) == counter:
+                print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
 
             try:
                 socket.setdefaulttimeout(0.9)
                 resolved_set = socket.gethostbyaddr(ipv4)
                 resolved_name = resolved_set[0]
             except Exception as xxx:
-                dns_error.append([ipv4, xxx.strerror])
+                dns_error[1].setdefault(xxx.strerror, []).append(ipv4)
                 continue
 
             true_domain_map.setdefault(resolved_name, []).append(ipv4)
@@ -573,10 +586,9 @@ def main():
 
     print colored("\nReversed %d unique FQDN" % len(true_domain_map.keys() ), 'green')
 
-    if len(dns_error):
-        print colored("Saving %d errors in 'errors.dns'" % len(dns_error))
-        with file(os.path.join(OUTPUTDIR, 'errors.dns'), 'w+') as f:
-            json.dump(dns_error, f)
+    print colored("Saving DNS errors in 'errors.dns'")
+    with file(os.path.join(OUTPUTDIR, 'errors.dns'), 'w+') as f:
+        json.dump(dns_error, f)
 
     # traceroutes contains all the output of traceroute in JSON format, separated
     # for logs. this output is not in the media directory, because some host like
@@ -637,14 +649,17 @@ def main():
                 len(trace_stats['fail']))
 
     counter = 1
-    for failed_trace in trace_stats['fail']:
+    for case_n, failed_trace in enumerate(trace_stats['fail']):
 
-        t = Traceroute(OUTPUTDIR, ip_addr, hostlist, gi)
+        hostlist = ip_map[failed_trace]
+        t = Traceroute(OUTPUTDIR, failed_trace, hostlist, gi)
         counter += 1
         if not t.do_trace():
             print colored("Failure again.", "red")
+            retinfo = "fail"
         else:
             retinfo = "retry"
+            del trace_stats['fail'][case_n]
             try:
                 t.resolve_target_geoip()
                 t.file_dump()
@@ -701,20 +716,12 @@ def main():
 
     while True:
         line = p.stdout.readline()
-        exx = p.stderr.readline()
 
-        if not line and not exx:
+        if not line:
             break
-
-        if exx.find('failed to find the symbol') != -1:
-            continue
-        if exx.find('libtorsocks') != -1:
-            continue
 
         if line:
             print colored("   %s" % line, 'yellow'),
-        if exx:
-            print colored(exx, 'red')
 
 
 if __name__ == '__main__':
