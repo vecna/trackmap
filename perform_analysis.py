@@ -348,8 +348,15 @@ def main():
                       help="disable the result sending at the end of the test", dest="disable_send")
     parser.add_option("-i", "--instable-internet", action="store_true",
                       help="If your internet is instable, please enable this option", dest="shitty_internet")
+    parser.add_option("-v", "--version", action="store_true", dest="version",
+                      help="print version, spoiler: %d" % ANALYSIS_VERSION)
 
     (args, _) = parser.parse_args()
+
+    if args.version:
+        print "analysis format version:", ANALYSIS_VERSION
+        quit(0)
+
     if not args.medialist:
         print colored("Usage: %s -c $YOUR_COUNTRY_NAME" % sys.argv[0], "red", 'on_white')
         print colored("Other option are -l (local phantom, instead of the symlink here)", "red", 'on_white')

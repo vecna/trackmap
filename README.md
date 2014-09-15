@@ -109,10 +109,10 @@ Few Bandwidth/CPU/disk resources are needed. Is not possible make a precise esti
 
   * A list with around 200 media site starts for (200 + 50) times a "one time browser". It use 5-10 seconds each. more or less expend 300 Kb for each website ( ~75 megabyte used in download ).
   * For every media fetch, 7 to 20 hosts are discovered to be included. the script need process them in such ways:
-    * every host is resolved in an IPv4 address, this help to minimize duplicated result (happen quite often that different hosts has the same IP address). Depends on the first point, but commonly are between 1400 - 1700 unique hosts. This operation require 40 to 90 minutes.
-    * For every resolved IPv4, perform a reverse DNS resolution. This operation is slower than the previous one, require at lest 60 to 120 minutes.
-  * Then, for every unique IPv4 address, start a traceroute. it use at least four hours (up to 8), expend not so much bandwidth.
-  * **The script require more or less 12 hours to be completed, and at the end send to us 20-30 megabytes of data**
+    * every host is resolved in an IPv4 address, this help to minimize duplicated result (happen quite often that different hosts has the same IP address). Depends on the first point, but commonly are between 1400 - 1700 unique hosts. This operation require 10 to 30 minutes.
+    * For every resolved IPv4, perform a reverse DNS resolution. This operation is slower than the previous one, require at lest 30 to 60 minutes.
+  * Then, for every unique IPv4 address, start a traceroute. worst case scenario (and presence of option **-i**) lead the test last for two/three hours, depends a lots on the number of target hosts.
+  * **The script require more or less 4 hours to be completed, and at the end send to us 8-15 megabytes of data**
 
 **You can interrupt the script execution with control+C**, and when the command is given again, **it resume the previous execution**. To start a new collection, remove the 'output' directory. 
 

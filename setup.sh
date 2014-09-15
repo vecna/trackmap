@@ -28,7 +28,7 @@ if [ -x ./fetch_phantomjs.sh ] ; then
     ./fetch_phantomjs.sh
 fi
 
-./perform_analysis --version
+./perform_analysis.py --version
 if [ $? != "0"  ]; then echo "Something goes wrong in the install, please follow the README" && exit; fi
 
 echo "TrackMap collection system: installed correctly"
