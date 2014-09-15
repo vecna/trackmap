@@ -84,7 +84,7 @@ if __name__ == '__main__':
             print "+ Creating directory", urldir
             os.mkdir(urldir)
 
-            do_phantomjs(False, media, urldir, kind)
+            do_phantomjs(False, media, urldir, kind, '_hostseer')
 
     if command == 'Geo':
 
