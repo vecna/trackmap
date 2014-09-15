@@ -58,6 +58,7 @@ class TraceStats:
             print colored("\tIn both cases, the test is interrupted.", "red")
             print "\n"
             print colored("\tIf the test has reach more than 10 traceroute, try to restart the command: it will resume", "red")
+            print colored("\tAdd the option -i to perform a slow and sure test", "red")
             print "\n\n"
             quit(-1)
 
@@ -168,14 +169,14 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind, OUTPUTDIR):
 
 
 
-
-
-
-
 class Traceroute:
 
+    SLOW_TIMEOUT = "1.6"
+    FAST_TIMEOUT = "0.6"
+    SLOW_PROBES = "5"
+    FAST_PROBES = "2"
 
-    def __init__(self, OUTPUTDIR, ip_addr, hostlist, geoif):
+    def __init__(self, OUTPUTDIR, ip_addr, hostlist, geoif, shitty):
 
         self._odir = os.path.join(OUTPUTDIR, '_traceroutes')
         self._vdir = os.path.join(OUTPUTDIR, '_verbotracelogs')
@@ -190,6 +191,7 @@ class Traceroute:
         self.countries_links = []
 
         self.geoif = geoif
+        self.shitty_internet = shitty
 
         for _host in self.hostlist:
             self.ips_links.append(os.path.join(self._odir, "%s_ip.json" % _host))
@@ -236,10 +238,8 @@ class Traceroute:
         """
         Return True of False if the trace has gone successful or not
         """
-        timeout = "0.8"
-
         print colored("%s ..." % self.hostlist, "yellow")
-        self._software_execution(timeout)
+        self._software_execution()
 
         if not self.validate_traceroute_output():
             return False
@@ -274,13 +274,18 @@ class Traceroute:
         return True
 
 
-    def _software_execution(self, timeout):
+    def _software_execution(self):
 
         # these two are the "return value"
         self.iplist = []
         self.asterisks_total = 0
 
-        p = Popen(['traceroute', '-n', '-m 20', '-w', timeout, '-q', '1', '-A', self.v4_target], stdout=PIPE)
+        if self.shitty_internet:
+            p = Popen(['traceroute', '-n', '-m 20', '-w', Traceroute.SLOW_TIMEOUT,
+                       '-q', Traceroute.SLOW_PROBES, '-A', self.v4_target], stdout=PIPE)
+        else:
+            p = Popen(['traceroute', '-n', '-m 20', '-w', Traceroute.FAST_TIMEOUT,
+                       '-q', Traceroute.FAST_PROBES, '-A', self.v4_target], stdout=PIPE)
 
         traceoutf = os.path.join(self._vdir, self.v4_target)
         if os.path.isfile(traceoutf):
@@ -341,6 +346,8 @@ def main():
                       help="use local phantomjs instead of the downloaded one", dest="lp")
     parser.add_option("-d", "--disable-sending", action="store_true",
                       help="disable the result sending at the end of the test", dest="disable_send")
+    parser.add_option("-i", "--instable-internet", action="store_true",
+                      help="If your internet is instable, please enable this option", dest="shitty_internet")
 
     (args, _) = parser.parse_args()
     if not args.medialist:
@@ -619,7 +626,8 @@ def main():
         progress_string = "%d/%d" % (counter, len(ip_map.keys()))
         print colored("%s%s" % (progress_string, (10 - len(progress_string)) * " " ), "cyan" ),
 
-        t = Traceroute(OUTPUTDIR, ip_addr, hostlist, gi)
+        t = Traceroute(OUTPUTDIR, ip_addr, hostlist, gi, args.shitty_internet)
+
         counter += 1
 
         if t.already_traced():
@@ -643,16 +651,19 @@ def main():
     # Traceroute class need to be enhanced with some kind of:
     #  *  failure measurement and GUESSING WHY
     #  *  retry after a while
-    #  *  extimation of shared path - optimization and stabler collection
+    #  *  estimation of shared path - optimization and stabler collection
     if trace_stats.has_key('fail') and len(trace_stats['fail']):
         print colored(" ࿓  Testing again the failed traceroute to %d IP address" %
                 len(trace_stats['fail']))
+    else:
+        # just here to skip a KeyError below
+        trace_stats.update({'fail': []})
 
     counter = 1
     for case_n, failed_trace in enumerate(trace_stats['fail']):
 
         hostlist = ip_map[failed_trace]
-        t = Traceroute(OUTPUTDIR, failed_trace, hostlist, gi)
+        t = Traceroute(OUTPUTDIR, failed_trace, hostlist, gi, args.shitty_internet)
         counter += 1
         if not t.do_trace():
             print colored("Failure again.", "red")

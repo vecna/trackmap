@@ -51,7 +51,7 @@ page.onResourceTimeout = function(e) {
 
 page.open(address, function (status) {
     if (status !== 'success') {
-        console.log('FAIL to load the address');
+        console.log('FAIL to load the address', address);
         console.log(status);
         console.log(page.reason);
         console.log(page.reason_url);

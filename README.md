@@ -76,12 +76,14 @@ Change directory to the directory where you installed the test script and run:
 
     ./perform_analysis.py -c NAME_OF_YOUR_COUNTRY
 
-If you have not installed phantom 1.9.2 on the path specified above, but are using your distribution's phantomjs, add 
-the option **-l** (local phantom):
+## Options
 
-    ./perform_analysis.py -c NAME_OF_YOUR_COUNTRY -l
+  * **-i**: To be used when you're in an *Instable Internet Connection*, like, a wifi with many packet loss.
+  * **-o**: Specify a different output directory: **needed** when are performed multiple tests.
+  * **-d**: disable the data delivery to us. Permit to collect the data and have the file local.
+  * **-l**: If you have not installed phantom 1.9.2 on the path specified above, and you want use your distribution's phantomjs.
 
-To see a list of countries, just tape something random, the script show the available countries (or check [here](https://github.com/vecna/helpagainsttrack/tree/master/verified_media) )
+To see a list of countries, just tape *./perform_analysis.py -c something*: the script show the available countries (or check yourself [here](https://github.com/vecna/helpagainsttrack/tree/master/verified_media) )
 
 ### Clean the data
 
@@ -89,7 +91,8 @@ When you've completed the collection, and the script report:
 
     Data collected has been sent, Thank You! :)
 
-you can safely delete the directory **trackmap** created at the beginning
+you can safely delete the directory **trackmap** created at the beginning,
+or you can simply delete the directory **output** to remove the data collected (and restart the test).
 
 ### (Some yours) Information requested
 
@@ -273,7 +276,7 @@ Just to be complete, the third hop, position 10, is still resolved as London gat
   * [NoScript](http://en.wikipedia.org/wiki/Noscript) (FireFox)
   * SafeScript (Chrome)
   * [Disconnect](https://disconnect.me/)
-  * Ghostery 
+  * Ghostery
   * AdBlock+
 
 ### A little dream
