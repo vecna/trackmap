@@ -685,7 +685,7 @@ def main():
                 retinfo = "anomaly"
 
         del t
-        assert retinfo in [ 'recover', 'success', 'anomaly', 'fail', 'skipped', 'retry' ]
+        assert retinfo in [ 'recover', 'success', 'anomaly', 'fail', 'retry' ]
         trace_stats.setdefault(retinfo, []).append(ip_addr)
 
 
