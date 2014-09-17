@@ -4,10 +4,10 @@
 # It install requirements and then checks out the tool
 # from github into a subdirectory of the current directory
 
-REQUIREMENTS=(tor wget torsocks traceroute python-pip gcc python-dev libgeoip-dev geoip-database libfontconfig1)
+REQUIREMENTS=(tor wget traceroute python-pip gcc python-dev libgeoip-dev geoip-database libfontconfig1)
 sudo apt-get update
 sudo apt-get install -y ${REQUIREMENTS[*]}
-sudo pip install GeoIP tldextract termcolor
+sudo pip install GeoIP tldextract termcolor PySocks
 
 
 traceroute --version

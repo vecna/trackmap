@@ -10,7 +10,8 @@
 
 
 try:
-    import os, re, json, sys, random, time, shutil, socket
+    import os, re, json, sys, random, time, shutil
+    import socket, socks
     import GeoIP
     from optparse import OptionParser
     from subprocess import Popen, PIPE
@@ -21,6 +22,9 @@ except ImportError:
     print "Please, follow the instruction or mail to trackmap at tacticaltech.org"
     print "https://github.com/vecna/helpagainsttrack"
     quit(-1)
+
+
+hiddenservice_tuple = ( 'mzvbyzovjazwzch6.onion', 80 )
 
 ANALYSIS_VERSION = 4
 # remind: error.dns is changed in the middle of version 4 because is still not yet used
@@ -348,6 +352,8 @@ def main():
                       help="disable the result sending at the end of the test", dest="disable_send")
     parser.add_option("-i", "--instable-internet", action="store_true",
                       help="If your internet is instable, please enable this option", dest="shitty_internet")
+    parser.add_option("-s", "--send", type="string", dest="targz_output",
+                      help="do not perform test, submit a previously collected result.")
     parser.add_option("-v", "--version", action="store_true", dest="version",
                       help="print version, spoiler: %d" % ANALYSIS_VERSION)
 
@@ -359,8 +365,8 @@ def main():
 
     if not args.medialist:
         print colored("Usage: %s -c $YOUR_COUNTRY_NAME" % sys.argv[0], "red", 'on_white')
-        print colored("Other option are -l (local phantom, instead of the symlink here)", "red", 'on_white')
-        print colored("Other option are -o output directory, used to collect test", "red", 'on_white')
+        print colored("\t-l (local phantom, instead of the symlink here)", "red", 'on_white')
+        print colored("\t-o output directory, used to collect test results", "red", 'on_white')
         print ""
         print " -l option is needed if you want use your own /usr/bin/phantomjs"
         print " (if you follow README.md, this is not needed because you downloaded phantomjs 1.9.2)"
@@ -402,6 +408,19 @@ def main():
             print colored("You can disable result sending with the option -d", "yellow")
             quit(-1)
         del c
+
+    if hasattr(args, 'targz_file'):
+        if args.disable_send:
+            print colored("You can't use -s (--send) and -d (--disable-sending) options together")
+            quit(-1)
+
+        if not os.path.isfile(args.targz_file):
+            print colored("Invalid file: %s" % args.targz_file)
+            quit(-1)
+
+        print colored(" ࿓  Sending previous results...", 'blue', 'on_white', attrs=['underline'])
+        send_results(args.targz_file, hiddenservice_tuple, Tor=True)
+        quit(0)
 
     # country check
     proposed_country = args.medialist
@@ -686,7 +705,7 @@ def main():
 
         del t
         assert retinfo in [ 'recover', 'success', 'anomaly', 'fail', 'retry' ]
-        trace_stats.setdefault(retinfo, []).append(ip_addr)
+        trace_stats.setdefault(retinfo, []).append(failed_trace)
 
 
     TraceStats([]).dump_stats(OUTPUTDIR)
@@ -724,22 +743,60 @@ def main():
         print colored("亷 亸", 'blue', 'on_white')
         quit(0)
 
-    print colored("%d file added to %s, Starting 'sender_results.py' program\n" % (counter_line, output_name), "green")
-    print colored("If submitting results fails please type:", "red")
-    print colored(" torify ./sender_results.py %s" % output_name, "green")
-    print colored("If this command also fails (and raise a python Exception), please report the error to trackmap at tacticaltech dot org :)", 'red')
+    print colored("%d file added to %s, Starting to submit results via Tor network\n" % (counter_line, output_name), "green")
+    print colored("If submitting results fails please run:", "red")
+    print colored("./perform_analysis.py -s %s" % output_name, "yellow")
+    send_results(output_name, hiddenservice_tuple, Tor=True)
 
-    # result sender has hardcoded our hidden service
-    p = Popen(['torify', 'python', './sender_results.py', output_name], stdout=PIPE, stderr=PIPE)
 
-    while True:
-        line = p.stdout.readline()
+def send_results(targz, connect_tuple, Tor=True):
 
-        if not line:
-            break
+    if Tor:
+        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 9050, True)
+        s = socks.socksocket()
+    else:
+        s = socket.socket()
 
-        if line:
-            print colored("   %s" % line, 'yellow'),
+    c = s.connect(connect_tuple)
+
+    try:
+        if not targz.endswith('.tar.gz'):
+            raise Exception("Not .tar.gz suffix found")
+        if len(targz) > 28:
+            raise Exception("Expected not more than 28 byte here")
+        if targz.find('/') != -1:
+            raise Exception("put a shah not a slash")
+        if targz.find('%') != -1:
+            raise Exception("Encoding is the root of evil")
+        if targz.find('\\') != -1:
+            raise Exception("Other kind of encoding")
+    except Exception as info:
+        print info
+        quit(-1)
+
+    total_sent = 0
+
+    statinfo = os.stat(targz)
+
+    with open(targz, 'rb') as fp:
+
+        while True:
+
+            data = fp.read(1024)
+            if not data:
+                break
+
+            total_sent += c.send(data)
+
+            if random.randint(1, 200) == 13:
+                print "%f%%\t%s\t%d\tof %d bytes sent" % (
+                    ( 100 * (float(total_sent) / statinfo.st_size)), time.ctime(),
+                    total_sent, statinfo.st_size
+                )
+
+        c.close()
+
+    print "\n\tData collected has been sent, Thank You! :)\n"
 
 
 if __name__ == '__main__':

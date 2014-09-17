@@ -55,10 +55,10 @@ If you read "OK" at the end, go to the section [Run the test script](https://git
 Install some base requirements (run with sudo):
 
     sudo apt-get update
-    sudo apt-get install tor git wget torsocks -y
+    sudo apt-get install tor git wget -y
     sudo apt-get install traceroute python-pip gcc python-dev libgeoip-dev -y
     sudo apt-get install geoip-database libfontconfig1 -y
-    sudo pip install GeoIP tldextract termcolor 
+    sudo pip install GeoIP tldextract termcolor PySocks
 
 Create one directory for store the project files:
 
