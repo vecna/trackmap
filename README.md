@@ -130,14 +130,6 @@ Few Bandwidth/CPU/disk resources are needed. Is not possible make a precise esti
 This shows all the nations capable of knowing which users are visiting the (selected) news media.
 
 
-### Long term project support (experimental)
-
-If you're a **Linux user** with a constantly running box and few times:
-
-  * You can run the **Vagrant script** explained  below to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we will eventually send you an email asking you to start your box when the tests get updated).
-
-Please read [Vagrant usage description](https://github.com/vecna/helpagainsttrack/tree/master/Vagrant)
-
 ### Docker image (experimental)
 
 A [Docker](https://www.docker.com/) image has been created for this tool, using the Dockerfile provided in the test 
@@ -145,6 +137,14 @@ tool directory. If you wish to use this, you can run the test tool using:
 
     docker run -t -i pvanheus/helpagainsttrack -c NAME_OF_YOUR_COUNTRY
     
+### Long term project support (unmaintained)
+
+If you're a **Linux user** with a constantly running box and few times:
+
+  * You can run the **Vagrant script** explained  below to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we will eventually send you an email asking you to start your box when the tests get updated).
+
+Please read [Vagrant usage description](https://github.com/vecna/helpagainsttrack/tree/master/Vagrant)
+
 ## Technopolitical goal
 
 We know **online business model is mostly based on tracking**, who is producing content is just pushing hard in order to get more visibility, clicks and provide advertising. 

@@ -34,7 +34,10 @@ class TraceStats:
     v4_paths = {}
     three_hundres = 0
 
-    def __init__(self, v4_path=[]):
+    def __init__(self, v4_path=None):
+
+        if not v4_path:
+            v4_path = []
 
         assert isinstance(v4_path, list)
         for hopcount, ip in enumerate(v4_path):
@@ -51,7 +54,7 @@ class TraceStats:
         """
         This function is called every time a 20 "*" are returned by a Traceroute.
         Mean that network is down or ICMP are filtered.
-        Is called three hunderd because before there was 10 probes for 30 hop
+        Is called three hundred because before there was 10 probes for 30 hop
         """
         TraceStats.three_hundres += 1
 
@@ -61,7 +64,7 @@ class TraceStats:
             print colored("\tMaybe the network is down, maybe your host is filtering ICMP", "red")
             print colored("\tIn both cases, the test is interrupted.", "red")
             print "\n"
-            print colored("\tIf the test has reach more than 10 traceroute, try to restart the command: it will resume", "red")
+            print colored("\tIf the test has reach more than 10 traceroute, then:", "red")
             print colored("\tAdd the option -i to perform a slow and sure test", "red")
             print "\n\n"
             quit(-1)
@@ -175,10 +178,11 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind, OUTPUTDIR):
 
 class Traceroute:
 
-    SLOW_TIMEOUT = "1.6"
-    FAST_TIMEOUT = "0.6"
+    SLOW_TIMEOUT = "2.6"
+    FAST_TIMEOUT = "1.6"
     SLOW_PROBES = "5"
     FAST_PROBES = "2"
+    HOP_COUNT = "20"
 
     def __init__(self, OUTPUTDIR, ip_addr, hostlist, geoif, shitty):
 
@@ -242,7 +246,7 @@ class Traceroute:
         """
         Return True of False if the trace has gone successful or not
         """
-        print colored("%s ..." % self.hostlist, "yellow")
+        print colored("%s ⏎ " % self.hostlist, "yellow")
         self._software_execution()
 
         if not self.validate_traceroute_output():
@@ -285,10 +289,12 @@ class Traceroute:
         self.asterisks_total = 0
 
         if self.shitty_internet:
-            p = Popen(['traceroute', '-n', '-m 20', '-w', Traceroute.SLOW_TIMEOUT,
+            p = Popen(['traceroute', '-n', '-m', Traceroute.HOP_COUNT, '-w',
+                       Traceroute.SLOW_TIMEOUT,
                        '-q', Traceroute.SLOW_PROBES, '-A', self.v4_target], stdout=PIPE)
         else:
-            p = Popen(['traceroute', '-n', '-m 20', '-w', Traceroute.FAST_TIMEOUT,
+            p = Popen(['traceroute', '-n', '-m', Traceroute.HOP_COUNT, '-w',
+                       Traceroute.FAST_TIMEOUT,
                        '-q', Traceroute.FAST_PROBES, '-A', self.v4_target], stdout=PIPE)
 
         traceoutf = os.path.join(self._vdir, self.v4_target)
@@ -325,8 +331,9 @@ class Traceroute:
 
     def validate_traceroute_output(self):
 
-        # TODO put this 20 in a variable passed also to -m above
-        if self.iplist.count(None) == 20:
+        complete_failure = int(Traceroute.HOP_COUNT)
+
+        if self.iplist.count(None) == complete_failure:
             TraceStats.three_hundred_sadness()
             return False
 
@@ -361,6 +368,19 @@ def main():
 
     if args.version:
         print "analysis format version:", ANALYSIS_VERSION
+        quit(0)
+
+    if args.targz_output:
+        if args.disable_send:
+            print colored("You can't use -s (--send) and -d (--disable-sending) options together")
+            quit(-1)
+
+        if not os.path.isfile(args.targz_output):
+            print colored("Invalid file: %s" % args.targz_output)
+            quit(-1)
+
+        print colored(" ࿓  Sending previous results...", 'blue', 'on_white', attrs=['underline'])
+        send_results(args.targz_output, hiddenservice_tuple)
         quit(0)
 
     if not args.medialist:
@@ -408,19 +428,6 @@ def main():
             print colored("You can disable result sending with the option -d", "yellow")
             quit(-1)
         del c
-
-    if hasattr(args, 'targz_file'):
-        if args.disable_send:
-            print colored("You can't use -s (--send) and -d (--disable-sending) options together")
-            quit(-1)
-
-        if not os.path.isfile(args.targz_file):
-            print colored("Invalid file: %s" % args.targz_file)
-            quit(-1)
-
-        print colored(" ࿓  Sending previous results...", 'blue', 'on_white', attrs=['underline'])
-        send_results(args.targz_file, hiddenservice_tuple, Tor=True)
-        quit(0)
 
     # country check
     proposed_country = args.medialist
@@ -661,7 +668,7 @@ def main():
             retinfo = "recover"
         elif not t.do_trace():
             retinfo = "fail"
-            print colored("Traceroute fails!", "red")
+            print colored("Traceroute fails! (%d/10)" % TraceStats.three_hundres, "red")
         else:
             retinfo = "success"
             try:
@@ -686,7 +693,10 @@ def main():
         trace_stats.update({'fail': []})
 
     counter = 1
-    for case_n, failed_trace in enumerate(trace_stats['fail']):
+    fail_list_copy = list(trace_stats['fail'])
+    # a list is done because inside of the loop is changed the
+    # content of trace_stats['fail']
+    for case_n, failed_trace in enumerate(fail_list_copy):
 
         hostlist = ip_map[failed_trace]
         t = Traceroute(OUTPUTDIR, failed_trace, hostlist, gi, args.shitty_internet)
@@ -696,7 +706,7 @@ def main():
             retinfo = "fail"
         else:
             retinfo = "retry"
-            del trace_stats['fail'][case_n]
+            trace_stats['fail'].remove(failed_trace)
             try:
                 t.resolve_target_geoip()
                 t.file_dump()
@@ -746,18 +756,14 @@ def main():
     print colored("%d file added to %s, Starting to submit results via Tor network\n" % (counter_line, output_name), "green")
     print colored("If submitting results fails please run:", "red")
     print colored("./perform_analysis.py -s %s" % output_name, "yellow")
-    send_results(output_name, hiddenservice_tuple, Tor=True)
+    send_results(output_name, hiddenservice_tuple)
 
 
-def send_results(targz, connect_tuple, Tor=True):
+def send_results(targz, connect_tuple):
 
-    if Tor:
-        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 9050, True)
-        s = socks.socksocket()
-    else:
-        s = socket.socket()
-
-    c = s.connect(connect_tuple)
+    socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 9050, True)
+    s = socks.socksocket()
+    s.connect(connect_tuple)
 
     try:
         if not targz.endswith('.tar.gz'):
@@ -786,17 +792,23 @@ def send_results(targz, connect_tuple, Tor=True):
             if not data:
                 break
 
-            total_sent += c.send(data)
+            total_sent += s.send(data)
 
             if random.randint(1, 200) == 13:
-                print "%f%%\t%s\t%d\tof %d bytes sent" % (
+                print colored("%f%%\t%s\t%d\tof %d bytes sent" % (
                     ( 100 * (float(total_sent) / statinfo.st_size)), time.ctime(),
                     total_sent, statinfo.st_size
-                )
+                ), 'yellow')
 
-        c.close()
+        s.close()
 
-    print "\n\tData collected has been sent, Thank You! :)\n"
+    if total_sent == statinfo.st_size:
+        print colored("\n\tData collected has been sent, Thank You! :)\n", 'green')
+        quit(0)
+    else:
+        print colored("\n\tLink broken! please, run the ./perform_analysis.py script:\n", 'red')
+        print colored("\twith the option '-s %s'" % targz, 'red')
+        quit(-1)
 
 
 if __name__ == '__main__':
