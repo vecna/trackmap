@@ -63,6 +63,11 @@ http://mxr.mozilla.org/mozilla-central/source/netwerk/dns/effective_tld_names.da
 https://raw.github.com/mozilla/gecko-dev/master/netwerk/dns/effective_tld_names.dat
 
 
+## Traceroute and GeoIP:
+
+1) remove GeoIP from client execution,
+2) rely on fiorix: qq@qq:~/go/src/github.com/fiorix/freegeoip$ ./freegeoip 
+
 
 ## MaxMind
 
