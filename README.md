@@ -103,6 +103,14 @@ When the script start asks for four (**they are optional, but useful**) Informat
   * Your contact: an email or jabber, but is a free text. Put also a GPG fingerprint if you like, can be useful if eventually we've to contact you in the future. very likely, to run again the test.
   * Your ISP: if you know it, can be useful, because in the same country different ISP return lightly different results.
 
+### Risks faced by users under pervasive survellaince
+
+Users in country where Internet control is pervasive, will not raise concern or anomalies.
+The Internet traffic eaverstropped, will appear like an user opening a news agengy home page and close after.
+Then, a certain amount of "traceroute" traffic, that is a legit and common tool used to check network speed and topology.
+
+If the user has some concern in using Tor, (used at the end of the test to deliver the test results), can avoid this using the option -d, and later we can figure out a dedicated way to receive the output collected. In this case, please contact the email address with the PGP key specified at the end of this document.
+
 ### Step details, timing and resources
 
 Few Bandwidth/CPU/disk resources are needed. Is not possible make a precise estimation, because the executed operations  depends directly from the amount of media website under analysis, anyhow, based on the past experience:
@@ -161,6 +169,10 @@ With TrackMap we show the invisible links between a news reader from a nation an
 **Is this paranoia ?**
 
 No ;) This has been done by the NSA, which intercepts the advertising network of the Angry Birds game. Angry Birds was the most deployed game, but was still an option for citizens. News media, however, are accessed by the majority of populations around the world and by tracking which websites users access, third parties can gain a unique insight into the types of interests people have, their ideas, beliefs and concerns. In other words, by tracking news media, third parties can map out the interests of individuals and groups and potentially target them. The aim of this project is to expose how the ADS and tracking business works based on third party injections.
+
+And be aware of the Nations and Companies that can know a group[*] behavior, is still good if you consider data as the new profitable treasure.
+
+[*]: Group mean: a nation, a region, a company, an etnicity, a city, a block in a city, and every other discrimination that can be done by metadata or user profiling.
 
 
 ### Theoretical elements
