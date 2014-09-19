@@ -120,7 +120,10 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind, OUTPUTDIR):
         binary = 'phantomjs' if local_phantomjs else './phantom-1.9.2'
 
         # is just a blocking function that execute phantomjs
-        p = Popen([binary, 'collect_included_url.js',
+        p = Popen([binary,
+                   '--local-storage-path=%s/localstorage' % destfile,
+                   '--cookies-file=%s/cookies' % destfile,
+                   'collect_included_url.js',
                    'http://%s' % url, destfile], stdout=PIPE)
 
         phantomlog = file(os.path.join(OUTPUTDIR, "phantom.log"), "a+")
