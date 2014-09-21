@@ -1,17 +1,23 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
 #
-# This software is constantly updated in https://github.com/vecna/helpagainsttrack
+# This software is constantly updated in
+# https://github.com/vecna/helpagainsttrack
 # Is described and used on http://myshadow.org and has been developed by
-# Claudio <vecna at globaleaks dot org> April-Sept 2014, initially for a personal
-# research, and after with Tactical Technology Collective http://tacticaltech.org
-#
-
-
+# Claudio <vecna at globaleaks dot org> April-Sept 2014,
+# initially for a personal research, and after with
+# Tactical Technology Collective http://tacticaltech.org
 
 try:
-    import os, re, json, sys, random, time, shutil
-    import socket, socks
+    import os
+    import re
+    import json
+    import sys
+    import random
+    import time
+    import shutil
+    import socket
+    import socks
     import GeoIP
     from optparse import OptionParser
     from subprocess import Popen, PIPE
@@ -19,15 +25,15 @@ try:
     from libtrackmap import sortify, media_file_cleanings
 except ImportError:
     print "TrackMap collection system is not correctly installed"
-    print "Please, follow the instruction or mail to trackmap at tacticaltech.org"
+    print "Follow the README below or mail to trackmap<@>tacticaltech.org"
     print "https://github.com/vecna/helpagainsttrack"
     quit(-1)
 
 
-hiddenservice_tuple = ( 'mzvbyzovjazwzch6.onion', 80 )
+hiddenservice_tuple = ('mzvbyzovjazwzch6.onion', 80)
 
 ANALYSIS_VERSION = 4
-# remind: error.dns is changed in the middle of version 4 because is still not yet used
+
 
 class TraceStats:
 
@@ -41,7 +47,7 @@ class TraceStats:
 
         assert isinstance(v4_path, list)
         for hopcount, ip in enumerate(v4_path):
-            TraceStats.v4_paths.setdefault(hopcount, [ ip ]).append(ip)
+            TraceStats.v4_paths.setdefault(hopcount, [ip]).append(ip)
 
     def dump_stats(self, OUTPUTDIR):
 
@@ -68,7 +74,6 @@ class TraceStats:
             print colored("\tAdd the option -i to perform a slow and sure test", "red")
             print "\n\n"
             quit(-1)
-
 
 
 def do_wget(pathdest):
@@ -574,7 +579,12 @@ def main():
                 print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
 
             try:
-                socket.setdefaulttimeout(0.5)
+
+                if args.shitty_internet:
+                    socket.setdefaulttimeout(1.1)
+                else:
+                    socket.setdefaulttimeout(0.5)
+
                 resolved_v4 = socket.gethostbyname(domain)
             except Exception as xxx:
                 dns_error[0].setdefault(xxx.strerror, []).append(domain)
@@ -585,7 +595,7 @@ def main():
             with file(resolution_dns_f, 'w+') as f:
                 json.dump(ip_map, f)
 
-    print colored("\nResolved %d unique IPv4 from %d unique domain" % (len(ip_map.keys()), len(included_url_dict.keys()) ), 'green')
+    print colored("\nResolved %d unique IPv4 from %d unique domain" % (len(ip_map.keys()), len(included_url_dict.keys())), 'green')
 
     if not len(ip_map.keys()):
         print colored("It appears that you can't access the internet. Please fix that and restart the test.", 'red')
@@ -615,7 +625,12 @@ def main():
                 print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
 
             try:
-                socket.setdefaulttimeout(0.9)
+
+                if args.shitty_internet:
+                    socket.setdefaulttimeout(1.9)
+                else:
+                    socket.setdefaulttimeout(0.9)
+
                 resolved_set = socket.gethostbyaddr(ipv4)
                 resolved_name = resolved_set[0]
             except Exception as xxx:
@@ -817,4 +832,3 @@ def send_results(targz, connect_tuple):
 if __name__ == '__main__':
 
     main()
-
