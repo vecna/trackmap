@@ -92,4 +92,10 @@ how used MaxMind db: http://stackoverflow.com/questions/tagged/geoip ?
   * I/O messagging left only in the called
   * multithread
 
+# Secondary but relevant
+
+  * http://www.bgp4.as/tools
+  * http://stackoverflow.com/questions/5687279/render-graph-in-python-and-javascript
+  * make windows version and Docker remotely controlled ?
+
 
