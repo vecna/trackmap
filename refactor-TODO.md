@@ -77,3 +77,19 @@ ASN + GeoIP city + GeoIP Country
 
 Version 2 late 2014: http://dev.maxmind.com/geoip/geoip2/geolite2/
 how used MaxMind db: http://stackoverflow.com/questions/tagged/geoip ?
+
+
+# True TODO
+
+  * class + UT + dump/load for Media
+    * enhance with (stuff from lcamtuf)[https://sites.google.com/a/chromium.org/dev/Home/chromium-security/client-identification-mechanisms]
+    * TLDextract seriously
+  * class + UT + dump/load for PhantomJS, enhance the fucking collection and behavior emulation.
+  * class + UT + dump/load for Hosts
+  * tcptraceroute option
+  * version check
+  * maxmind integration and not more GeoIP
+  * I/O messagging left only in the called
+  * multithread
+
+
