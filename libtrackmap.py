@@ -74,6 +74,7 @@ def sortify(outputdir):
 
 
 def url_cleaner(line):
+    # TODO remove - included in includedHost
 
     # cleanurl is used to create the dir, media to phantomjs
     if line.startswith('http://'):

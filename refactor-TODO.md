@@ -99,3 +99,22 @@ how used MaxMind db: http://stackoverflow.com/questions/tagged/geoip ?
   * make windows version and Docker remotely controlled ?
 
 
+# link I've to remember about
+
+  * Analysis on main media and lacking of encryption: https://pressfreedomfoundation.org/blog/2014/09/after-nsa-revelations-why-arent-more-news-organizations-using-https
+  * News sites could protect your privacy with encryption. Here’s why they probably won’t. http://www.washingtonpost.com/blogs/the-switch/wp/2013/12/11/news-sites-could-protect-your-privacy-with-encryption-heres-why-they-probably-wont/
+
+about this last one:
+
+> "I've basically been trying to bribe media organizations at this point to turn on SSL," jokes Christopher Soghoian, the principal technologist and a senior policy analyst at the ACLU's  Speech, Privacy and Technology Project.  "I have an open offer right now to the technical teams of news organizations: Two bottles of whiskey to anyone who will turn on SSL for their viewers."
+
+The fact is third party inclusion are just more than the media itself.
+
+  * NSA using of commercial tracking: http://www.washingtonpost.com/blogs/the-switch/wp/2013/12/10/nsa-uses-google-cookies-to-pinpoint-targets-for-hacking/
+  * http://barker.co.uk/buzzfeediswatching
+  * https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security
+
+## Asyncronous DNS library
+
+http://blog.schmichael.com/2007/09/18/a-lesson-on-python-dns-and-threads/
+
