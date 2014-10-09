@@ -12,8 +12,6 @@ sudo pip install GeoIP tldextract termcolor PySocks
 
 traceroute --version
 if [ $? != "0"  ]; then echo "Missing traceroute" && exit; fi
-git --version
-if [ $? != "0"  ]; then echo "Missing git" && exit; fi
 
 UNZIPDIR="helpagainsttrack-master"
 

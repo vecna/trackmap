@@ -21,6 +21,8 @@ try:
     import shutil
     import socket
     import socks
+    import threading
+
     from datetime import datetime, timedelta
     from optparse import OptionParser
     from subprocess import Popen, PIPE
@@ -39,7 +41,7 @@ except ImportError:
 class AnalysisLogic:
 
     GLOBAL_MEDIA_FILE = 'special_media/global'
-    outputdir = 'outstuff'
+    outputdir = 'Mout'
 
     def __init__(self, host_file, options):
 
@@ -150,18 +152,56 @@ class AnalysisLogic:
 
         for cleanurl, media_kind in media_entries.iteritems():
 
-            print cleanurl, media_kind
-            try:
-                crawl = Phantom(cleanurl, media_kind, False)
-            except EnvironmentError:
-                print "Already done", cleanurl
-                continue
-            #except Exception as xxx:
-            #    print "Unexpected", xxx
-            #    continue
+            loadav = os.getloadavg()
+            if loadav[0] > 5:
+                print "Load average", loadav, "sleeping!"
+                time.sleep(30)
+            else:
+                print "Load average", loadav, "common three seconds sleep"
+                time.sleep(3)
 
-            crawl.software_execution()
+            x = MyThread()
+            x.setup(cleanurl, media_kind, False)
+            x.start()
+
             # phantom_stats.setdefault(crawl.retinfo, []).append(cleanurl)
+
+        print "End"
+        quit(0)
+
+
+
+class MyThread (threading.Thread):
+
+    def setup(self, CU, MK, LP):
+        """
+        :param CU: is Unclean Url but, amen
+        :param MK:
+        :param LP:
+        :return:
+        """
+
+        self.local_phantomjs = LP
+        self.cleanurl = CU
+        self.media_kind = MK
+
+    def run (self):
+
+        crawl = Phantom(self.cleanurl, self.media_kind, self.local_phantomjs)
+
+        if crawl.exists:
+            crawl.load(Phantom.saved_attrs)
+            print "Resumed: %s" % crawl
+            return
+
+        crawl.software_execution()
+        crawl.inclusion_analysis()
+        crawl.title_and_cookies()
+        crawl.dump(Phantom.saved_attrs)
+        print "Completed: %s" % crawl
+
+        print "Thread:", threading.active_count()
+
 
 
 
@@ -240,13 +280,12 @@ class TrackMapBase:
 
     def dump(self, dump_keys):
 
-        assert not self.exists, "you've to call redo()"
-        assert not os.path.isfile(self.jsonfile)
+        # assert not self.exists, "you've to call redo()"
+        assert not os.path.isfile(self.jsonfile), "file exists and no redo()"
         # TODO lock remove ?
 
         dump_dict = {}
         for k in dump_keys:
-            assert hasattr(self, k)
             dump_dict.update({
                 k : getattr(self, k)
             })
@@ -264,7 +303,7 @@ class TrackMapBase:
             imported_json = json.load(jfp)
 
         assert isinstance(imported_json, dict)
-        assert set(imported_json) == expected_keys
+        assert len(imported_json.keys()) == len(expected_keys)
         for k, v in imported_json.iteritems():
             setattr(self, k, v)
             if isinstance(v, list):
@@ -297,19 +336,25 @@ class TrackMapBase:
 
         # I expect no failure here
         os.unlink(self.jsonfile)
+        self.exists = False
 
-    def define_dumpfile(self, jsonfile):
+    def check_status(self):
 
-        self.jsonfile = jsonfile
+        assert self.jsonfile, "missing of jsonfile"
 
-        if os.path.isfile(jsonfile):
+        if os.path.isfile(self.jsonfile):
             self.exists = True
         else:
-            dirseq = '/'.join(jsonfile.split('/')[:-1])
-            print "creating dir", dirseq
-            os.makedirs(dirseq)
             self.exists = False
-            # TODO lock create ?
+
+            # and create needed dir
+            dirseq = '/'.join(self.jsonfile.split('/')[:-1])
+            try:
+                os.makedirs(dirseq)
+            except OSError as OEx:
+                pass
+
+            # TODO create lock file?
 
 
 
@@ -325,23 +370,23 @@ class wwwURL(TrackMapBase):
         dict_to_fill['tld'] = dnsplit.suffix
         dict_to_fill['subdomain'] = dnsplit.subdomain
 
-    saved_attrs = ['url', 'hosts_segment', 'company']
+    saved_attrs = ['url', 'hosts_segment', 'company', 'ipv4', 'reverse']
 
-    def __init__(self, url, phantom_dir):
+    def __repr__(self):
+        x = "%s => %s = %s <= %s" % (self.url, self.hosts_segment,
+                self.ipv4, self.reverse)
+        return x
+
+    def __init__(self, url):
 
         TrackMapBase.__init__(self)
-        print "__Includ url=", url, "subdir",phantom_dir
-        self.load('wwwURL %s' % url)
+        self.log('wwwURL %s' % url)
 
         self.url = url
         self.hash = sha1(url).hexdigest()[:6]
 
         self.host = None
         self._url_cleaner() # self.host is defined here
-
-        jsonfile = os.path.join(AnalysisLogic.outputdir,
-                                phantom_dir, "%s.%s" %
-                                (self.host, self.hash))
 
         self.hosts_segment = {
             'domain' : None,
@@ -353,14 +398,28 @@ class wwwURL(TrackMapBase):
 
         self.company = None
 
-        # TODO resolution analysis and tmp db
-        self.ip_v4 = None
-        self.reverse_dns = None
-
         # TODO with CDN analysis
         self.reverse_segment = None
         self.reverse_company = None
 
+    def double_dns(self, shitty_internet):
+        import pprint
+
+        tmp = DNS(shitty_internet)
+        self.ipv4 = tmp.get_resolve(self.host)
+        if self.ipv4:
+            self.reverse = tmp.get_reverse(self.ipv4)
+        else:
+            self.reverse = None
+
+        # pprint.pprint(DNS.host_resolved)
+        # pprint.pprint(DNS.ip_reversed)
+
+
+    def assign_jsonfile(self, phantom_dir):
+
+        self.jsonfile = os.path.join(
+            phantom_dir, "%s.%s" % (self.host, self.hash))
 
     def _url_cleaner(self):
 
@@ -384,33 +443,10 @@ class wwwURL(TrackMapBase):
         return True
 
 
-class Media(wwwURL):
-    """
-    This represent the media tested and the
-     information collected about the media. may
-     sound similar to Phantom class.
-    in fact it is.
-    """
-    saved_attrs = [ 'urls_analysis' ]
 
-    def __init__(self, url, media_kind):
-
-        wwwURL.__init__(self, url)
-
-        self.media_kind = media_kind
-        self.urls_analysis = {
-            'same_host' : 0,
-            'same_domain' : 0,
-            'external': 0,
-            'total' : 0,
-        }
-
-        self.define_dumpfile()
-
-
-    def __repr__(self):
-        reprurl = ("%sݐ" % self.url[:20]) if len(self.url) > 20 else self.url
-        return "%s %s" % (self.media_kind[0].upper(), reprurl)
+#    def __repr__(self):
+#        reprurl = ("%sݐ" % self.url[:20]) if len(self.url) > 20 else self.url
+#        return "%s %s" % (self.media_kind[0].upper(), reprurl)
 
 
 
@@ -421,42 +457,115 @@ class Phantom(TrackMapBase):
 
      * take one media as argument,
        * every media is a Media object
-    * every Phantom job has a directory, called $K_Media_$HASH
-      * _MEDIA.json -> with media dump
+    * every Phantom obj has a directory, called $K_$Media_$HASH
+    Inside this directory, for every included url + media url:
       * $host.$hash -> with wwwURL dump
+    * every Phantom obj has $K_$Media_$HASH/_PHANTOM.json
     """
-    saved_attrs = ['title', 'included_urls']
+    saved_attrs = ['title', 'ahref_links', 'inclusion_results']
 
     def __init__(self, media_url, media_kind, local_phantomjs):
 
         TrackMapBase.__init__(self)
 
-        print "._Phantom", media_url, "med_k", media_kind, "loc", local_phantomjs
         self.binary = 'phantomjs' if local_phantomjs else './phantom-1.9.2'
         self.starting_time = datetime.utcnow()
 
-        self.media = Media(media_url, media_kind)
+        self.media = wwwURL(media_url)
+        self.media.double_dns(True)
+
+        self.media_kind = media_kind
+        self.urls_analysis = None
 
         self.dump_directory = os.path.join(
             AnalysisLogic.outputdir,
-            '%s_%s_%s' % (media_kind[0].upper(), media.host, media.hash) )
+            '%s_%s_%s' % (media_kind[0].upper(), self.media.host, self.media.hash) )
 
-        self.jsonfile = os.path.join(self.dump_directory, '_MEDIA.json')
-        self.define_dumpfile(
-            os.path.join(self.dump_directory, '_PHANTOM.json'))
+        self.jsonfile = os.path.join(self.dump_directory,
+                                     '_PHANTOM.json')
+        self.check_status()
 
-        if self.exists:
-            print "exists! :) and mo ?"
-            self.load()
+        # Media has a dedicated file, setting up here
+        self.media.assign_jsonfile(self.dump_directory)
 
-        self.tmp_directory = "/dev/shm/phantom-%s" % media.hash
-        self._clean_dir(self.tmp_directory)
+        self.tmp_directory = "/dev/shm/phantom-%s" % self.media.hash
+        # self._clean_dir(self.tmp_directory)
+
+    def __repr__(self):
+        x = "[%s] %s" % ( self.media_kind,
+                          self.media.hosts_segment)
+        if hasattr(self, 'inclusion_results'):
+            x = "%s = %s" % (x, self.inclusion_results)
+        return x
 
     def _clean_dir(self, shm):
 
         if os.path.isdir(shm):
             shutil.rmtree(shm)
         os.mkdir(shm)
+
+    def title_and_cookies(self):
+        """
+        Todo: cookies, local storage, ahref_, title, meta ?
+        """
+        self.ahref_links = "skip"
+
+        title_file = os.path.join(self.tmp_directory, '__title')
+        if os.path.isfile(title_file):
+            self.title = file(title_file).readline()
+        else:
+            self.title = ""
+
+    def inclusion_analysis(self):
+        """
+        Read in the shm directory and fill the urls_analysis dict
+        """
+        self.inclusion_results =  {
+            'same_host' : 0,
+            'same_domain' : 0,
+            'external': 0,
+            'total' : 0,
+        }
+        included = file(os.path.join(self.tmp_directory, '__urls'), 'r').readlines()
+        self.included_obj = []
+        for url_string in included:
+            if not self.url_validate(url_string[:-1]):
+                continue
+            resource = wwwURL(url_string)
+            resource.assign_jsonfile(self.dump_directory)
+            resource.check_status()
+
+            if resource.exists:
+                resource.load(wwwURL.saved_attrs)
+                continue
+
+            resource.double_dns(False)
+            self.included_obj.append(resource)
+
+            resource.dump(wwwURL.saved_attrs)
+
+            if self.media.hosts_segment['subdomain'] == resource.hosts_segment['subdomain']:
+                self.inclusion_results['same_host'] += 1
+            elif self.media.hosts_segment['domain'] == resource.hosts_segment['domain']:
+                self.inclusion_results['same_domain'] += 1
+            else:
+                self.inclusion_results['external'] += 1
+
+
+
+    def url_validate(self, included_url):
+        if included_url.startswith('data:'):
+            return None
+        if included_url.startswith('about:blank'):
+            return None
+        if included_url.startswith('http://') or included_url.startswith('https://'):
+            return included_url
+
+        self.log(colored("Unexpected included URL format: %s" % included_url, 'red'))
+        return None
+
+
+
 
     def write_interruption_line(fp, content, start=True):
         interruption_line = 78
@@ -476,12 +585,14 @@ class Phantom(TrackMapBase):
 
     def software_execution(self):
 
+        print "software execution"
+
         # is just a blocking function that execute phantomjs
         p = Popen([self.binary,
-                   '--local-storage-path=%s/localstorage' % self.dump_directory,
-                   '--cookies-file=%s/cookies' % self.dump_directory,
+                   '--local-storage-path=%s/localstorage' % self.tmp_directory,
+                   '--cookies-file=%s/cookies' % self.tmp_directory,
                    'collect_included_url.js',
-                   self.media.url, self.dump_directory], stdout=PIPE)
+                   self.media.url, self.tmp_directory], stdout=PIPE)
 
         self.log(colored("Executing phantomjs on %s" % self, 'green'))
 
@@ -521,16 +632,102 @@ class DNS:
     # ip : reverse
     ip_reversed = {}
 
+    def __init__(self, shitty_internet):
+
+        self.resolve_timeout = 0.5
+        self.reverse_timeout = 1.2
+
+        if shitty_internet:
+            self.resolve_timeout *= 1.8
+            self.reverse_timeout *= 1.8
+
     def get_resolve(self, host):
         """
         May return None
         """
-        pass
+        timeout = self.resolve_timeout
+        current_resolved = {
+            'retry': 0,
+            'resolved' : None,
+            'error': None
+        }
+
+        if DNS.host_resolved.has_key(host):
+            current_resolved = DNS.host_resolved[host]
+            if current_resolved['resolved']:
+                return current_resolved['resolved']
+            if current_resolved['retry'] == False:
+                print "only here False"
+                return None
+            if current_resolved['retry']:
+                timeout *= current_resolved['retry']
+
+            if timeout > 4:
+                current_resolved['retry'] = False
+                DNS.host_resolved.update({
+                    host : current_resolved
+                })
+                return None
+
+        try:
+            socket.setdefaulttimeout(timeout)
+            resolved_v4 = socket.gethostbyname(host)
+            current_resolved['resolved'] = resolved_v4
+            DNS.host_resolved.update({
+                host : current_resolved
+            })
+            return resolved_v4
+        except Exception as xxx:
+            current_resolved['error'] = xxx
+            current_resolved['retry'] += 1.1
+            DNS.host_resolved.update({
+                host : current_resolved
+            })
+            return None
 
     def get_reverse(self, ipv4):
-        """
-        May return None
-        """
+
+        timeout = self.reverse_timeout
+        current_reverse = {
+            'retry': 0,
+            'reverse_set' : None,
+            'error': None
+        }
+
+        if DNS.ip_reversed.has_key(ipv4):
+            current_reverse = DNS.ip_reversed[ipv4]
+            if current_reverse['reverse_set']:
+                # note, is a set composed by three element
+                return current_reverse['reverse_set'][0]
+            if current_reverse['retry'] == False:
+                return None
+            if current_reverse['retry']:
+                timeout *= current_reverse['retry']
+
+            if timeout > 4:
+                current_reverse['retry'] = False
+                DNS.ip_reversed.update({
+                    ipv4 : current_reverse
+                })
+                return None
+
+        try:
+            socket.setdefaulttimeout(timeout)
+            reversed_set = socket.gethostbyaddr(ipv4)
+            current_reverse['reverse_set'] = reversed_set
+            DNS.ip_reversed.update({
+                ipv4 : current_reverse
+            })
+            # note, is a set, return only the first element
+            return reversed_set[0]
+        except Exception as xxx:
+            current_reverse['error'] = xxx
+            current_reverse['retry'] += 1.3
+            DNS.ip_reversed.update({
+                ipv4 : current_reverse
+            })
+            return None
+
 
     # TODO CND check
 
