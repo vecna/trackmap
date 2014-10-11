@@ -1,4 +1,6 @@
-[NATIONAL]
+[global]
+
+[national]
 
 http://elpais.com/
 http://www.efe.com/
@@ -16,14 +18,6 @@ http://www.larazon.es/
 http://www.hispanidad.com/
 http://www.lavozlibre.com/
 http://www.publico.es/
-
-[Only sports]
-http://as.com/
-http://www.marca.com/
-http://www.mundodeportivo.com/index.html
-http://www.superdeporte.es/
-
-[Suggested additions]
 http://www.elmundo.es/
 http://www.eldiario.es/
 http://gaceta.es/
@@ -44,8 +38,8 @@ http://www.rtve.es/
 http://www.expansion.com/index.html
 http://www.lamarea.com/
 
+[local]
 
-[LOCAL MEDIA]
 http://bcnmes.com/
 http://canariasnoticias.es/
 http://www.galiciae.com/
@@ -98,9 +92,6 @@ http://www.regio7.cat/
 http://www.teleprensa.com/andalucia
 http://www.vilaweb.cat/
 http://xornalgalicia.com/
-
-
-[Suggested additions]
 http://www.diariodesevilla.es/
 http://www.andalucesdiario.es/
 http://www.lavanguardia.com/
@@ -130,8 +121,8 @@ http://www.huelvainformacion.es/
 http://www.malagahoy.es/
 http://www.europasur.es/
 
+[blog]
 
-[BLOGS (additions)]
 http://www.escolar.net
 http://alt1040.com/
 http://microsiervos.com/
@@ -146,119 +137,3 @@ http://www.elmundotoday.com/
 http://www.elblogsalmon.com/
 http://www.vertele.com/
 http://tomalaplaza.net/
-
-
-[TO BE DELETED]
-
-[Not news sources / outdated or inactive]
-http://castilla-la-mancha.interactiva.org/Guadalajara/
-http://globalclm.com/
-http://hamwatan.net/
-http://nightlife.co.uk/
-http://sunnews.es/
-http://thegazettelive.com/
-http://themallorca.net/
-http://theresident.eu/
-http://towncriernewspaper.wordpress.com/
-http://www.vieiros.com/
-http://ww2.lavozalmeria.net/
-http://ww2.thealmeriamessenger.com/
-http://wws.thereader.es/
-http://www2.noticiasdenavarra.com/ediciones/20030108/portada/index.php
-http://www3.spainherald.com/
-http://www.actualidad24horas.com/
-http://www.actualidad-economica.com/
-http://www.aktueltspania.net/
-http://www.andaluciaenruta.com/
-http://www.boe.es/
-http://www.arroutadanoticias.com/
-http://www.atlanticocanarias.com/
-http://www.bahiademalaga.com/
-http://www.barcelonareporter.com/
-http://www.burjassotrepublicana.es/
-http://www.cadizempresa.com/
-http://www.cbnalmeria.com/
-http://www.chroniccat.com/
-http://www.credito-vivienda.com/
-http://www.cunoticias.com/
-http://www.cyberland.es/
-http://www.cyl.com/carrion/index.html
-http://www.daimiel.es/
-http://www.diaridebarcelona.com/
-http://www.diariodirecto.com/
-http://www.diarioinformacion.com/
-http://www.diariojaen.es/
-http://www.eeme.bs/
-http://www.ellibrepensador.com/
-http://www.elmundo-eldia.com/
-http://www.elsabado.es/
-http://www.galiciadirecto.com/noticias/
-http://www.fuertextra.com/
-http://www.fuerteventuranews.com/
-http://www.fuertenews.com/
-http://www.extremadurahoy.com/
-http://www.expatica.com/es/main.html
-http://web.gencat.cat/ca/inici/index.html
-http://www.hoyenelmundo.com/
-http://www.iblnews.com/
-http://www.indicesiete.com/
-http://www.lacalledecordoba.com/
-http://www.laepoca.es/
-http://www.lainsignia.org/
-http://www.lasverdadesdemiguel.net/
-http://www.lavozdeasturias.es/
-http://www.lavozdelcampo.com/
-http://expansiondirecto.com/edicion/indice/0,2457,1606,00.html
-http://www.lesein.es/diariodeleon/
-http://www.losgigantes.com/news/
-http://www.lugonet.com/
-http://www.meliya.com/
-http://ww2.merawattan.com/
-http://www.minidiario.com/
-http://www.minutodigital.com/
-http://www.rebelion.org/
-http://www.turismoensevilla.com/
-http://www.typicallyspanish.com/
-http://www.viajaratope.com/
-http://www.viajarporspain.com/
-http://www.paginasdigital.es/
-http://www.pakcelona.com/
-http://www.paknews.es/english/
-http://www.periodismoindependiente.es/
-http://www.plus.es/codigo/noticias/noticias.asp
-http://www.rondatoday.com/
-http://www.sendanet.es/heraldo/
-http://www.soltimes.com/
-http://www.spia.com/
-http://www.surinenglish.com/index.php
-http://www.theibizasun.net/
-http://www.theleader.info/
-http://www.thepaper.net/
-http://www.thewesternsun.com/
-http://www.valenciaworld.com/
-http://www.wadi-as.es/
-http://www.xornal.com/
-http://www.diariomedico.com/
-http://www.elvigia.com/
-http://www.veintepies.com/
-
-[Not covering news in Spain]
-http://elcorreodecuba.com/
-http://www.iht.com/
-http://www.lagranepoca.com/
-
-[Not written in Spanish]
-http://majorcadailybulletin.com/
-http://spaniaposten.no/
-https://www.euroweeklynews.com/
-http://elpais.com/elpais/inenglish.html
-http://www.bbcupdate.com/
-http://www.costanachrichten.com/
-http://www.costa-news.com/
-http://www.deweek.net/
-http://www.javeanews.co.uk/
-http://www.lepetitjournal.com/
-http://www.roundtownnews.com/
-http://www.saz-aktuell.com/
-http://www.thelocal.es/
-http://www.wochenblatt.es/
