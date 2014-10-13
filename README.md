@@ -1,16 +1,16 @@
 # TrackMap project
 
-The TrackMap project is research by [Claudio ࿓  vecna](https://twitter.com/sniffjoke), develped with [Tactical Tech](http://www.tacticaltech.org), as part of the [MyShadow](http://myshadow.org) project.
+The TrackMap project is research by [Claudio ࿓  vecna](https://twitter.com/sniffjoke), developed with [Tactical Tech](http://www.tacticaltech.org), as part of the [MyShadow](http://myshadow.org) project.
 
 *When you access the national media from your country, your Internet connection is being tracked by multiple third parties. And this happens constantly*. That's what we aim to illustrate.
 
-Our aim is to show where our data travels when we visit our favorite news websites through a visualization. We are currently looking for people to collaborate with in various countries in the world which would make this project possible. 
+Our aim is to show where our data travels when we visit our favorite news websites through a visualization. We are currently looking for people to collaborate with in various countries in the world which would make this project possible.
 
-## You, your country and the code 
+## You, your country and the code
 
 This repository contains the script and the data source needed to generate our needed data.
 
-The collection of data needs to happen in a distributed way, _which means that the script needs to run from each of the selected countries_. This is important because the network and the trackers behave differently based on the provenience country of the user. 
+The collection of data needs to happen in a distributed way, _which means that the script needs to run from each of the selected countries_. This is important because the network and the trackers behave differently based on the provenience country of the user.
 
 ### Is it your country analyzed in TrackMap ?
 
@@ -22,7 +22,7 @@ If the answer is **NO**: two reasons are possible:
 
 If the answer is **YES**: perfect, this mean that someone has already run the script: you can still help, because different ISP and different Geographical locations in a country brings different results, having multiple feedback can be useful for further analysis and comparison.
 
-### How you can help ? 
+### How you can help ?
 
 If you're a **Media aware citizen**, we need a reliable media list for every country. In the chapter above is explained what is important, use git to help us or open an issue.
 
@@ -35,7 +35,7 @@ The procedure reported use an apt-get based system (Debian/Ubuntu etc), and a co
 
 Tor is used when the script has completed the collection, because we anonymize the users interacting with us.
 
-### Ubuntu automation 
+### Ubuntu automation
 
 only tested in Ubuntu (may work in other distribution, but is untested)
 Create a directory to store the project files and change directory there:
@@ -44,7 +44,7 @@ Create a directory to store the project files and change directory there:
     cd trackmap
     wget -c https://raw.githubusercontent.com/vecna/helpagainsttrack/master/setup.sh
     bash setup.sh
-    
+
 This script uses `sudo` to execute some commands, so it will ask for your password when it executes. The project
 scripts are installed in a subdirectory called *helpagainsttrack*.
 
@@ -96,7 +96,7 @@ or you can simply delete the directory **output** to remove the data collected (
 
 ### (Some yours) Information requested
 
-When the script start asks for four (**they are optional, but useful**) Information that **will never be released**: 
+When the script start asks for four (**they are optional, but useful**) Information that **will never be released**:
 
   * Your name: is not important, but if we already known you or meet you in the future, we can say **thankyou** :)
   * Your city: this maybe relevant because results from city very far among, reports different results.
@@ -122,7 +122,7 @@ Few Bandwidth/CPU/disk resources are needed. Is not possible make a precise esti
   * Then, for every unique IPv4 address, start a traceroute. worst case scenario (and presence of option **-i**) lead the test last for two/three hours, depends a lots on the number of target hosts.
   * **The script require more or less 4 hours to be completed, and at the end send to us 8-15 megabytes of data**
 
-**You can interrupt the script execution with control+C**, and when the command is given again, **it resume the previous execution**. To start a new collection, remove the 'output' directory. 
+**You can interrupt the script execution with control+C**, and when the command is given again, **it resume the previous execution**. To start a new collection, remove the 'output' directory.
 
 **Is very likely have a stable network**. If you can avoid WI-FI (or be physically near the access point), it is better.
 
@@ -131,7 +131,7 @@ Few Bandwidth/CPU/disk resources are needed. Is not possible make a precise esti
   * an HTTP connection (using phantomjs) to every news media under analysis
   * Collect all the URL included as third party (trackers, ADS, social)
   * Dump &lt;object&gt; elements ( Can be used for future analysis. analyzing this code, we can point out [who are the worst tracker ;) ](http://rt.com/usa/175116-white-house-website-canvas-fingerprinting/) this analysis is not yet done.)
-  * Perform traceroute for every included URL 
+  * Perform traceroute for every included URL
   * GeoIP conversion from every IP included.
   * send the results to our hidden service (**mzvbyzovjazwzch6.onion**)
 
@@ -140,11 +140,11 @@ This shows all the nations capable of knowing which users are visiting the (sele
 
 ### Docker image (experimental)
 
-A [Docker](https://www.docker.com/) image has been created for this tool, using the Dockerfile provided in the test 
+A [Docker](https://www.docker.com/) image has been created for this tool, using the Dockerfile provided in the test
 tool directory. If you wish to use this, you can run the test tool using:
 
     docker run -t -i pvanheus/helpagainsttrack -c NAME_OF_YOUR_COUNTRY
-    
+
 ### Long term project support (unmaintained)
 
 If you're a **Linux user** with a constantly running box and few times:
@@ -155,7 +155,7 @@ Please read [Vagrant usage description](https://github.com/vecna/helpagainsttrac
 
 ## Technopolitical goal
 
-We know **online business model is mostly based on tracking**, who is producing content is just pushing hard in order to get more visibility, clicks and provide advertising. 
+We know **online business model is mostly based on tracking**, who is producing content is just pushing hard in order to get more visibility, clicks and provide advertising.
 If you don't want that a specific organization get money from your interaction because you don't like it, or you don't want be tracked by that company, your only option is the 'opt out'.
 But what are the options ? this is one of the first goals of TrackMap: make you aware of the amount of tracking involved in your daily navigation. We've addressed the media, because they represent something touching all the active citizens in a country.
 
@@ -192,7 +192,7 @@ Due to limited resources from our side, our research might face the following li
   * Some service providers use Content Delivery Network and this means that in order to interact with them, this might be resolved as part of the same country of the user, also if the content is obviously stored by a foreign country.
   * We cannot know if a service has some Cloud Provider as a backend
   * We cannot automatize the seeking of company information over every tracking agent
-  * GeoIP applied to traceroute may return unexpected or doubtful results. A technical progress can be used by interpolating GeoIP + Autonomous System + TLD/domain analysis. GeoIP for sure show: if an IP address is in a country or if an IP address is assigned to a company based on a certain country. 
+  * GeoIP applied to traceroute may return unexpected or doubtful results. A technical progress can be used by interpolating GeoIP + Autonomous System + TLD/domain analysis. GeoIP for sure show: if an IP address is in a country or if an IP address is assigned to a company based on a certain country.
 
 For example:
 
@@ -208,7 +208,7 @@ For example:
        9  213.239.245.170 [AS24940]  66.506 ms
       10  213.239.248.196 [AS24940]  49.232 ms
       11  144.76.158.83 [AS24940]  59.938 ms
- 
+
 **11 HOP passing thru None IT IT IT IT DE DE DE DE DE DE**
 
 This is quite easy: the first IP is a private IP address (None), after there are some Italian (my ISP) and then the connection reach a provider in Germany, where the target host is placed. If we take a look hostnames:
@@ -231,26 +231,26 @@ Between the hops 5 (from wind.it, my ISP) and 7 (the first gateway of the server
 In other situation, the API returned by TrackMap (*they will be documented, but at the moment the service is not yet released*) return a more unexpected result like:
 
     {
-        "company": "Twitter", 
+        "company": "Twitter",
         "country_chain": [
-            null, 
-            "South Africa", 
-            "South Africa", 
-            "South Africa", 
-            "South Africa", 
-            "South Africa", 
-            "South Africa", 
-            "United Kingdom", 
-            "United States", 
-            "United States", 
-            "United States", 
-            "United States", 
+            null,
+            "South Africa",
+            "South Africa",
+            "South Africa",
+            "South Africa",
+            "South Africa",
+            "South Africa",
+            "United Kingdom",
+            "United States",
+            "United States",
+            "United States",
+            "United States",
             "United Kingdom"
-        ], 
-        "host": "platform.twitter.com", 
-        "id": "980429ab-5b71-4fd0-8aa7-7eaef4150f84", 
-        "is_intended_media": false, 
-        "media_id": "005962d0", 
+        ],
+        "host": "platform.twitter.com",
+        "id": "980429ab-5b71-4fd0-8aa7-7eaef4150f84",
+        "is_intended_media": false,
+        "media_id": "005962d0",
         "media_url": "www.dieburger.com"
     }
 
@@ -293,10 +293,10 @@ Just to be complete, the third hop, position 10, is still resolved as London gat
 
 ### A little dream
 
-The tracking elements are well documented in the websites. 
+The tracking elements are well documented in the websites.
 If you read site A, B, C and D, the tracking agent present in A, B and D know almost 75% of information about you.
 
-The distributed nature of the Internet will always make the development of sites like "C" possible: a site without a tracking agent. 
+The distributed nature of the Internet will always make the development of sites like "C" possible: a site without a tracking agent.
 Sadly, due to the online advertising business, mixing between social and ADV, SEO and infrastructural needs, the creation of independent and trackless sites is extremely rare.
 
 When someone shares a link, this link often contains some identifier used to recognize users connected by other means (eg: sharing a link via chat or via mail: the tracker does not know how you got that link, but can now link you and the users who have shared the link).
@@ -322,7 +322,7 @@ sha224 cksum of phantomjs-1.9.2 i686
 
 sha224 cksum of phantomjs-1.9.2 x86\_64
 
-    2937cea726e7fe4dd600f36e7c5f0cca358593e96808dc71b6feb166 
+    2937cea726e7fe4dd600f36e7c5f0cca358593e96808dc71b6feb166
 
 ### Our PGP key
 
