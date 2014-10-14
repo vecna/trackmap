@@ -23,4 +23,4 @@ This is how a verified media list appears:
     [blog]
     http://www.dagospia.it
 
-global section, trigger the loading of the media present in [this file](https://github.com/vecna/helpagainsttrack/blob/master/special_media/global)
+global section, trigger the loading of the media present in [this file](https://github.com/vecna/trackmap/blob/master/special_media/global)

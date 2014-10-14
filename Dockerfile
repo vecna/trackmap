@@ -1,4 +1,4 @@
-# Dockerfile for helpagainsttrack perform_analysis script
+# Dockerfile for trackmap perform_analysis script
 # version 0.1
 FROM ubuntu
 MAINTAINER Peter van Heusden <pvh@webbedfeet.co.za>
@@ -8,8 +8,8 @@ RUN pip install GeoIP tldextract termcolor PySocks
 RUN adduser --disabled-password --gecos "Track Map User" trackmap
 USER trackmap
 WORKDIR /home/trackmap
-RUN git clone https://github.com/vecna/helpagainsttrack.git
-ADD fetch_phantomjs.sh /home/trackmap/helpagainsttrack/fetch_phantomjs.sh
-WORKDIR /home/trackmap/helpagainsttrack
-RUN bash -c /home/trackmap/helpagainsttrack/fetch_phantomjs.sh
+RUN git clone https://github.com/vecna/trackmap.git
+ADD fetch_phantomjs.sh /home/trackmap/trackmap/fetch_phantomjs.sh
+WORKDIR /home/trackmap/trackmap
+RUN bash -c /home/trackmap/trackmap/fetch_phantomjs.sh
 ENTRYPOINT ["./perform_analysis.py"]

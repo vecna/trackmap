@@ -16,7 +16,7 @@ The collection of data needs to happen in a distributed way, _which means that t
 
 If the answer is **NO**: two reasons are possible:
 
-  * No one has review or created the **media list**, check in [this directory](https://github.com/vecna/helpagainsttrack/tree/master/verified_media) and look at the expected format on the bottom of the page. An unverified media list [can be present here](https://github.com/vecna/helpagainsttrack/tree/master/unverified_media_list), if is not, sent to us an email at **trackmap** at **tacticaltech** dot **org** (because we have some not refined list usable as starter) of provide to us list from your own.
+  * No one has review or created the **media list**, check in [this directory](https://github.com/vecna/trackmap/tree/master/verified_media) and look at the expected format on the bottom of the page. An unverified media list [can be present here](https://github.com/vecna/trackmap/tree/master/unverified_media_list), if is not, sent to us an email at **trackmap** at **tacticaltech** dot **org** (because we have some not refined list usable as starter) of provide to us list from your own.
 
   * No one has yet runs the script from your country: In this case, read the sections below
 
@@ -42,13 +42,13 @@ Create a directory to store the project files and change directory there:
 
     mkdir trackmap
     cd trackmap
-    wget -c https://raw.githubusercontent.com/vecna/helpagainsttrack/master/setup.sh
+    wget -c https://raw.githubusercontent.com/vecna/trackmap/master/setup.sh
     bash setup.sh
 
 This script uses `sudo` to execute some commands, so it will ask for your password when it executes. The project
-scripts are installed in a subdirectory called *helpagainsttrack*.
+scripts are installed in a subdirectory called *trackmap*.
 
-If you read "OK" at the end, go to the section [Run the test script](https://github.com/vecna/helpagainsttrack#run-the-test-script)
+If you read "OK" at the end, go to the section [Run the test script](https://github.com/vecna/trackmap#run-the-test-script)
 
 ### Installation
 
@@ -65,9 +65,9 @@ Create one directory for store the project files:
     mkdir trackmap
     cd trackmap
 
-    wget https://github.com/vecna/helpagainsttrack/archive/master.zip
+    wget https://github.com/vecna/trackmap/archive/master.zip
     unzip master.zip
-    cd helpagainsttrack-master
+    cd trackmap-master
     ./fetch_phantomjs.sh
 
 ## Run the test script
@@ -83,7 +83,7 @@ Change directory to the directory where you installed the test script and run:
   * **-d**: disable the data delivery to us. Permit to collect the data and have the file local.
   * **-l**: If you have not installed phantom 1.9.2 on the path specified above, and you want use your distribution's phantomjs.
 
-To see a list of countries, just tape *./perform_analysis.py -c something*: the script show the available countries (or check yourself [here](https://github.com/vecna/helpagainsttrack/tree/master/verified_media) )
+To see a list of countries, just tape *./perform_analysis.py -c something*: the script show the available countries (or check yourself [here](https://github.com/vecna/trackmap/tree/master/verified_media) )
 
 ### Clean the data
 
@@ -143,7 +143,7 @@ This shows all the nations capable of knowing which users are visiting the (sele
 A [Docker](https://www.docker.com/) image has been created for this tool, using the Dockerfile provided in the test
 tool directory. If you wish to use this, you can run the test tool using:
 
-    docker run -t -i pvanheus/helpagainsttrack -c NAME_OF_YOUR_COUNTRY
+    docker run -t -i pvanheus/trackmap -c NAME_OF_YOUR_COUNTRY
 
 ### Long term project support (unmaintained)
 
@@ -151,7 +151,7 @@ If you're a **Linux user** with a constantly running box and few times:
 
   * You can run the **Vagrant script** explained  below to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we will eventually send you an email asking you to start your box when the tests get updated).
 
-Please read [Vagrant usage description](https://github.com/vecna/helpagainsttrack/tree/master/Vagrant)
+Please read [Vagrant usage description](https://github.com/vecna/trackmap/tree/master/Vagrant)
 
 ## Technopolitical goal
 
@@ -331,6 +331,6 @@ sha224 cksum of phantomjs-1.9.2 x86\_64
     uid                    TrackMap project <trackmap@tacticaltech.org>
     sub   3200R/0x504DEBDF 2014-08-05 [expires: 2015-08-30]
 
-You can retrieve this key via keyserver, of using the [git copy of the Projects key](https://raw.githubusercontent.com/vecna/helpagainsttrack/master/trackmap_ABC276395EE33245A0A1397340E26C2594E7EF47.asc)
+You can retrieve this key via keyserver, of using the [git copy of the Projects key](https://raw.githubusercontent.com/vecna/trackmap/master/trackmap_ABC276395EE33245A0A1397340E26C2594E7EF47.asc)
 
 

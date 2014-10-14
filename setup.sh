@@ -13,12 +13,12 @@ sudo pip install GeoIP tldextract termcolor PySocks
 traceroute --version
 if [ $? != "0"  ]; then echo "Missing traceroute" && exit; fi
 
-UNZIPDIR="helpagainsttrack-master"
+UNZIPDIR="trackmap-master"
 
 if [ -d $UNZIPDIR ] ; then
     mv $UNZIPDIR $UNZIPDIR.old
 fi
-wget https://github.com/vecna/helpagainsttrack/archive/master.zip
+wget https://github.com/vecna/trackmap/archive/master.zip
 unzip master.zip
 cd $UNZIPDIR
 

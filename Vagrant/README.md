@@ -6,9 +6,9 @@ A **Vagrantfile** exists in the subdirectories 'ansible' and 'basic'.
 Contain a configuration script to setup a virtual box
 
     sudo apt-get install vagrant wget -y
-    wget https://github.com/vecna/helpagainsttrack/archive/master.zip
+    wget https://github.com/vecna/trackmap/archive/master.zip
     unzip master.zip
-    cd helpagainsttrack-master/Vagrant/basic
+    cd trackmap-master/Vagrant/basic
     vagrant up
 
 When you type the command **vagrant up** will download the virtual machine image, perform an upgrade, install the needed packages, copy an SSH public key, run Tor and give you the address of the Tor hidden service pointing to the SSH port of the virtual machine.

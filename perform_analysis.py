@@ -2,7 +2,7 @@
 # -*- encoding: utf-8 -*-
 #
 # This software is constantly updated in
-# https://github.com/vecna/helpagainsttrack
+# https://github.com/vecna/trackmap
 # Is described and used on http://myshadow.org and has been developed by
 # Claudio <vecna at globaleaks dot org> April-Sept 2014,
 # initially for a personal research, and after with
@@ -26,7 +26,7 @@ try:
 except ImportError:
     print "TrackMap collection system is not correctly installed"
     print "Follow the README below or mail to trackmap<@>tacticaltech.org"
-    print "https://github.com/vecna/helpagainsttrack"
+    print "https://github.com/vecna/trackmap"
     quit(-1)
 
 
@@ -448,7 +448,7 @@ def main():
                 continue
             print "\t", existing_c
         print colored("You can propose your own country media list following these instructions:", 'blue', 'on_white')
-        print colored("https://github.com/vecna/helpagainsttrack/blob/master/unverified_media_list/README.md", 'blue', 'on_white')
+        print colored("https://github.com/vecna/trackmap/blob/master/unverified_media_list/README.md", 'blue', 'on_white')
         quit(-1)
 
     # check if the output directory is not the default and/or if need to be created
