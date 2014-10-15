@@ -1,13 +1,13 @@
 # This list has been reviewed only by PageRank® 
 
-# [global]
+[global]
+# http://www.smh.com.au/ # is in global
 
 [national]
 
 # rank 8
 http://www.theage.com.au/
 http://www.theaustralian.com.au/
-# http://www.smh.com.au/ # is in global
 
 # rank 7
 http://au.ibtimes.com/
@@ -41,7 +41,6 @@ http://www.themorningbulletin.com.au/
 http://www.warwickdailynews.com.au/
 http://www.whitsundaytimes.com.au/
 http://www.yasstribune.com.au/
-http://www.greenleft.org.au/
 http://www.2ue.com.au/
 http://www.3aw.com.au/
 http://www.4bh.com.au/
@@ -49,7 +48,6 @@ http://www.6pr.com.au/
 http://www.96fm.com.au/
 http://www.batemansbaypost.com.au/
 http://www.bendigoadvertiser.com.au/
-
 
 
 [local]
@@ -86,7 +84,6 @@ http://www.myphotonews.com.au/
 http://www.newsroo.com.au/
 http://www.southasiatimes.com.au/
 http://www.thewesterner.com.au/
-http://www.theword.com.au/
 http://www.viet-times.com.au/
 http://www.warrackherald.com.au/
 http://www.westernecho.com.au/
