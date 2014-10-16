@@ -1,41 +1,56 @@
-[global]
 
 [national]
 
-http://www.thairath.co.th/
-http://www.bangkokpost.com/
-http://www.dailynews.co.th/
-http://www.khaosod.co.th/index.php
-http://www.khaosod.co.th/en/
-http://www.komchadluek.net/index.php
-http://www.thaipost.net/
-http://www.manager.co.th/home/
-http://www.nationmultimedia.com/index.php 
-http://www.siamturakij.com/
-http://thailandtimes.asia/
-http://asiancorrespondent.com/category/thailand/
-http://www.asiantribune.com/
+# from 4imn
+http://www.bangkokpost.com
+http://www.nationmultimedia.com
+http://www.phuketgazette.net
+http://www.pattayamail.com
+http://www.bday.net
+http://www.chiangmai-mail.com
+http://www.pattayablatt.com
+http://www.pattayapeople.com
+http://pattayatoday.net
+http://www.bangkokshuho.com
+http://www.dailynews.co.th
+http://www.komchadluek.net
+http://www.bangkokbiznews.com
+http://www.manager.co.th
+http://www.naewna.com
+
 
 [local]
 
-http://www.chiangraitimes.com/
-http://www.koratdaily.com/
-http://www.thekoratpost.com/
-http://www.pattayadailynews.com/
-http://phuket-post.com/
-http://pattayatoday.net/
-http://www.dailyxpress.net/
-http://www.bangkok.itgo.com/
-http://www.huahinnews.net/
-http://www.pattayamail.com/
-http://www.phuketgazette.net/
-http://www.huahintoday.net/?newsgroup=1
-http://2bangkok.com/
+http://www.posttoday.com
+http://www.siamturakij.com
+http://www.thaipost.net
+http://www.thairath.co.th
+http://www.thanonline.com
+http://www.thekoratpost.com
+http://www.dailynews.co.th/
+http://www.khaosod.co.th
+http://www.komchadluek.net
+http://www.thaipost.net/
+http://www.manager.co.th/home/
+http://www.nationmultimedia.com
+http://www.siamturakij.com/
+http://thailandtimes.asia/
+http://www.asiantribune.com/
 http://pattaya-times.com/
 http://www.phuketword.com/
-http://www.thaiwave.com/phuketaktuell/
-http://www.thaiwave.com/phuketwalk/
+http://www.thaiwave.com
+http://www.chiangraitimes.com/
+http://www.koratdaily.com/
+http://www.pattayadailynews.com/
+http://pattayatoday.net/
+http://www.pattayamail.com/
+http://www.phuketgazette.net/
+http://www.huahintoday.net
+http://asiancorrespondent.com/category/thailand/
 
 [blog]
 
 http://phyakrut.com/
+
+[global]
+
