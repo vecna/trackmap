@@ -2,42 +2,42 @@
 
 The TrackMap project is research by [Claudio ࿓  vecna](https://twitter.com/sniffjoke), developed with [Tactical Tech](http://www.tacticaltech.org), as part of the [MyShadow](http://myshadow.org) project.
 
-*When you access the national media from your country, your Internet connection is being tracked by multiple third parties. And this happens constantly*. That's what we aim to illustrate.
+*When you access media websites from your country, your Internet connection is being tracked by multiple third parties. And this happens constantly*. That's what we aim to illustrate.
 
 Our aim is to show where our data travels when we visit our favorite news websites through a visualization. We are currently looking for people to collaborate with in various countries in the world which would make this project possible.
 
 ## You, your country and the code
 
-This repository contains the script and the data source needed to generate our needed data.
+This repository contains the software and data source required to track online trackers.
 
-The collection of data needs to happen in a distributed way, _which means that the script needs to run from each of the selected countries_. This is important because the network and the trackers behave differently based on the provenience country of the user.
+The collection of data needs to happen in a distributed way, _which means that the software needs to run from each of the selected countries_. This is important because the network and the trackers behave differently based on the specific country of the user.
 
-### Is it your country analyzed in TrackMap ?
+### Is your country analyzed in TrackMap ?
 
 If the answer is **NO**: two reasons are possible:
 
-  * No one has review or created the **media list**, check in [this directory](https://github.com/vecna/trackmap/tree/master/verified_media) and look at the expected format on the bottom of the page. An unverified media list [can be present here](https://github.com/vecna/trackmap/tree/master/unverified_media_list), if is not, sent to us an email at **trackmap** at **tacticaltech** dot **org** (because we have some not refined list usable as starter) of provide to us list from your own.
+  * No one has reviewed or created the **media list**, check in [this directory](https://github.com/vecna/trackmap/tree/master/verified_media) and look at the expected format at the bottom of the page. An unverified media list [can be present here](https://github.com/vecna/trackmap/tree/master/unverified_media_list), if not, sent us an email at **trackmap** at **tacticaltech** dot **org** (because we have some not refined list usable as starter) or provide us a list.
 
-  * No one has yet runs the script from your country: In this case, read the sections below
+  * No one has run the software from your country yet: In this case, read the sections below
 
-If the answer is **YES**: perfect, this mean that someone has already run the script: you can still help, because different ISP and different Geographical locations in a country brings different results, having multiple feedback can be useful for further analysis and comparison.
+If the answer is **YES**: perfect, this means that someone has already run the software: you can still help, because different ISP and different Geographical locations in a country brings different results, having multiple feedback can be useful for further analysis and comparison.
 
-### How you can help ?
+### How can you help ?
 
-If you're a **Media aware citizen**, we need a reliable media list for every country. In the chapter above is explained what is important, use git to help us or open an issue.
+If you're a **Media aware citizen**, we need a reliable media list for every country. What is important is explained above above, use git to help us or open an issue.
 
-If you're a **Linux user** you can help running the script and collecting result from your country. Is needed a distributed effort, because the Internet is perceived differenty from different location. You can run the script explained below, and it will automatically send the results to our hidden service.
+If you're a **Linux user** you can help run the software and collect results from your country. A distributed effort is required, because the Internet works differenty in different locations. You can run the software explained below, and it will automatically send the results to our server.
 
 ### Use the test script
 
 The procedure reported use an apt-get based system (Debian/Ubuntu etc), and a couple of experimental option (Vagrant and Docker)
-**RUN THIS TESTS VIA Tor IS POINTLESS**: because the important data are obtained via traceroute, and works in a lower level than Tor (also works in UDP, that cannot be anonymised), so if you don't feel safe, just don't contribute. anyway no personal information are collected, your computer is just used to see "how your ISP connects citizen like you"
+**RUN THIS TESTS VIA Tor IS POINTLESS**: because the important data is obtained via traceroute, and works in a lower level than Tor (also works in UDP, that cannot be anonymised), so if you don't feel safe, just don't contribute. Anyhow no personal information is collected, your computer is just used to see "how your ISP connects citizens like you"
 
 Tor is used when the script has completed the collection, because we anonymize the users interacting with us.
 
 ### Ubuntu automation
 
-only tested in Ubuntu (may work in other distribution, but is untested)
+Only tested in Ubuntu (might work in other distributions, but is currently untested)
 Create a directory to store the project files and change directory there:
 
     mkdir trackmap
@@ -45,8 +45,8 @@ Create a directory to store the project files and change directory there:
     wget -c https://raw.githubusercontent.com/vecna/trackmap/master/setup.sh
     bash setup.sh
 
-This script uses `sudo` to execute some commands, so it will ask for your password when it executes. The project
-scripts are installed in a subdirectory called *trackmap*.
+This software uses `sudo` to execute some commands, so it will ask for your password when it executes. The project
+software is installed in a subdirectory called *trackmap*.
 
 If you read "OK" at the end, go to the section [Run the test script](https://github.com/vecna/trackmap#run-the-test-script)
 
@@ -60,7 +60,7 @@ Install some base requirements (run with sudo):
     sudo apt-get install geoip-database libfontconfig1 -y
     sudo pip install GeoIP tldextract termcolor PySocks
 
-Create one directory for store the project files:
+Create one directory to store the project files:
 
     mkdir trackmap
     cd trackmap
@@ -80,14 +80,14 @@ Change directory to the directory where you installed the test script and run:
 
   * **-i**: To be used when you're in an *Instable Internet Connection*, like, a wifi with many packet loss.
   * **-o**: Specify a different output directory: **needed** when are performed multiple tests.
-  * **-d**: disable the data delivery to us. Permit to collect the data and have the file local.
+  * **-d**: Disable the data delivery to us. Permit to collect the data and have the file local.
   * **-l**: If you have not installed phantom 1.9.2 on the path specified above, and you want use your distribution's phantomjs.
 
-To see a list of countries, just tape *./perform_analysis.py -c something*: the script show the available countries (or check yourself [here](https://github.com/vecna/trackmap/tree/master/verified_media) )
+To see a list of countries, just tape *./perform_analysis.py -c something*: the software shows the available countries (or check yourself [here](https://github.com/vecna/trackmap/tree/master/verified_media) )
 
 ### Clean the data
 
-When you've completed the collection, and the script report:
+When you've completed the collection and the script report:
 
     Data collected has been sent, Thank You! :)
 
@@ -96,44 +96,44 @@ or you can simply delete the directory **output** to remove the data collected (
 
 ### (Some yours) Information requested
 
-When the script start asks for four (**they are optional, but useful**) Information that **will never be released**:
+When the software starts it asks for four types of information (**they are optional, but useful**) that **will never be released**:
 
   * Your name: is not important, but if we already known you or meet you in the future, we can say **thankyou** :)
-  * Your city: this maybe relevant because results from city very far among, reports different results.
-  * Your contact: an email or jabber, but is a free text. Put also a GPG fingerprint if you like, can be useful if eventually we've to contact you in the future. very likely, to run again the test.
-  * Your ISP: if you know it, can be useful, because in the same country different ISP return lightly different results.
+  * Your city: this might be relevant because results vary from city to city and report different results.
+  * Your contact: an email or jabber, but is a free text. Put also a GPG fingerprint if you like, can be useful if eventually we have to contact you in the future - possibly to run the software again.
+  * Your ISP: if you know it, it can be useful, because in the same country different ISPs bring different results.
 
 ### Risks faced by users under pervasive survellaince
 
 Users in country where Internet control is pervasive, will not raise concern or anomalies.
-The Internet traffic eaverstropped, will appear like an user opening a news agengy home page and close after.
+Censored Internet traffic will appear like a user opening a news agengy home page and close after.
 Then, a certain amount of "traceroute" traffic, that is a legit and common tool used to check network speed and topology.
 
-If the user has some concern in using Tor, (used at the end of the test to deliver the test results), can avoid this using the option -d, and later we can figure out a dedicated way to receive the output collected. In this case, please contact the email address with the PGP key specified at the end of this document.
+If the user has some concern about using Tor, (which is used at the end of the test by us to deliver the test results), can avoid this using the option -d, and later we can figure out a dedicated way to receive the output collected. In this case, please contact the email address with the PGP key specified at the end of this document.
 
 ### Step details, timing and resources
 
-Few Bandwidth/CPU/disk resources are needed. Is not possible make a precise estimation, because the executed operations  depends directly from the amount of media website under analysis, anyhow, based on the past experience:
+Few Bandwidth/CPU/disk resources are needed. It is not possible to make a precise estimation, because the executed operations depend directly on the amount of media websites being analysed. Anyhow, based on the past experience:
 
-  * A list with around 200 media site starts for (200 + 50) times a "one time browser". It use 5-10 seconds each. more or less expend 300 Kb for each website ( ~75 megabyte used in download ).
-  * For every media fetch, 7 to 20 hosts are discovered to be included. the script need process them in such ways:
-    * every host is resolved in an IPv4 address, this help to minimize duplicated result (happen quite often that different hosts has the same IP address). Depends on the first point, but commonly are between 1400 - 1700 unique hosts. This operation require 10 to 30 minutes.
-    * For every resolved IPv4, perform a reverse DNS resolution. This operation is slower than the previous one, require at lest 30 to 60 minutes.
-  * Then, for every unique IPv4 address, start a traceroute. worst case scenario (and presence of option **-i**) lead the test last for two/three hours, depends a lots on the number of target hosts.
-  * **The script require more or less 4 hours to be completed, and at the end send to us 8-15 megabytes of data**
+  * A list with around 200 media sites starts for (200 + 50) times a "one time browser". It use 5-10 seconds each. More or less spends 300 Kb for each website ( ~75 megabyte used in download ).
+  * For every media fetch, 7 to 20 hosts are discovered to be included. The software processes them in the following ways:
+    * every host is resolved in an IPv4 address, which helps minimize duplicated results (quite often different hosts have the same IP address). Depends on the first point, but commonly are between 1400 - 1700 unique hosts. This operation requires 10 to 30 minutes.
+    * For every resolved IPv4, it performs a reverse DNS resolution. This operation is slower than the previous one and requires at least 30 to 60 minutes.
+  * Then, for every unique IPv4 address, start a traceroute. Worst case scenario (and presence of option **-i**) the test will last for two/three hours, but this depends a lot on the number of target hosts.
+  * **The software requires more or less 4 hours to be completed and sends to us 8-15 megabytes of data at the end**
 
-**You can interrupt the script execution with control+C**, and when the command is given again, **it resume the previous execution**. To start a new collection, remove the 'output' directory.
+**You can interrupt the script execution with control+C**, and when the command is given again, **it will resume the previous execution**. To start a new collection, remove the 'output' directory.
 
-**Is very likely have a stable network**. If you can avoid WI-FI (or be physically near the access point), it is better.
+**It is very important to have a stable network**. If you can avoid WI-FI (or be physically near the access point), it would be better.
 
-### The operation performed by the script
+### The operation performed by the software
 
   * an HTTP connection (using phantomjs) to every news media under analysis
-  * Collect all the URL included as third party (trackers, ADS, social)
+  * Collects all the third party URLs (trackers, ADS, social)
   * Dump &lt;object&gt; elements ( Can be used for future analysis. analyzing this code, we can point out [who are the worst tracker ;) ](http://rt.com/usa/175116-white-house-website-canvas-fingerprinting/) this analysis is not yet done.)
-  * Perform traceroute for every included URL
-  * GeoIP conversion from every IP included.
-  * send the results to our hidden service (**mzvbyzovjazwzch6.onion**)
+  * Performs a traceroute for every included URL
+  * GeoIP conversion from every included IP address
+  * sends the results to our hidden service (**mzvbyzovjazwzch6.onion**)
 
 This shows all the nations capable of knowing which users are visiting the (selected) news media.
 
@@ -147,7 +147,7 @@ tool directory. If you wish to use this, you can run the test tool using:
 
 ### Long term project support (unmaintained)
 
-If you're a **Linux user** with a constantly running box and few times:
+If you're a **Linux user** with a constantly running box:
 
   * You can run the **Vagrant script** explained  below to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we will eventually send you an email asking you to start your box when the tests get updated).
 
@@ -155,22 +155,24 @@ Please read [Vagrant usage description](https://github.com/vecna/trackmap/tree/m
 
 ## Technopolitical goal
 
-We know **online business model is mostly based on tracking**, who is producing content is just pushing hard in order to get more visibility, clicks and provide advertising.
-If you don't want that a specific organization get money from your interaction because you don't like it, or you don't want be tracked by that company, your only option is the 'opt out'.
-But what are the options ? this is one of the first goals of TrackMap: make you aware of the amount of tracking involved in your daily navigation. We've addressed the media, because they represent something touching all the active citizens in a country.
+We know that the **online business model is mostly based on tracking**.
 
-But why bother if Google, NewYorkTimes or others track your behavior and interests ? It's pointless to be scared by those organizations, after all, they have done nothing bad against users.
-But sadly, these data are extremely valuable for market and political strategies, and those companies has been targeted by Intelligence Agencies for those reason. So it's easier to understand what we want show:
-tracking is not something performed by Internet Companies only, but something used actively as Nation assets.
-And Nations are easier to be perceived as troublesome, instead of an abstract Internet Company. Or not? What if the main medias of a country are leaking (and are they aware ?) the citizen interest to a political enemy ?
+If you don't want that a specific company to make money out of your data because you don't like it, or simply don't want be tracked by that company, your only option is to 'opt out'.
 
-With TrackMap we show the invisible links between a news reader from a nation and all the nation that can eventually snoop on their behavior. on a foreign network, you have no rights.
+But what are the options ? This is one of the first goals of TrackMap: to make you aware of the amount of tracking involved when you read the news online of a daily basis. We have addressed the media, because they represent something that involves all active citizens in a country.
+
+But why bother if Google, NewYorkTimes or others track your behavior and interests ? It's pointless to be scared of those organizations. After all, they have done nothing bad against users.
+
+But sadly, the data they collect is extremely valuable for market and political strategies, and such companies have been targeted by intelligence agencies for that precise reason. So it's easier to understand what we want show:
+tracking is not something which is only performed by internet companies, but which is also actively used as a nation's asset.
+
+With TrackMap we show the invisible links between a news reader from a nation and all the nations that can eventually snoop on their behavior. In a foreign network, you have no rights.
 
 **Is this paranoia ?**
 
 No ;) This has been done by the NSA, which intercepts the advertising network of the Angry Birds game. Angry Birds was the most deployed game, but was still an option for citizens. News media, however, are accessed by the majority of populations around the world and by tracking which websites users access, third parties can gain a unique insight into the types of interests people have, their ideas, beliefs and concerns. In other words, by tracking news media, third parties can map out the interests of individuals and groups and potentially target them. The aim of this project is to expose how the ADS and tracking business works based on third party injections.
 
-And be aware of the Nations and Companies that can know a group[*] behavior, is still good if you consider data as the new profitable treasure.
+And be aware of the nations and companies that can know group[*] behavior, is still good if you consider data as the new profitable treasure.
 
 [*]: Group mean: a nation, a region, a company, an etnicity, a city, a block in a city, and every other discrimination that can be done by metadata or user profiling.
 
@@ -297,6 +299,7 @@ The tracking elements are well documented in the websites.
 If you read site A, B, C and D, the tracking agent present in A, B and D know almost 75% of information about you.
 
 The distributed nature of the Internet will always make the development of sites like "C" possible: a site without a tracking agent.
+
 Sadly, due to the online advertising business, mixing between social and ADV, SEO and infrastructural needs, the creation of independent and trackless sites is extremely rare.
 
 When someone shares a link, this link often contains some identifier used to recognize users connected by other means (eg: sharing a link via chat or via mail: the tracker does not know how you got that link, but can now link you and the users who have shared the link).
