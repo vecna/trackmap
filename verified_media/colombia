@@ -1,5 +1,5 @@
-# only the first 15 from http://www.4imn.com/co/
 
+[national]
 http://www.eltiempo.com/
 http://www.elespectador.com/
 http://www.elcolombiano.com/
@@ -11,39 +11,34 @@ http://www.larepublica.co/
 http://www.elheraldo.co/
 http://www.elmundo.com/
 http://www.lapatria.com/
-http://www.cronicadelquindio.com/
 http://www.elnuevodia.com.co/
 http://www.laopinion.com.co/
 http://www.lanacion.com.co/
+http://todaycolombia.com/
 
-# follow scraped to be review
-
+[local]
+http://www.cronicadelquindio.com/
 http://diariodelsur.com.co/
 http://www.elnuevosiglo.com.co/
-http://www.geocities.com/vozxcol/bogota.htm
 http://www.occidente.co/
 http://www.excelsio.net/
-http://www.opinioncolombia.net/
 http://www.elfrente.com.co/
 http://colombiareports.co/
-http://www.elpais.com.co/elpais/
 http://deportemeridiano.com/
 http://www.diariodeportes.com.co/
 http://bogotafreeplanet.com/
 http://thecitypaperbogota.com/
-http://todaycolombia.com/
 http://www.periodicoeldiario.com/
-http://elcatolicismo.com.co/es/
+http://elcatolicismo.com.co
 http://www.elcolombiano.net/
 http://elclavo.com/
-http://www.eldiario.com.co/inicio
-http://www.elespectador.com/noticias
+http://www.eldiario.com.co
+http://www.elespectador.com
+http://www.hsbnoticias.com/
 http://www.elheraldo.co/
 http://www.elliberal.com.co/
-http://lalibertad.com.co/dia/p0.html
+http://lalibertad.com.co
 http://www.elmundo.com/
-http://www.elnuevodia.com.co/
-http://www.laopinion.com.co/demo/
 http://www.lapatria.com/
 http://www.latarde.com/
 http://www.eltiempo.com/
@@ -53,7 +48,10 @@ http://www.primeraplana.com.co/
 http://www.elinformador.com.co/
 http://www.elmeridianodesucre.com.co/
 http://elmeridianodecordoba.com.co/
-http://www.cambio.com.co/html/index.php
 http://www.hoydiariodelmagdalena.com.co/
-http://www.lanacion.com.co/hoy/huila.html
-http://www.latinamericanpost.com/latampost/
+http://www.latinamericanpost.com/
+
+[blog]
+
+[global]
+
