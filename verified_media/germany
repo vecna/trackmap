@@ -2,10 +2,13 @@
 
 [national]
 
+http://www.bild.de/ # present in global
+http://www.welt.de/ # present in global
+http://www.heise.de # present in global
+
 http://chrismon.evangelisch.de/
 http://jungle-world.com/
 http://www.aerztezeitung.de/
-# http://www.bild.de/ # present in global
 http://www.boersen-zeitung.de
 http://www.dw.de/
 http://www.faz.net/
@@ -24,11 +27,9 @@ http://www.spiegel.de/
 http://www.stern.de/
 http://www.tagesschau.de/
 http://www.taz.de/
-# http://www.welt.de/ # present in global
 http://www.wiwo.de/
 http://www.wsj.de/
 http://www.zeit.de/index
-# http://www.heise.de # present in global
 http://www.nrhz.de/
 
 

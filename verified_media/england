@@ -1,7 +1,13 @@
 [global]
 
 [national]
-# http://www.dailymail.co.uk # included in global
+
+# included in global
+http://www.dailymail.co.uk 
+http://theguardian.com
+http://www.independent.co.uk/
+http://www.telegraph.co.uk/
+# end /global
 
 http://descrier.co.uk/
 http://metro.co.uk/

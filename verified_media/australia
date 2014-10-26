@@ -1,9 +1,10 @@
 # This list has been reviewed only by PageRank® 
 
 [global]
-# http://www.smh.com.au/ # is in global
 
 [national]
+
+http://www.smh.com.au/ # is in global
 
 # rank 8
 http://www.theage.com.au/

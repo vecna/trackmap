@@ -1,8 +1,9 @@
 [global]
 
 [national]
-# http://www.repubblica.it # in global list
-# http://www.corriere.it/ # in global list
+http://www.repubblica.it # in global list
+http://www.corriere.it/ # in global list
+
 http://www.linkiesta.it
 http://www.lettera43.it
 http://www.agi.it
