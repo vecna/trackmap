@@ -1,26 +1,26 @@
-Country,Privacy law,"Regulation of cookies, behavioural advertising and location data",Regulation of electronic marketing,Mutual Legal Assistance Treaties (MLATs)
-Italy,Y,Y,Y,
-United Kingdom,Y,Y,Y,
-Guatemala,N,N,N,
-South Africa,Y,N,Y,
-Greece,Y,Y,Y,
-Philippines,Y,N,Y,
-Switzerland,Y,Y,Y,
-Indonesia,N,N,N,
-Israel,Y,Y,Y,
-Kenya,N,N,N,
-Croatia,Y,Y,Y,
-Germany,Y,Y,Y,
-Ireland,Y,Y,Y,
-Thailand,N,N,N,
-Brazil ,N,Y,N,
-Nigeria,N,N,N,
-Ukraine,Y,N,N,
-India,N,N,N,"BH, BY, CA, FR, KZ, KW, KOR, MU, MN, RU, SG, ZA, ES, CH, TJ, TH, GB, AE, US, UKR, UZ, BG, EG, VN, MX, IR, BA, LK, AU, BD, MY, ID, MM, HK, TR"
-Pakistan,N,N,N,
-Russia,Y,N,Y,
-Canada,Y,Y,Y,
-Australia,Y,N,Y,
-Spain,Y,Y,Y,
-Mexico,Y,Y,Y,
-United States of America,Y,N,Y,
+Country,Privacy law,"Regulation of cookies, behavioural advertising and location data",Regulation of electronic marketing
+Italy,Y,Y,Y
+United Kingdom,Y,Y,Y
+Guatemala,N,N,N
+South Africa,Y,N,Y
+Greece,Y,Y,Y
+Philippines,Y,N,Y
+Switzerland,Y,Y,Y
+Indonesia,N,N,N
+Israel,Y,Y,Y
+Kenya,N,N,N
+Croatia,Y,Y,Y
+Germany,Y,Y,Y
+Ireland,Y,Y,Y
+Thailand,N,N,N
+Brazil ,N,Y,N
+Nigeria,N,N,N
+Ukraine,Y,N,N
+India,N,N,N
+Pakistan,N,N,N
+Russia,Y,N,Y
+Canada,Y,Y,Y
+Australia,Y,N,Y
+Spain,Y,Y,Y
+Mexico,Y,Y,Y
+United States of America,Y,N,Y
