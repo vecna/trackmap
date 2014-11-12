@@ -1,4 +1,4 @@
-# National
+[national]
 http://finansavisen.hegnar.no/
 http://fiskeribladetfiskaren.no/
 http://kommunal-rapport.no/
@@ -29,7 +29,7 @@ http://www.urdufalak.net/urdu/
 http://www.tradewindsnews.com/
 
 
-# Local
+[local]
 http://byavisa.no/
 http://dusken.no/
 http://eidaportalen.no/
@@ -127,25 +127,9 @@ http://www.vg.no/
 http://www.vol.no/
 http://www.vtb.no/
 
-# Blog
+[blog]
 http://opp.nu/
 
-# Not media
-http://bellona.no/
-http://www.bokavisen.no/
-http://www.hil.no
-http://www.istavern.no/
-http://www.karrierelink.no/
-http://www.montel.no
-http://www.pakistanoverseas.com/
-http://www.regionavisa.no/
-http://www.tipsgaming.com/
-
-
-
-
-
-
-
+[global]
 
 

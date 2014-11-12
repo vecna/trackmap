@@ -1,4 +1,6 @@
-# National
+
+[national]
+
 http://icelandreview.com/
 http://www.dv.is/
 http://www.grapevine.is/Home/
@@ -25,7 +27,7 @@ http://www.eidfaxi.is/
 http://www.hestafrettir.is/
 http://sporttv.is/
 
-# Local
+[local]
 http://eyjar.net/forsida/
 http://www.bb.is/
 http://www.eyjafrettir.is/
@@ -38,17 +40,8 @@ http://www.austurglugginn.is/
 http://vikudagur.is/um-vikudag
 http://www.austurfrett.is/
 
-# Blog
+[blog]
 http://andriki.is/
 
-# Not Icelandic but danish
-http://enewspr.dk/
-
-# Not really news in a traditional sense but tourist stuff
-http://www.touristguide.is/
-
-
-
-
-
+[global]
 
