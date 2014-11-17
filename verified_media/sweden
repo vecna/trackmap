@@ -1,4 +1,4 @@
-# National
+[national]
 http://arbetarbladet.se/
 http://www.aftonbladet.se/
 http://www.allehanda.se/
@@ -8,11 +8,8 @@ http://www.expressen.se/
 http://www.proletaren.se/
 http://www.socialisterna.org
 
-# News not in Swedish 
-http://arabnyheter.info/ar/
-http://www.thelocal.se/
 
-# Regional
+[local]
 http://bblat.se/
 http://bohuslaningen.se/
 http://ekuriren.se/
@@ -53,31 +50,14 @@ http://www.unt.se/first/
 http://www.vimmerbytidning.se/
 http://www.vk.se/
 http://www.ystadsallehanda.se/
+# Not in swedish
+http://www.thelocal.se/
 
-# Not working
-http://beyan.net/en/
-http://gt-tidning.se/
-http://positiviteter.se/
-http://www.eunyheter.se/
-http://www.gotlandstidningar.se
-http://www.koping.nu/
-http://www.nyalt.se/
-http://www.stockholmnews.com/
-http://www.wighsnews.se/
-http://www.xogfaaf.com/
-
-# Not News Media
-http://costadelsol.st/
-http://www.theawaznorway.com/ 
-http://www.thenewsviews.com/
-
-# Blog
+[blog]
 http://newsdirect.se/
 http://www.epigon.nu/
 http://www.nylokal.nu/
 
-# Couldn't access because of DNS shit
-http://www.tidningen.to/
+[global]
 
-# Not really swedish media
-http://www.yourmiddleeast.com/
+

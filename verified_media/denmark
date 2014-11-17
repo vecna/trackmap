@@ -1,4 +1,4 @@
-# National
+[national]
 http://borsen.dk/
 http://ekstrabladet.dk/
 http://idag.dk/
@@ -14,7 +14,7 @@ http://www.business.dk/
 http://www.information.dk/
 http://www.kristeligt-dagblad.dk/
 
-# Regional 
+[local]
 http://albertslund.lokalavisen.dk/
 http://amtsavisen.dk/
 http://aoh.dk/
@@ -49,15 +49,7 @@ http://haberler.dk/
 http://www.sahil.dk/
 http://www.urduhamasr.dk/
 
-# Not working
-http://www.bornholmdirekte.dk/
-http://www.danskobservator.com/
-http://www.redherring.dk/
+[blog]
 
-# Not really media, but something else
-http://www.dba.dk/
-http://www.denmark.net/
-http://www.frederiksbergbladet.dk/
-http://www.rodovreavis.dk/
+[global]
 
-http://www.weekendavisen.dk/
