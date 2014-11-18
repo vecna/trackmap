@@ -28,14 +28,14 @@ If you're a **Media aware citizen**, we need a reliable media list for every cou
 
 If you're a **Linux user** you can help run the software and collect results from your country. A distributed effort is required, because the Internet works differenty in different locations. You can run the software explained below, and it will automatically send the results to our server.
 
-### Use the test script
+# Support the collection
 
 The procedure reported use an apt-get based system (Debian/Ubuntu etc), and a couple of experimental option (Vagrant and Docker)
 **RUN THIS TESTS VIA Tor IS POINTLESS**: because the important data is obtained via traceroute, and works in a lower level than Tor (also works in UDP, that cannot be anonymised), so if you don't feel safe, just don't contribute. Anyhow no personal information is collected, your computer is just used to see "how your ISP connects citizens like you"
 
 Tor is used when the script has completed the collection, because we anonymize the users interacting with us.
 
-### Ubuntu automation
+### if you're in Ubuntu
 
 Only tested in Ubuntu (might work in other distributions, but is currently untested)
 Create a directory to store the project files and change directory there:
@@ -50,12 +50,12 @@ software is installed in a subdirectory called *trackmap*.
 
 If you read "OK" at the end, go to the section [Run the test script](https://github.com/vecna/trackmap#run-the-test-script)
 
-### Installation
+### Debian based systems 
 
 Install some base requirements (run with sudo):
 
     sudo apt-get update
-    sudo apt-get install tor git wget -y
+    sudo apt-get install unzip tor git wget -y
     sudo apt-get install traceroute python-pip gcc python-dev libgeoip-dev -y
     sudo apt-get install geoip-database libfontconfig1 -y
     sudo pip install GeoIP tldextract termcolor PySocks
@@ -80,7 +80,7 @@ Change directory to the directory where you installed the test script and run:
 
   * **-i**: To be used when you're in an *Instable Internet Connection*, like, a wifi with many packet loss.
   * **-o**: Specify a different output directory: **needed** when are performed multiple tests.
-  * **-d**: Disable the data delivery to us. Permit to collect the data and have the file local.
+  * **-d**: Disable the data delivery to us. Permit to collect the data and have the file local. (you can send it later with -s)
   * **-l**: If you have not installed phantom 1.9.2 on the path specified above, and you want use your distribution's phantomjs.
 
 To see a list of countries, just tape *./perform_analysis.py -c something*: the software shows the available countries (or check yourself [here](https://github.com/vecna/trackmap/tree/master/verified_media) )
@@ -91,8 +91,8 @@ When you've completed the collection and the script report:
 
     Data collected has been sent, Thank You! :)
 
-you can safely delete the directory **trackmap** created at the beginning,
-or you can simply delete the directory **output** to remove the data collected (and restart the test).
+You can simply delete the .tar.gz file generated containing the results, 
+and restart the test.
 
 ### (Some yours) Information requested
 
@@ -145,15 +145,7 @@ tool directory. If you wish to use this, you can run the test tool using:
 
     docker run -t -i pvanheus/trackmap -c NAME_OF_YOUR_COUNTRY
 
-### Long term project support (unmaintained)
-
-If you're a **Linux user** with a constantly running box:
-
-  * You can run the **Vagrant script** explained  below to create a virtual machine _under our control_, where we can perform the tests (less effort for you, and we will eventually send you an email asking you to start your box when the tests get updated).
-
-Please read [Vagrant usage description](https://github.com/vecna/trackmap/tree/master/Vagrant)
-
-## Technopolitical goal
+# Technopolitical goal
 
 We know that the **online business model is mostly based on tracking**.
 
