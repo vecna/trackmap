@@ -1,3 +1,5 @@
+[global]
+
 [national]
 http://arbetarbladet.se/
 http://www.aftonbladet.se/
@@ -57,7 +59,4 @@ http://www.thelocal.se/
 http://newsdirect.se/
 http://www.epigon.nu/
 http://www.nylokal.nu/
-
-[global]
-
 

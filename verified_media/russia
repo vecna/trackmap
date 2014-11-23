@@ -1,3 +1,5 @@
+[global]
+
 [national]
 http://rt.com # global
 
@@ -130,10 +132,5 @@ http://www.agoodtreaty.com/
 http://poemless.wordpress.com/
 http://www.russiaotherpointsofview.com/
 http://streetwiseprofessor.com/
-
-
-# This line is fine at the end of the file.
-[global]
-
 
 

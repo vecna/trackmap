@@ -3,6 +3,8 @@
 # BUT, due the potential conflict raising in 28 of Sept 2014,
 # Is better grab some data and see if they contain something funny.
 
+[global]
+
 [national]
 
 http://www.am730.com.hk
@@ -202,6 +204,4 @@ http://www.thechinaperspective.com/
 http://www.xinhuanet.com/
 http://www.xjnews.com.cn/
 
-
-[global]
 

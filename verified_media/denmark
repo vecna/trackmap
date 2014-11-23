@@ -1,3 +1,5 @@
+[global]
+
 [national]
 http://borsen.dk/
 http://ekstrabladet.dk/
@@ -50,6 +52,4 @@ http://www.sahil.dk/
 http://www.urduhamasr.dk/
 
 [blog]
-
-[global]
 

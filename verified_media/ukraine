@@ -1,3 +1,5 @@
+[global]
+
 
 [national]
 http://24tv.ua/
@@ -86,7 +88,4 @@ http://zaxid.net/
 
 [blog]
 
-
-# this entry need to be always present
-[global]
 

@@ -1,6 +1,8 @@
 # remind: this experimental list has not been review by a swiss media
 # expert, but has ben based on rank/visibility order.
 
+[global]
+
 [national]
 # rank 8
 http://www.swissinfo.ch
@@ -65,5 +67,3 @@ http://www.tol.ch
 
 
 [blog]
-
-[global]
