@@ -11,7 +11,6 @@ PHANTOMJS_URL=https://github.com/vecna/phantomjs-mirror/raw/master/$PHANTOMJS_DI
 
 wget -c $PHANTOMJS_URL
 if [ ! -d $PHANTOMJS ] ; then
-    mv $PHANTOMJS_DIST $PHANTOMJS.tar.bz2
     tar xf $PHANTOMJS.tar.bz2
     ln -s $PHANTOMJS/bin/phantomjs $PHANTOMJS_BIN
 fi
