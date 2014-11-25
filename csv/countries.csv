@@ -1,26 +1,26 @@
-Country,Privacy law,"Regulation of cookies, behavioural advertising and location data",Regulation of electronic marketing
-Italy,Y,Y,Y
-United Kingdom,Y,Y,Y
-Guatemala,N,N,N
-South Africa,Y,N,Y
-Greece,Y,Y,Y
-Philippines,Y,N,Y
-Switzerland,Y,Y,Y
-Indonesia,N,N,N
-Israel,Y,Y,Y
-Kenya,N,N,N
-Croatia,Y,Y,Y
-Germany,Y,Y,Y
-Ireland,Y,Y,Y
-Thailand,N,N,N
-Brazil ,N,Y,N
-Nigeria,N,N,N
-Ukraine,Y,N,N
-India,N,N,N
-Pakistan,N,N,N
-Russia,Y,N,Y
-Canada,Y,Y,Y
-Australia,Y,N,Y
-Spain,Y,Y,Y
-Mexico,Y,Y,Y
-United States of America,Y,N,Y
+Country,Privacy law,"Regulation of cookies, behavioural advertising and location data",Regulation of electronic marketing,Sources,Data retention,Internet access,Sources
+Italy,Y,Y,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,58.00%,http://wearesocial.net/blog/2014/01/social-digital-mobile-worldwide-2014/
+United Kingdom,Y,Y,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,87.00%,http://wearesocial.net/blog/2014/01/social-digital-mobile-worldwide-2014/
+Guatemala,N,N,N,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,No privacy law,19.70%,http://www.internetworldstats.com/stats2.htm 
+South Africa,Y,N,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,41.00%,http://wearesocial.net/blog/2014/01/social-digital-mobile-worldwide-2014/
+Greece,Y,Y,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,59.90%,http://www.internetworldstats.com/stats4.htm
+Philippines,Y,N,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,41.10%,http://www.internetworldstats.com/stats3.htm 
+Switzerland,Y,Y,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,86.70%,http://www.internetworldstats.com/stats4.htm 
+Indonesia,N,N,N,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,No privacy law,15.00%,http://wearesocial.net/blog/2014/01/social-digital-mobile-worldwide-2014/
+Israel,Y,Y,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,70.80%,http://www.internetworldstats.com/stats5.htm 
+Kenya,N,N,N,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,No privacy law,47.30%,http://www.internetworldstats.com/stats1.htm 
+Croatia,Y,Y,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,70.90%,http://www.internetworldstats.com/stats4.htm 
+Germany,Y,Y,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,84.00%,http://wearesocial.net/blog/2014/01/social-digital-mobile-worldwide-2014/
+Ireland,Y,Y,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,78.30%,http://www.internetworldstats.com/stats4.htm 
+Thailand,N,N,N,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,No privacy law,26.00%,http://wearesocial.net/blog/2014/01/social-digital-mobile-worldwide-2014/
+Brazil ,N,Y,N,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,No privacy law,49.00%,http://wearesocial.net/blog/2014/01/social-digital-mobile-worldwide-2014/
+Nigeria,N,N,N,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,No privacy law,32.00%,http://wearesocial.net/blog/2014/01/social-digital-mobile-worldwide-2014/
+Ukraine,Y,N,N,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,41.80%,http://www.internetworldstats.com/stats4.htm 
+India,N,N,N,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,No privacy law,12.00%,http://wearesocial.net/blog/2014/01/social-digital-mobile-worldwide-2014/
+Pakistan,N,N,N,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,No privacy law,14.80%,http://www.internetworldstats.com/stats3.htm 
+Russia,Y,N,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,53.00%,http://wearesocial.net/blog/2014/01/social-digital-mobile-worldwide-2014/
+Canada,Y,Y,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,86.00%,http://wearesocial.net/blog/2014/01/social-digital-mobile-worldwide-2014/
+Australia,Y,N,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,81.00%,http://wearesocial.net/blog/2014/01/social-digital-mobile-worldwide-2014/
+Spain,Y,Y,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,74.80%,http://www.internetworldstats.com/stats4.htm 
+Mexico,Y,Y,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,38.00%,http://wearesocial.net/blog/2014/01/social-digital-mobile-worldwide-2014/
+United States of America,Y,N,Y,http://dlapiperdataprotection.com/#handbook/online-privacy-section/c1_NO/c2_TR,,80.00%,http://wearesocial.net/blog/2014/01/social-digital-mobile-worldwide-2014/
