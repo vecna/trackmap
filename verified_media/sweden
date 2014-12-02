@@ -1,6 +1,7 @@
 [global]
 
 [national]
+
 http://arbetarbladet.se/
 http://www.aftonbladet.se/
 http://www.allehanda.se/
@@ -52,8 +53,7 @@ http://www.unt.se/first/
 http://www.vimmerbytidning.se/
 http://www.vk.se/
 http://www.ystadsallehanda.se/
-# Not in swedish
-http://www.thelocal.se/
+
 
 [blog]
 http://newsdirect.se/
