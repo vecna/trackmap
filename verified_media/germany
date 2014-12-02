@@ -2,10 +2,10 @@
 
 [national]
 
-http://www.bild.de/ # present in global
-http://www.welt.de/ # present in global
-http://www.heise.de # present in global
-
+http://www.spiegel.de/
+http://www.bild.de/ 
+http://www.welt.de/ 
+http://www.heise.de 
 http://chrismon.evangelisch.de/
 http://jungle-world.com/
 http://www.aerztezeitung.de/
@@ -17,13 +17,11 @@ http://www.freitag.de/
 http://www.fr-online.de
 http://www.golem.de/
 http://www.handelsblatt.com/
-http://www.heise.de/
 http://www.heute.de
 http://www.juedische-allgemeine.de/
 http://www.jungewelt.de/
 http://netzpolitik.org/
 http://www.n-tv.de/
-http://www.spiegel.de/
 http://www.stern.de/
 http://www.tagesschau.de/
 http://www.taz.de/

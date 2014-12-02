@@ -2,7 +2,7 @@
 
 [national]
 
-http://asianjournal.ca/
+http://o.canada.com/
 http://brasilnews.ca/
 http://lethbridgeherald.com/
 http://lookoutnewspaper.com/
@@ -13,7 +13,6 @@ http://rabble.ca/
 http://telegraphjournal.canadaeast.com/
 http://thebadger.ca/
 http://theindependent.ca/
-http://www2.canada.com/national/index.html
 http://www.abbynews.com/
 http://www.agoracosmopolitan.com/
 http://www.almughtarib.com/
@@ -56,6 +55,7 @@ http://www.ziarulimpact.ca/
 
 [local]
 
+http://asianjournal.ca/
 http://cornwallfreenews.com/ 
 http://citizennews.ca/
 http://winchesterpress.on.ca/ 
@@ -64,24 +64,10 @@ http://www.cambridgetimes.ca/cambridge-on/
 http://www.crestonvalley.com/advance/index.shtml 
 http://www.fairviewpost.com/ 
 http://www.hamiltonnews.com/ 
-http://www.hamiltonnews.com/community/ancaster/ 
-http://www.hamiltonnews.com/community/dundas/ 
-http://www.hamiltonnews.com/community/hamilton-mountain/ 
-http://www.hamiltonnews.com/community/stoney-creek/ 
 http://www.hanoverpost.ca/
 http://lavalnews.ca/
-http://www.insidehalton.com/halton/
-http://www.insidehalton.com/milton-on/
-http://www.insidehalton.com/oakville-on/
-http://www.insidetoronto.com/community/bloorwestparkdale
-http://www.insidetoronto.com/community/downtown
-http://www.insidetoronto.com/community/eastyork
-http://www.insidetoronto.com/community/etobicoke
-http://www.insidetoronto.com/community/northyork
-http://www.insidetoronto.com/community/scarborough
-http://www.insidetoronto.com/to/annex/
-http://www.insidetoronto.com/to/bloorw/
-http://www.insidetoronto.com/to/tbt/ 
+http://www.insidehalton.com
+http://www.insidetoronto.com
 http://www.lakeshoreadvance.com/
 http://www.lakeshorenews.bc.ca/ 
 http://www.melfortjournal.com/
@@ -121,8 +107,7 @@ http://www.valleytimes.cjb.net/
 http://www.vancourier.com/
 http://www.vancouverstar.com/
 http://www.vancouversun.com/index.html 
-http://www.yukonweb.com/community/dawson/klondike_sun/
-http://www.yukonweb.com/community/yukon-news/ 
+http://www.yukonweb.com
 http://bcinteriornews.ca/
 http://charter.optipresspublishing.com/
 http://lecourrier.com/ 
@@ -136,9 +121,7 @@ http://thedrydenobserver.ca/
 http://therecorder.ca/ 
 http://tremblantexpress.com/ 
 http://tumblerridgenews.com/ 
-http://www.250news.com/?v=1 
-http://www2.canada.com/ottawa/ottawacitizen/index.html 
-http://www2.canada.com/saskatoon/starphoenix/index.html 
+http://www.250news.com/
 http://www.agassizharrisonobserver.com/ 
 http://www.agrinewsinteractive.com/ 
 http://www.airdriecityview.com/ 
@@ -257,13 +240,12 @@ http://www.mapleridgenews.com/
 http://www.mayerthorpefreelancer.com/ 
 http://www.midnorthmonitor.com/ 
 http://www.missioncityrecord.com/ 
-http://www.mississauga.com/mississauga-on/ 
+http://www.mississauga.com
 http://www.mjtimes.sk.ca/ 
 http://www.mjvex.com/ 
 http://www.montrealgazette.com/index.html
 http://www.mrtimes.com/ 
-http://www.mykawartha.com/kawartha/ 
-http://www.mykawartha.com/peterborough-on/
+http://www.mykawartha.com
 http://www.mywestisland.info/ 
 http://www.nanaimobulletin.com/
 http://www.nanaimodailynews.com/ 

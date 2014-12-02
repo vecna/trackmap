@@ -10,9 +10,6 @@ http://www.theglobeandmail.com/
 http://www.bbc.com/
 http://www.cnn.com/
 http://www.wired.com/
-http://news.yahoo.com/
-http://news.google.com/
-http://www.huffingtonpost.fr
 http://www.foxnews.com/
 http://www.nbcnews.com/
 http://www.dailymail.co.uk
@@ -26,8 +23,16 @@ http://rt.com
 http://www.aljazeera.com/
 http://www.spiegel.de/index.html
 http://firstlook.org/theintercept/ 
+http://www.spiegel.de/
 
-# some randomly taken from http://www.4imn.com/top200/
+# TODO an huffingtonpost country mapping per country covered
+http://www.huffingtonpost.com
+
+# mah... 
+http://news.yahoo.com/
+http://news.google.com/
+
+# some from http://www.4imn.com/top200/
 http://www.people.com.cn/
 http://timesofindia.indiatimes.com/
 http://www.elmundo.es/
@@ -42,6 +47,15 @@ http://www.corriere.it/
 http://www.repubblica.it/
 http://www.gazeta.pl/
 http://www.lemonde.fr/
+http://www.csmonitor.com/
+http://www.idnes.cz/
+http://www.theage.com.au/
+http://www.sueddeutsche.de/
+http://www.theonion.com/
+http://www.abc.es/
+http://www.clarin.com/
+http://www.kp.ru/
+
 
 
 # http://en.wikipedia.org/wiki/List_of_newspapers_in_the_world_by_circulation

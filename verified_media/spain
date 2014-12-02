@@ -2,11 +2,12 @@
 
 [national]
 
-http://elpais.com/
+http://elpais.com/ # global
+http://www.abc.es/ # global
+http://www.elmundo.es/ # global
 http://www.efe.com/
 http://elperiodicolatino.com.es/
 http://www.20minutos.es/
-http://www.abc.es/
 http://www.cadenaser.com/
 http://www.diariosigloxxi.com/
 http://www.elboletin.com/
@@ -18,10 +19,9 @@ http://www.larazon.es/
 http://www.hispanidad.com/
 http://www.lavozlibre.com/
 http://www.publico.es/
-http://www.elmundo.es/
 http://www.eldiario.es/
 http://gaceta.es/
-https://www.diagonalperiodico.net/
+http://www.diagonalperiodico.net/
 http://www.lainformacion.com/
 http://www.huffingtonpost.es/
 http://www.libertaddigital.com/
@@ -31,7 +31,7 @@ http://www.elplural.com/
 http://www.infolibre.es/
 http://www.elconfidencialdigital.com/
 http://www.que.es/
-https://kaosenlared.net/
+http://kaosenlared.net/
 http://www.cuartopoder.es/
 http://www.diariocritico.com/
 http://www.rtve.es/
@@ -64,7 +64,6 @@ http://www.elalmeria.es/
 http://www.elcomercio.es/
 http://www.elcorreo.com/
 http://www.eldiadecordoba.es/
-http://www.eldiario.es/canariasahora/
 http://www.eldiariomontanes.es/
 http://www.eldimoni.com/
 http://www.elnortedecastilla.es/

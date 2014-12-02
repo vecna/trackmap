@@ -1,6 +1,7 @@
 [global]
 
 [national]
+http://www.minuto30.com
 http://www.eltiempo.com/
 http://www.elespectador.com/
 http://www.elcolombiano.com/
@@ -34,23 +35,19 @@ http://elcatolicismo.com.co
 http://www.elcolombiano.net/
 http://elclavo.com/
 http://www.eldiario.com.co
-http://www.elespectador.com
 http://www.hsbnoticias.com/
-http://www.elheraldo.co/
 http://www.elliberal.com.co/
 http://lalibertad.com.co
-http://www.elmundo.com/
-http://www.lapatria.com/
 http://www.latarde.com/
-http://www.eltiempo.com/
-http://www.eluniversal.com.co/
-http://www.vanguardia.com/
 http://www.primeraplana.com.co/
 http://www.elinformador.com.co/
 http://www.elmeridianodesucre.com.co/
 http://elmeridianodecordoba.com.co/
 http://www.hoydiariodelmagdalena.com.co/
 http://www.latinamericanpost.com/
+
+# e-market
+http://linio.com.co
 
 [blog]
 
