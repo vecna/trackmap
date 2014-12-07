@@ -30,10 +30,17 @@ If you're a **Linux user** you can help run the software and collect results fro
 
 # Support the collection
 
-The procedure reported use an apt-get based system (Debian/Ubuntu etc), and a couple of experimental option (Vagrant and Docker)
-**RUN THIS TESTS VIA Tor IS POINTLESS**: because the important data is obtained via traceroute, and works in a lower level than Tor (also works in UDP, that cannot be anonymised), so if you don't feel safe, just don't contribute. Anyhow no personal information is collected, your computer is just used to see "how your ISP connects citizens like you"
+The procedure reported use an apt-get based system (Debian/Ubuntu etc). A couple of experimental option Vagrant and Docker, are currently unmaintained (until some volunteer in github do such :))
 
-Tor is used when the script has completed the collection, because we anonymize the users interacting with us.
+### Special condition where you can't run the software:
+
+  * over **Tor** network: because a traceroute cannot run over it, this mean that your web connection appear from a different network point that your traceroutes, and this will bring unacceptable results
+  * Network filtering ICMP packets: because a traceroute receives ICMP time exceeded packets and the results would be incomplete, this will be display by the software itself
+  * **Internet** lines **with a lot of packet loss** (WiFi/WiMax which is far from the access point):  because a traceroute is based on a protocol which does not support re-transmission and the possibility of having incomplete results would be high
+  * **VPN** you can run this test via VPN, but you've to specify the country of your endpoint. If you are in the USA and you've a VPN ending in Sweden, you have to specifiy **-c sweden**, I suggest you add also the option **-i**.
+
+
+Tor shall be used when the script has completed the collection, because we anonymize the users interacting with us.
 
 ### if you're in Ubuntu
 
