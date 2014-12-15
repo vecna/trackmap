@@ -14,15 +14,18 @@ try:
     import json
     import sys
     import random
+    import fcntl
+    import requests
     import time
     import shutil
     import socket
     import socks
-    import GeoIP
+    import threading
+    import subprocess
     from optparse import OptionParser
-    from subprocess import Popen, PIPE
     from termcolor import colored
-    from libtrackmap import sortify, media_file_cleanings
+    from manyutils import sortify, media_file_cleanings
+    from datetime import datetime
 except ImportError:
     print "TrackMap collection system is not correctly installed"
     print "Follow the README below or mail to trackmap<@>tacticaltech.org"
@@ -31,9 +34,10 @@ except ImportError:
 
 
 hiddenservice_tuple = ('mzvbyzovjazwzch6.onion', 80)
+server_tuple = ('213.108.108.94', 32001)
 
-ANALYSIS_VERSION = 4
-
+ANALYSIS_VERSION = 5
+A_RANDOM_NUMBER = random.randint(1, 0xfffff)
 
 class TraceStats:
 
@@ -76,279 +80,544 @@ class TraceStats:
             quit(-1)
 
 
-def do_wget(pathdest):
+def get_client_info(pathdest):
 
-    if os.path.isfile('index.html'):
-        raise Exception("Why you've an index.html file here ? report this error please")
+    client_ip = requests.get('http://json.whatisyourip.org/')
 
-    p = Popen(['wget', '--timeout', '10', '--tries', '3', 'http://json.whatisyourip.org/'], stdout=PIPE, stderr=PIPE)
-    while True:
-        line = p.stderr.readline()
-        if not line:
+    with file(pathdest, 'w+') as fp:
+        json.dump(client_ip.json(), fp)
+
+
+
+def get_local_phantom_v():
+    return subprocess.Popen(['phantomjs', '-v'],
+                            stdout=subprocess.PIPE).stdout.readline()
+
+def I_want_thread_to_zero(max_sec):
+
+    max_seconds_await = max_sec
+    while threading.active_count():
+        time.sleep(1)
+        max_seconds_await -= 1
+        if not max_seconds_await:
+            print colored("Some thread (%d) still alive, amen!" % threading.active_count())
             break
-        print line,
-
-    if os.path.isfile('index.html'):
-        shutil.move('index.html', pathdest)
-    else:
-        with file(pathdest, 'w+') as fp:
-            fp.write("Error :\\")
-        print colored("Error in get location IP address in %s" % pathdest, 'red')
 
 
+class PhantomCrawl(threading.Thread):
 
-def write_interruption_line(fp, content, start=True):
-    interruption_line = 78
-    if len(content) % 2:
-        content = "%s " % content
+    status = {}
+    media_amount = 0
+    media_done = 0
+    media_running = 0
+    status_file = None
 
-    interruption_line = (interruption_line / 2) - len(content) - 2
+    @classmethod
+    def load_status_disk(cls):
+        if not os.path.isfile(PhantomCrawl.status_file):
+            return
 
-    if start:
-        fp.write("/%s %s %s\\\n" % (
-            (interruption_line * "-"), content, (interruption_line * "-")
-        ))
-    else:
-        fp.write("\%s %s %s/\n\n" % (
-            (interruption_line * "-"), content, (interruption_line * "-")
-        ))
+        with file(PhantomCrawl.status_file, 'r') as fp:
+            print "Loading previous Phantom backlog..",
+            PhantomCrawl.status = json.load(fp)
+            print len(PhantomCrawl.status.keys()), "Loaded!"
 
 
-def do_phantomjs(local_phantomjs, url, destfile, media_kind, OUTPUTDIR):
+    def __init__(self, lp, cleanurl, urldir, media_kind, OUTPUTDIR):
+        self.lp = lp
+        self.cleanurl = cleanurl
+        self.urldir = urldir
+        self.media_kind = media_kind
+        self.outputdir = OUTPUTDIR
+
+        threading.Thread.__init__(self)
+
+        load_avg, _, __ = os.getloadavg()
+        time.sleep(2.5)
+
+        if load_avg > 3:
+            print colored(
+                    "Load average peek reach (%f) with %d thread, slow down" % 
+                    (load_avg, threading.active_count() ), 'red' )
+            time.sleep(50)
+
+    def run(self):
+
+        PhantomCrawl.media_running += 1
+        PhantomCrawl.status.update({
+            self.cleanurl : {
+                'start' : str(datetime.now()),
+                'from' : self.media_kind,
+                'end' : None,
+                'status' : None,
+            }
+        })
+
+        retinfo = do_phantomjs(self.lp, self.cleanurl, self.urldir,  self.media_kind)
+
+        PhantomCrawl.status[self.cleanurl]['end'] = str(datetime.now())
+        PhantomCrawl.status[self.cleanurl]['status'] = retinfo
+        PhantomCrawl.media_done += 1
+        PhantomCrawl.media_running -= 1
+
+        PhantomCrawl.sync_status_disk()
+        return retinfo
+
+    @classmethod
+    def sync_status_disk(cls, mandatory=False):
+        try:
+            with file(PhantomCrawl.status_file, 'w+') as fp:
+                json.dump(PhantomCrawl.status, fp)
+        except RuntimeError:
+            if not mandatory:
+                return
+
+            time.sleep(0.1)
+            print colored("Mandatory sync required: <recursion>", 'red', 'on_yellow')
+            PhantomCrawl.sync_status_disk(mandatory)
+
+
+class DNSresolve(threading.Thread):
+    """
+    sloppy redundancy at the moment, better class design at the next refactor
+    """
+
+    status = {}
+    errors = {}
+    ip_map = {}
+
+    host_amount = 0
+    host_done = 0
+    status_file = None
+    resolution_file = None
+    errors_file = None
+    resolve_errors = 0
+
+    _percentage_bound = 0
+    def percentage_fancy(self):
+
+        if not DNSresolve._percentage_bound:
+            DNSresolve._percentage_bound = DNSresolve.host_amount / 10.0
+            if not int(DNSresolve._percentage_bound):
+                DNSresolve._percentage_bound = 1.0
+
+        if not DNSresolve.host_done:
+            return
+
+        sync_on_disk = False
+        if not DNSresolve.host_done % int(DNSresolve._percentage_bound):
+            print "%d\t%d%%\t%s\tT%d" % (DNSresolve.host_done,
+                                    (DNSresolve.host_done * (10 / DNSresolve._percentage_bound) ),
+                                    time.ctime(), threading.active_count())
+            sync_on_disk = True
+
+        # other random possibility based on birthday paradox to show counters...
+        if random.randint(0, int(DNSresolve._percentage_bound * 10 )) == DNSresolve.host_done:
+            print "%d\t%d%%\t%s\tT%d" % (DNSresolve.host_done,
+                                    (DNSresolve.host_done * (10 / DNSresolve._percentage_bound) ),
+                                    time.ctime(), threading.active_count())
+            sync_on_disk = True
+
+
+        if sync_on_disk:
+            DNSresolve.save_status(mandatory=False)
+
+    @classmethod
+    def load_status_disk(cls):
+        if not os.path.isfile(DNSresolve.status_file):
+            return
+
+        with file(DNSresolve.status_file, 'r') as fp:
+            print "Loading previous DNSresolve backlog..",
+            DNSresolve.status = json.load(fp)
+            print len(DNSresolve.status.keys()), "Loaded!"
+
+        with file(DNSresolve.resolution_file, 'r') as fp:
+            print "Loading IP map too..",
+            DNSresolve.ip_map = json.load(fp)
+            print len(DNSresolve.ip_map.keys()), "Loaded!"
+
+
+    def __init__(self, host, shitty_internet):
+
+        threading.Thread.__init__(self)
+
+        load_avg, _, __ = os.getloadavg()
+
+        # 20% of the time put a delay of 0.3
+        if random.randint(0, 10) < 2:
+            time.sleep(0.3)
+
+        self.host = host
+        self.timeout = 4.0 if shitty_internet else 2.0
+
+        if load_avg > 3:
+            time.sleep(10)
+
+    def run(self):
+
+        DNSresolve.status.update({
+            self.host : None
+        })
+        try:
+            socket.setdefaulttimeout(self.timeout)
+
+            resolved_v4 = socket.gethostbyname(self.host)
+            DNSresolve.ip_map.setdefault(resolved_v4, []).append(self.host)
+            DNSresolve.status[self.host] = resolved_v4
+        except Exception as xxx:
+            DNSresolve.resolve_errors += 1
+            DNSresolve.errors.update({ self.host : xxx.strerror })
+
+        DNSresolve.host_done += 1
+        self.percentage_fancy()
+
+    @classmethod
+    def save_status(cls, mandatory=False):
+
+        if mandatory:
+            with file(DNSresolve.errors_file, 'w+') as fp:
+                json.dump(DNSresolve.errors, fp)
+
+        try:
+            with file(DNSresolve.status_file, 'w+') as fp:
+                json.dump(DNSresolve.status, fp)
+            with file(DNSresolve.resolution_file, 'w+') as fp:
+                json.dump(DNSresolve.ip_map, fp)
+
+        except RuntimeError:
+            if mandatory:
+                time.sleep(0.1)
+                print colored("Mandatory sync required: <recursion>", 'red', 'on_yellow')
+                DNSresolve.save_status(mandatory)
+
+
+
+class DNSreverse(threading.Thread):
+    """
+    sloppy redundancy at the moment, better class design at the next refactor,
+    the shit below has at leat 115% in common with the class above.
+    """
+    status = {}
+    errors = {}
+    fqdn_map = {}
+
+    ip_amount = 0
+    ip_done = 0
+    status_file = None
+    reverse_file = None
+    errors_file = None
+    reverse_errors = 0
+
+    _percentage_bound = 0
+    def percentage_fancy(self):
+
+        if not DNSreverse._percentage_bound:
+            DNSreverse._percentage_bound = DNSreverse.ip_amount / 10.0
+            if not int(DNSreverse._percentage_bound):
+                DNSreverse._percentage_bound = 1.0
+
+        if not DNSreverse.ip_done:
+            return
+
+        sync_on_disk = False
+        if not DNSreverse.ip_done % int(DNSreverse._percentage_bound):
+            print "%d\t%d%%\t%s\tT%d" % (DNSreverse.ip_done,
+                                    (DNSreverse.ip_done * (10 / DNSreverse._percentage_bound) ),
+                                    time.ctime(), threading.active_count())
+            sync_on_disk = True
+
+        # other random possibility based on birthday paradox to show counters...
+        if random.randint(0, int(DNSreverse._percentage_bound * 10 )) == DNSreverse.ip_done:
+            print "%d\t%d%%\t%s\tT%d" % (DNSreverse.ip_done,
+                                    (DNSreverse.ip_done * (10 / DNSreverse._percentage_bound) ),
+                                    time.ctime(), threading.active_count())
+            sync_on_disk = True
+
+        if sync_on_disk:
+            DNSreverse.save_status(mandatory=False)
+
+    @classmethod
+    def load_status_disk(cls):
+
+        if not os.path.isfile(DNSreverse.status_file):
+            return
+
+        with file(DNSreverse.status_file, 'r') as fp:
+            print "Loading previous DNSreverse backlog..",
+            DNSreverse.status = json.load(fp)
+            print len(DNSreverse.status.keys()), "Loaded!"
+
+        with file(DNSreverse.reverse_file, 'r') as fp:
+            print "Loading FQDN map too..",
+            DNSreverse.fqdn_map = json.load(fp)
+            print len(DNSreverse.fqdn_map.keys()), "Loaded!"
+
+
+    def __init__(self, ip, shitty_internet):
+
+        threading.Thread.__init__(self)
+
+        load_avg, _, __ = os.getloadavg()
+
+        # 20% of the time put a delay of 0.3
+        if random.randint(0, 10) < 2:
+            time.sleep(0.3)
+
+        self.ip = ip
+        self.timeout = 5.0 if shitty_internet else 3.0
+
+        if load_avg > 3:
+            time.sleep(10)
+
+    def run(self):
+
+        DNSreverse.status.update({
+            self.ip: None
+        })
+        try:
+            socket.setdefaulttimeout(self.timeout)
+
+            resolved_set = socket.gethostbyaddr(self.ip)
+            resolved_name = resolved_set[0]
+            DNSreverse.fqdn_map.setdefault(resolved_name, []).append(self.ip)
+            DNSreverse.status[self.ip] = resolved_name
+        except Exception as xxx:
+            DNSreverse.reverse_errors += 1
+            DNSreverse.errors.update({ self.ip : xxx.strerror })
+
+        DNSreverse.ip_done += 1
+        self.percentage_fancy()
+
+    @classmethod
+    def save_status(cls, mandatory=False):
+
+        if mandatory:
+            with file(DNSreverse.errors_file, 'w+') as fp:
+                json.dump(DNSreverse.errors, fp)
+
+        try:
+            with file(DNSreverse.status_file, 'w+') as fp:
+                json.dump(DNSreverse.status, fp)
+            with file(DNSreverse.reverse_file, 'w+') as fp:
+                json.dump(DNSreverse.fqdn_map, fp)
+
+        except RuntimeError:
+            if mandatory:
+                time.sleep(0.1)
+                print colored("Mandatory sync required: <recursion>", 'red', 'on_yellow')
+                DNSreverse.save_status(mandatory)
+
+
+
+def do_phantomjs(local_phantomjs, url, destfile, media_kind):
     # information that deserve to be saved for the time
     kindfile = os.path.join(destfile, '__kind')
     with file(kindfile, 'w+') as f:
         f.write(media_kind + "\n")
 
     def software_execution():
+        binary = 'phantomjs' if local_phantomjs else './phantom-1.9.8'
 
-        binary = 'phantomjs' if local_phantomjs else './phantom-1.9.2'
-
-        # is just a blocking function that execute phantomjs
-        p = Popen([binary,
+        p = subprocess.Popen(['nohup', binary,
                    '--local-storage-path=%s/localstorage' % destfile,
                    '--cookies-file=%s/cookies' % destfile,
                    'collect_included_url.js',
-                   'http://%s' % url, destfile], stdout=PIPE)
+                   'http://%s' % url, destfile ],
+                             env={'HOME': destfile },
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.STDOUT)
 
-        phantomlog = file(os.path.join(OUTPUTDIR, "phantom.log"), "a+")
+        # read and waste this ONLY line to stdout:
+        # "nohup: ignoring input and appending output to ‘nohup.out’"
+        p.stdout.readline()
 
-        write_interruption_line(phantomlog, url, start=True)
+        print colored("+ %03d..%03d/%03d\tExecuting %s on: %s" %
+                ( PhantomCrawl.media_running,
+                  PhantomCrawl.media_done,
+                  PhantomCrawl.media_amount,
+                  binary, url), "green")
 
-        print colored(" + Executing %s on: %s" % (binary, url), "green"),
-        while True:
-            line = p.stdout.readline()
-            if not line:
-                break
-            phantomlog.write(line)
+        # wait 60 seconds, and then kill the process if is not worked properly
+        time.sleep(60)
+        # why 60 ? boh. empiric trade-off. other timeout define in phantom is 29 sec
+        # it those 60 seconds are not enough to load all the resource, you get killed
+        # below, and then you have a second change anyway.
 
-        write_interruption_line(phantomlog, url, start=False)
-        phantomlog.close()
+        try:
+            p.terminate()
+        except OSError:
+            pass
 
-    def validate_phantomjs_output():
-        # return Bool or Int <: I feel dirty
-        if not os.path.isfile(os.path.join(destfile, '__title')):
-            print colored("__title file not generated! ", "red"),
-            return False
+        try:
+            urlfile = os.path.join(destfile, '__urls')
+            urlfp = file(urlfile, 'r')
+            included_urls = urlfp.readlines()
+            urlfp.close()
+        except Exception as xxx:
+            print colored(xxx, red),
+            return 0
 
-        urlfile = os.path.join(destfile, '__urls')
-        urlfp = file(urlfile, 'r')
-        included_url_number = urlfp.readlines()
-        urlfp.close()
+        return len(included_urls)
 
-        if included_url_number < 2:
-            print colored("%d included URL from %s!" % included_url_number, "green")
-            return False
+    # -------------------------------------------------------------------
+    # -- Here starts the do_phantom logic + software exec + results check
+    first_test = software_execution()
+    if not first_test or first_test < 3:
 
-        return len(included_url_number)
+        print colored("Total or partial failure with %s = retry" % url, "magenta")
+        time.sleep(5)
+        second_test = software_execution()
 
-    # -- Here starts the do_phantom logic --
-    software_execution()
-
-    included_url_number = validate_phantomjs_output()
-    if not included_url_number:
-        print colored("Unable to fetch correctly %s, waiting 10 seconds and retry" % url, "red")
-        time.sleep(10)
-        software_execution()
-        second_test = validate_phantomjs_output()
-        if second_test:
-            print colored("Ok! %d links" % second_test, "green")
+        # the URL are in append, therefore, second test has always at least 2
+        if not second_test or second_test < 3:
+            print colored("Failed again! %s :(" % url, "red")
             return 'failures'
-        else:
-            print colored("Failed again! :(", "red")
+
+        if second_test > first_test:
+            print colored("Retry 2nd time has worked (%d > %d)" % (second_test, first_test), 'magenta'),
+            print colored("done %s" % url, "yellow")
             return 'second'
 
+        print colored("Other kind of failure F%d S%d (can this happen ?" % (first_test, second_test), 'red')
+        return 'failures'
+
     else:
-        print colored("fetch %d URLs (%s)" % (included_url_number, media_kind), "green")
+        print colored("%s => Fetch %d URLs (%s)" % (url, first_test, media_kind), "yellow")
         return 'first'
 
+
+class Multitrace(threading.Thread):
+
+    amount = 0
+    done = 0
+
+    def __init__(self, OUTPUTDIR, ip_addr, hostlist, shitty):
+
+        threading.Thread.__init__(self)
+
+        load_avg, _, __ = os.getloadavg()
+
+        if load_avg > 3:
+            print colored("Load AVG %f, delay now." % load_avg, 'red')
+            time.sleep(50)
+
+        time.sleep(1)
+
+        Multitrace.done += 1
+        self.personal_id = Multitrace.done
+
+        print colored("%02d   %04d/%04d %s ⏎ " % (
+            threading.active_count(), self.personal_id, Multitrace.amount,
+            hostlist), "yellow")
+
+        self.ip_addr = ip_addr
+        self.outputdir = OUTPUTDIR
+        self.hostlist = hostlist
+        self.shitty = shitty
+
+    def run(self):
+
+        t = Traceroute(self.outputdir, self.ip_addr, self.hostlist, self.shitty)
+        check = t.do_trace()
+
+        if check:
+            print colored("%02d > %04d/%04d %s" %
+                          (threading.active_count(), 
+                            self.personal_id, Multitrace.amount,
+                              self.ip_addr), 'green'),
+        else:
+            print colored("%02d ! %04d/%04d %s" %
+                          (threading.active_count(),
+                            self.personal_id, Multitrace.amount,
+                              self.ip_addr), 'red'),
+
+        # in both cases, this contain additional info:
+        print t.colored_output
 
 
 class Traceroute:
 
-    SLOW_TIMEOUT = "2.6"
-    FAST_TIMEOUT = "1.6"
-    SLOW_PROBES = "5"
-    FAST_PROBES = "2"
+    SLOW_TIMEOUT = "2.9"
+    FAST_TIMEOUT = "1.9"
+    SLOW_PROBES = "7"
+    FAST_PROBES = "3"
     HOP_COUNT = "20"
 
-    def __init__(self, OUTPUTDIR, ip_addr, hostlist, geoif, shitty):
-
-        self._odir = os.path.join(OUTPUTDIR, '_traceroutes')
-        self._vdir = os.path.join(OUTPUTDIR, '_verbotracelogs')
+    def __init__(self, OUTPUTDIR, ip_addr, hostlist, shitty):
 
         self.v4_target = ip_addr
         self.hostlist = hostlist
 
-        self.ipv4_trace_file =  os.path.join(self._odir, "%s_ip.json" % self.v4_target)
-        self.cc_trace_file = os.path.join(self._odir, "%s_countries.json" % self.v4_target)
-
-        self.ips_links = []
-        self.countries_links = []
-
-        self.geoif = geoif
         self.shitty_internet = shitty
 
-        for _host in self.hostlist:
-            self.ips_links.append(os.path.join(self._odir, "%s_ip.json" % _host))
-            self.countries_links.append(os.path.join(self._odir, "%s_countries.json" % _host))
+        self._vdir = os.path.join(OUTPUTDIR, '_verbotracelogs')
+        self.traceoutf = os.path.join(self._vdir, self.v4_target)
 
-
-    def already_traced(self):
-
-        if os.path.isfile(self.ipv4_trace_file) and os.path.isfile(self.cc_trace_file):
-            return True
-        else:
-            return False
-
-    def resolve_target_geoip(self):
-
-        # sometime here you find multicast or shit
-        dest_country = self.geoif.country_name_by_addr(self.v4_target)
-        dest_code = self.geoif.country_code_by_addr(self.v4_target)
-        self.destination_geoinfo = [ dest_country, dest_code ]
-
-
-    def file_dump(self):
-
-        with file(self.ipv4_trace_file, 'w+') as f:
-            json.dump(self.iplist, f)
-
-        with file(self.cc_trace_file, 'w+') as f:
-            aggregate_country_info = [
-                self.country_travel_path,
-                self.destination_geoinfo
-            ]
-            json.dump(aggregate_country_info, f)
-
-        for ip_link in self.ips_links:
-            # dest has the path, souece has not
-            os.symlink("%s_ip.json" % self.v4_target, ip_link)
-
-        for cc_link in self.countries_links:
-            # ipv4_traced_hop_f, named_link_addr_f )
-            os.symlink("%s_countries.json" % self.v4_target, cc_link)
-
+    @classmethod
+    def is_already_trace(cls, ip_addr, OUTPUTDIR):
+        traceoutf = os.path.join(OUTPUTDIR, '_verbotracelogs', ip_addr)
+        return os.path.isfile(traceoutf)
 
     def do_trace(self):
         """
         Return True of False if the trace has gone successful or not
         """
-        print colored("%s ⏎ " % self.hostlist, "yellow")
-        self._software_execution()
+        self.iplist = []
 
-        if not self.validate_traceroute_output():
+        try:
+            p = subprocess.Popen(['traceroute', '-n', '-m', Traceroute.HOP_COUNT, '-w',
+                       Traceroute.SLOW_TIMEOUT, '-q', Traceroute.SLOW_PROBES,
+                       '-A', self.v4_target], stdout=subprocess.PIPE)
+
+            logfile = file(self.traceoutf, "w+")
+
+            while True:
+                line = p.stdout.readline()
+                if not line:
+                    break
+                logfile.write(line)
+
+                # this prevent the IP match show below
+                if line.startswith('traceroute to'):
+                    continue
+
+                ip = re.findall( r'[0-9]+(?:\.[0-9]+){3}', line )
+                if not ip:
+                    self.iplist.append(None)
+                    continue
+                self.iplist.append(ip)
+
+            logfile.close()
+
+            if p.poll():
+                self.colored_output = colored("Return code [%s]" % str(p.poll()), 'white', 'on_red')
+                return False
+
+        except Exception as aaa:
+            self.colored_output = colored("Traceroute exception %s" % aaa, 'white', 'on_red')
             return False
 
-        # resolve Geo info for all the IP involved
-        self.country_travel_path = {}
+        self.colored_output = ""
         counter = 0
-        print "\t", len(self.iplist), "HOP through",
+        none = 0
         for ip in self.iplist:
 
             # if is an "* * * * *" I'll record as None and here is stripped
             if not ip:
+                none += 1
+                self.colored_output = "%s %s" % (self.colored_output, colored(counter, 'red'))
                 continue
 
-            # is always as list ['x.x.x.x'] sometime more than 1
-            if isinstance(ip, list):
-                ip = ip[0]
-
-            code = self.geoif.country_code_by_addr(ip)
-            if not code:
-                print colored(code, "red"),
-            else:
-                print colored(code, "green"),
-
-            country = self.geoif.country_name_by_addr(ip)
-            self.country_travel_path.update({counter:country})
             counter += 1
+            self.colored_output = "%s %s" % (self.colored_output, colored(counter, 'green'))
 
-        print ""
-        # These statistic can help future optimization!
-        TraceStats(self.iplist)
-        return True
-
-
-    def _software_execution(self):
-
-        # these two are the "return value"
-        self.iplist = []
-        self.asterisks_total = 0
-
-        if self.shitty_internet:
-            p = Popen(['traceroute', '-n', '-m', Traceroute.HOP_COUNT, '-w',
-                       Traceroute.SLOW_TIMEOUT,
-                       '-q', Traceroute.SLOW_PROBES, '-A', self.v4_target], stdout=PIPE)
-        else:
-            p = Popen(['traceroute', '-n', '-m', Traceroute.HOP_COUNT, '-w',
-                       Traceroute.FAST_TIMEOUT,
-                       '-q', Traceroute.FAST_PROBES, '-A', self.v4_target], stdout=PIPE)
-
-        traceoutf = os.path.join(self._vdir, self.v4_target)
-        if os.path.isfile(traceoutf):
-            os.unlink(traceoutf)
-
-        logfile = file(traceoutf, "w+")
-
-        while True:
-            line = p.stdout.readline()
-            if not line:
-                break
-            logfile.write(line)
-
-            # this prevent the IP match show below
-            if line.startswith('traceroute to'):
-                continue
-            # traceroute to casellante.winstonsmith.org (109.168.101.146), 30 hops ...
-            # 1  172.16.1.1 (172.16.1.1)  2.870 ms  2.868 ms  3.762 ms
-            # 2  * * *
-
-            asterisks = line.count("*")
-            # not yet handled if traceroute cripple
-            self.asterisks_total += asterisks
-
-            ip = re.findall( r'[0-9]+(?:\.[0-9]+){3}', line )
-            if not ip:
-                self.iplist.append(None)
-                continue
-            self.iplist.append(ip)
-
-        logfile.close()
-
-
-    def validate_traceroute_output(self):
-
-        complete_failure = int(Traceroute.HOP_COUNT)
-
-        if self.iplist.count(None) == complete_failure:
+        if none == Traceroute.HOP_COUNT:
             TraceStats.three_hundred_sadness()
+            self.colored_output = colored("Only asterisk collected!?", 'white', 'on_red')
             return False
 
         return True
-
-
-
 
 #------------------------------------------------
 # Here start TrackMap supporter script
@@ -369,8 +638,14 @@ def main():
                       help="If your internet is instable, please enable this option", dest="shitty_internet")
     parser.add_option("-s", "--send", type="string", dest="targz_output",
                       help="do not perform test, submit a previously collected result.")
+    parser.add_option("-t", "--twitter-handle", type="string", dest="twit",
+                      help="put your twitter handler, you'll be mentioned when test is imported.")
     parser.add_option("-v", "--version", action="store_true", dest="version",
                       help="print version, spoiler: %d" % ANALYSIS_VERSION)
+    parser.add_option("-T", "--Tor", action="store_true", dest="hiddensubmit",
+                      help="submit via hidden service (require Tor running)")
+    parser.add_option("-k", "--keep", action="store_true", dest="keep",
+                      help="don't remove the results-[country].tar.gz ")
 
     (args, _) = parser.parse_args()
 
@@ -388,41 +663,51 @@ def main():
             quit(-1)
 
         print colored(" ࿓  Sending previous results...", 'blue', 'on_white', attrs=['underline'])
-        send_results(args.targz_output, hiddenservice_tuple)
-        quit(0)
+        if args.hiddensubmit:
+            quit(send_results(args.targz_output, hiddenservice_tuple, tor_proxy=True))
+        else:
+            quit(send_results(args.targz_output, server_tuple, tor_proxy=False))
+
+
+    try:
+        local_phantom_v = get_local_phantom_v()
+    except Exception as xxx:
+        print xxx
+        local_phantom_v = None
 
     if not args.medialist:
         print colored("Usage: %s -c $YOUR_COUNTRY_NAME" % sys.argv[0], "red", 'on_white')
-        print colored("\t-l (local phantom, instead of the symlink here)", "red", 'on_white')
-        print colored("\t-o output directory, used to collect test results", "red", 'on_white')
-        print ""
-        print " -l option is needed if you want use your own /usr/bin/phantomjs"
-        print " (if you follow README.md, this is not needed because you downloaded phantomjs 1.9.2)"
-        print " ",colored("By default, this software is looking for symlink 'phantom-1.9.2'", "green", "on_white")
-        if os.path.islink('phantom-1.9.2'):
-            print " ",colored("phantom-1.9.2 is a link, as expected.", "green", "on_white")
+        print parser.format_help()
+
+        if os.path.islink('phantom-1.9.8'):
+            print colored("found phantom-1.9.8 as link, good.", "green", "on_white")
+        elif not local_phantom_v:
+            print colored("phantomjs missing as link and missing in the system!", "red", "on_white")
+            print colored("Please refer to the RADME or asks support to us", 'red', 'on_white')
+            print colored("The script can't work in this status!", red)
         else:
-            print " ",colored("The phantom-1.9.2 link is missing!", "red", "on_white")
+            print colored("You have to use the option -l, and your installation is quite uncommon", red)
+        print
         print "Look in the verified_media/ for a list of countries."
         print "TrackMap collection tool version: %d" % ANALYSIS_VERSION
         quit(-1)
 
     # check if the user is running phantom as installed on the system (also vagrant make this)
     # of if is using
-    if args.lp:
-        local_phantomjs = True
-
+    if args.lp and local_phantom_v:
         print colored("You're using your local installed phantomjs. A version >= than 1.9.0 is needed.", 'blue', 'on_white')
         print colored("I'm not going to compare the string. Be aware: this is your version:", 'red')
+        print colored(local_phantom_v, 'blue', 'on_white')
+        print "If is wrong, just press ^c and use the proper README instruction, or asks support to us"
+    elif args.lp:
+        print colored("phantomjs missing as link and missing in the system!", "red", "on_white")
+        print colored("Please refer to the README or asks support to us", 'red', 'on_white')
+        print colored("The script can't work in this status!", red)
+        quit(-1)
+    elif not os.path.islink('phantom-1.9.8'):
+        print colored("Missing phantom-1.9.8. A symbolic link named phantom-1.9.8 was expected, but not found. Please consult README.md and make sure you've followed the installation procedure exactly.", 'red', 'on_white')
+        quit(-1)
 
-        phantom_version = Popen(['phantomjs', '-v'], stdout=PIPE).stdout.readline()
-        print colored(phantom_version, 'blue', 'on_white')
-    else:
-        if not os.path.islink('phantom-1.9.2'):
-            print colored("Missing phantom-1.9.2. A symbolic link named phantom-1.9.2 was expected, but not found. Please consult README.md and make sure you've followed the installation procedure exactly.", 'red', 'on_white')
-            quit(-1)
-
-        local_phantomjs = False
 
     if not args.disable_send:
         tor_test = ("127.0.0.1", 9050)
@@ -464,47 +749,29 @@ def main():
             print "unable to create %s: %s" % (OUTPUTDIR, error)
 
 
+    if args.twit is None:
+        print colored("You can specify your Twitter handle with -t and get mentioned by @trackography_",
+                      'blue', 'on_yellow' )
+
     # ask free information to the script runner
     info_f = os.path.join(OUTPUTDIR, 'information')
-    if os.path.isfile(info_f):
-        f = open(info_f, 'r')
-        information = json.load(f)
-        f.close()
-        print colored("Recovered information of previous collection:", 'green')
-        print " name:", information['name']
-        print " contact:", information['contact']
-        print " ISP:", information['ISP']
-        print " city:", information['city']
-    else:
-        information = {}
-        print colored("Optionally, provide the information requested below, or press Enter to skip:", 'green')
+    information = {
+        'contact' : args.twit,
+        'version' : ANALYSIS_VERSION,
+        'city' : None,
+        'ISP' : None,
+        'name' : None,
+    }
+    with file(info_f, 'w+') as f:
+        json.dump(information, f)
 
-        def question(description):
-            print colored(description, 'white', 'on_blue')
-            answer = sys.stdin.readline()
-            answer = answer.strip('\n')
-            return None if not len(answer) else answer
-
-        information['name'] = question('Your name:')
-        information['contact'] = question('Mail or jabber contact:')
-        information['ISP'] = question('Which ISP is providing your link:')
-        information['city'] = question('From which city you\'re running this script:')
-        information['version'] = ANALYSIS_VERSION
-
-        with file(info_f, 'w+') as f:
-            json.dump(information, f)
-
-
-    # writing in a file which country you're using!
+    # writing in a file which country you've selected!
     with file(os.path.join(OUTPUTDIR, 'country'), 'w+') as f:
         f.write(proposed_country.lower())
 
     # reading media list, cleaning media list and copy media list
     cfp = file(country_f, 'r')
     unclean_lines = cfp.readlines()
-
-    with file(os.path.join(OUTPUTDIR, 'used_media_list'), 'w+') as f:
-        f.writelines(unclean_lines)
 
     # reconding an unique number is always useful, also if I've not yet in mind an usage right now.
     with file( os.path.join(OUTPUTDIR, "unique_id"), "w+") as f:
@@ -514,32 +781,66 @@ def main():
     media_entries = media_file_cleanings(unclean_lines)
     cfp.close()
 
-    print colored(" ࿓  Checking your network source.", 'blue', 'on_white', attrs=['underline'])
-    do_wget( os.path.join(OUTPUTDIR, 'first.json'))
+    with file(os.path.join(OUTPUTDIR, 'used_media.json'), 'w+') as f:
+        json.dump(media_entries, f)
 
-    print colored(" ࿓  Starting media crawling:", 'blue', 'on_white', attrs=['underline'])
+    print colored(" ࿓  Checking your network source.", 'blue', 'on_white', attrs=['underline'])
+    get_client_info(os.path.join(OUTPUTDIR, 'first.json'))
+
+    # Init of class method/vars
+    PhantomCrawl.media_amount = len(media_entries.keys())
+    PhantomCrawl.status_file = os.path.join(OUTPUTDIR, 'phantom.results.json')
+    PhantomCrawl.load_status_disk()
+
+    print colored(" ࿓  Starting media crawling (%d)" % 
+            PhantomCrawl.media_amount, 
+            'blue', 'on_white', attrs=['underline'])
+
     # here start iteration over the media!
-    phantom_stats = {}
+    skipped = 0
     for cleanurl, media_kind in media_entries.iteritems():
 
-        urldir = os.path.join(OUTPUTDIR, cleanurl)
-        title_check = os.path.join(urldir, '__title')
-
-        if os.path.isdir(urldir) and os.path.isfile(title_check):
-            print "-", urldir, "already present: skipped"
-            phantom_stats.setdefault('resumed', []).append(cleanurl)
+        if PhantomCrawl.status.has_key(cleanurl) and PhantomCrawl.status[cleanurl]['status']:
+            skipped += 1
+            PhantomCrawl.media_done += 1
             continue
+
+        urldir = os.path.join(OUTPUTDIR, cleanurl)
+
+        if skipped:
+            print colored("skipped %d media from interrupted test" % skipped, 'yellow')
+            skipped = 0
 
         if os.path.isdir(urldir):
             # being here means that is empty or incomplete
             shutil.rmtree(urldir)
 
-        print "+ Creating directory", urldir
         os.mkdir(urldir)
 
-        retinfo = do_phantomjs(local_phantomjs, cleanurl, urldir, media_kind, OUTPUTDIR)
-        assert retinfo in [ 'first', 'second', 'failures' ]
-        phantom_stats.setdefault(retinfo, []).append(cleanurl)
+        PhantomCrawl(args.lp, cleanurl, urldir, media_kind, OUTPUTDIR).start()
+        # XXX I can think to a return value here ?
+
+
+    previous_running_test = 0
+    while PhantomCrawl.media_running:
+
+        if previous_running_test == PhantomCrawl.media_running:
+            time.sleep(10)
+            print colored("Media completed %d over %d: phase complete!" %
+                          (PhantomCrawl.media_amount, PhantomCrawl.media_done),
+                          'magenta', 'on_yellow' )
+            break
+
+        previous_running_test = PhantomCrawl.media_running
+
+        print colored("Running %d, completed %d (on %d): sleeping 25s." % \
+              (PhantomCrawl.media_running, PhantomCrawl.media_done,
+               PhantomCrawl.media_amount), 'green', 'on_white')
+        time.sleep(25)
+
+
+    # finally, enforce a complete sync in the disk. is probably already happen, but for safety:
+    PhantomCrawl.sync_status_disk(mandatory=True)
 
     # take every directory in 'output/', get the included URL and dump in a dict
     included_url_dict = sortify(OUTPUTDIR)
@@ -547,208 +848,104 @@ def main():
     with file(os.path.join(OUTPUTDIR, 'domain.infos'), 'w+') as f:
         json.dump(included_url_dict, f)
 
+    # RESOLUTION multi-thread HERE start
+    DNSresolve.host_amount = len(included_url_dict.keys())
+    DNSresolve.status_file = os.path.join(OUTPUTDIR, 'resolution.status.json')
+    DNSresolve.resolution_file = os.path.join(OUTPUTDIR, 'resolution.dns')
+    DNSresolve.errors_file = os.path.join(OUTPUTDIR, 'resolution.errors.json')
+    DNSresolve.load_status_disk()
+
     # generate DNS resolution map. for every host resolve an IP, for every IP resolve again DNS
-    print colored(" ࿓  DNS resolution and reverse of %d domains..." % len(included_url_dict), 'blue', 'on_white', attrs=['underline'])
+    print colored(" ࿓  DNS resolution of %d domains..." % len(included_url_dict.keys()),
+                  'blue', 'on_white', attrs=['underline'])
 
-    # new format contain:
-    # first dict: resolution error
-    # second dict: reverse error
-    dns_error = [{}, {}]
+    for domain in included_url_dict.keys():
 
-    # now, until there is not refactor based on classes,
-    # the resolution of the previously failed DN will not happen
-    resolution_dns_f = os.path.join(OUTPUTDIR, 'resolution.dns')
-    if os.path.isfile(resolution_dns_f):
-        fp = file(resolution_dns_f, 'r')
-        ip_map = json.load(fp)
-        fp.close()
-    else:
-        ip_map = {}
-        counter = 0
-        percentage_bound = len(included_url_dict.keys()) / 10.0
+        if DNSresolve.status.has_key(domain) and DNSresolve.status[domain]:
+            DNSresolve.host_done += 1
+            continue
 
-        if not int(percentage_bound):
-            percentage_bound = 1.0
+        DNSresolve(domain, args.shitty_internet).start()
 
-        for domain in included_url_dict.keys():
-            counter += 1
-            if not counter % int(percentage_bound):
-                print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
-            # other random possibility based on birthday paradox to show counters...
-            if random.randint(0, int(percentage_bound * 10 )) == counter:
-                print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
+    I_want_thread_to_zero(8)
 
-            try:
+    print colored("\nResolved %d unique IPv4 from %d unique domain (Errors %d)" %
+                  (len(DNSresolve.ip_map.keys()), len(included_url_dict.keys()),
+                   DNSresolve.resolve_errors
+                  ), 'green')
+    DNSresolve.save_status(mandatory=True)
 
-                if args.shitty_internet:
-                    socket.setdefaulttimeout(1.1)
-                else:
-                    socket.setdefaulttimeout(0.5)
-
-                resolved_v4 = socket.gethostbyname(domain)
-            except Exception as xxx:
-                dns_error[0].setdefault(xxx.strerror, []).append(domain)
-                continue
-
-            ip_map.setdefault(resolved_v4, []).append(domain)
-
-            with file(resolution_dns_f, 'w+') as f:
-                json.dump(ip_map, f)
-
-    print colored("\nResolved %d unique IPv4 from %d unique domain" % (len(ip_map.keys()), len(included_url_dict.keys())), 'green')
-
-    if not len(ip_map.keys()):
+    if not len(DNSresolve.ip_map.keys()):
         print colored("It appears that you can't access the internet. Please fix that and restart the test.", 'red')
         quit(-1)
 
-    print colored("\nReversing DNS for %d unique IP address..." % len(ip_map.keys() ), 'green')
-    reverse_dns_f = os.path.join(OUTPUTDIR, 'reverse.dns')
-    if os.path.isfile(reverse_dns_f):
-        fp = file(reverse_dns_f, 'r')
-        true_domain_map = json.load(fp)
-        fp.close()
-    else:
-        true_domain_map = {}
-        counter = 0
-        percentage_bound = len(ip_map.keys()) / 10.0
 
-        if not int(percentage_bound):
-            percentage_bound = 1.0
+    ### -----------------------------------------------------`###
+    ### Reversing multithread start HERE                      ###
 
-        for ipv4 in ip_map.keys():
-            counter += 1
+    DNSreverse.ip_amount = len(DNSresolve.ip_map.keys())
+    DNSreverse.status_file = os.path.join(OUTPUTDIR, 'reverse.status.json')
+    DNSreverse.reverse_file = os.path.join(OUTPUTDIR, 'reverse.dns')
+    DNSreverse.errors_file = os.path.join(OUTPUTDIR, 'reverse.errors.json')
+    DNSreverse.load_status_disk()
 
-            if not (counter % int(percentage_bound) ):
-                print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
-            # other random possibility based on birthday paradox to show counters...
-            if random.randint(0, int(percentage_bound * 10 )) == counter:
-                print "%d\t%d%%\t%s" % (counter, (counter * (10 / percentage_bound) ), time.ctime())
+    print colored(" ࿓  DNS reverse of %d domains..." % DNSreverse.ip_amount,
+                  'blue', 'on_white', attrs=['underline'])
 
-            try:
+    for ip in DNSresolve.ip_map.keys():
 
-                if args.shitty_internet:
-                    socket.setdefaulttimeout(1.9)
-                else:
-                    socket.setdefaulttimeout(0.9)
+        if DNSreverse.status.has_key(ip) and DNSreverse.status[ip]:
+            DNSreverse.ip_done += 1
+            continue
 
-                resolved_set = socket.gethostbyaddr(ipv4)
-                resolved_name = resolved_set[0]
-            except Exception as xxx:
-                dns_error[1].setdefault(xxx.strerror, []).append(ipv4)
-                continue
+        DNSreverse(ip, args.shitty_internet).start()
 
-            true_domain_map.setdefault(resolved_name, []).append(ipv4)
+    I_want_thread_to_zero(12)
 
-        with file(reverse_dns_f, 'w+') as f:
-            json.dump(true_domain_map, f)
+    print colored("\nReversed %d unique FQDN from %d IPaddrs (Errors %d)" %
+                  ( len(DNSreverse.fqdn_map.keys()), 
+                    len(DNSresolve.ip_map.keys()), DNSreverse.reverse_errors),
+                   'green')
+    DNSreverse.save_status(mandatory=True)
 
-    print colored("\nReversed %d unique FQDN" % len(true_domain_map.keys() ), 'green')
 
-    print colored("Saving DNS errors in 'errors.dns'")
-    with file(os.path.join(OUTPUTDIR, 'errors.dns'), 'w+') as f:
-        json.dump(dns_error, f)
-
-    # traceroutes contains all the output of traceroute in JSON format, separated
-    # for logs. this output is not in the media directory, because some host like
-    # google are included multiple times.
-    trace_output = os.path.join(OUTPUTDIR, '_traceroutes')
-    if not os.path.isdir(trace_output):
-        os.mkdir(trace_output)
-
-    # _verbotracelogs instead contain the detailed log of traceroute,
-    # they would be useful in the future because AS number is not yet used
-    # as information in the backend, but, who knows...
+    # ------------------------------------------------------------------------
+    # traceroutes contains all the output of traceroute in JSON format, 
+    # for logs. this output is not in the media directory, because some 
+    # host (think to fbcdn or google) are included multiple times.
+    # ------------------------------------------------------------------------
     verbotracelogs = os.path.join(OUTPUTDIR, '_verbotracelogs')
     if not os.path.isdir(verbotracelogs):
         os.mkdir(verbotracelogs)
 
     # saving again information about network location
-    do_wget( os.path.join(OUTPUTDIR, 'second.json') )
+    get_client_info(os.path.join(OUTPUTDIR, 'second.json'))
+
+    # Traceroute is not yet multithread
 
     # starting traceroute to all the collected IP
     print colored(" ࿓  Running traceroute to %d IP address (from %d hosts)" % (
-        len(ip_map.keys()), len(included_url_dict.keys())), 'blue', 'on_white', attrs=['underline'])
+        len(DNSresolve.ip_map.keys()), len(included_url_dict.keys())), 'blue', 'on_white', attrs=['underline'])
 
-    counter = 1
-    trace_stats = {}
-    gi = GeoIP.new(GeoIP.GEOIP_MEMORY_CACHE)
-    for ip_addr, hostlist in ip_map.iteritems():
+    Multitrace.amount = len(DNSresolve.ip_map.keys())
+    for ip_addr, hostlist in DNSresolve.ip_map.iteritems():
 
-        progress_string = "%d/%d" % (counter, len(ip_map.keys()))
-        print colored("%s%s" % (progress_string, (10 - len(progress_string)) * " " ), "cyan" ),
+        assert ip_addr.count('.') == 3, "Invalid IPv4 format %s" % ip_addr
 
-        t = Traceroute(OUTPUTDIR, ip_addr, hostlist, gi, args.shitty_internet)
+        if Traceroute.is_already_trace(ip_addr, OUTPUTDIR):
+            Multitrace.done += 1
+            continue
 
-        counter += 1
-
-        if t.already_traced():
-            print colored ("%s already traced (%d hosts): skipping" % (ip_addr, len(hostlist) ), "green")
-            retinfo = "recover"
-        elif not t.do_trace():
-            retinfo = "fail"
-            print colored("Traceroute fails! (%d/10)" % TraceStats.three_hundres, "red")
-        else:
-            retinfo = "success"
-            try:
-                t.resolve_target_geoip()
-                t.file_dump()
-            except Exception:
-                retinfo = "anomaly"
-
-        del t
-        assert retinfo in [ 'recover', 'success', 'anomaly', 'fail'  ]
-        trace_stats.setdefault(retinfo, []).append(ip_addr)
-
-    # Traceroute class need to be enhanced with some kind of:
-    #  *  failure measurement and GUESSING WHY
-    #  *  retry after a while
-    #  *  estimation of shared path - optimization and stabler collection
-    if trace_stats.has_key('fail') and len(trace_stats['fail']):
-        print colored(" ࿓  Testing again the failed traceroute to %d IP address" %
-                len(trace_stats['fail']))
-    else:
-        # just here to skip a KeyError below
-        trace_stats.update({'fail': []})
-
-    counter = 1
-    fail_list_copy = list(trace_stats['fail'])
-    # a list is done because inside of the loop is changed the
-    # content of trace_stats['fail']
-    for case_n, failed_trace in enumerate(fail_list_copy):
-
-        hostlist = ip_map[failed_trace]
-        t = Traceroute(OUTPUTDIR, failed_trace, hostlist, gi, args.shitty_internet)
-        counter += 1
-        if not t.do_trace():
-            print colored("Failure again.", "red")
-            retinfo = "fail"
-        else:
-            retinfo = "retry"
-            trace_stats['fail'].remove(failed_trace)
-            try:
-                t.resolve_target_geoip()
-                t.file_dump()
-            except Exception:
-                retinfo = "anomaly"
-
-        del t
-        assert retinfo in [ 'recover', 'success', 'anomaly', 'fail', 'retry' ]
-        trace_stats.setdefault(retinfo, []).append(failed_trace)
-
+        Multitrace(OUTPUTDIR, ip_addr, hostlist, args.shitty_internet).start()
 
     TraceStats([]).dump_stats(OUTPUTDIR)
 
-    if trace_stats.values().count(False):
-        print colored("Registered %d failures" % trace_stats.values().count(False), "red")
+    I_want_thread_to_zero(60)
 
-    ptsj = os.path.join(OUTPUTDIR, '_phantom.trace.stats.json')
-    if os.path.isfile(ptsj):
-        os.unlink(ptsj)
-    with file(ptsj, 'w+') as fp:
-        json.dump([ phantom_stats, trace_stats ], fp)
+    ## ----------- END TRACEROUTE -------------
 
     # saving again*again information about network location
-    do_wget(os.path.join(OUTPUTDIR, 'third.json'))
+    get_client_info(os.path.join(OUTPUTDIR, 'third.json'))
 
     output_name = 'results-%s.tar.gz' % proposed_country.lower()
     print colored(" ࿓  Analysis done! compressing the output in %s" % output_name, "blue", 'on_white', attrs=['underline'])
@@ -756,7 +953,8 @@ def main():
     if os.path.isfile(output_name):
         os.unlink(output_name)
 
-    tar = Popen(['tar', '-z', '-c', '-v', '-f', output_name, OUTPUTDIR], stdout=PIPE)
+    tar = subprocess.Popen(['tar', '-z', '-c', '-v', '-f', output_name, OUTPUTDIR],
+                           stdout=subprocess.PIPE)
 
     counter_line = 0
     while True:
@@ -766,22 +964,29 @@ def main():
             break
 
     if args.disable_send:
-        print colored("%d file added to %s" % (counter_line, output_name), "green")
+        print colored("%d files added to %s" % (counter_line, output_name), "green")
         print colored("Sending disable, test complete.", "yellow"),
         print colored("亷 亸", 'blue', 'on_white')
         quit(0)
 
-    print colored("%d file added to %s, Starting to submit results via Tor network\n" % (counter_line, output_name), "green")
+    print colored("%d file added to %s, Starting to submit results" %
+                  (counter_line, output_name), "green")
+
+    if not args.keep:
+        print "..removing of", OUTPUTDIR
+        shutil.rmtree(OUTPUTDIR)
+
     print colored("If submitting results fails please run:", "red")
     print colored("./perform_analysis.py -s %s" % output_name, "yellow")
-    send_results(output_name, hiddenservice_tuple)
+
+    if args.hiddensubmit:
+        quit(send_results(output_name, hiddenservice_tuple, tor_proxy=True))
+    else:
+        quit(send_results(output_name, server_tuple, tor_proxy=False))
 
 
-def send_results(targz, connect_tuple):
 
-    socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 9050, True)
-    s = socks.socksocket()
-    s.connect(connect_tuple)
+def send_results(targz, connect_tuple, tor_proxy=False):
 
     try:
         if not targz.endswith('.tar.gz'):
@@ -798,9 +1003,20 @@ def send_results(targz, connect_tuple):
         print info
         quit(-1)
 
+    if tor_proxy:
+        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 9050, True)
+        s = socks.socksocket()
+        s.connect(connect_tuple)
+    else:
+        s = socket.socket()
+        s.connect(connect_tuple)
+
     total_sent = 0
 
     statinfo = os.stat(targz)
+
+    s.send("%.10d" % A_RANDOM_NUMBER)
+    s.send("%.14d" % statinfo.st_size)
 
     with open(targz, 'rb') as fp:
 
@@ -822,13 +1038,30 @@ def send_results(targz, connect_tuple):
 
     if total_sent == statinfo.st_size:
         print colored("\n\tData collected has been sent, Thank You! :)\n", 'green')
-        quit(0)
+        print "Deleting ", targz, "in...",
+        sys.stdout.flush()
+        for x in xrange(4):
+            time.sleep(1)
+            print "%d" % (3 - x),
+            sys.stdout.flush()
+        os.unlink(targz)
+        return 0
     else:
+        # TODO probably also if fail once, if we're in the loop mode, have to continue ?
+        # no: better that stop once a while :)
         print colored("\n\tLink broken! please, run the ./perform_analysis.py script:\n", 'red')
         print colored("\twith the option '-s %s'" % targz, 'red')
-        quit(-1)
+        return -1
 
 
 if __name__ == '__main__':
 
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print ""
+        print colored("Received ^c, the process will be killed. Test will be resumed if command restart", 'blue', 'on_white')
+        print colored(" - Remove output directory - if you want start from screatch -.", 'green', 'on_white')
+        print colored("Restarting the test from a different ISP will invalidate the test.", 'red', 'on_white')
+        os.kill(os.getpid(), 15)
+

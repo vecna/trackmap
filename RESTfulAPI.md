@@ -1,7 +1,6 @@
 ## RESTful API
 
-This is the API specification of Trackography project 
-
+This is the API specification of Trackography project, you can write application integrated to those app.
 
 ## Server
 
@@ -130,6 +129,6 @@ The list is composed by dictionary which the keys are:
 Query to /company/ or /company/(a company name),(other company name)
 
 
-## CountryLaw
+## Other API (that you may need)
 
-
+TLS/SSL global collection, can be fetched and interpolated:  https://scans.io/

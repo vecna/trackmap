@@ -1,6 +1,6 @@
-# TrackMap project
+# Trackography project
 
-The TrackMap project is research by [Claudio ࿓  vecna](https://twitter.com/sniffjoke), developed with [Tactical Tech](http://www.tacticaltech.org), as part of the [MyShadow](http://myshadow.org) project.
+The Trackography project is research by [Claudio ࿓  vecna](https://twitter.com/sniffjoke), developed with [Tactical Tech](http://www.tacticaltech.org), as part of the [MyShadow](http://myshadow.org) project.
 
 *When you access media websites from your country, your Internet connection is being tracked by multiple third parties. And this happens constantly*. That's what we aim to illustrate.
 
@@ -12,7 +12,7 @@ This repository contains the software and data source required to track online t
 
 The collection of data needs to happen in a distributed way, _which means that the software needs to run from each of the selected countries_. This is important because the network and the trackers behave differently based on the specific country of the user.
 
-### Is your country analyzed in TrackMap ?
+### Is your country analyzed in Trackography ?
 
 If the answer is **NO**: two reasons are possible:
 
@@ -63,9 +63,9 @@ Install some base requirements (run with sudo):
 
     sudo apt-get update
     sudo apt-get install unzip tor git wget -y
-    sudo apt-get install traceroute python-pip gcc python-dev libgeoip-dev -y
-    sudo apt-get install geoip-database libfontconfig1 -y
-    sudo pip install GeoIP tldextract termcolor PySocks
+    sudo apt-get install traceroute python-pip gcc python-dev -y
+    sudo apt-get install libfontconfig1 -y
+    sudo pip install tldextract termcolor PySocks
 
 Create one directory to store the project files:
 
@@ -88,7 +88,7 @@ Change directory to the directory where you installed the test script and run:
   * **-i**: To be used when you're in an *Instable Internet Connection*, like, a wifi with many packet loss.
   * **-o**: Specify a different output directory: **needed** when are performed multiple tests.
   * **-d**: Disable the data delivery to us. Permit to collect the data and have the file local. (you can send it later with -s)
-  * **-l**: If you have not installed phantom 1.9.2 on the path specified above, and you want use your distribution's phantomjs.
+  * **-X**: loop, perform test, submit result, perform again: forever.
 
 To see a list of countries, just tape *./perform_analysis.py -c something*: the software shows the available countries (or check yourself [here](https://github.com/vecna/trackmap/tree/master/verified_media) )
 
@@ -98,17 +98,7 @@ When you've completed the collection and the script report:
 
     Data collected has been sent, Thank You! :)
 
-You can simply delete the .tar.gz file generated containing the results, 
-and restart the test.
-
-### (Some yours) Information requested
-
-When the software starts it asks for four types of information (**they are optional, but useful**) that **will never be released**:
-
-  * Your name: is not important, but if we already known you or meet you in the future, we can say **thankyou** :)
-  * Your city: this might be relevant because results vary from city to city and report different results.
-  * Your contact: an email or jabber, but is a free text. Put also a GPG fingerprint if you like, can be useful if eventually we have to contact you in the future - possibly to run the software again.
-  * Your ISP: if you know it, it can be useful, because in the same country different ISPs bring different results.
+The collected data are automatically deleted, because if kept, they became a test resumed in the next collection. In order to avoid it, use the option -d (disable send) and then you can send later with -s.
 
 ### Risks faced by users under pervasive survellaince
 
@@ -136,21 +126,21 @@ Few Bandwidth/CPU/disk resources are needed. It is not possible to make a precis
 ### The operation performed by the software
 
   * an HTTP connection (using phantomjs) to every news media under analysis
-  * Collects all the third party URLs (trackers, ADS, social)
+  * Collects all the third party URLs (trackers, ADS, social), note: all the resource automatically loaded with javascript enable, not the <a href> resources.
   * Dump &lt;object&gt; elements ( Can be used for future analysis. analyzing this code, we can point out [who are the worst tracker ;) ](http://rt.com/usa/175116-white-house-website-canvas-fingerprinting/) this analysis is not yet done.)
+  * DNS resolve and reverse of every unique included URL.
   * Performs a traceroute for every included URL
   * GeoIP conversion from every included IP address
-  * sends the results to our hidden service (**mzvbyzovjazwzch6.onion**)
+  * sends the results to our server (213.108.108.84:32001) or hidden service (mzvbyzovjazwzch6.onion, if you want submit via Tor, use -T)
 
 This shows all the nations capable of knowing which users are visiting the (selected) news media.
 
 
-### Docker image (experimental)
+### Docker image (UNSUPPORTED - need to be updated)
 
 A [Docker](https://www.docker.com/) image has been created for this tool, using the Dockerfile provided in the test
-tool directory. If you wish to use this, you can run the test tool using:
+tool directory. If you wish to use this, **please help us doing a new docker image**.
 
-    docker run -t -i pvanheus/trackmap -c NAME_OF_YOUR_COUNTRY
 
 # Technopolitical goal
 
@@ -158,14 +148,14 @@ We know that the **online business model is mostly based on tracking**.
 
 If you don't want that a specific company to make money out of your data because you don't like it, or simply don't want be tracked by that company, your only option is to 'opt out'.
 
-But what are the options ? This is one of the first goals of TrackMap: to make you aware of the amount of tracking involved when you read the news online of a daily basis. We have addressed the media, because they represent something that involves all active citizens in a country.
+But what are the options ? This is one of the first goals of Trackography: to make you aware of the amount of tracking involved when you read the news online of a daily basis. We have addressed the media, because they represent something that involves all active citizens in a country.
 
 But why bother if Google, NewYorkTimes or others track your behavior and interests ? It's pointless to be scared of those organizations. After all, they have done nothing bad against users.
 
 But sadly, the data they collect is extremely valuable for market and political strategies, and such companies have been targeted by intelligence agencies for that precise reason. So it's easier to understand what we want show:
 tracking is not something which is only performed by internet companies, but which is also actively used as a nation's asset.
 
-With TrackMap we show the invisible links between a news reader from a nation and all the nations that can eventually snoop on their behavior. In a foreign network, you have no rights.
+With Trackography we show the invisible links between a news reader from a nation and all the nations that can eventually snoop on their behavior. In a foreign network, you have no rights.
 
 **Is this paranoia ?**
 
@@ -173,12 +163,12 @@ No ;) This has been done by the NSA, which intercepts the advertising network of
 
 And be aware of the nations and companies that can know group[*] behavior, is still good if you consider data as the new profitable treasure.
 
-[*]: Group mean: a nation, a region, a company, an etnicity, a city, a block in a city, and every other discrimination that can be done by metadata or user profiling.
+[*]: Group mean: a nation, a region, a company, an ethnicity, a city, a block in a city, and every other discrimination that can be accomplish by metadata analysis, social network analysis or network analysis.
 
 
 ### Theoretical elements
 
-In this (very first version) of the TrackMap project we want answer to the following questions:
+In this (very first version) of the Trackography project we want answer to the following questions:
 
   * "Is the online advertising business a potential asset to intelligence agencies ?"
   * "Are users aware of the extent to which their data and browsing habits are exposed on a daily basis?"
@@ -229,7 +219,7 @@ This is quite easy: the first IP is a private IP address (None), after there are
 
 Between the hops 5 (from wind.it, my ISP) and 7 (the first gateway of the server I'm contacting) the connection pass throu **decix-gw.hetzner.de**, [DE-CIX](http://en.wikipedia.org/wiki/DE-CIX) is a business to business carrier, that is providing a direct connection between the two ISPs. I don't know if the IP 80.81.192.164 of DE-CIX is phisically in Italy, in Germany, or in some other place: GeoIP resolve them as "DE" because is assigned to the Germanic company DE-CIX.
 
-In other situation, the API returned by TrackMap (*they will be documented, but at the moment the service is not yet released*) return a more unexpected result like:
+In other situation, the [Trackography API](RESTfulAPI.md) return a more unexpected result like:
 
     {
         "company": "Twitter",
@@ -274,7 +264,7 @@ The hop in position 9 is localized as UK, and probably is assigned to an England
     $ host 4.69.166.129
     129.166.69.4.in-addr.arpa domain name pointer vl-3501-ve-115.csw1.London1.Level3.net.
 
-But in fact, [Level3](http://en.wikipedia.org/wiki/Level3) is an USA based carrier, and a CDN role is to be near as possible from the client requesting the content, so is very likely possible that connection never reach USA directly. Still, in TrackMap, the connection will be show to reach both UK and USA, because both intelligence agency or lawful enforment (or unlawful interception) can snitch on this connection.
+But in fact, [Level3](http://en.wikipedia.org/wiki/Level3) is an USA based carrier, and a CDN role is to be near as possible from the client requesting the content, so is very likely possible that connection never reach USA directly. Still, in Trackography, the connection will be show to reach both UK and USA, because both intelligence agency or lawful enforment (or unlawful interception) can snitch on this connection.
 
     $ host 4.69.166.17
     17.166.69.4.in-addr.arpa domain name pointer ae-229-3605.edge4.London1.Level3.net.
@@ -282,51 +272,13 @@ But in fact, [Level3](http://en.wikipedia.org/wiki/Level3) is an USA based carri
 Just to be complete, the third hop, position 10, is still resolved as London gateway in Level3 carrier, but is recognized as US by GeoIP.
 
 
-## Countermeasure
-
-**As far as I know, those technologies lack on security/privacy audit**, but ideally they are a good start:
-
-  * [NoScript](http://en.wikipedia.org/wiki/Noscript) (FireFox)
-  * SafeScript (Chrome)
-  * [Disconnect](https://disconnect.me/)
-  * Ghostery
-  * AdBlock+
-
-### A little dream
-
-The tracking elements are well documented in the websites.
-If you read site A, B, C and D, the tracking agent present in A, B and D know almost 75% of information about you.
-
-The distributed nature of the Internet will always make the development of sites like "C" possible: a site without a tracking agent.
-
-Sadly, due to the online advertising business, mixing between social and ADV, SEO and infrastructural needs, the creation of independent and trackless sites is extremely rare.
-
-When someone shares a link, this link often contains some identifier used to recognize users connected by other means (eg: sharing a link via chat or via mail: the tracker does not know how you got that link, but can now link you and the users who have shared the link).
-
-This is one of the scary aspects of tracking: this business model does not just track you, but your entire network, and escaping it is quite difficult.
-
-**A dream about it: do not bring anymore users on websites. When you see information that deserves to be shared, create a partial, temporary and static copy of the information and only share that copy.**
-
-**There is no need to trigger your recipients devices with some network activity that leads to tracks and exposure.**
-
-**Such activity is used against you and your network of friends, and to develop a technical solution is quite easy**
-
-
 ## Various notes
 
 a brief presentation related on Italian media is here: [Online users tracking: effect, responsibility and countermeasures](http://vecna.github.io)
 
-### SHA checksums
-
-sha224 cksum of phantomjs-1.9.2 i686
-
-    4b6156fcc49dddbe375ffb8895a0003a4930aa7772f9a41908ac611d
-
-sha224 cksum of phantomjs-1.9.2 x86\_64
-
-    2937cea726e7fe4dd600f36e7c5f0cca358593e96808dc71b6feb166
-
 ### Our PGP key
+
+Ok, it mention "TrackMap", is just the unofficial former name of the project. don't mind on that.
 
     pub   3200R/0x94E7EF47 2014-08-05 [expires: 2015-08-30]
           Key fingerprint = ABC2 7639 5EE3 3245 A0A1  3973 40E2 6C25 94E7 EF47
