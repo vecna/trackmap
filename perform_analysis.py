@@ -19,7 +19,6 @@ try:
     import time
     import shutil
     import socket
-    import socks
     import threading
     import subprocess
     from optparse import OptionParser
@@ -1004,6 +1003,12 @@ def send_results(targz, connect_tuple, tor_proxy=False):
         quit(-1)
 
     if tor_proxy:
+        try:
+            import socks
+        except ImportError:
+            print "You are missing 'socks' module, needed to proxy over Tor"
+            return -1
+
         socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 9050, True)
         s = socks.socksocket()
         s.connect(connect_tuple)

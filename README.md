@@ -62,11 +62,12 @@ If you read "OK" at the end, go to the section [Run the test script](https://git
 Install some base requirements (run with sudo):
 
     sudo apt-get update
-    sudo apt-get install unzip tor git wget -y
-    sudo apt-get install traceroute python-pip gcc python-dev -y
+    sudo apt-get install unzip wget -y
+    sudo apt-get install traceroute python-pip -y
     sudo apt-get install libfontconfig1 -y
-    sudo pip install tldextract termcolor PySocks
+    sudo pip install tldextract termcolor
 
+And, if you want use Tor to send result, you've also to get 'PySocks' module with pip.
 Create one directory to store the project files:
 
     mkdir trackmap
