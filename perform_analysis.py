@@ -454,7 +454,7 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
             included_urls = urlfp.readlines()
             urlfp.close()
         except Exception as xxx:
-            print colored(xxx, red),
+            print colored("%s %s" % (destfile, xxx), 'white', 'on_red')
             return 0
 
         return len(included_urls)
