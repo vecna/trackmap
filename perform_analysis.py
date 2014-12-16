@@ -708,7 +708,12 @@ def main():
         quit(-1)
 
 
-    if not args.disable_send:
+    if args.hiddensubmit:
+        try:
+            import socks
+        except ImportError:
+            print "You are missing 'PySocks' module, needed to proxy over Tor"
+
         tor_test = ("127.0.0.1", 9050)
         c = socket.socket()
         try:
@@ -1003,12 +1008,6 @@ def send_results(targz, connect_tuple, tor_proxy=False):
         quit(-1)
 
     if tor_proxy:
-        try:
-            import socks
-        except ImportError:
-            print "You are missing 'socks' module, needed to proxy over Tor"
-            return -1
-
         socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, "127.0.0.1", 9050, True)
         s = socks.socksocket()
         s.connect(connect_tuple)
