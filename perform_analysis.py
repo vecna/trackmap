@@ -40,34 +40,21 @@ A_RANDOM_NUMBER = random.randint(1, 0xfffff)
 
 class TraceStats:
 
-    v4_paths = {}
-    three_hundres = 0
-
-    def __init__(self, v4_path=None):
-
-        if not v4_path:
-            v4_path = []
-
-        assert isinstance(v4_path, list)
-        for hopcount, ip in enumerate(v4_path):
-            TraceStats.v4_paths.setdefault(hopcount, [ip]).append(ip)
-
-    def dump_stats(self, OUTPUTDIR):
-
-        analysis_test = os.path.join(OUTPUTDIR, '_verbotracelogs', 'TraceStats.json')
-        with file(analysis_test, 'w+') as f:
-            json.dump(TraceStats.v4_paths, f)
+    failures = 0
 
     @staticmethod
     def three_hundred_sadness():
         """
-        This function is called every time a 20 "*" are returned by a Traceroute.
-        Mean that network is down or ICMP are filtered.
-        Is called three hundred because before there was 10 probes for 30 hop
-        """
-        TraceStats.three_hundres += 1
+        This function is called every time enough "*" are spot in
+        a traceroute output, this should mean a complete
+        ICMP filtered network. when happen tenth time, quit the sw.
 
-        if TraceStats.three_hundres >= 10:
+        is called three_hundred_sadness because by default, 30 hop,
+        10 probes, makes 300 "*" :)
+        """
+        TraceStats.failures += 1
+
+        if TraceStats.failures >= 10:
             print "\n\n"
             print colored("\tHas been detected ten time a complete Traceroute failure", "red")
             print colored("\tMaybe the network is down, maybe your host is filtering ICMP", "red")
@@ -829,7 +816,9 @@ def main():
     while PhantomCrawl.media_running:
 
         if previous_running_test == PhantomCrawl.media_running:
-            time.sleep(10)
+
+            I_want_thread_to_zero(70)
+
             print colored("Media completed %d over %d: phase complete!" %
                           (PhantomCrawl.media_amount, PhantomCrawl.media_done),
                           'magenta', 'on_yellow' )
@@ -942,9 +931,7 @@ def main():
 
         Multitrace(OUTPUTDIR, ip_addr, hostlist, args.shitty_internet).start()
 
-    TraceStats([]).dump_stats(OUTPUTDIR)
-
-    I_want_thread_to_zero(60)
+    I_want_thread_to_zero(80)
 
     ## ----------- END TRACEROUTE -------------
 
