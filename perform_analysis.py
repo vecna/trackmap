@@ -26,8 +26,8 @@ try:
     from termcolor import colored
     from manyutils import sortify, media_file_cleanings
     from datetime import datetime
-except ImportError:
-    print "TrackMap collection system is not correctly installed"
+except ImportError as det:
+    print "TrackMap collection system is not correctly installed", det
     print "Follow the README below or mail to trackmap<@>tacticaltech.org"
     print "https://github.com/vecna/trackmap"
     quit(-1)
