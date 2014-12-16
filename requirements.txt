@@ -1,3 +1,2 @@
-GeoIP
 tldextract
 termcolor

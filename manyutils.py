@@ -2,8 +2,6 @@
 import os
 import json
 import datetime
-import GeoIP
-import operator
 
 from tldextract import TLDExtract
 from termcolor import colored
