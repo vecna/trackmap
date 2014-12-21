@@ -37,7 +37,14 @@ def get_unique_urls(source_urldir, urldumpsf):
                 print colored("%% Unexpected URL schema '%s' from '%s'" % ( url_request, source_urldir ), 'red')
                 continue
 
-    return urls.keys()
+    shortened = []
+    for unique_url in urls.keys():
+        if len(unique_url) > 4096:
+            shortened.append(unique_url[:4096])
+        else:
+            shortened.append(unique_url)
+    return shortened
+
 
 def sortify(outputdir):
 

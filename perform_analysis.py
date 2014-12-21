@@ -958,6 +958,7 @@ def main():
         print colored("%d files added to %s" % (counter_line, output_name), "green")
         print colored("Sending disable, test complete.", "yellow"),
         print colored("亷 亸", 'blue', 'on_white')
+        os.kill(os.getpid(), 15)
         quit(0)
 
     print colored("%d file added to %s, Starting to submit results" %
@@ -971,9 +972,11 @@ def main():
     print colored("./perform_analysis.py -s %s" % output_name, "yellow")
 
     if args.hiddensubmit:
-        quit(send_results(output_name, hiddenservice_tuple, tor_proxy=True))
+        ret = send_results(output_name, hiddenservice_tuple, tor_proxy=True)
     else:
-        quit(send_results(output_name, server_tuple, tor_proxy=False))
+        ret = send_results(output_name, server_tuple, tor_proxy=False)
+    print ""
+    os.kill(os.getpid(), 15)
 
 
 
