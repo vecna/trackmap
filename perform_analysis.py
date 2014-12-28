@@ -798,6 +798,12 @@ def main():
 
         urldir = os.path.join(OUTPUTDIR, cleanurl)
 
+        # special edition for 31c3 - change the cleanurl if match with the special keyword
+        if cleanurl.startswith('www.spiegel.de_international'):
+            cleanurl = "www.spiegel.de/international"
+        elif cleanurl.startswith('www.spiegel.de_article'):
+            cleanurl =  "www.spiegel.de/international/germany/inside-the-nsa-s-war-on-internet-security-a-1010361.html"
+
         if skipped:
             print colored("skipped %d media from interrupted test" % skipped, 'yellow')
             skipped = 0
