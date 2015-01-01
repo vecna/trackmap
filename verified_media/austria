@@ -1,21 +1,8 @@
-# please help us review it through the following:
-# Add missing websites to the list which cover the news, are of public interest and which are 
-# regularly accessed by most individuals on a national or regional level in your country.
-
-# Delete websites from the list which are not regularly updated, do not necessarily cover the 
-# news and are not regularly accessed by most individuals on a national or regional level in 
-# your country
-# 
-# Separate the following in our lists:
-#  National media websites
-#  Regional media websites
-#  Blogs covering the news
-# This file support comments, if you want add external information
-
 
 [global]
 
 [national]
+
 http://derstandard.at/
 http://diepresse.com/
 http://fm4.orf.at/
@@ -24,7 +11,7 @@ http://oe1.orf.at/
 http://oe3.orf.at/
 http://volltext.net/
 http://wirtschaftsblatt.at/
-http://www.apa.at/Site/index.de.html
+http://www.apa.at
 http://www.datum.at/
 http://www.falter.at/
 http://www.fondsprofessionell.at/
@@ -66,14 +53,9 @@ http://www.bvz.at/nachrichten/
 http://www.dasbiber.at/
 http://www.kitzanzeiger.at/
 http://www.leobennews.at/
-http://www.meinbezirk.at/burgenland/
-http://www.meinbezirk.at/niederoesterreich/
-http://www.meinbezirk.at/oberoesterreich/
-http://www.meinbezirk.at/kaernten/
-http://www.meinbezirk.at/salzburg/
-http://www.meinbezirk.at/steiermark/
-http://www.meinbezirk.at/tirol/
-http://www.noen.at/nachrichten/
+http://www.meinbezirk.at
+http://www.noen.at
 http://www.viennareview.net/
 
 [blog]
+
