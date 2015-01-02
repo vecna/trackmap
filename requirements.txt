@@ -1,2 +1,3 @@
 tldextract
 termcolor
+requests

@@ -47,13 +47,13 @@ Tor shall be used when the script has completed the collection, because we anony
 Only tested in Ubuntu (might work in other distributions, but is currently untested)
 Create a directory to store the project files and change directory there:
 
-    mkdir trackmap
-    cd trackmap
     wget -c https://raw.githubusercontent.com/vecna/trackmap/master/setup.sh
     bash setup.sh
+    cd trackmap-master
+    ./perform_analysis.py -c NAMEOFTHECOUNTRYWHICHYOUARECONNECTEDTOINTERNET
 
 This software uses `sudo` to execute some commands, so it will ask for your password when it executes. The project
-software is installed in a subdirectory called *trackmap*.
+software is installed in a subdirectory called *trackmap-master*.
 
 If you read "OK" at the end, go to the section [Run the test script](https://github.com/vecna/trackmap#run-the-test-script)
 

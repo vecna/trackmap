@@ -7,7 +7,7 @@
 REQUIREMENTS=(wget unzip traceroute python-pip libfontconfig1)
 sudo apt-get update
 sudo apt-get install -y ${REQUIREMENTS[*]}
-sudo pip install GeoIP tldextract termcolor PySocks
+sudo pip install tldextract termcolor PySocks requests
 
 
 traceroute --version
