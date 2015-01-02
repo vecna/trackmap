@@ -18,7 +18,7 @@ INFOFILES = [ 'phantom.log', '_traceroutes', 'unique_id', 'used_media.json',
               'first.json', 'second.json', 'third.json',
               'phantom.results.json', 'trace.results.json' ]
 
-PERMITTED_SECTIONS = [ 'global', 'national', 'local', 'blog', 'removed' ]
+PERMITTED_SECTIONS = [ 'global', 'national', 'local', 'blog', 'removed', 'special' ]
 
 
 def get_unique_urls(source_urldir, urldumpsf):
@@ -190,7 +190,7 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
             continue
 
         cleanurl = url_cleaner(line)
-        if current_section not in [ 'national', 'local', 'blog' ]:
+        if current_section not in [ 'national', 'local', 'blog', 'special' ]:
             print "detected URL", cleanurl, "without a section!"
             quit(-1)
 
