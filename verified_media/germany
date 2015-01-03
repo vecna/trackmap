@@ -1,5 +1,11 @@
 [global]
 
+http://firstlook.org/theintercept/
+http://www.bbc.co.uk/
+http://www.nzz.ch/
+http://www.reuters.com/
+http://www.theguardian.com/
+
 [national]
 
 http://www.spiegel.de/
@@ -29,7 +35,15 @@ http://www.wiwo.de/
 http://www.wsj.de/
 http://www.zeit.de/index
 http://www.nrhz.de/
-
+http://dradiowissen.de/
+http://www.3sat.de/index.html
+http://www.ard.de/home/ard/ARD_Startseite/21920/index.html
+http://www.arte.tv/de/
+http://www.blaetter.de/
+http://www.deutschlandradio.de/
+http://www.gulli.com/
+http://www.monde-diplomatique.de/pm/.home
+http://www.zdf.de/
 
 [local]
 
@@ -143,6 +157,7 @@ http://www.pnn.de/
 http://www.pnp.de/
 http://www.pyrmonter-nachrichten.de/
 http://www.pz-news.de/
+http://www.radioeins.de/
 http://www.rbb-online.de/
 http://www.rhein-main.net/
 http://www.rhein-main-presse.de/

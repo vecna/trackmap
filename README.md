@@ -65,7 +65,7 @@ Install some base requirements (run with sudo):
     sudo apt-get install unzip wget -y
     sudo apt-get install traceroute python-pip -y
     sudo apt-get install libfontconfig1 -y
-    sudo pip install tldextract termcolor
+    sudo pip install tldextract termcolor requests
 
 And, if you want use Tor to send result, you've also to get 'PySocks' module with pip.
 Create one directory to store the project files:
