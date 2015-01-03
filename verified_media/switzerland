@@ -1,6 +1,7 @@
 # remind: this experimental list has not been review by a swiss media
 # expert, but has ben based on rank/visibility order.
 
+# global section fetch the content in ../special_media/global
 [global]
 
 [national]

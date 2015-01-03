@@ -3,6 +3,7 @@
 # BUT, due the potential conflict raising in 28 of Sept 2014,
 # Is better grab some data and see if they contain something funny.
 
+# global section fetch the content in ../special_media/global
 [global]
 
 [national]

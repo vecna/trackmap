@@ -1,10 +1,6 @@
+# global section fetch the content in ../special_media/global
 [global]
 
-http://firstlook.org/theintercept/
-http://www.bbc.co.uk/
-http://www.nzz.ch/
-http://www.reuters.com/
-http://www.theguardian.com/
 
 [national]
 

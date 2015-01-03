@@ -4,6 +4,7 @@
 # relative media are missing. 
 # I don't know the blog situation for Afghan
 
+# global section fetch the content in ../special_media/global
 [global]
 
 [national]
