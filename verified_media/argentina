@@ -1,20 +1,5 @@
-# please help us review it through the following:
-# Add missing websites to the list which cover the news, are of public interest and which are 
-# regularly accessed by most individuals on a national or regional level in your country.
-
-# Delete websites from the list which are not regularly updated, do not necessarily cover the 
-# news and are not regularly accessed by most individuals on a national or regional level in 
-# your country
-# 
-# Separate the following in our lists:
-#  National media websites
-#  Regional media websites
-#  Blogs covering the news
-# This file support comments, if you want add external information
-
+# global section fetch the content in ../special_media/global
 [global]
-http://www.adnmundo.com/
-http://www.tdm.com/
 
 [national]
 http://actualidadypolitica.com
@@ -44,7 +29,7 @@ http://www.telam.com.ar/
 http://www.8300.com.ar/
 http://www.analisislitoral.com.ar/
 http://www.bhi.com.ar/
-http://www.castellanos.com.ar/cms/homes/index/15
+http://www.castellanos.com.ar
 http://www.catamarcactual.com.ar/
 http://cataratashoy.com.ar/
 http://www.cataratasnoticias.com.ar/
@@ -53,7 +38,7 @@ http://www.cuyonoticias.com.ar/
 http://www.diario5dias.com.ar/
 http://www.diarioaccion.com.ar/
 http://www.diariocronica.com.ar/
-http://www.diariodecuyo.com.ar/home/new_index.php
+http://www.diariodecuyo.com.ar
 http://www.diariodemocracia.com/
 http://www.diarioellibertador.com.ar/notix/
 http://www.diarioelnorte.com.ar/
@@ -74,7 +59,7 @@ http://www.eldiariocba.com.ar/
 http://www.eldiario.com.ar/
 http://www.eldiariodelfindelmundo.com/
 http://www.eleco.com.ar/
-http://www.elindependiente.com.ar/digital/index.php
+http://www.elindependiente.com.ar
 http://www.elintransigente.com/
 http://www.elliberal.com.ar/
 http://www.ellibertario.com/
@@ -105,7 +90,7 @@ http://www.puntal.com.ar/v2/
 http://www.rafaela.com
 http://www.redaccionrosario.com/nuevo/
 http://www.regionnet.com.ar/
-http://www.rionegro.com.ar/diario/inicio.aspx
+http://www.rionegro.com.ar
 http://www.rocadigital.com.ar/
 http://www.rosario3.com/
 http://www.rosarionet.com.ar/rnetw/index
