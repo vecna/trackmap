@@ -87,6 +87,11 @@ Change directory to the directory where you installed the test script and run:
 
     ./perform_analysis.py -c NAME_OF_YOUR_COUNTRY
 
+
+## Docker
+
+A [Docker](https://www.docker.com/) image has been created for this tool, using the Dockerfile provided in the directory.
+
 ## Options
 
   * **-i**: To be used when you're in an *Instable Internet Connection*, like, a wifi with many packet loss.
@@ -138,12 +143,6 @@ Few Bandwidth/CPU/disk resources are needed. It is not possible to make a precis
   * sends the results to our server (213.108.108.84:32001) or hidden service (mzvbyzovjazwzch6.onion, if you want submit via Tor, use -T)
 
 This shows all the nations capable of knowing which users are visiting the (selected) news media.
-
-
-### Docker image (UNSUPPORTED - need to be updated)
-
-A [Docker](https://www.docker.com/) image has been created for this tool, using the Dockerfile provided in the test
-tool directory. If you wish to use this, **please help us doing a new docker image**.
 
 
 # Technopolitical goal
