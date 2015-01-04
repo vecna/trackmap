@@ -1,6 +1,9 @@
 # Trackography project
 
-The Trackography project is research by [Claudio ࿓  vecna](https://twitter.com/sniffjoke), developed with [Tactical Tech](http://www.tacticaltech.org), as part of the [MyShadow](http://myshadow.org) project.
+The Trackography project is research by [Claudio ࿓  vecna](https://twitter.com/sniffjoke), developed with [Tactical Tech](http://www.tacticaltech.org), as part of the [MyShadow](http://myshadow.org/trackography) project. 
+
+Take a look the presentation at the [31c3](http://media.ccc.de/browse/congress/2014/31c3_-_6299_-_en_-_saal_2_-_201412292200_-_trackography_-_maria_xynou_-_claudio_vecna.html#video) or the [slide online](http://trackography.github.io/31c3).
+
 
 *When you access media websites from your country, your Internet connection is being tracked by multiple third parties. And this happens constantly*. That's what we aim to illustrate.
 
@@ -271,6 +274,12 @@ But in fact, [Level3](http://en.wikipedia.org/wiki/Level3) is an USA based carri
     17.166.69.4.in-addr.arpa domain name pointer ae-229-3605.edge4.London1.Level3.net.
 
 Just to be complete, the third hop, position 10, is still resolved as London gateway in Level3 carrier, but is recognized as US by GeoIP.
+
+
+## SHA 224 checksum of phantomjs
+
+    8a92c174140533998f591d6630fd61577c8d32624d5658655bb7dee8  phantomjs-1.9.8-linux-i686.tar.bz2
+    9da120dd1f50e4acc963ca408d6c94db0280b2d16a8b6b1d0d5b4ce4  phantomjs-1.9.8-linux-x86_64.tar.bz2
 
 
 ## Various notes
