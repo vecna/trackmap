@@ -29,7 +29,7 @@ If the answer is **YES**: perfect, this means that someone has already run the s
 
 If you're a **Media aware citizen**, we need a reliable media list for every country. What is important is explained above above, use git to help us or open an issue.
 
-If you're a **Linux user** you can help run the software and collect results from your country. A distributed effort is required, because the Internet works differenty in different locations. You can run the software explained below, and it will automatically send the results to our server.
+If you're a **Linux user** you can help run the software and collect results from your country. A distributed effort is required, because the Internet works differently in different locations. You can run the software explained below, and it will automatically send the results to our server.
 
 # Support the collection
 
@@ -109,10 +109,10 @@ When you've completed the collection and the script report:
 
 The collected data are automatically deleted, because if kept, they became a test resumed in the next collection. In order to avoid it, use the option -d (disable send) and then you can send later with -s.
 
-### Risks faced by users under pervasive survellaince
+### Risks faced by users under pervasive surveillance
 
 Users in country where Internet control is pervasive, will not raise concern or anomalies.
-Censored Internet traffic will appear like a user opening a news agengy home page and close after.
+Censored Internet traffic will appear like a user opening a news agency home page and close after.
 Then, a certain amount of "traceroute" traffic, that is a legit and common tool used to check network speed and topology.
 
 If the user has some concern about using Tor, (which is used at the end of the test by us to deliver the test results), can avoid this using the option -d, and later we can figure out a dedicated way to receive the output collected. In this case, please contact the email address with the PGP key specified at the end of this document.
@@ -220,7 +220,7 @@ This is quite easy: the first IP is a private IP address (None), after there are
       10  hos-tr6.ex3k3.rz20.hetzner.de (213.239.233.170)  61.476
       11  83.158.76.144-scoundr.el (144.76.158.83)  55.756 ms
 
-Between the hops 5 (from wind.it, my ISP) and 7 (the first gateway of the server I'm contacting) the connection pass throu **decix-gw.hetzner.de**, [DE-CIX](http://en.wikipedia.org/wiki/DE-CIX) is a business to business carrier, that is providing a direct connection between the two ISPs. I don't know if the IP 80.81.192.164 of DE-CIX is phisically in Italy, in Germany, or in some other place: GeoIP resolve them as "DE" because is assigned to the Germanic company DE-CIX.
+Between the hops 5 (from wind.it, my ISP) and 7 (the first gateway of the server I'm contacting) the connection pass through **decix-gw.hetzner.de**, [DE-CIX](http://en.wikipedia.org/wiki/DE-CIX) is a business to business carrier, that is providing a direct connection between the two ISPs. I don't know if the IP 80.81.192.164 of DE-CIX is physically in Italy, in Germany, or in some other place: GeoIP resolve them as "DE" because is assigned to the Germanic company DE-CIX.
 
 In other situation, the [Trackography API](RESTfulAPI.md) return a more unexpected result like:
 
@@ -248,7 +248,7 @@ In other situation, the [Trackography API](RESTfulAPI.md) return a more unexpect
         "media_url": "www.dieburger.com"
     }
 
-This is the GeoIP resolution of a traceroute from the South Africa ISP **Mweb** to the host platform.twitter.com (hosted by a [CND](http://en.wikipedia.org/wiki/Content_delivery_network) managed by edgecastcdn.net )
+This is the GeoIP resolution of a traceroute from the South African ISP **Mweb** to the host platform.twitter.com (hosted by a [CND](http://en.wikipedia.org/wiki/Content_delivery_network) managed by edgecastcdn.net )
 
 It's unexpected, maybe, because can sounds weird from South Africa go in UK, in US and then comeback to UK. but this is due to GeoIP resolution, not to an actual continental travel.
 This is an extraction of the traceroute collected:
@@ -267,7 +267,7 @@ The hop in position 9 is localized as UK, and probably is assigned to an England
     $ host 4.69.166.129
     129.166.69.4.in-addr.arpa domain name pointer vl-3501-ve-115.csw1.London1.Level3.net.
 
-But in fact, [Level3](http://en.wikipedia.org/wiki/Level3) is an USA based carrier, and a CDN role is to be near as possible from the client requesting the content, so is very likely possible that connection never reach USA directly. Still, in Trackography, the connection will be show to reach both UK and USA, because both intelligence agency or lawful enforment (or unlawful interception) can snitch on this connection.
+But in fact, [Level3](http://en.wikipedia.org/wiki/Level3) is an USA based carrier, and a CDN role is to be near as possible from the client requesting the content, so is very likely possible that connection never reach USA directly. Still, in Trackography, the connection will be show to reach both UK and USA, because both intelligence agency or lawful enforcement (or unlawful interception) can snitch on this connection.
 
     $ host 4.69.166.17
     17.166.69.4.in-addr.arpa domain name pointer ae-229-3605.edge4.London1.Level3.net.
