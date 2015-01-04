@@ -12,61 +12,77 @@
 #  Blogs covering the news
 # This file support comments, if you want add external information
 
+[global]
 
+[national]
 http://fd.nl/
-http://www.adformatie.nl/
-http://www.ad.nl/
-http://www.agd.nl/
-http://www.barneveldsekrant.nl/
-http://www.bd.nl/
-http://www.bewalnews.com/
-http://www.blikopnieuws.nl/
-http://www.bndestem.nl/
-http://www.boletinextra.com/
-http://www.dailydastak.com/
-http://www.dailynews.nl/zondag/voorpagina.html
-http://www.destentor.nl/regio/zwolle/
-http://www.deventerdagblad.nl/
-http://www.deweekkrant.nl/woerdense_courant/
-http://www.deweekkrant.nl/zenderstreeknieuws_montfoort_oudewater
-http://www.dienstagischekurant.com/ $ is a german nieuwssite
-http://www.dutchnews.nl/
-http://www.dvhn.nl/
-http://www.edestad.nl/
-http://www.ed.nl/
-http://www.expatica.com/nl/main.html # is not a news site
-http://www.freeamsterdam.nl/ $ is a tourist site
-http://www.frieschdagblad.nl/
-http://www.frieslandnet.nl/
-http://www.gelderlander.nl/
-http://www.geldersdagblad.nl/
-http://www.gezondheidskrant.nl/
-http://www.gic.nl/
-http://www.gooieneemlander.nl/
-http://www.grenzeloos.org/
-http://www.groene.nl/home
-http://www.hetkontakt.nl/
-http://www.iamexpat.nl
-http://www.inoisterwijk.nl
-http://www.intermediair.nl/
-http://www.internationalesocialisten.org/
-http://www.katholieknieuwsblad.nl/
-http://www.leeuwarder-courant.nl/
-http://www.limburger.nl/
-http://www.metronieuws.nl/
-http://www.nieuws.nl/
-http://www.niw.nl/
-http://www.nrc.nl/
-http://www.nu.nl/
-http://www.parool.nl/
-http://www.pzc.nl/
-http://www.refdag.nl/
-http://www.spitsnieuws.nl/
-http://www.targetsoft.net
-http://www.telegraaf.nl
-http://www.trouw.nl/
-http://www.tubantia.nl/
-http://www.volkskrant.nl/
-http://www.waldnet.nl/
-http://www.weekbladdebrug.nl/
-http://www.weespernieuws.nl/
+http://ad.nl/
+http://metronieuws.nl/
+http://spitsnieuws.nl/
+http://trouw.nl
+http://volkskrant.nl
+http://nrc.nl
+http://telegraaf.nl
+http://nu.nl
+http://rtl.nl
+http://nos.nl
+http://tubantia.nl/
+http://bnr.nl
+http://blikopnieuws.nl
+http://destentor.nl
+http://nieuws.nl
+http://dutchnews.nl/
+
+[regional]
+http://barneveldsekrant.nl/
+http://bd.nl/
+http://deventerdagblad.nl/
+http://deweekkrant.nl/
+http://parool.nl/
+http://edestad.nl/
+http://geldersdagblad.nl/
+http://frieschdagblad.nl/
+http://frieslandnet.nl/
+http://gelderlander.nl/
+http://leeuwarder-courant.nl/
+http://limburger.nl/
+http://groene.nl
+http://gooieneemlander.nl/
+
+[blogs]
+http://geenstijl.nl
+http://joop.nl
+http://elsevier.nl
+
+# http://adformatie.nl/
+# http://agd.nl/
+# http://bewalnews.com/
+# http://bndestem.nl/
+# http://boletinextra.com/
+# http://dailydastak.com/
+# http://dailynews.nl/zondag/voorpagina.html
+# http://deweekkrant.nl/woerdense_courant/
+# http://deweekkrant.nl/zenderstreeknieuws_montfoort_oudewater
+# http://dienstagischekurant.com/ $ is a german nieuwssite
+# http://dvhn.nl/
+# http://ed.nl/
+# http://expatica.com/nl/main.html # is not a news site
+# http://freeamsterdam.nl/ $ is a tourist site
+# http://gezondheidskrant.nl/
+# http://gic.nl/
+# http://grenzeloos.org/
+# http://groene.nl/home
+# http://hetkontakt.nl/
+# http://iamexpat.nl
+# http://inoisterwijk.nl
+# http://intermediair.nl/
+# http://internationalesocialisten.org/
+# http://katholieknieuwsblad.nl/
+# http://nieuws.nl/
+# http://niw.nl/
+# http://pzc.nl/
+# http://refdag.nl/
+# http://targetsoft.net
+# http://waldnet.nl/
+# http://weekbladdebrug.nl/
+# http://weespernieuws.nl/
