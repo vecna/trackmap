@@ -1,29 +1,49 @@
 # please help us review it through the following:
-# Add missing websites to the list which cover the news, are of public interest and which are 
+# Add missing websites to the list which cover the news, are of public interest and which are
 # regularly accessed by most individuals on a national or regional level in your country.
 
-# Delete websites from the list which are not regularly updated, do not necessarily cover the 
-# news and are not regularly accessed by most individuals on a national or regional level in 
+# Delete websites from the list which are not regularly updated, do not necessarily cover the
+# news and are not regularly accessed by most individuals on a national or regional level in
 # your country
-# 
+
 # Separate the following in our lists:
 #  National media websites
 #  Regional media websites
 #  Blogs covering the news
 # This file support comments, if you want add external information
 
+[global]
+
+[national]
 http://fd.nl/
 http://www.adformatie.nl/
 http://www.ad.nl/
+http://www.blikopnieuws.nl/
+http://www.dutchnews.nl/
+http://www.gezondheidskrant.nl/
+http://www.gic.nl/
+http://www.groene.nl/
+http://www.katholieknieuwsblad.nl/
+http://www.metronieuws.nl/
+http://www.nieuws.nl/
+http://www.niw.nl/
+http://www.nrc.nl/
+http://www.nu.nl/
+http://www.parool.nl/
+http://www.refdag.nl/
+http://www.spitsnieuws.nl/
+http://www.telegraaf.nl
+http://www.trouw.nl/
+http://www.tubantia.nl/
+http://www.volkskrant.nl/
+
+[local]
 http://www.barneveldsekrant.nl/
 http://www.bd.nl/
-http://www.blikopnieuws.nl/
 http://www.bndestem.nl/
-http://www.destentor.nl/regio/zwolle/
+http://www.destentor.nl/
 http://www.deventerdagblad.nl/
-http://www.deweekkrant.nl/woerdense_courant/
-http://www.deweekkrant.nl/zenderstreeknieuws_montfoort_oudewater
-http://www.dutchnews.nl/
+http://www.deweekkrant.nl/
 http://www.dvhn.nl/
 http://www.edestad.nl/
 http://www.ed.nl/
@@ -31,28 +51,14 @@ http://www.frieschdagblad.nl/
 http://www.frieslandnet.nl/
 http://www.gelderlander.nl/
 http://www.geldersdagblad.nl/
-http://www.gezondheidskrant.nl/
-http://www.gic.nl/
 http://www.gooieneemlander.nl/
-http://www.groene.nl/home
 http://www.hetkontakt.nl/
 http://www.inoisterwijk.nl
-http://www.katholieknieuwsblad.nl/
 http://www.leeuwarder-courant.nl/
 http://www.limburger.nl/
-http://www.metronieuws.nl/
-http://www.nieuws.nl/
-http://www.niw.nl/
-http://www.nrc.nl/
-http://www.nu.nl/
-http://www.parool.nl/
 http://www.pzc.nl/
-http://www.refdag.nl/
-http://www.spitsnieuws.nl/
-http://www.telegraaf.nl
-http://www.trouw.nl/
-http://www.tubantia.nl/
-http://www.volkskrant.nl/
 http://www.waldnet.nl/
 http://www.weekbladdebrug.nl/
 http://www.weespernieuws.nl/
+
+[blog]
