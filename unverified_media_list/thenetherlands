@@ -24,14 +24,23 @@ http://volkskrant.nl
 http://nrc.nl
 http://telegraaf.nl
 http://nu.nl
-http://rtl.nl
+http://rtlnieuws.nl
 http://nos.nl
 http://tubantia.nl/
 http://bnr.nl
 http://blikopnieuws.nl
-http://destentor.nl
 http://nieuws.nl
 http://dutchnews.nl/
+http://tweakers.net
+http://blende.com
+http://decorrespondent.nl
+http://jalta.nl
+http://bndestem.nl/
+http://intermediair.nl/
+http://gezondheidskrant.nl/
+http://katholieknieuwsblad.nl/
+http://nieuws.nl
+http://adformatie.nl/
 
 [regional]
 http://barneveldsekrant.nl/
@@ -48,41 +57,20 @@ http://leeuwarder-courant.nl/
 http://limburger.nl/
 http://groene.nl
 http://gooieneemlander.nl/
+http://dvhn.nl
+http://ed.nl/
+http://destentor.nl
+http://omroepwest.nl
+http://omroepgelderland.nl
+http://waldnet.nl/
+http://weespernieuws.nl/
+http://weekbladdebrug.nl/
+http://gic.nl/
+http://pzc.nl/
+http://inoisterwijk.nl
+http://rtvdrenthe.nl
 
 [blogs]
 http://geenstijl.nl
 http://joop.nl
 http://elsevier.nl
-
-# http://adformatie.nl/
-# http://agd.nl/
-# http://bewalnews.com/
-# http://bndestem.nl/
-# http://boletinextra.com/
-# http://dailydastak.com/
-# http://dailynews.nl/zondag/voorpagina.html
-# http://deweekkrant.nl/woerdense_courant/
-# http://deweekkrant.nl/zenderstreeknieuws_montfoort_oudewater
-# http://dienstagischekurant.com/ $ is a german nieuwssite
-# http://dvhn.nl/
-# http://ed.nl/
-# http://expatica.com/nl/main.html # is not a news site
-# http://freeamsterdam.nl/ $ is a tourist site
-# http://gezondheidskrant.nl/
-# http://gic.nl/
-# http://grenzeloos.org/
-# http://groene.nl/home
-# http://hetkontakt.nl/
-# http://iamexpat.nl
-# http://inoisterwijk.nl
-# http://intermediair.nl/
-# http://internationalesocialisten.org/
-# http://katholieknieuwsblad.nl/
-# http://nieuws.nl/
-# http://niw.nl/
-# http://pzc.nl/
-# http://refdag.nl/
-# http://targetsoft.net
-# http://waldnet.nl/
-# http://weekbladdebrug.nl/
-# http://weespernieuws.nl/
