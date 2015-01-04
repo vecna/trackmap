@@ -3,7 +3,6 @@
 
 [national]
 http://www.ad.nl/
-http://www.agd.nl/
 http://www.blikopnieuws.nl/
 http://www.dutchnews.nl/
 http://www.fd.nl/
@@ -17,6 +16,7 @@ http://www.telegraaf.nl
 http://www.trouw.nl/
 http://www.volkskrant.nl/
 http://www.decorrespondent.nl/
+http://elsevier.nl
 http://nrcq.nl
 http://rtlnieuws.nl
 http://nos.nl
@@ -26,7 +26,6 @@ http://tweakers.net
 http://blendle.com/
 http://jalta.nl
 http://bndestem.nl/
-http://intermediair.nl/
 http://gezondheidskrant.nl/
 http://katholieknieuwsblad.nl/
 http://adformatie.nl/
@@ -48,7 +47,7 @@ http://geldersdagblad.nl/
 http://frieschdagblad.nl/
 http://frieslandnet.nl/
 http://gelderlander.nl/
-http://leeuwarder-courant.nl/
+http://lc.nl/
 http://limburger.nl/
 http://gooieneemlander.nl/
 http://dvhn.nl
@@ -72,7 +71,5 @@ http://inoisterwijk.nl
 http://rtvdrenthe.nl
 
 [blog]
-
 http://geenstijl.nl
 http://joop.nl
-http://elsevier.nl
