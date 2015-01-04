@@ -81,11 +81,30 @@ Create one directory to store the project files:
     cd trackmap-master
     ./fetch_phantomjs.sh
 
+### Arch Linux
+
+Install the required packages:
+
+    sudo pacman -S unzip wget python2-pip traceroute fontconfig
+    sudo pip2 install tldextract termcolor requests
+
+If you want to use Tor at the end to send the result, you'll also need to install the 'PySocks' package with pip.
+
+Create a directory to where you'll store all trackmap files:
+
+    mkdir trackmap
+    cd trackmap
+
+    wget https://github.com/vecna/trackmap/archive/master.zip
+    unzip master.zip
+    cd trackmap-master
+    ./fetch_phantomjs.sh
+
 ## Run the test script
 
 Change directory to the directory where you installed the test script and run:
 
-    ./perform_analysis.py -c NAME_OF_YOUR_COUNTRY
+    python2 perform_analysis.py -c NAME_OF_YOUR_COUNTRY
 
 
 ## Docker
