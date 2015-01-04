@@ -3,5 +3,5 @@ output
 *.pyc
 *.swp
 phantom-1.9.8
-phantomjs-1.9.8-linux-x86_64.tar.bz2
-phantomjs-1.9.8-linux-x86_64/*
+phantomjs-1.9.8-linux-*.tar.bz2
+phantomjs-1.9.8-linux-*/*
