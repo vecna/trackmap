@@ -15,16 +15,26 @@
 [global]
 
 [national]
+https://blendle.com/
+https://decorrespondent.nl/
 http://fd.nl/
+https://jalta.nl/
+http://tweakers.net/
 http://www.adformatie.nl/
 http://www.ad.nl/
 http://www.blikopnieuws.nl/
+http://www.bnr.nl/
+http://www.dagelijksestandaard.nl/
 http://www.dutchnews.nl/
+http://www.elsevier.nl/
+http://www.ftm.nl/
 http://www.gezondheidskrant.nl/
 http://www.gic.nl/
 http://www.groene.nl/
+http://www.hpdetijd.nl/
 http://www.katholieknieuwsblad.nl/
 http://www.metronieuws.nl/
+http://www.nd.nl/
 http://www.nieuws.nl/
 http://www.niw.nl/
 http://www.nrc.nl/
@@ -38,6 +48,7 @@ http://www.tubantia.nl/
 http://www.volkskrant.nl/
 
 [local]
+http://www.at5.nl/
 http://www.barneveldsekrant.nl/
 http://www.bd.nl/
 http://www.bndestem.nl/
@@ -54,7 +65,7 @@ http://www.geldersdagblad.nl/
 http://www.gooieneemlander.nl/
 http://www.hetkontakt.nl/
 http://www.inoisterwijk.nl
-http://www.leeuwarder-courant.nl/
+http://www.lc.nl/
 http://www.limburger.nl/
 http://www.pzc.nl/
 http://www.waldnet.nl/
@@ -62,3 +73,6 @@ http://www.weekbladdebrug.nl/
 http://www.weespernieuws.nl/
 
 [blog]
+http://sargasso.nl/
+http://www.geenstijl.nl/
+http://www.joop.nl/
