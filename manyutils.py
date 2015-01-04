@@ -155,6 +155,9 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
     current_section = None
     counter_section = 0
 
+    domain_only = []
+    TLDio = TLDExtract(cache_file='mozilla_tld_file.dat')
+
     for line in linelist:
 
         line = line[:-1]
@@ -196,6 +199,14 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
 
         if retdict.has_key(cleanurl):
             print "Note:", cleanurl, "is duplicated"
+
+        domainsplit = TLDio(cleanurl)
+        domain_plus_tld = "%s.%s" % (domainsplit.domain, domainsplit.suffix)
+        # to spot http://www.nytimes.com vs http://nytimes.com
+        if domain_plus_tld in domain_only:
+            print "Maybe", cleanurl, "duplicated:", domain_plus_tld, "already seen"
+        else:
+            domain_only.append(domain_plus_tld)
 
         retdict.update({ cleanurl: current_section })
         counter_section += 1

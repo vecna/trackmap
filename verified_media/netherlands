@@ -1,46 +1,42 @@
-# Media sources for the Netherlands
-# 
-# Separate the following in our lists:
-#  National media websites
-#  Regional media websites
-#  Blogs covering the news
-# This file support comments, if you want add external information
-
+# global section fetch the content in ../special_media/global
 [global]
 
 [national]
-http://fd.nl/
-http://ad.nl/
-http://metronieuws.nl/
-http://spitsnieuws.nl/
-http://trouw.nl
-http://volkskrant.nl
-http://nrc.nl
+http://www.ad.nl/
+http://www.agd.nl/
+http://www.blikopnieuws.nl/
+http://www.dutchnews.nl/
+http://www.fd.nl/
+http://www.groene.nl/
+http://www.metronieuws.nl/
+http://www.nrc.nl/
+http://www.nu.nl/
+http://www.refdag.nl/
+http://www.spitsnieuws.nl/
+http://www.telegraaf.nl
+http://www.trouw.nl/
+http://www.volkskrant.nl/
+http://www.decorrespondent.nl/
 http://nrcq.nl
-http://telegraaf.nl
-http://nu.nl
 http://rtlnieuws.nl
 http://nos.nl
-http://tubantia.nl/
 http://bnr.nl
-http://blikopnieuws.nl
 http://nieuws.nl
-http://dutchnews.nl/
 http://tweakers.net
-http://blendle.com
-http://decorrespondent.nl
+http://blendle.com/
 http://jalta.nl
 http://bndestem.nl/
 http://intermediair.nl/
 http://gezondheidskrant.nl/
 http://katholieknieuwsblad.nl/
-http://nieuws.nl
 http://adformatie.nl/
 http://hpdetijd.nl
 http://ftm.nl
 http://nd.nl
 
-[regional]
+[local]
+http://www.hetkontakt.nl/
+http://tubantia.nl/
 http://at5.nl
 http://barneveldsekrant.nl/
 http://bd.nl/
@@ -54,7 +50,6 @@ http://frieslandnet.nl/
 http://gelderlander.nl/
 http://leeuwarder-courant.nl/
 http://limburger.nl/
-http://groene.nl
 http://gooieneemlander.nl/
 http://dvhn.nl
 http://ed.nl/
@@ -76,7 +71,8 @@ http://pzc.nl/
 http://inoisterwijk.nl
 http://rtvdrenthe.nl
 
-[blogs]
+[blog]
+
 http://geenstijl.nl
 http://joop.nl
 http://elsevier.nl

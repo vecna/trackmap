@@ -92,6 +92,19 @@ Change directory to the directory where you installed the test script and run:
 
 A [Docker](https://www.docker.com/) image has been created for this tool, using the Dockerfile provided in the directory.
 
+
+Clone a fresh copy from the repository, build a new image and tag it with `trackmap`:
+
+    docker build -t trackmap github.com/vecna/trackmap
+
+Alternatively the image can be built from a working copy:
+
+    docker build -t trackmap /home/me/src/trackmap
+
+Run the test script:
+
+    docker run -it trackmap -c NAME_OF_YOUR_COUNTRY
+
 ## Options
 
   * **-i**: To be used when you're in an *Instable Internet Connection*, like, a wifi with many packet loss.
