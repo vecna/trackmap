@@ -418,11 +418,12 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
         # "nohup: ignoring input and appending output to ‘nohup.out’"
         p.stdout.readline()
 
-        print colored("+ %03d..%03d/%03d\tExecuting %s on: %s" %
+        print colored("+ %03d..%03d/%03d\tExecuting %s on: %s (%s)" %
                 ( PhantomCrawl.media_running,
                   PhantomCrawl.media_done,
                   PhantomCrawl.media_amount,
-                  binary, url), "green")
+                  binary, url,
+                  media_kind), "green")
 
         # wait 60 seconds, and then kill the process if is not worked properly
         time.sleep(60)
