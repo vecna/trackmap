@@ -1,110 +1,78 @@
-# please help us review it through the following:
-# Add missing websites to the list which cover the news, are of public interest and which are 
-# regularly accessed by most individuals on a national or regional level in your country.
-
-# Delete websites from the list which are not regularly updated, do not necessarily cover the 
-# news and are not regularly accessed by most individuals on a national or regional level in 
-# your country
-# 
-# Separate the following in our lists:
-#  National media websites
-#  Regional media websites
-#  Blogs covering the news
-# This file support comments, if you want add external information
+# global section fetch the content in ../special_media/global
+[global]
 
 
+[national]
 
-http://fr.pravdaliberation.info/
 http://lecanardenchaine.fr/
 http://mondediplo.com/
-http://plus.lefigaro.fr/cercle/le-figaro-in-english/
 http://tempsreel.nouvelobs.com/
-http://ww2.normandyadvertiser.fr/
-http://www.20minutes.fr/
-http://www.adetocqueville.com/
 http://www.afp.com/
-http://www.aquitainenews.com/
-http://www.bastidelife.com/
-http://www.bienpublic.com/
-http://www.brittany-news.net/
-http://www.brittanypages.com/
-http://www.centre-presse.fr/
-http://www.charentelibre.fr/
-http://www.clicanoo.re/
-http://www.connexionfrance.com/
+http://www.20minutes.fr/
 http://www.courrierinternational.com/
-http://www.courrier-picard.fr/version/home.htm
-http://www.dna.fr/dna/
-http://www.essorsarladais.com/index.php
-http://www.estrepublicain.fr/
+http://www.connexionfrance.com/
 http://www.eurofora.net/
-http://www.expatica.com/fr/main.html
-http://www.farmerama.fr/
 http://www.france2.fr/
 http://www.francenetinfos.com/
 http://www.francesoir.fr/
-http://www.frenchnewsdordogne.com/
 http://www.french-news-online.com/
-http://www.french-news-online.com/index.html
-http://www.geoworldonline.com/
 http://www.heralddeparis.com/
 http://www.humanite.fr/
 http://www.iht.com/
-http://www.journaldelahautemarne.com/
-http://www.kashkazi.com/
 http://www.la-croix.com/
-http://www.ladepeche.fr/depeche.asp
-http://www.lamontagne.fr/accueil.html
-http://www.languedocpages.com/
 http://www.lanouvellerepublique.fr/
-http://www.laprovence.com/
 http://www.la-regeneration.com/
-http://www.larepublique77.fr/
 http://www.latribune.fr/
 http://www.la-verite.org/
-http://www.lavoixdunord.fr/
-http://www.le-canal.com/
 http://www.ledauphine.com/
 http://www.lefigaro.fr/
 http://www.lejdd.fr/
-http://www.lejpb.com/
-http://www.lejsl.com/
 http://www.lemonde.fr/
-http://www.leparisien.fr/
 http://www.lepetitjournal.com/
 http://www.leprogres.fr/
-http://www.lepublic-journal.com/
 http://www.lequipe.fr/
 http://www.lesechos.fr/
-http://www.letelegramme.fr/
 http://www.lexpress.fr/
-http://www.liberacion24.cjb.net/
 http://www.liberation.fr/
-http://www.limousin-news.com/
 http://www.lindependant.fr/
-http://www.linformateurdeu.fr/
-http://www.lost-in-france.com/
-http://www.lyonne.fr/
-http://www.marianne-en-ligne.fr/
 http://www.metronews.fr/
-http://www.midilibre.fr/accueilml.html
 http://www.monde-diplomatique.fr/
-http://www.nicematin.com/
-http://www.ouest-france.fr/
 http://www.parisguardian.com/
-http://www.paris-normandie.fr/
-http://www.pravdaliberacion.cjb.net/
-http://www.proche-orient.info/
-http://www.quibla.net/
 http://www.regards.fr/
-http://www.republicain-lorrain.fr/
 http://www.reuters.fr/
 http://www.rivierareporter.com/
+http://www.terraeco.net/
+http://www.thelocal.fr/
+http://www.toufaux.com/
+
+[local]
+http://www.bastidelife.com/
+http://www.bienpublic.com/
+http://www.centre-presse.fr/
+http://www.charentelibre.fr/
+http://www.clicanoo.re/
+http://www.courrier-picard.fr/
+http://www.dna.fr/
+http://www.essorsarladais.com/
+http://www.estrepublicain.fr/
+http://www.journaldelahautemarne.com/
+http://www.ladepeche.fr/
+http://www.lamontagne.fr/
+http://www.laprovence.com/
+http://www.larepublique77.fr/
+http://www.lavoixdunord.fr/
+http://www.lejsl.com/
+http://www.leparisien.fr/
+http://www.letelegramme.fr/
+http://www.lyonne.fr/
+http://www.midilibre.fr/
+http://www.nicematin.com/
+http://www.ouest-france.fr/
+http://www.paris-normandie.fr/
+http://www.republicain-lorrain.fr/
 http://www.rivieratimes.com/
 http://www.sudouest.fr/
 http://www.sxminfo.fr/
-http://www.terraeco.net/
-http://www.theadvertiser.fr/
-http://www.thefrenchpaper.com/
-http://www.thelocal.fr/
-http://www.toufaux.com/
+
+[blog]
+
