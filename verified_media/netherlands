@@ -2,11 +2,13 @@
 [global]
 
 [national]
+http://www.925.nl/
 http://www.ad.nl/
-http://www.boerderij.nl/ 
+http://www.boerderij.nl/
 http://www.blikopnieuws.nl/
 http://www.dutchnews.nl/
 http://www.fd.nl/
+http://www.fok.nl/
 http://www.groene.nl/
 http://www.metronieuws.nl/
 http://www.nrc.nl/
@@ -33,6 +35,7 @@ http://www.hpdetijd.nl
 http://www.ftm.nl
 http://www.nd.nl
 http://www.dichtbij.nl
+http://www.thepostonline.nl/
 
 
 [local]
@@ -61,8 +64,11 @@ http://www.omropfryslan.nl
 http://www.rtvnh.nl
 http://www.omroepzeeland.nl
 http://www.omroepflevoland.nl
+http://www.omroepgelderland.nl/
 http://www.tvl.nl
+http://www.rijnmond.nl/
 http://www.rtvnoord.nl
+http://www.rtvoost.nl/
 http://www.waldnet.nl/
 http://www.weespernieuws.nl/
 http://www.weekbladdebrug.nl/
@@ -75,8 +81,8 @@ http://www.westfriesdagblad.nl/
 http://www.weekbladzondag.nl/
 
 [blog]
-
 http://www.geenstijl.nl
 http://www.joop.nl
+http://www.sargasso.nl/
 
 
