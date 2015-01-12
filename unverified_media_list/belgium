@@ -4,19 +4,12 @@ http://www.apache.be
 http://dewereldmorgen.be
 http://www.mo.be
 
-http://hln.be
 http://www.dhnet.be/
 http://www.lalibre.be/
 http://www.lesoir.be/
-# publishing house mediafin
-http://www.lacapitale.be/
-http://tijd.be
-http://www.lecho.be/
-http://www.belegger.be/
-http://www.investisseur.be/
 
 
-# http://mediahuis.be/ Publishinghouse
+# Publishinghouse http://mediahuis.be/
 # Het Nieuwsblad, Gazet van Antwerpen, Het Belang van Limburg en De Standaard.
 http://nieuwsblad.be
 http://gentenaar.be
@@ -24,9 +17,17 @@ http://sportwereld.be
 http://gva.be
 http://hbvl.be
 
-# Publishing house http://www.persgroep.be/
+# Publishinghouse http://www.persgroep.be/
+http://hln.be
+http://www.demorgen.be
+http://www.lacapitale.be/
+http://tijd.be
+http://www.lecho.be/
+http://www.7sur7.be/
+http://www.belegger.be/
+http://www.investisseur.be/
 
-# Publishing house http://www.roularta.be
+# Publishinghouse http://www.roularta.be
 http://www.levif.be
 http://www.knack.be
 http://datanews.be
@@ -37,8 +38,7 @@ http://kanaalz.be
 http://canalz.be 
 http://trendstop.be
 http://insidebeleggen.be
-#Industrie
-#Grafisch Nieuws
+
 
 
 
