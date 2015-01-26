@@ -33,7 +33,7 @@ If you're a **Linux user** you can help run the software and collect results fro
 
 # Support the collection
 
-The procedure reported use an apt-get based system (Debian/Ubuntu etc). A couple of experimental option Vagrant and Docker, are currently unmaintained (until some volunteer in github do such :))
+The procedure reported use an apt-get based system (Debian/Ubuntu etc). Docker file is available but currently unmaintained.
 
 ### Special condition where you can't run the software:
 
@@ -110,7 +110,6 @@ Change directory to the directory where you installed the test script and run:
 ## Docker
 
 A [Docker](https://www.docker.com/) image has been created for this tool, using the Dockerfile provided in the directory.
-
 
 Clone a fresh copy from the repository, build a new image and tag it with `trackmap`:
 
