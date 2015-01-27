@@ -128,6 +128,36 @@ class UnsupportedSchemeException(Exception):
     pass
 
 
+def active_content_log(content, answer_header, host_name, dump_directory="/tmp/dump"):
+
+    if 'Content-type' in answer_header:
+        content_type = answer_header['Content-type']
+    else:
+        # maybe there are a 'Location', maybe not. who cares ?
+        content_type = None
+
+    if content_type and ( content_type.startswith('text') or content_type.startswith('application') ):
+
+        host_dir = "%s/%s" % (dump_directory, host_name)
+
+        if not os.path.isdir(host_dir):
+            try:
+                os.makedirs(host_dir)
+            except IOError:
+                pass
+
+        content_type = content_type.split(';')[0]
+        content_type, extension = content_type.split('/')
+
+        dump_file = "%s/%s.%s" % (host_dir, content_type, extension)
+
+        with file(dump_file, 'a+') as fp:
+            print "Writing on %s, %d bytes" % (dump_file, len(content))
+            fp.write(content)
+
+    return content
+
+
 class ProxyHandler(BaseHTTPRequestHandler):
 
     r = compile(r'http://[^/]+(/?.*)(?i)')
@@ -224,46 +254,17 @@ class ProxyHandler(BaseHTTPRequestHandler):
         # Get rid of the pesky header
         del h.msg['Transfer-Encoding']
 
-        content = ''
-        # print self.headers['Host'], (" " * (40 - len(self.headers['Host']))),
-        if 'Content-type' in h.msg:
-            # print h.msg['Content-type']
-            if h.msg['Content-type'].startswith('text') or h.msg['Content-type'].startswith('application'):
-                content = h.read()
-                if os.path.isdir("/tmp/b/%s" % self.headers['Host']):
-                    os.mkdir("/tmp/b/%s" % self.headers['Host'])
-
-                with file("/tmp/b/%s/%s" % ( self.headers['Host'], h.msg['Content-type']  ), 'a+') as fp:
-                    fp.write( content )
-                print "Written!"
-
-        elif 'Location' in h.msg:
-            # print "=>", h.msg['Location']
-            pass
-        else:
-            # print "*****", h.msg
-            pass
-
+        content = active_content_log(h.read(), h.msg, self.headers['Host'])
 
         # Time to relay the message across
         res = '%s %s %s\r\n' % (self.request_version, h.status, h.reason)
         res += '%s\r\n' % h.msg
-
-        if content == '':
-            content = h.read()
         res += content
-        # res += h.read()
 
         # Let's close off the remote end
         h.close()
         self._proxy_sock.close()
 
-        """
-        h.getheaders()
-        [('content-encoding', 'gzip'), ('age', '35'), ('expires', 'Mon, 26 Jan 2015 12:17:03 GMT'), ('vary', 'Accept-Encoding'), ('x-cacheable', 'YES'), ('server', 'Apache'), ('last-modified', 'Mon, 26 Jan 2015 12:13:11 GMT'), ('connection', 'keep-alive'), ('cache-control', 'max-age=61'), ('date', 'Mon, 26 Jan 2015 12:16:37 GMT'), ('content-type', 'text/html; charset=utf-8')]
-
-        """
-        # import pdb; pdb.set_trace()
         # Relay the message
         self.request.sendall(self.mitm_response(res))
 
