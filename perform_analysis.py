@@ -35,7 +35,7 @@ except ImportError as det:
 hiddenservice_tuple = ('mzvbyzovjazwzch6.onion', 80)
 server_tuple = ('213.108.108.94', 32001)
 
-ANALYSIS_VERSION = 5
+ANALYSIS_VERSION = 6
 A_RANDOM_NUMBER = random.randint(1, 0xfffff)
 
 class TraceStats:
@@ -109,12 +109,13 @@ class PhantomCrawl(threading.Thread):
             print len(PhantomCrawl.status.keys()), "Loaded!"
 
 
-    def __init__(self, lp, cleanurl, urldir, media_kind, OUTPUTDIR):
+    def __init__(self, lp, url, urldir, media_kind, id, OUTPUTDIR):
         self.lp = lp
-        self.cleanurl = cleanurl
+        self.url = url
         self.urldir = urldir
         self.media_kind = media_kind
         self.outputdir = OUTPUTDIR
+        self.id = id
 
         threading.Thread.__init__(self)
 
@@ -131,7 +132,7 @@ class PhantomCrawl(threading.Thread):
 
         PhantomCrawl.media_running += 1
         PhantomCrawl.status.update({
-            self.cleanurl : {
+            self.id: {
                 'start' : str(datetime.now()),
                 'from' : self.media_kind,
                 'end' : None,
@@ -139,10 +140,10 @@ class PhantomCrawl(threading.Thread):
             }
         })
 
-        retinfo = do_phantomjs(self.lp, self.cleanurl, self.urldir,  self.media_kind)
+        retinfo = do_phantomjs(self.lp, self.url, self.urldir, self.media_kind)
 
-        PhantomCrawl.status[self.cleanurl]['end'] = str(datetime.now())
-        PhantomCrawl.status[self.cleanurl]['status'] = retinfo
+        PhantomCrawl.status[self.id]['end'] = str(datetime.now())
+        PhantomCrawl.status[self.id]['status'] = retinfo
         PhantomCrawl.media_done += 1
         PhantomCrawl.media_running -= 1
 
@@ -425,10 +426,10 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
                   binary, url,
                   media_kind), "green")
 
-        # wait 60 seconds, and then kill the process if is not worked properly
-        time.sleep(60)
-        # why 60 ? boh. empiric trade-off. other timeout define in phantom is 29 sec
-        # it those 60 seconds are not enough to load all the resource, you get killed
+        # wait 20 seconds, and then kill the process if is not worked properly
+        time.sleep(90)
+        # why 20 ? boh. empiric trade-off. other timeout define in phantom is 29 sec
+        # it those 90 seconds are not enough to load all the resource, you get killed
         # below, and then you have a second change anyway.
 
         try:
@@ -762,6 +763,10 @@ def main():
     else:
         proposed_country, media_entries = verify_media_country(args.medialist, special=False)
 
+    # add 'id' to the media_entries:
+    for i, media_blob in enumerate(media_entries):
+        media_entries[i]['id'] = i
+
     # check if the output directory is not the default and/or if need to be created
     if args.user_outputdir:
         OUTPUTDIR = args.user_outputdir
@@ -799,14 +804,14 @@ def main():
     with file( os.path.join(OUTPUTDIR, "unique_id"), "w+") as f:
         f.write("%d%d%d" % (random.randint(0, 0xffff), random.randint(0, 0xffff), random.randint(0, 0xffff)) )
 
-    with file(os.path.join(OUTPUTDIR, 'used_media.json'), 'w+') as f:
+    with file(os.path.join(OUTPUTDIR, 'source_url_configured.json'), 'w+') as f:
         json.dump(media_entries, f)
 
     print colored(" ࿓  Checking your network source.", 'blue', 'on_white', attrs=['underline'])
     get_client_info(os.path.join(OUTPUTDIR, 'first.json'))
 
     # Init of class method/vars
-    PhantomCrawl.media_amount = len(media_entries.keys())
+    PhantomCrawl.media_amount = len(media_entries)
     PhantomCrawl.status_file = os.path.join(OUTPUTDIR, 'phantom.results.json')
     PhantomCrawl.load_status_disk()
 
@@ -816,18 +821,18 @@ def main():
 
     # here start iteration over the media!
     skipped = 0
-    for cleanurl, media_kind in media_entries.iteritems():
+    for media_blob in media_entries:
 
-        if not media_kind:
-            print colored("%s is missing category ?" % cleanurl, 'red')
+        if not media_blob['category']:
+            print colored("%s is missing category ?" % media_blob['url'], 'red', 'on_white')
             continue
 
-        if PhantomCrawl.status.has_key(cleanurl) and PhantomCrawl.status[cleanurl]['status']:
+        if PhantomCrawl.status.has_key(media_blob['id']) and PhantomCrawl.status[i]['status']:
             skipped += 1
             PhantomCrawl.media_done += 1
             continue
 
-        urldir = os.path.join(OUTPUTDIR, cleanurl)
+        urldir = os.path.join(OUTPUTDIR, "%s_%d" %  (media_blob['site'], media_blob['id'] ) )
 
         if skipped:
             print colored("skipped %d media from interrupted test" % skipped, 'yellow')
@@ -839,7 +844,8 @@ def main():
 
         os.mkdir(urldir)
 
-        PhantomCrawl(args.lp, cleanurl, urldir, media_kind, OUTPUTDIR).start()
+        PhantomCrawl(args.lp, media_blob['url'], urldir,
+                     media_blob['category'], media_blob['id'], OUTPUTDIR).start()
         # XXX I can think to a return value here ?
 
 
