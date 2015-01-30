@@ -140,7 +140,7 @@ def load_global_file(GLOBAL_MEDIA_FILE):
 
 GLOBAL_MEDIA_FILE = 'special_media/global'
 
-def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
+def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE, permit_flexible_category=False):
     """
     From the format
     [global]
@@ -174,6 +174,10 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
         if line.startswith('[') and line.find(']') != -1:
             candidate_section = line[1:-1]
 
+            if permit_flexible_category:
+                print colored("switching to special category: %s" % candidate_section, 'green')
+                continue
+
             if not candidate_section in PERMITTED_SECTIONS:
                 print "The section in", line, "is invalid: do not match with", PERMITTED_SECTIONS
                 quit(-1)
@@ -193,9 +197,6 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
             continue
 
         cleanurl = url_cleaner(line)
-        if current_section not in [ 'national', 'local', 'blog', 'special' ]:
-            print "detected URL", cleanurl, "without a section!"
-            quit(-1)
 
         if retdict.has_key(cleanurl):
             print "Note:", cleanurl, "is duplicated"
@@ -213,8 +214,7 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE):
 
     # the last section is printed here
     if current_section:
-        # print "Section", current_section, "has got # entries", counter_section
-        pass # this is because is commented the line above
+        print "Section", current_section, "has got # entries", counter_section
 
     return retdict
 

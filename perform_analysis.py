@@ -727,7 +727,11 @@ def main():
             cfp = file(special_f, 'r')
             unclean_lines = cfp.readlines()
 
-            return special_f, unclean_lines
+            print colored(" ࿓  Importing special media list:", 'blue', 'on_white', attrs=['underline'])
+            media_entries = media_file_cleanings(unclean_lines, permit_flexible_category=True)
+            cfp.close()
+
+            return special_f, media_entries
 
         # if not special, is media list
         country_f = os.path.join('verified_media', the_user_input.lower())
@@ -746,13 +750,17 @@ def main():
         # reading media list, cleaning media list and copy media list
         unclean_lines = cfp.readlines()
 
-        return country_f, unclean_lines
+        print colored(" ࿓  Importing media list from %s:" % the_user_input.lower(), 'blue', 'on_white', attrs=['underline'])
+        media_entries = media_file_cleanings(unclean_lines)
+        cfp.close()
+
+        return country_f, media_entries
 
     # country check
     if args.special:
-        proposed_country, unclean_lines = verify_media_country(args.special, special=True)
+        proposed_country, media_entries = verify_media_country(args.special, special=True)
     else:
-        proposed_country, unclean_lines = verify_media_country(args.medialist, special=False)
+        proposed_country, media_entries = verify_media_country(args.medialist, special=False)
 
     # check if the output directory is not the default and/or if need to be created
     if args.user_outputdir:
@@ -787,13 +795,9 @@ def main():
     with file(os.path.join(OUTPUTDIR, 'country'), 'w+') as f:
         f.write(proposed_country.lower())
 
-
     # reconding an unique number is always useful, also if I've not yet in mind an usage right now.
     with file( os.path.join(OUTPUTDIR, "unique_id"), "w+") as f:
         f.write("%d%d%d" % (random.randint(0, 0xffff), random.randint(0, 0xffff), random.randint(0, 0xffff)) )
-
-    print colored(" ࿓  Importing media list:", 'blue', 'on_white', attrs=['underline'])
-    media_entries = media_file_cleanings(unclean_lines)
 
     with file(os.path.join(OUTPUTDIR, 'used_media.json'), 'w+') as f:
         json.dump(media_entries, f)
@@ -813,6 +817,10 @@ def main():
     # here start iteration over the media!
     skipped = 0
     for cleanurl, media_kind in media_entries.iteritems():
+
+        if not media_kind:
+            print colored("%s is missing category ?" % cleanurl, 'red')
+            continue
 
         if PhantomCrawl.status.has_key(cleanurl) and PhantomCrawl.status[cleanurl]['status']:
             skipped += 1
