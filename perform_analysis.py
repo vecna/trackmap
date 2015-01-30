@@ -613,6 +613,8 @@ def main():
 
     parser = OptionParser()
 
+    parser.add_option("-S", "--special", type="string",
+                      help="use a special list for contexualized collections", dest="special")
     parser.add_option("-c", "--country-name", type="string",
                       help="the country from which you want run the test", dest="medialist")
     parser.add_option("-o", "--output-dir", type="string", default=None,
@@ -662,7 +664,7 @@ def main():
         print xxx
         local_phantom_v = None
 
-    if not args.medialist:
+    if not (args.medialist or args.special):
         print colored("Usage: %s -c $YOUR_COUNTRY_NAME" % sys.argv[0], "red", 'on_white')
         print parser.format_help()
 
@@ -714,19 +716,43 @@ def main():
             quit(-1)
         del c
 
+    def verify_media_country(the_user_input, special):
+        # this function left the media file open forever. :(
+        if special:
+            special_f = os.path.join('special_media', the_user_input)
+            if not os.path.isfile(special_f):
+                print colored("Invaild special URL source, check in special_media ", 'red')
+                quit(-1)
+
+            cfp = file(special_f, 'r')
+            unclean_lines = cfp.readlines()
+
+            return special_f, unclean_lines
+
+        # if not special, is media list
+        country_f = os.path.join('verified_media', the_user_input.lower())
+        if not os.path.isfile(country_f):
+            print colored("Invalid country! not found %s in directory 'verified_media/' " % proposed_country, 'red')
+            print "Available countries are:"
+            for existing_c in os.listdir('verified_media'):
+                if existing_c in ['README.md', 'test']:
+                    continue
+                print "\t", existing_c
+            print colored("You can propose your own country media list following these instructions:", 'blue', 'on_white')
+            print colored("https://github.com/vecna/trackmap/blob/master/unverified_media_list/README.md", 'blue', 'on_white')
+            quit(-1)
+
+        cfp = file(country_f, 'r')
+        # reading media list, cleaning media list and copy media list
+        unclean_lines = cfp.readlines()
+
+        return country_f, unclean_lines
+
     # country check
-    proposed_country = args.medialist
-    country_f = os.path.join('verified_media', proposed_country.lower())
-    if not os.path.isfile(country_f):
-        print colored("Invalid country! not found %s in directory 'verified_media/' " % proposed_country, 'red')
-        print "Available countries are:"
-        for existing_c in os.listdir('verified_media'):
-            if existing_c in ['README.md', 'test']:
-                continue
-            print "\t", existing_c
-        print colored("You can propose your own country media list following these instructions:", 'blue', 'on_white')
-        print colored("https://github.com/vecna/trackmap/blob/master/unverified_media_list/README.md", 'blue', 'on_white')
-        quit(-1)
+    if args.special:
+        proposed_country, unclean_lines = verify_media_country(args.special, special=True)
+    else:
+        proposed_country, unclean_lines = verify_media_country(args.medialist, special=False)
 
     # check if the output directory is not the default and/or if need to be created
     if args.user_outputdir:
@@ -761,9 +787,6 @@ def main():
     with file(os.path.join(OUTPUTDIR, 'country'), 'w+') as f:
         f.write(proposed_country.lower())
 
-    # reading media list, cleaning media list and copy media list
-    cfp = file(country_f, 'r')
-    unclean_lines = cfp.readlines()
 
     # reconding an unique number is always useful, also if I've not yet in mind an usage right now.
     with file( os.path.join(OUTPUTDIR, "unique_id"), "w+") as f:
@@ -771,7 +794,6 @@ def main():
 
     print colored(" ࿓  Importing media list:", 'blue', 'on_white', attrs=['underline'])
     media_entries = media_file_cleanings(unclean_lines)
-    cfp.close()
 
     with file(os.path.join(OUTPUTDIR, 'used_media.json'), 'w+') as f:
         json.dump(media_entries, f)
@@ -798,12 +820,6 @@ def main():
             continue
 
         urldir = os.path.join(OUTPUTDIR, cleanurl)
-
-        # special edition for 31c3 - change the cleanurl if match with the special keyword
-        if cleanurl.startswith('www.spiegel.de_international'):
-            cleanurl = "www.spiegel.de/international"
-        elif cleanurl.startswith('www.spiegel.de_article'):
-            cleanurl =  "www.spiegel.de/international/germany/inside-the-nsa-s-war-on-internet-security-a-1010361.html"
 
         if skipped:
             print colored("skipped %d media from interrupted test" % skipped, 'yellow')
