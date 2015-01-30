@@ -406,6 +406,9 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
     def software_execution():
         binary = 'phantomjs' if local_phantomjs else './phantom-1.9.8'
 
+        with file(os.path.join(destfile, 'request'), 'w+') as fp:
+            fp.write(url)
+
         p = subprocess.Popen(['nohup', binary,
                    '--local-storage-path=%s/localstorage' % destfile,
                    '--cookies-file=%s/cookies' % destfile,
