@@ -94,5 +94,6 @@ page.open(address, function (status) {
         }
     }
     phantom.exit();
+    fs.remove(system.args[2] + "/lock");
 });
 

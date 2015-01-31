@@ -399,21 +399,31 @@ class DNSreverse(threading.Thread):
 
 def do_phantomjs(local_phantomjs, url, destfile, media_kind):
     # information that deserve to be saved for the time
+
     kindfile = os.path.join(destfile, '__kind')
     with file(kindfile, 'w+') as f:
         f.write(media_kind + "\n")
 
-    def software_execution():
+    def software_execution(url):
         binary = 'phantomjs' if local_phantomjs else './phantom-1.9.8'
 
         with file(os.path.join(destfile, 'request'), 'w+') as fp:
             fp.write(url)
 
+        with file(os.path.join(destfile, "lock"), 'w+') as fp:
+            # improve in some way ? -- is deleted at the end of phantomsjs,
+            # check if is really the end or if happen always .. ?
+            fp.write("TEST-lock")
+
+        if not url.startswith('http'):
+            print colored("Fixing %s !? w/https" % url, 'yellow', 'on_red')
+            url = "https://%s" % url
+
         p = subprocess.Popen(['nohup', binary,
                    '--local-storage-path=%s/localstorage' % destfile,
                    '--cookies-file=%s/cookies' % destfile,
                    'collect_included_url.js',
-                   'http://%s' % url, destfile ],
+                   '%s' % url, destfile ],
                              env={'HOME': destfile },
                              stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT)
@@ -453,12 +463,12 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
 
     # -------------------------------------------------------------------
     # -- Here starts the do_phantom logic + software exec + results check
-    first_test = software_execution()
+    first_test = software_execution(url)
     if not first_test or first_test < 3:
 
         print colored("Total or partial failure with %s = retry" % url, "magenta")
         time.sleep(5)
-        second_test = software_execution()
+        second_test = software_execution(url)
 
         # the URL are in append, therefore, second test has always at least 2
         if not second_test or second_test < 3:
