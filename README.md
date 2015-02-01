@@ -2,7 +2,7 @@
 
 The Trackography project is research by [Claudio ࿓  vecna](https://twitter.com/sniffjoke), developed with [Tactical Tech](http://www.tacticaltech.org), as part of the [MyShadow](http://myshadow.org/trackography) project. 
 
-Take a look the presentation at the [31c3](http://media.ccc.de/browse/congress/2014/31c3_-_6299_-_en_-_saal_2_-_201412292200_-_trackography_-_maria_xynou_-_claudio_vecna.html#video) or the [slide online](http://trackography.github.io/31c3).
+Take a look at the presentation of Trackography at the [31c3](http://media.ccc.de/browse/congress/2014/31c3_-_6299_-_en_-_saal_2_-_201412292200_-_trackography_-_maria_xynou_-_claudio_vecna.html#video) or at its [online slides](http://trackography.github.io/31c3).
 
 
 *When you access media websites from your country, your Internet connection is being tracked by multiple third parties. And this happens constantly*. That's what we aim to illustrate.
@@ -11,29 +11,29 @@ Our aim is to show where our data travels when we visit our favorite news websit
 
 ## You, your country and the code
 
-This repository contains the software and data source required to track online trackers.
+This repository contains the software and data source required to detect online trackers.
 
 The collection of data needs to happen in a distributed way, _which means that the software needs to run from each of the selected countries_. This is important because the network and the trackers behave differently based on the specific country of the user.
 
 ### Is your country analyzed in Trackography ?
 
-If the answer is **NO**: two reasons are possible:
+If the answer is **NO** there are two possible reasons:
 
   * No one has reviewed or created the **media list**, check in [this directory](https://github.com/vecna/trackmap/tree/master/verified_media) and look at the expected format at the bottom of the page. An unverified media list [can be present here](https://github.com/vecna/trackmap/tree/master/unverified_media_list), if not, sent us an email at **trackmap** at **tacticaltech** dot **org** (because we have some not refined list usable as starter) or provide us a list.
 
   * No one has run the software from your country yet: In this case, read the sections below
 
-If the answer is **YES**: perfect, this means that someone has already run the software: you can still help, because different ISP and different Geographical locations in a country brings different results, having multiple feedback can be useful for further analysis and comparison.
+If the answer is **YES**: perfect, this means that someone has already run the software. You can still help, because different ISPs and different Geographical locations in a country bring different results. Having multiple results can be useful for further analysis and comparison.
 
 ### How can you help ?
 
-If you're a **Media aware citizen**, we need a reliable media list for every country. What is important is explained above above, use git to help us or open an issue.
+If you're a **Media aware citizen**, we need a reliable media list for every country. What is important is explained above, use git to help us or open an issue.
 
-If you're a **Linux user** you can help run the software and collect results from your country. A distributed effort is required, because the Internet works differently in different locations. You can run the software explained below, and it will automatically send the results to our server.
+If you're a **Linux user** you can help run the software and collect results from your country. A distributed effort is required, because the Internet works differently in different locations. You can run the software as explained below, and it will automatically send the results to our server.
 
 # Support the collection
 
-The procedure reported use an apt-get based system (Debian/Ubuntu etc). Docker file is available but currently unmaintained.
+This procedure uses an apt-get based system (Debian/Ubuntu etc). Docker file is available but currently unmaintained.
 
 ### Special condition where you can't run the software:
 
@@ -45,9 +45,9 @@ The procedure reported use an apt-get based system (Debian/Ubuntu etc). Docker f
 
 Tor shall be used when the script has completed the collection, because we anonymize the users interacting with us.
 
-### if you're in Ubuntu
+### if you're usin Ubuntu
 
-Only tested in Ubuntu (might work in other distributions, but is currently untested)
+Currently the software is only tested on Ubuntu ( it might work in other distributions, but it is currently untested)
 Create a directory to store the project files and change directory there:
 
     wget -c https://raw.githubusercontent.com/vecna/trackmap/master/setup.sh
@@ -88,7 +88,7 @@ Install the required packages:
     sudo pacman -S unzip wget python2-pip traceroute fontconfig
     sudo pip2 install tldextract termcolor requests
 
-If you want to use Tor at the end to send the result, you'll also need to install the 'PySocks' package with pip.
+If you want to use Tor at the end to send the results, you'll also need to install the 'PySocks' package with pip.
 
 Create a directory to where you'll store all trackmap files:
 
