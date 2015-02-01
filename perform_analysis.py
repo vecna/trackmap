@@ -410,7 +410,7 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
                    '--local-storage-path=%s/localstorage' % destfile,
                    '--cookies-file=%s/cookies' % destfile,
                    'collect_included_url.js',
-                   'http://%s' % url, destfile ],
+                   '%s' % url, destfile ],
                              env={'HOME': destfile },
                              stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT)
