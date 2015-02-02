@@ -410,7 +410,7 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
                    '--local-storage-path=%s/localstorage' % destfile,
                    '--cookies-file=%s/cookies' % destfile,
                    'collect_included_url.js',
-                   'http://%s' % url, destfile ],
+                   '%s' % url, destfile ],
                              env={'HOME': destfile },
                              stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT)
@@ -426,16 +426,22 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
                   binary, url,
                   media_kind), "green")
 
-        # wait 20 seconds, and then kill the process if is not worked properly
-        time.sleep(90)
-        # why 20 ? boh. empiric trade-off. other timeout define in phantom is 29 sec
+        # wait up to 90 seconds, and then kill the process if is not done
+        wtime = 0
+        while wtime<90 and p.returncode == None:
+            p.poll();
+            time.sleep(1)
+            wtime += 1
+
+        # why 90 ? boh. empiric trade-off. other timeout define in phantom is 29 sec
         # it those 90 seconds are not enough to load all the resource, you get killed
         # below, and then you have a second change anyway.
 
-        try:
-            p.terminate()
-        except OSError:
-            pass
+        if p.returncode == None:
+            try:
+                p.terminate()
+            except OSError:
+                pass
 
         try:
             urlfile = os.path.join(destfile, '__urls')
