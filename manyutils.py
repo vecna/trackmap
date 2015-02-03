@@ -9,6 +9,7 @@ from termcolor import colored
 INFOFILES = [ 'phantom.log', '_traceroutes', 'unique_id', 'used_media.json',
               '_verbotracelogs', 'domain.infos', 'country', 'information',
               'errors.dns', 
+              'source_url_configured.json',
               'reverse.dns', 
               'reverse.status.json',
               'reverse.errors.json',

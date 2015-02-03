@@ -994,7 +994,7 @@ def main():
     # saving again*again information about network location
     get_client_info(os.path.join(OUTPUTDIR, 'third.json'))
 
-    output_name = 'results-%s.tar.gz' % proposed_country.lower()
+    output_name = 'results-%s.tar.gz' % proposed_country.split('/')[1].lower()
     print colored(" ࿓  Analysis done! compressing the output in %s" % output_name, "blue", 'on_white', attrs=['underline'])
 
     if os.path.isfile(output_name):
