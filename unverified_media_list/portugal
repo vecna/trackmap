@@ -1,0 +1,31 @@
+[global]
+
+[national]
+
+# PORTUGAL nacional newspapers
+
+http://www.publico.pt/
+http://expresso.sapo.pt/
+http://www.dn.pt/inicio/default.aspx
+http://www.cmjornal.xl.pt/
+http://www.jn.pt/paginainicial/
+http://www.sol.pt/
+http://www.ionline.pt/
+http://visao.sapo.pt/
+
+# PORTUGAL nacional sport newspapers
+
+http://www.abola.pt/
+http://www.record.xl.pt/
+http://www.ojogo.pt/
+
+# PORTUGAL national TV's
+
+http://www.rtp.pt/homepage/
+http://sic.sapo.pt/
+http://www.tvi.iol.pt/
+http://cmtv.sapo.pt/
+
+[local]
+
+[blog]
