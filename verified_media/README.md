@@ -1,13 +1,15 @@
 ## news media list file specification
 
-This is the file format to be used by a supporter helping us in collect a suitable media lists per country.
+The media lists are plain text files with one URL per line. Lines starting with "#" are ignored (and can thus be used for comments).
+
+We depend on the help of volunteers to extend the lists and sort the entries in the following sections.
 
 ### Sections
 
-The media file supports four sections: national, local and blog. 'global' mean that the special 
-media file (containing media website checked in all the country) is loaded. 
+The media file supports four sections: [national], [local] and [blog] head sublists of media which operate on national level, local level or are web blogs. [global] is a placeholder for the special 
+media file "global" (containing media websites which are checked in all countries).
 
-This is how a verified media list appears:
+This is an example of how a verified media list may appear:
 
     [global]
 

@@ -4,10 +4,10 @@
 # It install requirements and then checks out the tool
 # from github into a subdirectory of the current directory
 
-REQUIREMENTS=(wget unzip traceroute python-pip libfontconfig1)
+REQUIREMENTS=(wget unzip traceroute python-pip libfontconfig1 python-termcolor python-requests phantomjs)
 sudo apt-get update
 sudo apt-get install -y ${REQUIREMENTS[*]}
-sudo pip install tldextract termcolor PySocks requests
+sudo pip install tldextract PySocks
 
 
 traceroute --version
@@ -21,10 +21,6 @@ fi
 wget https://github.com/vecna/trackmap/archive/master.zip
 unzip master.zip
 cd $UNZIPDIR
-
-if [ -x ./fetch_phantomjs.sh ] ; then
-    ./fetch_phantomjs.sh
-fi
 
 ./perform_analysis.py --version
 if [ $? != "0"  ]; then echo "\n\nSomething goes wrong in the install, please report the issue to trackmap<at>tacticaltech.org\n" && exit; fi
