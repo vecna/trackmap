@@ -33,7 +33,8 @@ except ImportError as det:
 
 
 hiddenservice_tuple = ('mzvbyzovjazwzch6.onion', 80)
-server_tuple = ('213.108.108.94', 32001)
+media_tuple = ('213.108.108.94', 32001)
+special_tuple = ('213.108.108.94', 32002)
 
 ANALYSIS_VERSION = 6
 A_RANDOM_NUMBER = random.randint(1, 0xfffff)
@@ -646,7 +647,7 @@ def main():
     parser.add_option("-i", "--instable-internet", action="store_true",
                       help="If your internet is instable, please enable this option", dest="shitty_internet")
     parser.add_option("-s", "--send", type="string", dest="targz_output",
-                      help="do not perform test, submit a previously collected result.")
+                      help="do not perform test, submit a previously collected result [specity SPECIAL if is a special result].")
     parser.add_option("-t", "--twitter-handle", type="string", dest="twit",
                       help="put your twitter handler, you'll be mentioned when test is imported.")
     parser.add_option("-v", "--version", action="store_true", dest="version",
@@ -674,8 +675,10 @@ def main():
         print colored(" ࿓  Sending previous results...", 'blue', 'on_white', attrs=['underline'])
         if args.hiddensubmit:
             quit(send_results(args.targz_output, hiddenservice_tuple, tor_proxy=True))
+        if args.special:
+            quit(send_results(args.targz_output, special_tuple, tor_proxy=False))
         else:
-            quit(send_results(args.targz_output, server_tuple, tor_proxy=False))
+            quit(send_results(args.targz_output, media_tuple, tor_proxy=False))
 
 
     try:
@@ -1029,8 +1032,10 @@ def main():
 
     if args.hiddensubmit:
         ret = send_results(output_name, hiddenservice_tuple, tor_proxy=True)
+    elif args.special:
+        ret = send_results(output_name, special_tuple, tor_proxy=False)
     else:
-        ret = send_results(output_name, server_tuple, tor_proxy=False)
+        ret = send_results(output_name, media_tuple, tor_proxy=False)
     print ""
     os.kill(os.getpid(), 15)
 

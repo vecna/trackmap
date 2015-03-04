@@ -31,3 +31,17 @@ The fact is third party inclusion are just more than the media itself.
   * NSA using of commercial tracking: http://www.washingtonpost.com/blogs/the-switch/wp/2013/12/10/nsa-uses-google-cookies-to-pinpoint-targets-for-hacking/
   * http://barker.co.uk/buzzfeediswatching
   * https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security
+
+## Identification mechanism:
+
+https://sites.google.com/a/chromium.org/dev/Home/chromium-security/client-identification-mechanisms
+
+# OONI
+
+https://ooni.torproject.org/docs/writing_tests.html
+https://github.com/thetorproject/ooni-pipeline
+
+
+### Those are great!
+
+http://www.pabloyglesias.com/como-protegerse-rastreo/
