@@ -142,6 +142,7 @@ class PhantomCrawl(threading.Thread):
         })
 
         retinfo = do_phantomjs(self.lp, self.url, self.urldir, self.media_kind)
+        print "RETINFO check:", self.id, retinfo
 
         PhantomCrawl.status[self.id]['end'] = str(datetime.now())
         PhantomCrawl.status[self.id]['status'] = retinfo
@@ -546,8 +547,8 @@ class Multitrace(threading.Thread):
 
 class Traceroute:
 
-    SLOW_TIMEOUT = "2.9"
-    FAST_TIMEOUT = "1.9"
+    SLOW_TIMEOUT = "3"
+    FAST_TIMEOUT = "2"
     SLOW_PROBES = "7"
     FAST_PROBES = "3"
     HOP_COUNT = "20"
@@ -574,9 +575,8 @@ class Traceroute:
         self.iplist = []
 
         try:
-            p = subprocess.Popen(['traceroute', '-n', '-m', Traceroute.HOP_COUNT, '-w',
-                       Traceroute.SLOW_TIMEOUT, '-q', Traceroute.SLOW_PROBES,
-                       '-A', self.v4_target], stdout=subprocess.PIPE)
+            p = subprocess.Popen(['traceroute', '-n', '-m', Traceroute.HOP_COUNT, '-w', Traceroute.SLOW_TIMEOUT, '-q', Traceroute.SLOW_PROBES, '-A', self.v4_target], stdout=subprocess.PIPE)
+            # p = subprocess.Popen(['tcptraceroute', '-n', '-m', Traceroute.HOP_COUNT, '-w', Traceroute.SLOW_TIMEOUT, '-q', Traceroute.SLOW_PROBES, self.v4_target], stdout=subprocess.PIPE)
 
             logfile = file(self.traceoutf, "w+")
 
@@ -849,7 +849,10 @@ def main():
             print colored("%s is missing category ?" % media_blob['url'], 'red', 'on_white')
             continue
 
-        if PhantomCrawl.status.has_key(media_blob['id']) and PhantomCrawl.status[i]['status']:
+        # this is the index we are going to use
+        unid = unicode(media_blob['id'])
+
+        if unid in PhantomCrawl.status and PhantomCrawl.status[unid]['status']:
             skipped += 1
             PhantomCrawl.media_done += 1
             continue
