@@ -1049,8 +1049,6 @@ def send_results(targz, connect_tuple, tor_proxy=False):
     try:
         if not targz.endswith('.tar.gz'):
             raise Exception("Not .tar.gz suffix found")
-        if len(targz) > 28:
-            raise Exception("Expected not more than 28 byte here")
         if targz.find('/') != -1:
             raise Exception("put a shah not a slash")
         if targz.find('%') != -1:
