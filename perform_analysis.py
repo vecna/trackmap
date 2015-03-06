@@ -992,7 +992,7 @@ def main():
 
         Multitrace(OUTPUTDIR, ip_addr, hostlist, args.shitty_internet).start()
 
-    I_want_thread_to_zero(240)
+    I_want_thread_to_zero(140)
 
     ## ----------- END TRACEROUTE -------------
 
@@ -1030,7 +1030,8 @@ def main():
         shutil.rmtree(OUTPUTDIR)
 
     print colored("If submitting results fails please run:", "red")
-    print colored("./perform_analysis.py -s %s" % output_name, "yellow")
+    print colored("./perform_analysis.py -s %s %s" % (
+        output_name, "-S %s" % args.special if args.special else ""), "yellow")
 
     if args.hiddensubmit:
         ret = send_results(output_name, hiddenservice_tuple, tor_proxy=True)
@@ -1105,7 +1106,8 @@ def send_results(targz, connect_tuple, tor_proxy=False):
         # TODO probably also if fail once, if we're in the loop mode, have to continue ?
         # no: better that stop once a while :)
         print colored("\n\tLink broken! please, run the ./perform_analysis.py script:\n", 'red')
-        print colored("\twith the option '-s %s'" % targz, 'red')
+        print colored("./perform_analysis.py -s %s %s" % (
+            targz, "-S %s" % args.special if args.special else ""), "red")
         return -1
 
 
