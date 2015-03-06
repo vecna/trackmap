@@ -3,6 +3,9 @@
 
 [national]
 
+# https://en.wikipedia.org/wiki/Public_News_Agency_of_Ecuador_and_South_America
+http://www.andes.info.ec/
+
 # 4imn
 http://www.eluniverso.com/
 http://www.expreso.ec/
@@ -30,6 +33,9 @@ http://www.eldiario.ec/
 # rank 6
 http://www.bnamericas.com/
 
+# 
+http://www.explored.com.ec/
+
 [local]
 
 http://www.diariocorreo.com.ec/
@@ -43,6 +49,7 @@ http://www.prensalaverdad.com/
 http://www.ecualinkblog.com/
 http://pixfall.wordpress.com/
 http://www.futbolizados.com/
+http://www.futbolinmediato.com/
 http://www.tukero.org/
 http://www.laplegariadeunpagano.com/
 http://www.tecnofotografia.com/

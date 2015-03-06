@@ -40,6 +40,9 @@ ANALYSIS_VERSION = 6
 A_RANDOM_NUMBER = random.randint(1, 0xfffff)
 
 class TraceStats:
+    """
+    This very good class is not truly invoked
+    """
 
     failures = 0
 
@@ -60,9 +63,6 @@ class TraceStats:
             print colored("\tHas been detected ten time a complete Traceroute failure", "red")
             print colored("\tMaybe the network is down, maybe your host is filtering ICMP", "red")
             print colored("\tIn both cases, the test is interrupted.", "red")
-            print "\n"
-            print colored("\tIf the test has reach more than 10 traceroute, then:", "red")
-            print colored("\tAdd the option -i to perform a slow and sure test", "red")
             print "\n\n"
             quit(-1)
 
@@ -87,7 +87,7 @@ def I_want_thread_to_zero(max_sec):
         time.sleep(1)
         max_seconds_await -= 1
         if not max_seconds_await:
-            print colored("Some thread (%d) still alive, amen!" % threading.active_count())
+            print colored("Some thread (%d) still alive, but don't want finish :( amen!" % threading.active_count())
             break
 
 
@@ -142,7 +142,6 @@ class PhantomCrawl(threading.Thread):
         })
 
         retinfo = do_phantomjs(self.lp, self.url, self.urldir, self.media_kind)
-        print "RETINFO check:", self.id, retinfo
 
         PhantomCrawl.status[self.id]['end'] = str(datetime.now())
         PhantomCrawl.status[self.id]['status'] = retinfo
@@ -879,7 +878,7 @@ def main():
 
         if previous_running_test == PhantomCrawl.media_running:
 
-            I_want_thread_to_zero(70)
+            I_want_thread_to_zero(80)
 
             print colored("Media completed %d over %d: phase complete!" %
                           (PhantomCrawl.media_amount, PhantomCrawl.media_done),
@@ -891,7 +890,7 @@ def main():
         print colored("Running %d, completed %d (on %d): sleeping 25s." % \
               (PhantomCrawl.media_running, PhantomCrawl.media_done,
                PhantomCrawl.media_amount), 'green', 'on_white')
-        time.sleep(25)
+        time.sleep(15)
 
 
     # finally, enforce a complete sync in the disk. is probably already happen, but for safety:
@@ -993,7 +992,7 @@ def main():
 
         Multitrace(OUTPUTDIR, ip_addr, hostlist, args.shitty_internet).start()
 
-    I_want_thread_to_zero(80)
+    I_want_thread_to_zero(240)
 
     ## ----------- END TRACEROUTE -------------
 
