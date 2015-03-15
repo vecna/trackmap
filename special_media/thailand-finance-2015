@@ -1,4 +1,4 @@
-#resources: http://truehits.net/webcatalog/?cateid=5 and http://truehits.net/webcatalog/?cateid=12 
+#resource: http://truehits.net/webcatalog/?cateid=5 
 
 [Business]
 
@@ -68,6 +68,8 @@ http://www.hflight.net
 http://www.thaitravelmart.com
 http://www.truecorp.co.th
 http://www.thaitel.com
+
+#resource: http://truehits.net/webcatalog/?cateid=12 
 
 [Finance]
 
