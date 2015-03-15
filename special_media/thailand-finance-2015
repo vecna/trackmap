@@ -1,4 +1,4 @@
-#resource: http://truehits.net/webcatalog/?cateid=5 
+#resources: http://truehits.net/webcatalog/?cateid=5 and http://truehits.net/webcatalog/?cateid=12 
 
 [Business]
 
@@ -68,3 +68,31 @@ http://www.hflight.net
 http://www.thaitravelmart.com
 http://www.truecorp.co.th
 http://www.thaitel.com
+
+[Finance]
+
+http://www.thanachartinsurance.co.th
+http://www.asnbroker.co.th
+http://www.thailife.com
+http://www.kasikornasset.com
+http://www.taradthong.com
+http://www.azay.co.th
+http://www.creditonhand.com
+http://www.krungthai-axa.co.th
+http://www.bualuang.co.th
+http://www.4car4cash.com
+http://www.ghbank.co.th
+http://www.ktb.co.th
+http://www.tsi-thailand.org
+http://www.stock2morrow.com
+http://www.tfex.co.th
+http://www.ktc.co.th
+http://www.kasikornresearch.com
+http://www.dhipaya.co.th
+http://www.rvp.co.th
+http://www.bangkokinsurance.com
+http://www.set.or.th
+http://www.deves.co.th
+http://www.eFinanceThai.com
+http://www.settrade.com
+http://www.fwd.co.th
