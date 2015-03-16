@@ -45,3 +45,8 @@ https://github.com/thetorproject/ooni-pipeline
 ### Those are great!
 
 http://www.pabloyglesias.com/como-protegerse-rastreo/
+
+# Traceroute and routing etc
+
+Follow the links inside: https://www.ripe.net/data-tools/stats/ris/ris-raw-data
+
