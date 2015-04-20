@@ -1,10 +1,10 @@
 [Ministries]
-www.agriculture.gouv.fr
+http://www.agriculture.gouv.fr
 http://www.developpement-durable.gouv.fr/
 http://www.economie.gouv.fr/
-www.culture.gouv.fr
-www.interieur.gouv.fr
-www.sante.gouv.fr
+http://www.culture.gouv.fr
+http://www.interieur.gouv.fr
+http://www.sante.gouv.fr
 http://www.interieur.gouv.fr/fr/A-votre-service/Mes-demarches/Mes-teleservices
 https://passeport.ants.gouv.fr/
 
@@ -17,7 +17,7 @@ http://www.sante.gouv.fr/interventions-precoces.html
 
 [Security]
 http://www.cadastre.gouv.fr/scpc/changeLangue.do?lang=en&cty=EN
-www.inps.interieur.gouv.fr
+http://www.inps.interieur.gouv.fr
 http://www.amf-france.org/
 https://www.internet-signalement.gouv.fr/PortailWeb/planets/Accueil!input.action
 http://www.police-nationale.interieur.gouv.fr/Organisation/Inspection-Generale-de-la-Police-Nationale/Signalement-IGPN
