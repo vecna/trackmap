@@ -1,4 +1,4 @@
-[ministries]
+[Ministries]
 http://www.admin.ch
 http://www.arbeitslosenkasse.ch
 http://www.isb.admin.ch/org/informatikorganisation/index.html?lang=de
@@ -107,14 +107,14 @@ http://www.zug.ch
 http://www.zh.ch
 http://www.llv.li
 
-[health]
+[Health]
 http://www.avs-ai.ch/
 http://www.nationalegesundheit.ch/
 https://www.naz.ch/
 http://www.ssk.ch/
 http://www.doktor.ch/
 
-[security]
+[Security]
 http://www.bevoelkerungsschutz.admin.ch/internet/bs/fr/home.html
 http://www.isps.ch/
 https://www.bj.admin.ch/bj/de/home/staat/rechtsinformatik.html
@@ -123,7 +123,7 @@ http://www.alice.ch/
 http://www.chaeis.net/
 http://www.nagra.ch/en
 
-[eu]
+[EuropeanUnion]
 http://ec.europa.eu/immigration/guidelines-on-eu-migration-policy_en
 http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/schengen_calculator_en.html
 http://ec.europa.eu/immigration/tab2.do?subSec=11

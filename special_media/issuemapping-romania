@@ -1,4 +1,4 @@
-[ministries]
+[Ministries]
 http://www.guv.ro/
 http://gov.ro/ro/guvernul/guvernul
 http://www.senat.ro/
@@ -26,7 +26,7 @@ http://www.mt.ro/web14/
 http://www.just.ro/
 http://www.just.ro/Servicii/tabid/55/Default.aspx
 
-[health]
+[Health]
 http://www.alcocentru.ro/
 http://www.alcohelp.ro/ro/despre/
 http://www.ana.gov.ro/
@@ -38,7 +38,7 @@ http://www.mateibals.ro/
 http://www.registru-celule-stem.ro/
 http://www.112.ro/index.php?pag=15
 
-[security]
+[Security]
 http://www.educatiepentruviitor.edu.ro/web/men/prima-pagina
 http://www.copii.ro/
 http://www.mai-dga.ro/index.php?l=ro
@@ -51,7 +51,7 @@ http://www.onpcsb.ro/index.php
 http://www.orniss.ro/en/index.html
 https://www.sie.ro/index.html
 
-[eu]
+[EuropeanUnion]
 http://ec.europa.eu/immigration/guidelines-on-eu-migration-policy_en
 http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/schengen_calculator_en.html
 http://ec.europa.eu/immigration/tab2.do?subSec=11

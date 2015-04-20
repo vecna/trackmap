@@ -206,7 +206,7 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE, permit_flexible
             candidate_section = line[1:-1]
 
             if permit_flexible_category:
-                print colored("switching to special category: %s" % candidate_section, 'green')
+                print colored("Importing URLs in category: %s" % candidate_section, 'green')
                 current_section = candidate_section
                 continue
 
@@ -232,17 +232,13 @@ def media_file_cleanings(linelist, globalfile=GLOBAL_MEDIA_FILE, permit_flexible
         # to spot http://www.nytimes.com vs http://nytimes.com
         entry_records['site'] = domain_plus_tld
 
-        if domain_plus_tld in domain_only:
+        if domain_plus_tld in domain_only and permit_flexible_category == False:
             print colored(u' → %s is part of an already seen domain: %s' % (line, domain_plus_tld), 'blue', 'on_white')
         else:
             domain_only.append(domain_plus_tld)
 
         retlist.append(entry_records)
         counter_section += 1
-
-    # the last section is printed here
-    if current_section:
-        print "Section", current_section, "has got # entries", counter_section
 
     return retlist
 

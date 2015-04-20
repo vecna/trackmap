@@ -1,4 +1,4 @@
-[ministries]
+[Ministries]
 http://www.garanteprivacy.it/web/guest/home/provvedimenti-normativa/provvedimenti
 http://www.esteri.it/
 http://www.interno.gov.it/it
@@ -20,12 +20,12 @@ http://www.lavoro.gov.it/
 http://www.miur.it/
 http://www.beniculturali.it/
 
-[security]
+[Security]
 http://soldipubblici.gov.it/it/home
 http://italiasicura.governo.it/site/home.html
 http://www.carabinieri.it/
 
-[eu]
+[EuropeanUnion]
 http://ec.europa.eu/immigration/guidelines-on-eu-migration-policy_en
 http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/schengen_calculator_en.html
 http://ec.europa.eu/immigration/tab2.do?subSec=11
