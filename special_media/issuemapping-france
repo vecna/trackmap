@@ -1,29 +1,26 @@
 [ministries]
-http://www.mk.gov.lv/
-http://www.mfa.gov.lv/en/
-http://www.km.gov.lv/en/
-http://www.sprk.gov.lv/
-http://www.izm.gov.lv/en/
-http://www.varam.gov.lv/lat/par_ministriju/
-http://www.fm.gov.lv/en/
-http://www.iem.gov.lv/lat/
-http://www.sam.gov.lv/sm/content/?cat=134
-https://www.em.gov.lv/en/
+www.agriculture.gouv.fr
+http://www.developpement-durable.gouv.fr/
+http://www.economie.gouv.fr/
+www.culture.gouv.fr
+www.interieur.gouv.fr
+www.sante.gouv.fr
+http://www.interieur.gouv.fr/fr/A-votre-service/Mes-demarches/Mes-teleservices
+https://passeport.ants.gouv.fr/
 
 [health]
-http://www.vm.gov.lv/en/
-http://www.vmnvd.gov.lv/en/about-nhs
-https://www.latvija.lv/epakalpojumi/ep113/apraksts
-http://www.lm.gov.lv/
+http://www.sante.gouv.fr/ivg.html
+http://www.scopesante.fr/#/
+http://www.inpes.sante.fr/
+http://www.sante.gouv.fr/medicaments,1969.html
+http://www.sante.gouv.fr/interventions-precoces.html
 
 [security]
-https://www.latvija.lv/en/Epakalpojumi
-http://likumi.lv/about.php
-http://www.csb.gov.lv/en/about-us
-http://www.ptac.gov.lv/en
-http://www.vp.gov.lv/?langid=1
-http://www.tiesibsargs.lv/en/homepage/
-http://www.knab.gov.lv/en/
+http://www.cadastre.gouv.fr/scpc/changeLangue.do?lang=en&cty=EN
+www.inps.interieur.gouv.fr
+http://www.amf-france.org/
+https://www.internet-signalement.gouv.fr/PortailWeb/planets/Accueil!input.action
+http://www.police-nationale.interieur.gouv.fr/Organisation/Inspection-Generale-de-la-Police-Nationale/Signalement-IGPN
 
 [eu]
 http://ec.europa.eu/immigration/guidelines-on-eu-migration-policy_en
