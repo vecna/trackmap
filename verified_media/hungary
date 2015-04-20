@@ -1,0 +1,85 @@
+# global section fetch the content in ../special_media/global
+[global]
+
+# This media list has been received from an anonymous supporter.
+# Hungary will lack until someone from hungary do not run the script.
+# -- March 2015
+
+[national]
+
+# (No.5 in Hungary, No.1900 globally at Alexa.com)
+http://index.hu 
+# (No.7 in Hungary, No.2788 globally at Alexa.com)
+http://origo.hu 
+http://hirado.hu
+http://mno.hu
+# (No.11 in Hungary, No.4376 globally at Alexa.com)
+http://hir24.hu 
+# (No.13 in Hungary, No.5054 globally at Alexa.com)
+http://hvg.hu 
+# (No.35 in Hungary, No.12439 globally at Alexa.com)
+http://hir.ma 
+# (No.47 in Hungary, No.10754 globally at Alexa.com)
+http://www.nemzetisport.hu/
+http://jofogas.hu
+
+# moved from random to national based on 4IMN
+http://nol.hu/
+http://budapestsun.com/
+http://www.napi.hu/
+http://www.nepszava.hu/
+http://vg.hu/
+http://magyarhirlap.hu/
+http://delmagyar.hu
+http://www.blikk.hu/
+http://budapesttimes.hu/
+http://feol.hu/
+http://www.borsonline.hu/
+
+
+[local]
+
+http://beol.hu
+http://baon.hu
+http://bama.hu
+http://haon.hu
+http://boon.hu
+http://szon.hu
+http://veol.hu
+
+
+# Follow some unverified media, I just checked that 
+# they are still active and they are not spam.
+
+http://www.nemzetihirhalo.hu/
+http://www.jobbik.com/
+http://www.magyarhirek.hu/
+http://www.pesterlloyd.net/
+http://www.kurier.hu/
+http://whatsuphungary.com/english/
+http://vaol.hu/
+http://duol.hu/
+http://www.ujidok.hu/
+http://www.kelet.hu/
+http://www.egyenloseg.com/
+http://www.168ora.hu/
+http://www.bankestozsde.hu/online/
+http://www.demokrata.hu/
+https://www.domainabc.hu/
+http://www.eszak.hu/
+http://figyelo.hu/
+http://www.gyor-online.hu/
+http://www.naplo.hu/
+http://www.agria.hu/hmnap/
+http://www.hunnia.net/
+http://www.kisalfold.hu/
+http://hirek.mti.hu/mti/Default.aspx
+http://www.nemzetor.hu/
+http://www.vilaggazdasag.hu/index2.php
+http://bz.hu/
+http://www.jfb.hu/
+http://www.igazmondo.hu/
+
+[blog]
+
+
