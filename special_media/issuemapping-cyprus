@@ -1,4 +1,4 @@
-[ministries]
+[Ministries]
 http://www.cyprus.gov.cy/portal/portal.nsf/citizen_en?OpenForm
 http://www.cyprus.gov.cy/portal/portal.nsf/gwp.getCategory?OpenForm&access=0&SectionId=citizen&CategoryId=Education&SelectionId=none&print=0&lang=en
 http://www.moi.gov.cy/MOI/CRMD/crmd.nsf/All/27852D1A980D670EC2257D2C003176C2?OpenDocument
@@ -18,12 +18,12 @@ http://www.moec.gov.cy/
 http://www.mcw.gov.cy/mcw/mcw.nsf/index_en/index_en?OpenDocument
 http://www.moh.gov.cy/moh/moh.nsf/index_en/index_en?OpenDocument
 
-[security]
+[Security]
 http://www.cyberethics.info/cyethics1/index.php?option=com_content&view=article&id=425&Itemid=129&lang=en
 https://ccs.org.cy/
 http://www.presidency.gov.cy/presidency/presidency.nsf/dmlindex_en/dmlindex_en?OpenDocument
 
-[eu]
+[EuropeanUnion]
 http://ec.europa.eu/immigration/guidelines-on-eu-migration-policy_en
 http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/schengen_calculator_en.html
 http://ec.europa.eu/immigration/tab2.do?subSec=11

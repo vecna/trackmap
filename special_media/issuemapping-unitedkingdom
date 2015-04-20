@@ -1,4 +1,4 @@
-[ministries]
+[Ministries]
 https://www.gov.uk/government/organisations/department-for-business-innovation-skills
 https://www.gov.uk/government/organisations/department-for-communities-and-local-government
 https://www.gov.uk/government/organisations/department-for-culture-media-sport
@@ -24,7 +24,7 @@ https://www.gov.uk/government/organisations/office-of-the-leader-of-the-house-of
 https://www.gov.uk/government/organisations/uk-export-finance
 http://www.parliament.uk/business/committees/committees-a-z/commons-select/public-administration-select-committee/inquiries/parliament-2010/citizen-and-public-services/
 
-[health]
+[Health]
 
 http://www.nhs.uk/Pages/HomePage.aspx
 http://www.hfea.gov.uk/
@@ -39,7 +39,7 @@ http://www.nhs.uk/conditions/erectile-dysfunction/pages/introduction.aspx
 http://www.nhs.uk/conditions/sexually-transmitted-infections/pages/introduction.aspx
 http://www.nhs.uk/Service-Search/Sexual-health-information-and-support/Location/734
 
-[security]
+[Security]
 http://www.childrenscommissioner.gov.uk/
 http://www.childrenscommissioner.gov.uk/member/register
 http://www.police.uk/
@@ -51,7 +51,7 @@ https://ico.org.uk/
 http://www.cps.gov.uk/legal/v_to_z/witness_protection_and_anonymity/
 http://www.cps.gov.uk/
 
-[eu]
+[EuropeanUnion]
 http://ec.europa.eu/immigration/guidelines-on-eu-migration-policy_en
 http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/schengen_calculator_en.html
 http://ec.europa.eu/immigration/tab2.do?subSec=11

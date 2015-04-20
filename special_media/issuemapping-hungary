@@ -1,4 +1,4 @@
-[ministries]
+[Ministries]
 http://www.kormany.hu/hu/emberi-eroforrasok-miniszteriuma/allamtitkarok
 http://mail.hm.gov.hu/GOVMILStartPage/index.html
 http://www.kvvm.gov.hu/index.php
@@ -9,7 +9,7 @@ http://konzuliszolgalat.kormany.hu/
 http://www.eum.hu/szakmai-civil/nemzeti-egeszsegugyi/nemzeti-egeszsegugyi
 http://www.eum.hu/palyazatok/eredmenyek
 
-[health]
+[Health]
 http://www.std.hu/
 http://drinfo.eum.hu/drinfo/pid/0/sitemap
 
@@ -21,7 +21,7 @@ https://www.antsz.hu/
 http://www.kormany.hu/hu
 http://www.parlament.hu/
 
-[security]
+[Security]
 http://nmhh.hu/
 http://nmhh.hu/medianak/
 http://www.vasarosnameny.hu/index.php?option=com_content&view=article&id=841&Itemid=1041
@@ -37,7 +37,7 @@ https://magyarorszag.hu/
 https://ugyintezes.magyarorszag.hu/szolgaltatasok/taj.html
 https://edemokracia.magyarorszag.hu/edemokracia/edem_kozig/edemokracia_h_onk.html
 
-[eu]
+[EuropeanUnion]
 http://ec.europa.eu/immigration/guidelines-on-eu-migration-policy_en
 http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/schengen_calculator_en.html
 http://ec.europa.eu/immigration/tab2.do?subSec=11

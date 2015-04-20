@@ -1,4 +1,4 @@
-[ministries]
+[Ministries]
 www.agriculture.gouv.fr
 http://www.developpement-durable.gouv.fr/
 http://www.economie.gouv.fr/
@@ -8,21 +8,21 @@ www.sante.gouv.fr
 http://www.interieur.gouv.fr/fr/A-votre-service/Mes-demarches/Mes-teleservices
 https://passeport.ants.gouv.fr/
 
-[health]
+[Health]
 http://www.sante.gouv.fr/ivg.html
 http://www.scopesante.fr/#/
 http://www.inpes.sante.fr/
 http://www.sante.gouv.fr/medicaments,1969.html
 http://www.sante.gouv.fr/interventions-precoces.html
 
-[security]
+[Security]
 http://www.cadastre.gouv.fr/scpc/changeLangue.do?lang=en&cty=EN
 www.inps.interieur.gouv.fr
 http://www.amf-france.org/
 https://www.internet-signalement.gouv.fr/PortailWeb/planets/Accueil!input.action
 http://www.police-nationale.interieur.gouv.fr/Organisation/Inspection-Generale-de-la-Police-Nationale/Signalement-IGPN
 
-[eu]
+[EuropeanUnion]
 http://ec.europa.eu/immigration/guidelines-on-eu-migration-policy_en
 http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/schengen_calculator_en.html
 http://ec.europa.eu/immigration/tab2.do?subSec=11
