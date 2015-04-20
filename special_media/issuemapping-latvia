@@ -1,4 +1,4 @@
-[ministries]
+[Ministries]
 http://www.mk.gov.lv/
 http://www.mfa.gov.lv/en/
 http://www.km.gov.lv/en/
@@ -10,13 +10,13 @@ http://www.iem.gov.lv/lat/
 http://www.sam.gov.lv/sm/content/?cat=134
 https://www.em.gov.lv/en/
 
-[health]
+[Health]
 http://www.vm.gov.lv/en/
 http://www.vmnvd.gov.lv/en/about-nhs
 https://www.latvija.lv/epakalpojumi/ep113/apraksts
 http://www.lm.gov.lv/
 
-[security & oversight]
+[Security]
 https://www.latvija.lv/en/Epakalpojumi
 http://likumi.lv/about.php
 http://www.csb.gov.lv/en/about-us
@@ -25,7 +25,7 @@ http://www.vp.gov.lv/?langid=1
 http://www.tiesibsargs.lv/en/homepage/
 http://www.knab.gov.lv/en/
 
-[eu]
+[EuropeanUnion]
 http://ec.europa.eu/immigration/guidelines-on-eu-migration-policy_en
 http://ec.europa.eu/dgs/home-affairs/what-we-do/policies/borders-and-visas/border-crossing/schengen_calculator_en.html
 http://ec.europa.eu/immigration/tab2.do?subSec=11
