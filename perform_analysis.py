@@ -82,13 +82,14 @@ def get_local_phantom_v():
 
 def I_want_thread_to_zero(max_sec):
 
+    print colored("Thread alive has to be closed in %d seconds..." % max_sec, 'white', attrs=['bold'] )
     max_seconds_await = max_sec
     while threading.active_count():
         time.sleep(1)
         max_seconds_await -= 1
         if not max_seconds_await:
-            print colored("Some thread (%d) still alive, but don't want finish :( amen!" % threading.active_count())
-            break
+            print colored("Some thread (%d) still alive, but don't want wait :( amen!" % threading.active_count(), 'white', attrs=['bold'])
+            return threading.active_count()
 
 
 class PhantomCrawl(threading.Thread):
@@ -98,6 +99,7 @@ class PhantomCrawl(threading.Thread):
     media_done = 0
     media_running = 0
     status_file = None
+    LOAD_AVG = 2.5
 
     @classmethod
     def load_status_disk(cls):
@@ -123,11 +125,13 @@ class PhantomCrawl(threading.Thread):
         load_avg, _, __ = os.getloadavg()
         time.sleep(2.5)
 
-        if load_avg > 3:
+        if load_avg > PhantomCrawl.LOAD_AVG:
+            time_to_sleep = 50
             print colored(
-                    "Load average peek reach (%f) with %d thread, slow down" % 
-                    (load_avg, threading.active_count() ), 'red' )
-            time.sleep(50)
+                "Load average peek reach (%f) with %d thread, sleep for %d" % 
+                    (load_avg, threading.active_count(), time_to_sleep), 
+                'red')
+            time.sleep(time_to_sleep)
 
     def run(self):
 
@@ -433,12 +437,11 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
         # "nohup: ignoring input and appending output to ‘nohup.out’"
         p.stdout.readline()
 
-        print colored("+ %03d..%03d/%03d\tExecuting %s on: %s (%s)" %
+        print colored("+ %03d..%03d/%03d\tExecuting PhantomJS on: %s (%s)" %
                 ( PhantomCrawl.media_running,
                   PhantomCrawl.media_done,
                   PhantomCrawl.media_amount,
-                  binary, url,
-                  media_kind), "green")
+                  url, media_kind), "green")
 
         # wait up to 90 seconds, and then kill the process if is not done
         wtime = 0
@@ -564,8 +567,13 @@ class Traceroute:
 
     @classmethod
     def is_already_trace(cls, ip_addr, OUTPUTDIR):
+        # check if the file has more than one line, if not, is not done.
         traceoutf = os.path.join(OUTPUTDIR, '_verbotracelogs', ip_addr)
-        return os.path.isfile(traceoutf)
+        if not os.path.isfile(traceoutf):
+            return False
+        with file(traceoutf) as tfp:
+            line_count = tfp.readlines()
+            return len(line_count) > 2
 
     def do_trace(self):
         """
@@ -851,7 +859,7 @@ def main():
         # this is the index we are going to use
         unid = unicode(media_blob['id'])
 
-        if unid in PhantomCrawl.status and PhantomCrawl.status[unid]['status']:
+        if unid in PhantomCrawl.status and PhantomCrawl.status[unid]['status'] != 'failures':
             skipped += 1
             PhantomCrawl.media_done += 1
             continue
@@ -954,7 +962,7 @@ def main():
 
         DNSreverse(ip, args.shitty_internet).start()
 
-    I_want_thread_to_zero(12)
+    I_want_thread_to_zero(16)
 
     print colored("\nReversed %d unique FQDN from %d IPaddrs (Errors %d)" %
                   ( len(DNSreverse.fqdn_map.keys()), 
@@ -975,8 +983,6 @@ def main():
     # saving again information about network location
     get_client_info(os.path.join(OUTPUTDIR, 'second.json'))
 
-    # Traceroute is not yet multithread
-
     # starting traceroute to all the collected IP
     print colored(" ࿓  Running traceroute to %d IP address (from %d hosts)" % (
         len(DNSresolve.ip_map.keys()), len(included_url_dict.keys())), 'blue', 'on_white', attrs=['underline'])
@@ -992,7 +998,27 @@ def main():
 
         Multitrace(OUTPUTDIR, ip_addr, hostlist, args.shitty_internet).start()
 
-    I_want_thread_to_zero(140)
+    some_thread_existing = I_want_thread_to_zero(50)
+    if some_thread_existing:
+        print colored("Forcing traceroute(s) to be Terminated", 'white', attrs=['bold'])
+        os.system('killall -9 traceroute')
+
+    ## ----------- PERFORM TRACEROUTE A SECOND TIME
+    if some_thread_existing:
+
+        Multitrace.amount = len(DNSresolve.ip_map.keys())
+        Multitrace.done = 0
+
+        print colored(" ࿓  Running traceroute to get the missing %d IP " % 
+                some_thread_existing, 'blue', 'on_white', attrs=['underline'])
+
+        for ip_addr, hostlist in DNSresolve.ip_map.iteritems():
+
+            if Traceroute.is_already_trace(ip_addr, OUTPUTDIR):
+                Multitrace.done += 1
+                continue
+
+        I_want_thread_to_zero(50)
 
     ## ----------- END TRACEROUTE -------------
 

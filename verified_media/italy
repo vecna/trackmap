@@ -9,11 +9,9 @@ http://www.linkiesta.it
 http://www.lettera43.it
 http://www.agi.it
 http://espresso.repubblica.it
-http://www.avanti.it
 http://www.adnkronos.com
 http://www.affaritaliani.it
 http://ilmanifesto.it/
-http://www.pagina99.it
 http://www.rai.it
 http://www.diretta.it
 http://www.rainews24.it
@@ -29,7 +27,7 @@ http://www.tgcom24.mediaset.it
 http://www.ilsole24ore.com
 http://www.radio24.ilsole24ore.com
 http://www.ilgiornale.it
-http://qn.quotidiano.net
+http://www.quotidiano.net
 http://www.ilgiorno.it
 http://it.reuters.com
 http://www.tuttosport.com
@@ -42,8 +40,8 @@ http://www.lanazione.it
 [local]
 # this section contain also non-mainstream topics
 
+http://www.dispaccio.it
 http://altoadige.gelocal.it
-http://corrieredibologna.corriere.it
 http://gaynews.it
 http://www.famigliacristiana.it
 http://gazzettadimantova.gelocal.it
@@ -102,7 +100,6 @@ http://www.ideapadova.it/
 http://www.bianews.it/
 http://www.ilcittadino.it/
 http://www.ilcrotonese.it/
-http://www.ildomani.it/
 http://www.ilfaro.it/news
 http://www.ilfoglio.it/
 http://www.ilgiornaledellazio.it/
@@ -131,7 +128,6 @@ http://www.italica.sm/
 http://www.key4biz.it/
 http://www.ladige.it/
 http://www.lagazzettadelmezzogiorno.it/
-http://www.lapadania.com/
 http://www.laprovinciadicomo.it/
 http://www.laprovinciadilecco.it/
 http://www.laprovinciadisondrio.it/
@@ -176,13 +172,15 @@ http://www.tempi.it/
 http://www.unionesarda.it/
 http://www.valenza.it/
 http://www.vernacoliere.com/
-http://www.vice.com
+http://www.vice.com/it/
 http://www.virgilio.it
-http://www.vita.it/
-http://www.voce.it/
+http://www.vita.it
+http://www.voce.it
 http://www.wired.it
-http://www.zerosette.it/
+http://www.zerosette.it
 http://www.zeusnews.it
+http://lapadania.net
+http://www.techeconomy.it
 
 http://www.theflorentine.net/
 # The English-speaking news magazine in Florence
