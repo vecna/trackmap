@@ -1,16 +1,10 @@
 # global section fetch the content in ../special_media/global
-[global]
 
 [national]
-
-# included in global
 http://www.dailymail.co.uk 
 http://www.independent.co.uk/
 http://www.telegraph.co.uk/
-# end /global
-
 http://theguardian.co.uk
-http://descrier.co.uk/
 http://metro.co.uk/
 http://observer.theguardian.com/
 http://www.bbc.co.uk/
@@ -19,21 +13,14 @@ http://www.dailyrecord.co.uk/
 http://www.economist.com/
 http://www.ft.com
 http://www.thesundaytimes.co.uk/
-
-# rank 7 
 http://www.thesun.co.uk
 http://www.standard.co.uk
 
-# rank 6 
-http://www.holdthefrontpage.co.uk
+[local]
 http://www.thejc.com
 http://www.yorkshireeveningpost.co.uk
 http://www.thisisoxfordshire.co.uk
-
-[local]
-
 http://www.yorkshirepost.co.uk
-http://guestlist.net/
 http://icberkshire.icnetwork.co.uk/
 http://iccroydon.icnetwork.co.uk/news/
 http://icealing.icnetwork.co.uk/
@@ -117,7 +104,6 @@ http://www.eveningnews24.co.uk/home
 http://www.eveshamjournal.co.uk/
 http://www.examiner.co.uk/
 http://www.exeterexpressandecho.co.uk/
-http://www.expatica.co.uk/
 http://www.expressandstar.com/
 http://www.express.co.uk/
 http://www.gazetteandherald.co.uk/
@@ -211,3 +197,4 @@ http://www.watfordobserver.co.uk
 # http://www.almushahidassiyasi.com/
 # http://www.alquds.co.uk/
 # http://www.elaph.com/
+
