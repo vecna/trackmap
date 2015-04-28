@@ -1,0 +1,44 @@
+[global]
+
+[national]
+
+http://www.stuff.co.nz/
+http://www.nzherald.co.nz/
+http://www.scoop.co.nz/
+
+#paywalled
+http://www.nbr.co.nz/
+
+# Radio and TV sites
+http://www.3news.co.nz/
+http://tvnz.co.nz/news/
+
+
+
+[local]
+
+# there are a number of local news urls that run as alternate front
+# pages for stuff and nzherald (above). I'm not listing those, but you
+# can find them listed at the bottom of the stuff/nzherald pages.
+
+http://www.odt.co.nz/
+
+[blog]
+
+# incomplete, of course.
+
+http://publicaddress.net/
+http://www.whaleoil.co.nz/
+http://www.kiwiblog.co.nz/
+http://thestandard.org.nz/
+http://transportblog.co.nz/
+http://thedailyblog.co.nz/
+http://liturgy.co.nz/
+http://newzeal.blogspot.com/
+http://dimpost.wordpress.com/
+http://offsettingbehaviour.blogspot.com/
+http://www.norightturn.blogspot.com/
+http://www.throng.co.nz/
+http://nominister.blogspot.co.nz/
+
+http://www.thecivilian.co.nz/
