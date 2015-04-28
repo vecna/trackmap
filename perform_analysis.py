@@ -88,7 +88,7 @@ def I_want_thread_to_zero(max_sec):
         time.sleep(1)
         max_seconds_await -= 1
         if not max_seconds_await:
-            print colored("Some thread (%d) still alive, but don't want wait :( amen!" % threading.active_count(), 'white', attrs=['bold'])
+            print colored("Some thread (%d) still alive: Timeout expired" % threading.active_count(), 'white', attrs=['bold'])
             return threading.active_count()
 
 
@@ -1018,7 +1018,8 @@ def main():
                 Multitrace.done += 1
                 continue
 
-        I_want_thread_to_zero(50)
+        time.sleep(40)
+        I_want_thread_to_zero(20)
 
     ## ----------- END TRACEROUTE -------------
 
