@@ -97,7 +97,7 @@ class PhantomCrawl(threading.Thread):
     media_done = 0
     media_running = 0
     status_file = None
-    LOAD_AVG = 1.5
+    LOAD_AVG = 2.8
 
     @classmethod
     def load_status_disk(cls):
@@ -443,7 +443,7 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
         # wait up to 90 seconds, and then kill the process if is not done
         wtime = 0
         while wtime < 90 and p.returncode == None:
-            p.poll();
+            p.poll()
             time.sleep(1)
             wtime += 1
 
@@ -677,7 +677,7 @@ def get_alexa_list():
     with file(country_f) as fp:
         unclean_lines = fp.readlines()
         alexa_full_entries = media_file_cleanings(unclean_lines)
-        return 'alexa100', alexa_full_entries
+        return 'special/alexa100', alexa_full_entries
 
 
 def do_traceroute_dance(OUTPUTDIR, included_url_dict, shitty_internet):
