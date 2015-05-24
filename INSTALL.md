@@ -46,7 +46,7 @@ Create one directory to store the project files:
 
 Install the required packages:
 
-    sudo dnf install -y git tar bzip2 unzip wget traceroute python-pip python-termcolor python-requests fontconfig
+    sudo dnf install -y git tar bzip2 unzip wget traceroute python-pip python-termcolor python-requests fontconfig psmisc
     sudo pip install tldextract
     
 Download latest trackmap from Github:
