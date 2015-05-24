@@ -42,6 +42,22 @@ Create one directory to store the project files:
     cd trackmap-master
     ./fetch_phantomjs.sh
 
+## Fedora Linux
+
+Install the required packages:
+
+    sudo dnf install -y git tar bzip2 unzip wget traceroute python-pip python-termcolor python-requests fontconfig
+    sudo pip install tldextract
+    
+Download latest trackmap from Github:
+
+    git clone https://github.com/vecna/trackmap.git
+    cd trackmap
+    
+And download the last missing binary - Phantom JS:
+
+    ./fetch_phantomjs.sh
+
 ## Arch Linux
 
 Install the required packages:
