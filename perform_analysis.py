@@ -648,9 +648,10 @@ def verify_media_country(the_user_input, special):
         return special_f, media_entries
 
     # if not special, is media list
-    country_f = os.path.join('verified_media', the_user_input.lower())
+    country_name = the_user_input.lower()
+    country_f = os.path.join('verified_media', country_name)
     if not os.path.isfile(country_f):
-        print colored("Invalid country! not found %s in directory 'verified_media/' " % proposed_country, 'red')
+        print colored("Invalid country! not found %s in directory 'verified_media/' " % country_name, 'red')
         print "Available countries are:"
         for existing_c in os.listdir('verified_media'):
             if existing_c in ['README.md', 'test']:
