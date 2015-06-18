@@ -779,7 +779,7 @@ def main():
         if args.special:
             print colored(" ࿓  Sending previous results (to Contextual)", "blue", "on_white", attrs=['underline'])
             quit(send_results(args.targz_output, special_tuple))
-        elif arga.alexa:
+        elif args.alexa:
             print colored(" ࿓  Sending previous results (to Alexa)", "blue", "on_white", attrs=['underline'])
             quit(send_results(args.targz_output, alexa_tuple))
         else:
@@ -801,9 +801,9 @@ def main():
         elif not local_phantom_v:
             print colored("phantomjs missing as link and missing in the system!", "red", "on_white")
             print colored("Please refer to the RADME or asks support to us", "red", "on_white")
-            print colored("The script can't work in this status!", red)
+            print colored("The script can't work in this status!", "red")
         else:
-            print colored("You have to use the option -l, and your installation is quite uncommon", red)
+            print colored("You have to use the option -l, and your installation is quite uncommon", "red")
         print
         print "Look in the verified_media/ for a list of countries."
         print "TrackMap collection tool version: %d" % ANALYSIS_VERSION
@@ -820,7 +820,7 @@ def main():
     elif args.lp:
         print colored("phantomjs missing as link and missing in the system!", "red", "on_white")
         print colored("Please refer to the README or asks support to us", "red", "on_white")
-        print colored("The script can't work in this status!", red)
+        print colored("The script can't work in this status!", "red")
         quit(-1)
     elif not os.path.islink('phantom-1.9.8'):
         print colored(
@@ -1060,6 +1060,7 @@ def main():
     elif args.alexa:
         ret = send_results(output_name, alexa_tuple)
     else:
+        # XXX unused variables
         ret = send_results(output_name, media_tuple)
     print ""
     os.kill(os.getpid(), 15)
@@ -1123,6 +1124,7 @@ def send_results(targz, connect_tuple):
         print colored("\n\tLink broken! please, run the ./perform_analysis.py script:\n", "red")
         print colored("./perform_analysis.py -s %s %s" % (
             targz, "-S %s" % args.special if args.special else ""), "red")
+        # XXX here args is not defined
         return -1
 
 
