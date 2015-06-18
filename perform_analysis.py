@@ -128,7 +128,7 @@ class PhantomCrawl(threading.Thread):
             print colored(
                 "Load average peek reach (%f) with %d thread, sleep for %d" %
                 (load_avg, threading.active_count(), time_to_sleep),
-                'red')
+                "red")
             time.sleep(time_to_sleep)
 
     def run(self):
@@ -163,7 +163,7 @@ class PhantomCrawl(threading.Thread):
                 return
 
             time.sleep(0.1)
-            print colored("Mandatory sync required: <recursion>", 'red', 'on_yellow')
+            print colored("Mandatory sync required: <recursion>", "red", 'on_yellow')
             PhantomCrawl.sync_status_disk(mandatory)
 
 
@@ -278,7 +278,7 @@ class DNSresolve(threading.Thread):
         except RuntimeError:
             if mandatory:
                 time.sleep(0.1)
-                print colored("Mandatory sync required: <recursion>", 'red', 'on_yellow')
+                print colored("Mandatory sync required: <recursion>", "red", 'on_yellow')
                 DNSresolve.save_status(mandatory)
 
 
@@ -395,7 +395,7 @@ class DNSreverse(threading.Thread):
         except RuntimeError:
             if mandatory:
                 time.sleep(0.1)
-                print colored("Mandatory sync required: <recursion>", 'red', 'on_yellow')
+                print colored("Mandatory sync required: <recursion>", "red", 'on_yellow')
                 DNSreverse.save_status(mandatory)
 
 
@@ -487,7 +487,7 @@ def do_phantomjs(local_phantomjs, url, destfile, media_kind):
             print colored("done %s" % url, "yellow")
             return 'second'
 
-        print colored("Other kind of failure F%d S%d (can this happen ?" % (first_test, second_test), 'red')
+        print colored("Other kind of failure F%d S%d (can this happen ?" % (first_test, second_test), "red")
         return 'failures'
 
     else:
@@ -506,7 +506,7 @@ class Multitrace(threading.Thread):
         load_avg, _, __ = os.getloadavg()
 
         if load_avg > 3:
-            print colored("Load AVG %f, delay now." % load_avg, 'red')
+            print colored("Load AVG %f, delay now." % load_avg, "red")
             time.sleep(50)
 
         time.sleep(1)
@@ -532,12 +532,12 @@ class Multitrace(threading.Thread):
             print colored("%02d > %04d/%04d %s" %
                           (threading.active_count(),
                            self.personal_id, Multitrace.amount,
-                           self.ip_addr), 'green'),
+                           self.ip_addr), "green"),
         else:
             print colored("%02d ! %04d/%04d %s" %
                           (threading.active_count(),
                            self.personal_id, Multitrace.amount,
-                           self.ip_addr), 'red'),
+                           self.ip_addr), "red"),
 
         # in both cases, this contain additional info:
         print t.colored_output
@@ -617,11 +617,11 @@ class Traceroute:
             # if is an "* * * * *" I'll record as None and here is stripped
             if not ip:
                 none += 1
-                self.colored_output = "%s %s" % (self.colored_output, colored(counter, 'red'))
+                self.colored_output = "%s %s" % (self.colored_output, colored(counter, "red"))
                 continue
 
             counter += 1
-            self.colored_output = "%s %s" % (self.colored_output, colored(counter, 'green'))
+            self.colored_output = "%s %s" % (self.colored_output, colored(counter, "green"))
 
         if none == Traceroute.HOP_COUNT:
             TraceStats.three_hundred_sadness()
@@ -635,13 +635,13 @@ def verify_media_country(the_user_input, special):
     if special:
         special_f = os.path.join('special_media', the_user_input)
         if not os.path.isfile(special_f):
-            print colored("Invaild special URL source, check in special_media ", 'red')
+            print colored("Invaild special URL source, check in special_media ", "red")
             quit(-1)
 
         cfp = file(special_f, 'r')
         unclean_lines = cfp.readlines()
 
-        print colored(" ࿓  Importing special media list:", 'blue', 'on_white', attrs=['underline'])
+        print colored(" ࿓  Importing special media list:", "blue", "on_white", attrs=['underline'])
         media_entries = media_file_cleanings(unclean_lines, permit_flexible_category=True)
         cfp.close()
 
@@ -651,22 +651,22 @@ def verify_media_country(the_user_input, special):
     country_name = the_user_input.lower()
     country_f = os.path.join('verified_media', country_name)
     if not os.path.isfile(country_f):
-        print colored("Invalid country! not found %s in directory 'verified_media/' " % country_name, 'red')
+        print colored("Invalid country! not found %s in directory 'verified_media/' " % country_name, "red")
         print "Available countries are:"
         for existing_c in os.listdir('verified_media'):
             if existing_c in ['README.md', 'test']:
                 continue
             print "\t", existing_c
-        print colored("You can propose your own country media list following these instructions:", 'blue', 'on_white')
-        print colored("https://github.com/vecna/trackmap/blob/master/unverified_media_list/README.md", 'blue',
-                      'on_white')
+        print colored("You can propose your own country media list following these instructions:", "blue", "on_white")
+        print colored("https://github.com/vecna/trackmap/blob/master/unverified_media_list/README.md", "blue",
+                      "on_white")
         quit(-1)
 
     cfp = file(country_f, 'r')
     # reading media list, cleaning media list and copy media list
     unclean_lines = cfp.readlines()
 
-    print colored(" ࿓  Importing media list from %s:" % the_user_input.lower(), 'blue', 'on_white', attrs=['underline'])
+    print colored(" ࿓  Importing media list from %s:" % the_user_input.lower(), "blue", "on_white", attrs=['underline'])
     media_entries = media_file_cleanings(unclean_lines)
     cfp.close()
 
@@ -693,7 +693,7 @@ def do_traceroute_dance(OUTPUTDIR, included_url_dict, shitty_internet):
 
     # starting traceroute to all the collected IP
     print colored(" ࿓  Running traceroute to %d IP address (from %d hosts)" % (
-        len(DNSresolve.ip_map.keys()), len(included_url_dict.keys())), 'blue', 'on_white', attrs=['underline'])
+        len(DNSresolve.ip_map.keys()), len(included_url_dict.keys())), "blue", "on_white", attrs=['underline'])
 
     Multitrace.amount = len(DNSresolve.ip_map.keys())
     for ip_addr, hostlist in DNSresolve.ip_map.iteritems():
@@ -718,7 +718,7 @@ def do_traceroute_dance(OUTPUTDIR, included_url_dict, shitty_internet):
         Multitrace.done = 0
 
         print colored(" ࿓  Running traceroute to get the missing %d IP " %
-                      some_thread_existing, 'blue', 'on_white', attrs=['underline'])
+                      some_thread_existing, "blue", "on_white", attrs=['underline'])
 
         for ip_addr, hostlist in DNSresolve.ip_map.iteritems():
 
@@ -777,13 +777,13 @@ def main():
             quit(-1)
 
         if args.special:
-            print colored(" ࿓  Sending previous results (to Contextual)", 'blue', 'on_white', attrs=['underline'])
+            print colored(" ࿓  Sending previous results (to Contextual)", "blue", "on_white", attrs=['underline'])
             quit(send_results(args.targz_output, special_tuple))
-        elif arga.alexa:
-            print colored(" ࿓  Sending previous results (to Alexa)", 'blue', 'on_white', attrs=['underline'])
+        elif args.alexa:
+            print colored(" ࿓  Sending previous results (to Alexa)", "blue", "on_white", attrs=['underline'])
             quit(send_results(args.targz_output, alexa_tuple))
         else:
-            print colored(" ࿓  Sending previous results (to Media)", 'blue', 'on_white', attrs=['underline'])
+            print colored(" ࿓  Sending previous results (to Media)", "blue", "on_white", attrs=['underline'])
             quit(send_results(args.targz_output, media_tuple))
 
     try:
@@ -793,17 +793,17 @@ def main():
         local_phantom_v = None
 
     if not (args.medialist or args.special or args.alexa):
-        print colored("Usage: %s -c $YOUR_COUNTRY_NAME" % sys.argv[0], "red", 'on_white')
+        print colored("Usage: %s -c $YOUR_COUNTRY_NAME" % sys.argv[0], "red", "on_white")
         print parser.format_help()
 
         if os.path.islink('phantom-1.9.8'):
             print colored("found phantom-1.9.8 as link, good.", "green", "on_white")
         elif not local_phantom_v:
             print colored("phantomjs missing as link and missing in the system!", "red", "on_white")
-            print colored("Please refer to the RADME or asks support to us", 'red', 'on_white')
-            print colored("The script can't work in this status!", red)
+            print colored("Please refer to the RADME or asks support to us", "red", "on_white")
+            print colored("The script can't work in this status!", "red")
         else:
-            print colored("You have to use the option -l, and your installation is quite uncommon", red)
+            print colored("You have to use the option -l, and your installation is quite uncommon", "red")
         print
         print "Look in the verified_media/ for a list of countries."
         print "TrackMap collection tool version: %d" % ANALYSIS_VERSION
@@ -812,20 +812,20 @@ def main():
     # check if the user is running phantom as installed on the system (also vagrant make this)
     # of if is using
     if args.lp and local_phantom_v:
-        print colored("You're using your local installed phantomjs. A version >= than 1.9.0 is needed.", 'blue',
-                      'on_white')
-        print colored("I'm not going to compare the string. Be aware: this is your version:", 'red')
-        print colored(local_phantom_v, 'blue', 'on_white')
+        print colored("You're using your local installed phantomjs. A version >= than 1.9.0 is needed.", "blue",
+                      "on_white")
+        print colored("I'm not going to compare the string. Be aware: this is your version:", "red")
+        print colored(local_phantom_v, "blue", "on_white")
         print "If is wrong, just press ^c and use the proper README instruction, or asks support to us"
     elif args.lp:
         print colored("phantomjs missing as link and missing in the system!", "red", "on_white")
-        print colored("Please refer to the README or asks support to us", 'red', 'on_white')
-        print colored("The script can't work in this status!", red)
+        print colored("Please refer to the README or asks support to us", "red", "on_white")
+        print colored("The script can't work in this status!", "red")
         quit(-1)
     elif not os.path.islink('phantom-1.9.8'):
         print colored(
             "Missing phantom-1.9.8. A symbolic link named phantom-1.9.8 was expected, but not found. Please consult README.md and make sure you've followed the installation procedure exactly.",
-            'red', 'on_white')
+            "red", "on_white")
         quit(-1)
 
     # country check
@@ -854,7 +854,7 @@ def main():
 
     if args.twit is None:
         print colored("You can specify your Twitter handle with -t and get mentioned by @trackography_",
-                      'blue', 'on_yellow')
+                      "blue", 'on_yellow')
 
     # ask free information to the script runner
     info_f = os.path.join(OUTPUTDIR, 'information')
@@ -879,7 +879,7 @@ def main():
     with file(os.path.join(OUTPUTDIR, 'source_url_configured.json'), 'w+') as f:
         json.dump(media_entries, f)
 
-    print colored(" ࿓  Checking your network source.", 'blue', 'on_white', attrs=['underline'])
+    print colored(" ࿓  Checking your network source.", "blue", "on_white", attrs=['underline'])
     get_client_info(os.path.join(OUTPUTDIR, 'first.json'))
 
     # Init of class method/vars
@@ -889,14 +889,14 @@ def main():
 
     print colored(" ࿓  Starting media crawling (%d)" %
                   PhantomCrawl.media_amount,
-                  'blue', 'on_white', attrs=['underline'])
+                  "blue", "on_white", attrs=['underline'])
 
     # here start iteration over the media!
     skipped = 0
     for media_blob in media_entries:
 
         if not media_blob['category']:
-            print colored("%s is missing category ?" % media_blob['url'], 'red', 'on_white')
+            print colored("%s is missing category ?" % media_blob['url'], "red", "on_white")
             continue
 
         # this is the index we are going to use
@@ -938,7 +938,7 @@ def main():
 
         print colored("Running %d, completed %d (on %d): sleeping 25s." % \
                       (PhantomCrawl.media_running, PhantomCrawl.media_done,
-                       PhantomCrawl.media_amount), 'green', 'on_white')
+                       PhantomCrawl.media_amount), "green", "on_white")
         time.sleep(15)
 
 
@@ -960,7 +960,7 @@ def main():
 
     # generate DNS resolution map. for every host resolve an IP, for every IP resolve again DNS
     print colored(" ࿓  DNS resolution of %d domains..." % len(included_url_dict.keys()),
-                  'blue', 'on_white', attrs=['underline'])
+                  "blue", "on_white", attrs=['underline'])
 
     for domain in included_url_dict.keys():
 
@@ -975,11 +975,11 @@ def main():
     print colored("\nResolved %d unique IPv4 from %d unique domain (Errors %d)" %
                   (len(DNSresolve.ip_map.keys()), len(included_url_dict.keys()),
                    DNSresolve.resolve_errors
-                  ), 'green')
+                  ), "green")
     DNSresolve.save_status(mandatory=True)
 
     if not len(DNSresolve.ip_map.keys()):
-        print colored("It appears that you can't access the internet. Please fix that and restart the test.", 'red')
+        print colored("It appears that you can't access the internet. Please fix that and restart the test.", "red")
         quit(-1)
 
 
@@ -993,7 +993,7 @@ def main():
     DNSreverse.load_status_disk()
 
     print colored(" ࿓  DNS reverse of %d domains..." % DNSreverse.ip_amount,
-                  'blue', 'on_white', attrs=['underline'])
+                  "blue", "on_white", attrs=['underline'])
 
     for ip in DNSresolve.ip_map.keys():
 
@@ -1008,7 +1008,7 @@ def main():
     print colored("\nReversed %d unique FQDN from %d IPaddrs (Errors %d)" %
                   ( len(DNSreverse.fqdn_map.keys()),
                     len(DNSresolve.ip_map.keys()), DNSreverse.reverse_errors),
-                  'green')
+                  "green")
     DNSreverse.save_status(mandatory=True)
 
     # saving again information about network location
@@ -1021,7 +1021,7 @@ def main():
     get_client_info(os.path.join(OUTPUTDIR, 'third.json'))
 
     output_name = 'results-%s.tar.gz' % proposed_country.split('/')[1].lower()
-    print colored(" ࿓  Analysis done! compressing the output in %s" % output_name, "blue", 'on_white',
+    print colored(" ࿓  Analysis done! compressing the output in %s" % output_name, "blue", "on_white",
                   attrs=['underline'])
 
     if os.path.isfile(output_name):
@@ -1040,7 +1040,7 @@ def main():
     if args.disable_send:
         print colored("%d files added to %s" % (counter_line, output_name), "green")
         print colored("Sending disable, test complete.", "yellow"),
-        print colored("亷 亸", 'blue', 'on_white')
+        print colored("亷 亸", "blue", "on_white")
         os.kill(os.getpid(), 15)
         quit(0)
 
@@ -1060,6 +1060,7 @@ def main():
     elif args.alexa:
         ret = send_results(output_name, alexa_tuple)
     else:
+        # XXX unused variables
         ret = send_results(output_name, media_tuple)
     print ""
     os.kill(os.getpid(), 15)
@@ -1108,7 +1109,7 @@ def send_results(targz, connect_tuple):
         s.close()
 
     if total_sent == statinfo.st_size:
-        print colored("\n\tData collected has been sent, Thank You! :)\n", 'green')
+        print colored("\n\tData collected has been sent, Thank You! :)\n", "green")
         print "Deleting ", targz, "in...",
         sys.stdout.flush()
         for x in xrange(4):
@@ -1120,9 +1121,10 @@ def send_results(targz, connect_tuple):
     else:
         # TODO probably also if fail once, if we're in the loop mode, have to continue ?
         # no: better that stop once a while :)
-        print colored("\n\tLink broken! please, run the ./perform_analysis.py script:\n", 'red')
+        print colored("\n\tLink broken! please, run the ./perform_analysis.py script:\n", "red")
         print colored("./perform_analysis.py -s %s %s" % (
             targz, "-S %s" % args.special if args.special else ""), "red")
+        # XXX here args is not defined
         return -1
 
 
@@ -1132,9 +1134,9 @@ if __name__ == '__main__':
         main()
     except KeyboardInterrupt:
         print ""
-        print colored("Received ^c, the process will be killed. Test will be resumed if command restart", 'blue',
-                      'on_white')
-        print colored(" - Remove output directory - if you want start from screatch -.", 'green', 'on_white')
-        print colored("Restarting the test from a different ISP will invalidate the test.", 'red', 'on_white')
+        print colored("Received ^c, the process will be killed. Test will be resumed if command restart", "blue",
+                      "on_white")
+        print colored(" - Remove output directory - if you want start from screatch -.", "green", "on_white")
+        print colored("Restarting the test from a different ISP will invalidate the test.", "red", "on_white")
         os.kill(os.getpid(), 15)
 
