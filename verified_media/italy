@@ -2,32 +2,61 @@
 [global]
 
 [national]
-http://www.repubblica.it # in global list
-http://www.corriere.it/ # in global list
+# Order review after AGCOM data release:
+# source: http://www.ilpost.it/2015/06/16/agcom-dati-audiweb/
 
-http://www.linkiesta.it
-http://www.lettera43.it
-http://www.agi.it
+http://www.repubblica.it
+http://www.corriere.it
+http://www.tgcom24.mediaset.it
+http://www.quotidiano.net
+http://www.ilmessaggero.it
+http://www.lastampa.it
+http://www.citynews.it
+http://www.ansa.it
+http://www.fanpage.it
+http://www.ilpost.it
+http://www.ilfattoquotidiano.it
 http://espresso.repubblica.it
-http://www.adnkronos.com
+http://www.ilsussidiario.net/
+http://www.huffingtonpost.it
+http://www.liberoquotidiano.it
+http://www.ilgiornale.it
+http://www.ilmattino.it
+http://www.lettera43.it
+http://www.retenews24.it/rtn24/
+http://www.ilsecoloxix.it/
+http://www.blitzquotidiano.it/
+http://www.notizie.it
+http://www.unionesarda.it/
+http://www.ilgazzettino.it/
+http://www.direttanews.it/
 http://www.affaritaliani.it
+http://www.adnkronos.com
+http://www.agi.it
+http://www.linkiesta.it
+http://urbanpost.it/
+http://www.gds.it/ # Giornale di Sicilia
+http://livesicilia.it/
+http://www.ecodibergamo.it/
+http://www.rainews24.it
+http://www.ultimenotizieflash.com/
+http://www.imolaoggi.it/
+http://www.iltempo.it/
+http://www.varesenews.it/
+
+
+[local]
+
+# past national sites before AGCOM release
+
 http://ilmanifesto.it/
 http://www.rai.it
 http://www.diretta.it
-http://www.rainews24.it
-http://www.ilpost.it
 http://www.panorama.it
 http://www.metronews.it
-http://www.liberoquotidiano.it
-http://www.ilfattoquotidiano.it
-http://www.ansa.it
 http://www.libero.it
-http://www.lastampa.it
-http://www.tgcom24.mediaset.it
 http://www.ilsole24ore.com
 http://www.radio24.ilsole24ore.com
-http://www.ilgiornale.it
-http://www.quotidiano.net
 http://www.ilgiorno.it
 http://it.reuters.com
 http://www.tuttosport.com
@@ -38,9 +67,7 @@ http://www.lanazione.it
 http://www.politico.eu
 
 
-[local]
 # this section contain also non-mainstream topics
-
 http://www.dispaccio.it
 http://altoadige.gelocal.it
 http://gaynews.it
@@ -71,17 +98,14 @@ http://www.corrieredellosport.it
 http://www.corriereirpinia.it/
 http://www.cronacaoggi.it/
 http://www.dagospia.com
-http://www.ecodibergamo.it/
 http://www.viaemilianet.it/
 http://www.airpressonline.it/
 http://www.essenzialeonline.it/
 http://www.europaquotidiano.it/
-http://www.fanpage.it
 http://www.fusiorari.org/
 http://www.gazzettaamministrativa.it
 http://www.gazzettadiparma.it/
 http://www.gazzetta.it/
-http://www.gds.it/
 http://www.giornalediarona.it/ # location request
 http://www.giornaledibrescia.it/
 http://www.giornaledicalabria.net/
@@ -93,7 +117,6 @@ http://www.corriere.com
 http://www.giornaledimerate.it/ # location request
 http://www.giornalettismo.com
 http://www.heos.it/
-http://www.huffingtonpost.it
 http://www.bianews.it/
 http://www.ilcittadino.it/
 http://www.ilcrotonese.it/
@@ -101,16 +124,13 @@ http://www.ilfaro.it/news
 http://www.ilfoglio.it/
 http://www.ilgiornaledellazio.it/
 http://www.ilgiornaledivicenza.it/
-http://www.ilmattino.it
 http://www.ilmensile.it/
-http://www.ilmessaggero.it/
 http://www.ilmonferrato.it/
 http://www.ilquotidianodellacalabria.it/
 http://www.ilrestodelgargano.it/
 http://www.ilroma.net/
 http://www.ilromanista.it/
 http://www.ilsannioquotidiano.it/
-http://www.ilsecoloxix.it/
 http://www.improntalaquila.org/
 http://www.inalessandria.it/
 http://www.informare.it/
@@ -152,7 +172,6 @@ http://www.padovanews.it/
 http://www.piacerebenessere.it/
 http://www.politicamentecorretto.com/
 http://www.pontediferro.org/
-# http://www.pratoblog.it/
 http://www.prealpina.it/
 http://www.primaonline.it/
 http://www.primorski.it/
@@ -164,7 +183,6 @@ http://www.romagnaoggi.it/
 http://www.rovigooggi.it/
 http://www.sicilianews24.it/
 http://www.tempi.it/
-http://www.unionesarda.it/
 http://www.valenza.it/
 http://www.vernacoliere.com/
 http://www.vice.com/it/
