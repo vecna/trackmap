@@ -5,44 +5,44 @@
 # Order review after AGCOM data release:
 # source: http://www.ilpost.it/2015/06/16/agcom-dati-audiweb/
 
-http://www.repubblica.it
-http://www.corriere.it
-http://www.tgcom24.mediaset.it
-http://www.quotidiano.net
-http://www.ilmessaggero.it
-http://www.lastampa.it
-http://www.citynews.it
-http://www.ansa.it
-http://www.fanpage.it
-http://www.ilpost.it
-http://www.ilfattoquotidiano.it
-http://espresso.repubblica.it
-http://www.ilsussidiario.net/
-http://www.huffingtonpost.it
-http://www.liberoquotidiano.it
-http://www.ilgiornale.it
-http://www.ilmattino.it
-http://www.lettera43.it
-http://www.retenews24.it/rtn24/
-http://www.ilsecoloxix.it/
-http://www.blitzquotidiano.it/
-http://www.notizie.it
-http://www.unionesarda.it/
-http://www.ilgazzettino.it/
-http://www.direttanews.it/
-http://www.affaritaliani.it
-http://www.adnkronos.com
-http://www.agi.it
-http://www.linkiesta.it
-http://urbanpost.it/
-http://www.gds.it/ # Giornale di Sicilia
-http://livesicilia.it/
-http://www.ecodibergamo.it/
-http://www.rainews24.it
-http://www.ultimenotizieflash.com/
-http://www.imolaoggi.it/
-http://www.iltempo.it/
-http://www.varesenews.it/
+http://www.repubblica.it # 11717
+http://www.corriere.it # 11004
+http://www.tgcom24.mediaset.it # 9811
+http://www.quotidiano.net # 6919
+http://www.ilmessaggero.it # 6449
+http://www.lastampa.it # 6046
+http://www.citynews.it # 5471
+http://www.ansa.it # 5212
+http://www.fanpage.it # 4892
+http://www.ilpost.it # 4747
+http://www.ilfattoquotidiano.it # 4508
+http://espresso.repubblica.it # 3941
+http://www.ilsussidiario.net/ # 3426
+http://www.huffingtonpost.it # 3225
+http://www.liberoquotidiano.it # 2971
+http://www.ilgiornale.it # 2760
+http://www.ilmattino.it # 2016
+http://www.lettera43.it # 1798
+http://www.retenews24.it/rtn24/ # 1433
+http://www.ilsecoloxix.it/ # 1295
+http://www.blitzquotidiano.it/ # 1237
+http://www.notizie.it # 1182
+http://www.unionesarda.it/ # 995
+http://www.ilgazzettino.it/ # 936
+http://www.direttanews.it/ # 865
+http://www.affaritaliani.it # 762
+http://www.adnkronos.com # 698
+http://www.agi.it # 679
+http://www.linkiesta.it # 656
+http://urbanpost.it/ # 651
+http://www.gds.it/ # 605
+http://livesicilia.it/ # 563
+http://www.ecodibergamo.it/ # 550
+http://www.rainews24.it # 536
+http://www.ultimenotizieflash.com/ # 528
+http://www.imolaoggi.it/ # 508
+http://www.iltempo.it/ # 485
+http://www.varesenews.it/ # 466
 
 
 [local]
