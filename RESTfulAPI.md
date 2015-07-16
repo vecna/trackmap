@@ -250,10 +250,35 @@ GET /company/Google,Facebook
 The API above try to be more descriptive of the content receiver by the tester around the world. but some kind of interpolation and computation has been done.
 These API will be developed in the Summer, therefore this section will receive updated with new details.
 
+### Percentage of Company per Country
+
+GET /companypercentage/media
+GET /companypercentage/contextual
+GET /companypercentage/alexa
+
+    {
+      "Netherlands": 
+      [
+        { "percentage": 85.5, "company_name": "Google" },
+        { "percentage": 39.5, "company_name": "comScore" },
+        { "percentage": 34.7, "company_name": "Facebook" },
+        { "percentage": 26.6, "company_name": "Twitter" },
+        { "percentage": 12.9, "company_name": "Criteo" },
+        { "percentage": 11.3, "company_name": "Chartbeat" },
+        { "percentage": 11.3, "company_name": "AppNexus" },
+        { "percentage": 9.7, "company_name": "Visual Revenue" },
+        { "percentage": 8.9, "company_name": "Nielsen" },
+        { "percentage": 8.9, "company_name": "Optimizely" }
+      ],
+      "Italy": 
+      [
+        { .. },
+        { .. }
+      ]
+    }
 
 
 
-
-## Other API (that you may need)
+## API (that you may need)
 
 TLS/SSL global collection, can be fetched and interpolated:  https://scans.io/
