@@ -9,6 +9,10 @@ Take a look at the presentation of Trackography at the [31c3](http://media.ccc.d
 
 Our aim is to show where our data travels when we visit our favorite news websites through a visualization. We are currently looking for people to collaborate with in various countries in the world which would make this project possible.
 
+# Install
+
+Please, check the file [INSTALL.md](https://github.com/vecna/trackmap/blob/master/INSTALL.md).
+
 ## You, your country and the code
 
 This repository contains the software and data source required to detect online trackers.
@@ -27,6 +31,8 @@ If the answer is **YES**: perfect, this means that someone has already run the s
 
 ### How can you help ?
 
+**At the moment, we cannot manage new data -the project is temporary in maintenance- mode only :(**
+
 If you're a **Media aware citizen**, we need a reliable media list for every country. What is important is explained above, use git to help us or open an issue.
 
 If you're a **Linux user** you can help run the software and collect results from your country. A distributed effort is required, because the Internet works differently in different locations. You can run the software as explained below, and it will automatically send the results to our server.
@@ -40,7 +46,7 @@ This procedure uses an apt-get based system (Debian/Ubuntu etc). Docker file is 
   * over **Tor** network: because a traceroute cannot run over it, this mean that your web connection appear from a different network point that your traceroutes, and this will bring unacceptable results
   * Network filtering ICMP packets: because a traceroute receives ICMP time exceeded packets and the results would be incomplete, this will be display by the software itself
   * **Internet** lines **with a lot of packet loss** (WiFi/WiMax which is far from the access point):  because a traceroute is based on a protocol which does not support re-transmission and the possibility of having incomplete results would be high
-  * **VPN** you can run this test via VPN, but you've to specify the country of your endpoint. If you are in the USA and you've a VPN ending in Sweden, you have to specifiy **-c sweden**, I suggest you add also the option **-i**.
+  * **VPN** you can run this test via VPN, but you've to specify the country of your endpoint. If you are in the USA and you've a VPN ending in Sweden, you have to specifiy **-c sweden**.
 
 
 Tor shall be used when the script has completed the collection, because we anonymize the users interacting with us.
