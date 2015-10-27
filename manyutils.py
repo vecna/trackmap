@@ -52,17 +52,19 @@ def sortify(outputdir):
     urldict = {}
     skipped = 0
 
-    for urldir in os.listdir(outputdir):
+    for urlinfo in os.walk(outputdir):
 
-        if urldir in INFOFILES:
+        filelist = urlinfo[2]
+
+        if not '__urls' in filelist:
             continue
 
-        try:
-            urlfile = os.path.join(outputdir, urldir, '__urls')
-            related_urls = get_unique_urls(urldir, urlfile)
-        except IOError or OSError as einfo:
-            print "Unable to read", urldir, einfo, "skipping"
+        urlfile = os.path.join(urlinfo[0], '__urls')
+
+        if not os.access(urlfile, 0):
             continue
+
+        related_urls = get_unique_urls(urlinfo[0], urlfile)
 
         TLDio = TLDExtract(cache_file='mozilla_tld_file.dat')
         for dirty_url in related_urls:

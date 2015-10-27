@@ -37,6 +37,7 @@ alexa_tuple = ('213.108.108.94', 32003)
 
 ANALYSIS_VERSION = 6
 A_RANDOM_NUMBER = random.randint(1, 0xfffff)
+NUMBER_OF_TESTS_PER_SITE = 2
 
 
 class TraceStats:
@@ -97,6 +98,7 @@ class PhantomCrawl(threading.Thread):
     media_done = 0
     media_running = 0
     status_file = None
+    all_output_dirs = []
     LOAD_AVG = 2.8
 
     @classmethod
@@ -110,18 +112,19 @@ class PhantomCrawl(threading.Thread):
             print len(PhantomCrawl.status.keys()), "Loaded!"
 
 
-    def __init__(self, lp, url, urldir, media_kind, id, OUTPUTDIR):
+    def __init__(self, number, lp, url, urldir, media_kind, id, OUTPUTDIR):
         self.lp = lp
         self.url = url
         self.urldir = urldir
         self.media_kind = media_kind
         self.outputdir = OUTPUTDIR
         self.id = id
+        self.number_of_test = number
 
         threading.Thread.__init__(self)
 
         load_avg, _, __ = os.getloadavg()
-        time.sleep(2.5)
+        time.sleep(15)
 
         if load_avg > PhantomCrawl.LOAD_AVG:
             time_to_sleep = 50
@@ -131,27 +134,60 @@ class PhantomCrawl(threading.Thread):
                 "red")
             time.sleep(time_to_sleep)
 
-    def run(self):
 
+    def run(self):
         PhantomCrawl.media_running += 1
         PhantomCrawl.status.update({
             self.id: {
+                'url': self.url,
                 'start': str(datetime.now()),
                 'from': self.media_kind,
-                'end': None,
-                'status': None,
+                'status': {},
             }
         })
 
-        retinfo = do_phantomjs(self.lp, self.url, self.urldir, self.media_kind)
+        # This is the sync-multi-test logic
+        i = 0
+        while i < self.number_of_test:
 
-        PhantomCrawl.status[self.id]['end'] = str(datetime.now())
-        PhantomCrawl.status[self.id]['status'] = retinfo
+            # Here multiple call and synchronous delay has to be managed!
+            i += 1
+
+            destdir = "%s/%d" % (self.urldir, i)
+            debug_info = "%d/%d" % (i, self.number_of_test)
+
+            starting_time = datetime.now()
+            link_number, failures = do_phantomjs(self.lp, self.url, destdir,
+                                                 self.media_kind, debug_info )
+
+            ending_time = datetime.now()
+            total_secs = int((ending_time - starting_time).total_seconds())
+
+            PhantomCrawl.status[self.id]['status'].update({
+                i : [ link_number, failures, total_secs ]
+            })
+            print colored("ℝ %03d..%03d/%03d %s PhJS from %s: %d r.i. in %d secs " %
+                          ( PhantomCrawl.media_running, PhantomCrawl.media_done,
+                            PhantomCrawl.media_amount, debug_info,
+                            self.url, link_number, total_secs),
+                          "blue", "on_white"),
+
+            past_links_str = ""
+            # Here is to past 1 when is 2, and 1+2 when is 3
+            if i == 3:
+                past_links_str = "¹%s²%s" % (
+                    PhantomCrawl.status[self.id]['status'][1],
+                    PhantomCrawl.status[self.id]['status'][2]
+                )
+            elif i == 2:
+                past_links_str = "¹%s" % (
+                    PhantomCrawl.status[self.id]['status'][1]
+                )
+            print colored("%s" % past_links_str, "yellow")
+
         PhantomCrawl.media_done += 1
         PhantomCrawl.media_running -= 1
 
-        PhantomCrawl.sync_status_disk()
-        return retinfo
 
     @classmethod
     def sync_status_disk(cls, mandatory=False):
@@ -161,7 +197,6 @@ class PhantomCrawl(threading.Thread):
         except RuntimeError:
             if not mandatory:
                 return
-
             time.sleep(0.1)
             print colored("Mandatory sync required: <recursion>", "red", 'on_yellow')
             PhantomCrawl.sync_status_disk(mandatory)
@@ -399,100 +434,94 @@ class DNSreverse(threading.Thread):
                 DNSreverse.save_status(mandatory)
 
 
-def do_phantomjs(local_phantomjs, url, destfile, media_kind):
-    # information that deserve to be saved for the time
+def do_phantomjs(local_phantomjs, url, destfile, media_kind, debug_info):
+    """
+    :param local_phantomjs: True of False
+    :param url: the https://something/with/a/page.potentially
+    :param destfile: output/sitenaname_XX/Y/
+    :param media_kind: you know
+    :param debug_info: 1/3 or 2/3 or 3/3
+    :return:
+    """
 
     kindfile = os.path.join(destfile, '__kind')
     with file(kindfile, 'w+') as f:
         f.write(media_kind + "\n")
 
-    def software_execution(url):
-        binary = 'phantomjs' if local_phantomjs else './phantom-1.9.8'
+    binary = 'phantomjs' if local_phantomjs else './phantom-1.9.8'
 
-        with file(os.path.join(destfile, 'request'), 'w+') as fp:
-            fp.write(url)
+    with file(os.path.join(destfile, 'request'), 'w+') as fp:
+        fp.write(url)
 
-        with file(os.path.join(destfile, "lock"), 'w+') as fp:
-            # improve in some way ? -- is deleted at the end of phantomsjs,
-            # check if is really the end or if happen always .. ?
-            fp.write("TEST-lock")
+    with file(os.path.join(destfile, "lock"), 'w+') as fp:
+        # improve in some way ? -- is deleted at the end of phantomsjs,
+        # check if is really the end or if happen always .. ?
+        fp.write("TEST-lock")
 
-        if not url.startswith('http'):
-            print colored("Fixing %s !? w/https" % url, 'yellow', 'on_red')
-            url = "https://%s" % url
+    if not url.startswith('http'):
+        print colored("Fixing %s !? w/http" % url, 'yellow', 'on_red')
+        url = "http://%s" % url
 
-        p = subprocess.Popen(['nohup', binary,
-                              '--local-storage-path=%s/localstorage' % destfile,
-                              '--cookies-file=%s/cookies' % destfile,
-                              'collect_included_url.js',
-                              '%s' % url, destfile],
-                             env={'HOME': destfile},
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.STDOUT)
+    # print ("DEBUG: %s %s %s %s %s %s %s" % ( 'nohup', binary,
+    #             '--local-storage-path=%s/localstorage' % destfile,
+    #             '--cookies-file=%s/cookies' % destfile,
+    #             'collect_included_url.js',
+    #             url, destfile))
 
-        # read and waste this ONLY line to stdout:
-        # "nohup: ignoring input and appending output to ‘nohup.out’"
-        p.stdout.readline()
+    p = subprocess.Popen(['nohup', binary,
+                          '--local-storage-path=%s/localstorage' % destfile,
+                          '--cookies-file=%s/cookies' % destfile,
+                          'collect_included_url.js',
+                          '%s' % url, destfile],
+                         env={'HOME': destfile},
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.STDOUT)
 
-        print colored("+ %03d..%03d/%03d\tExecuting PhantomJS on: %s (%s)" %
-                      ( PhantomCrawl.media_running,
-                        PhantomCrawl.media_done,
-                        PhantomCrawl.media_amount,
-                        url, media_kind), "green")
+    # read and waste this ONLY line to stdout:
+    # "nohup: ignoring input and appending output to ‘nohup.out’"
+    p.stdout.readline()
 
-        # wait up to 90 seconds, and then kill the process if is not done
-        wtime = 0
-        while wtime < 90 and p.returncode == None:
-            p.poll()
-            time.sleep(1)
-            wtime += 1
+    print colored("+ %03d..%03d/%03d %s PhJS on: %s (%s)" %
+                  ( PhantomCrawl.media_running, PhantomCrawl.media_done,
+                    PhantomCrawl.media_amount, debug_info, url, media_kind),
+                  "green")
 
-        # why 90 ? boh. empiric trade-off. other timeout define in phantom is 29 sec
-        # it those 90 seconds are not enough to load all the resource, you get killed
-        # below, and then you have a second change anyway.
+    wtime = 0
+    while wtime < 90 and p.returncode == None:
+        p.poll()
+        time.sleep(1)
+        wtime += 1
 
-        if p.returncode == None:
-            try:
-                p.terminate()
-            except OSError:
-                pass
+    # why 90 ? boh. empiric trade-off. other timeout define in phantom is 40 secs
+    # it those 90 seconds are not enough to load all the resource, you get killed
+    # below, and then you have a second + third test anyway.
 
+    if not p.returncode:
         try:
-            urlfile = os.path.join(destfile, '__urls')
-            urlfp = file(urlfile, 'r')
-            included_urls = urlfp.readlines()
-            urlfp.close()
-        except Exception as xxx:
-            print colored("%s %s" % (destfile, xxx), 'white', 'on_red')
-            return 0
-
-        return len(included_urls)
-
-    # -------------------------------------------------------------------
-    # -- Here starts the do_phantom logic + software exec + results check
-    first_test = software_execution(url)
-    if not first_test or first_test < 3:
-
-        print colored("Total or partial failure with %s = retry" % url, "magenta")
-        time.sleep(5)
-        second_test = software_execution(url)
-
-        # the URL are in append, therefore, second test has always at least 2
-        if not second_test or second_test < 3:
-            print colored("Failed again! %s :(" % url, "red")
-            return 'failures'
-
-        if second_test > first_test:
-            print colored("Retry 2nd time has worked (%d > %d)" % (second_test, first_test), 'magenta'),
-            print colored("done %s" % url, "yellow")
-            return 'second'
-
-        print colored("Other kind of failure F%d S%d (can this happen ?" % (first_test, second_test), "red")
-        return 'failures'
-
+            p.terminate()
+        except OSError:
+            pass
     else:
-        print colored("%s => Fetch %d URLs (%s)" % (url, first_test, media_kind), "yellow")
-        return 'first'
+        print colored("PhantomJS is struck!", 'red', 'on_yellow')
+
+    urlfile = os.path.join(destfile, '__urls')
+    try:
+        with file(urlfile, 'r') as urlfp:
+            included_urls = urlfp.readlines()
+    except Exception as xxx:
+        print colored("%s %s" % (urlfile, xxx), 'white', 'on_red')
+        return 0, 0
+
+    failurefile = os.path.join(destfile, '__failures')
+    try:
+        with file(failurefile, 'r') as failfp:
+            failures_urls = failfp.readlines()
+    except Exception as xxx:
+        # lucky, happen quite often :D
+        return len(included_urls), 0
+
+    return len(included_urls), len(failures_urls)
+
 
 
 class Multitrace(threading.Thread):
@@ -777,13 +806,13 @@ def main():
             quit(-1)
 
         if args.special:
-            print colored(" ࿓  Sending previous results (to Contextual)", "blue", "on_white", attrs=['underline'])
+            print colored(" ࿓  Sending previous results (to Contextual storage)", "blue", "on_white", attrs=['underline'])
             quit(send_results(args.targz_output, special_tuple))
         elif args.alexa:
-            print colored(" ࿓  Sending previous results (to Alexa)", "blue", "on_white", attrs=['underline'])
+            print colored(" ࿓  Sending previous results (from the Alexa source)", "blue", "on_white", attrs=['underline'])
             quit(send_results(args.targz_output, alexa_tuple))
         else:
-            print colored(" ࿓  Sending previous results (to Media)", "blue", "on_white", attrs=['underline'])
+            print colored(" ࿓  Sending previous results (to Media storage)", "blue", "on_white", attrs=['underline'])
             quit(send_results(args.targz_output, media_tuple))
 
     try:
@@ -888,8 +917,7 @@ def main():
     PhantomCrawl.load_status_disk()
 
     print colored(" ࿓  Starting media crawling (%d)" %
-                  PhantomCrawl.media_amount,
-                  "blue", "on_white", attrs=['underline'])
+                  PhantomCrawl.media_amount, "blue", "on_white", attrs=['underline'])
 
     # here start iteration over the media!
     skipped = 0
@@ -902,7 +930,7 @@ def main():
         # this is the index we are going to use
         unid = unicode(media_blob['id'])
 
-        if unid in PhantomCrawl.status and PhantomCrawl.status[unid]['status'] != 'failures':
+        if unid in PhantomCrawl.status and len(PhantomCrawl.status[unid]['status'].keys()) == NUMBER_OF_TESTS_PER_SITE:
             skipped += 1
             PhantomCrawl.media_done += 1
             continue
@@ -919,12 +947,32 @@ def main():
 
         os.mkdir(urldir)
 
-        PhantomCrawl(args.lp, media_blob['url'], urldir,
+        i = 0
+        while i < NUMBER_OF_TESTS_PER_SITE:
+            try:
+                os.mkdir(os.path.join(urldir, "%s" % (i + 1) ) )
+            except OSError:
+                pass
+            i += 1
+
+        # we can't have a return value here because is async, and because a multiple
+        # amount of tests are performed
+        PhantomCrawl(NUMBER_OF_TESTS_PER_SITE, args.lp, media_blob['url'], urldir,
                      media_blob['category'], media_blob['id'], OUTPUTDIR).start()
-        # XXX I can think to a return value here ?
+
+        if ( (PhantomCrawl.media_done + PhantomCrawl.media_running) % 30) == random.randint(1, 100):
+            print colored("Sync; status of %d with %d completed" %
+                          (len(PhantomCrawl.status.keys()), PhantomCrawl.media_done), "red", "on_white")
+            PhantomCrawl.sync_status_disk()
+
 
     previous_running_test = 0
     while PhantomCrawl.media_running:
+
+        # This dynamic check because
+        MY_SMALL_TIMEOUT = 20
+        if PhantomCrawl.media_amount < 100:
+            MY_SMALL_TIMEOUT += PhantomCrawl.media_amount
 
         if previous_running_test == PhantomCrawl.media_running:
             I_want_thread_to_zero(80)
@@ -936,10 +984,10 @@ def main():
 
         previous_running_test = PhantomCrawl.media_running
 
-        print colored("Running %d, completed %d (on %d): sleeping 25s." % \
+        print colored("Running %d, completed %d (on %d): sleeping %ds." % \
                       (PhantomCrawl.media_running, PhantomCrawl.media_done,
-                       PhantomCrawl.media_amount), "green", "on_white")
-        time.sleep(15)
+                       PhantomCrawl.media_amount, MY_SMALL_TIMEOUT), "green", "on_white")
+        time.sleep(MY_SMALL_TIMEOUT)
 
 
     # finally, enforce a complete sync in the disk. is probably already happen, but for safety:
