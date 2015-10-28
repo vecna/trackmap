@@ -51,22 +51,25 @@ page.onResourceTimeout = function(e) {
 
 setTimeout(function() {
 
-    fs.write(system.args[2] + "/__responses", JSON.stringify(iodetails, undefined, 4), 'w+');
+    var url_lines = "";
 
     iodetails.forEach(function (content) {
-
-        if (content.Response && content.Response.url) {
-
-            if ( content.Response.url.length > 2000) {
-                truncated_url = content.Response.url.substr(0, 2000);
+        if ( content.Response && content.Response.url ) {
+            if ( content.Response.url.length > 2000 ) {
+                url_lines = url_lines + content.Response.url.substr(0, 2000) + "\n";
             } else {
-                truncated_url = content.Response.url;
+                url_lines = url_lines + content.Response.url + "\n";
             }
-
-            fs.write(system.args[2] +  "/__urls", truncated_url + "\n", 'a+');
         }
     });
-    phantom.exit();
+
+    fs.write(system.args[2] + "/__responses", JSON.stringify(iodetails, undefined, 4), 'w+');
+    fs.write(system.args[2] +  "/__urls", url_lines, 'w+');
+
+    setTimeout(function() {
+        phantom.exit();
+    }, 5000);
+
 }, 58 * 1000);
 
 /* every second, increase the 'var counter', to keep track when the answer arrive */
@@ -74,10 +77,12 @@ function set_single_second_counter() {
 
     setTimeout(function() {
         counter += 1;
+        set_single_second_counter();
     }, 1000);
 }
 
 
+set_single_second_counter();
 page.settings.resourceTimeout = 20000; // express in milliseconds, 40 sec
 page.open(address);
 

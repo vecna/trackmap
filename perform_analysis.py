@@ -35,7 +35,7 @@ media_tuple = ('213.108.108.94', 32001)
 special_tuple = ('213.108.108.94', 32002)
 alexa_tuple = ('213.108.108.94', 32003)
 
-ANALYSIS_VERSION = 6
+ANALYSIS_VERSION = 7
 A_RANDOM_NUMBER = random.randint(1, 0xfffff)
 NUMBER_OF_TESTS_PER_SITE = 2
 
@@ -124,7 +124,7 @@ class PhantomCrawl(threading.Thread):
         threading.Thread.__init__(self)
 
         load_avg, _, __ = os.getloadavg()
-        time.sleep(15)
+        time.sleep(9)
 
         if load_avg > PhantomCrawl.LOAD_AVG:
             time_to_sleep = 50
@@ -166,7 +166,7 @@ class PhantomCrawl(threading.Thread):
             PhantomCrawl.status[self.id]['status'].update({
                 i : [ link_number, failures, total_secs ]
             })
-            print colored("ℝ %03d..%03d/%03d %s PhJS from %s: %d r.i. in %d secs " %
+            print colored("ℝ %03d..%03d/%03d %s PhJS from %s: %d Ʀ in %d secs " %
                           ( PhantomCrawl.media_running, PhantomCrawl.media_done,
                             PhantomCrawl.media_amount, debug_info,
                             self.url, link_number, total_secs),
@@ -930,7 +930,10 @@ def main():
         # this is the index we are going to use
         unid = unicode(media_blob['id'])
 
-        if unid in PhantomCrawl.status and len(PhantomCrawl.status[unid]['status'].keys()) == NUMBER_OF_TESTS_PER_SITE:
+        if unid in PhantomCrawl.status and \
+                        len(PhantomCrawl.status[unid]['status'].keys()) == NUMBER_OF_TESTS_PER_SITE and \
+                        PhantomCrawl.status[unid]['status']['1'][0] > 3:
+            # I mean, more than 3 remote inclusion, probably is because something gone wrong
             skipped += 1
             PhantomCrawl.media_done += 1
             continue
@@ -938,7 +941,7 @@ def main():
         urldir = os.path.join(OUTPUTDIR, "%s_%d" % (media_blob['site'], media_blob['id'] ))
 
         if skipped:
-            print colored("skipped %d media from interrupted test" % skipped, 'yellow')
+            print colored("recovered %d site from previous incompleted test" % skipped, 'yellow')
             skipped = 0
 
         if os.path.isdir(urldir):
